@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tannu Voice Chat</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #17102b, #241044, #0d1528);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 105px;
+      height: 105px;
+      margin: 45px auto 20px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #ff4da6, #8b5cf6, #28d7ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 45px;
+      font-weight: bold;
+      box-shadow: 0 10px 35px rgba(139, 92, 246, 0.4);
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      color: #c9c3d8;
+      margin-bottom: 45px;
+      font-size: 15px;
+    }
+
+    .start {
+      width: 100%;
+      padding: 16px;
+      border: 0;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #ff4da6, #8b5cf6);
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .info {
+      margin-top: 25px;
+      color: #9992aa;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <div class="logo">T</div>
+
+    <h1>Tannu Voice Chat</h1>
+
+    <p class="tagline">
+      Meet new friends • Enjoy voice rooms • Have fun
+    </p>
+
+    <button class="start" onclick="startApp()">
+      Enter Voice Chat
+    </button>
+
+    <p class="info">
+      Indian Voice Chat Community • 18+
+    </p>
+
+  </div>
+
+  <script>
+    function startApp() {
+      alert("Welcome to Tannu Voice Chat ❤️");
+    }
+  </script>
+
+</body>
+</html>
