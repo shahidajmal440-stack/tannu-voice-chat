@@ -224,8 +224,30 @@
   <script>
 
     let muted = false;
+async function startMic() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
+    alert("🎙️ Microphone connected!");
+
+    stream.getTracks().forEach(track => track.stop());
+  } catch (error) {
+    alert("Microphone permission denied ❌");
+  }
+}
+    async function startMic() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    alert("🎙️ Microphone connected!");
+
+    stream.getTracks().forEach(track => track.stop());
+  } catch (error) {
+    alert("Microphone permission denied ❌");
+  }
+}
     function toggleMic() {
+      startMic();
       muted = !muted;
 
       const mic = document.getElementById("mic");
