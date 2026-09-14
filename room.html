@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tannu Voice Chat - Room</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #17102b, #241044, #0d1528);
+      color: white;
+    }
+
+    .room {
+      max-width: 430px;
+      min-height: 100vh;
+      margin: auto;
+      padding: 25px 18px;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0 8px;
+    }
+
+    .online {
+      text-align: center;
+      color: #7fffd4;
+      margin-bottom: 25px;
+    }
+
+    .room-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+
+    .room-card h2 {
+      margin-bottom: 8px;
+    }
+
+    .join {
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 25px;
+      background: linear-gradient(90deg, #ff4da6, #8b5cf6);
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="room">
+
+    <h1>🎙️ Tannu Voice Chat</h1>
+
+    <p class="online">● Online Rooms</p>
+
+    <div class="room-card">
+      <h2>🔥 Popular Room</h2>
+      <p>Meet new friends and enjoy voice chat.</p>
+      <br>
+      <button class="join" onclick="joinRoom()">Join Room</button>
+    </div>
+
+    <div class="room-card">
+      <h2>🎵 Music & Fun</h2>
+      <p>Talk, listen and have fun with friends.</p>
+      <br>
+      <button class="join" onclick="joinRoom()">Join Room</button>
+    </div>
+
+  </div>
+
+  <script>
+    function joinRoom() {
+      alert("Room joining feature coming soon ❤️");
+    }
+  </script>
+
+</body>
+</html>
