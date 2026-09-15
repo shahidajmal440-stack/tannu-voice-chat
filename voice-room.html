@@ -274,7 +274,81 @@ async function startMic() {
       window.location.href = "room.html";
     }
 
-  </script>
+  
+<script>
 
+let stream = null;
+let muted = false;
+
+async function toggleMic() {
+
+  const mic = document.getElementById("mic");
+  const text = document.getElementById("micText");
+
+  if (!stream) {
+
+    try {
+
+      stream = await navigator.mediaDevices.getUserMedia({
+        audio: true
+      });
+
+      muted = false;
+      text.innerText = "Mute";
+
+      alert("🎙️ Mic ON");
+
+    } catch (error) {
+
+      alert("Microphone permission denied ❌");
+
+    }
+
+  } else {
+
+    muted = !muted;
+
+    stream.getAudioTracks().forEach(track => {
+      track.enabled = !muted;
+    });
+
+    if (muted) {
+
+      mic.classList.add("off");
+      text.innerText = "Unmute";
+
+    } else {
+
+      mic.classList.remove("off");
+      text.innerText = "Mute";
+
+    }
+
+  }
+}
+
+function speaker() {
+  alert("🔊 Speaker button pressed");
+}
+
+function leaveRoom() {
+
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+  }
+
+  window.location.href = "index.html";
+}
+
+function goBack() {
+
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+  }
+
+  window.location.href = "room.html";
+}
+
+</script>
 </body>
 </html>
