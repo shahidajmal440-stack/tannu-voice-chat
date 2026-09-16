@@ -197,7 +197,7 @@
       <p>Meet new friends • Enjoy voice rooms • Have fun</p>
     </div>
 
-    <button class="login" id="loginBtn" onclick="loginWithGoogle()">
+    <button class="login" id="loginBtn">
       🔐 Login with Google
     </button>
 
@@ -206,7 +206,6 @@
       id="searchInput"
       type="text"
       placeholder="🔍 Search rooms..."
-      oninput="filterRooms()"
     >
 
     <div class="section-title">Categories</div>
@@ -230,7 +229,7 @@
   <script type="module">
 
     import { initializeApp }
-      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
     import {
       getAuth,
@@ -238,55 +237,85 @@
       signInWithPopup,
       onAuthStateChanged,
       signOut
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
     import {
       getFirestore,
       collection,
       getDocs
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
     const firebaseConfig = {
+
       apiKey: "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
+
       authDomain: "tannu-voice-chat.firebaseapp.com",
+
       projectId: "tannu-voice-chat",
+
       storageBucket: "tannu-voice-chat.firebasestorage.app",
+
       messagingSenderId: "720483733073",
+
       appId: "1:720483733073:web:c65b96d255d6177b9d7270"
+
     };
 
 
-    const app = initializeApp(firebaseConfig);
+    const app =
+      initializeApp(firebaseConfig);
 
-    const auth = getAuth(app);
+    const auth =
+      getAuth(app);
 
-    const db = getFirestore(app);
+    const db =
+      getFirestore(app);
 
-    const provider = new GoogleAuthProvider();
+    const provider =
+      new GoogleAuthProvider();
 
 
     let allRooms = [];
 
 
-    window.loginWithGoogle = async function () {
+    // LOGIN
+
+    async function loginWithGoogle() {
 
       try {
 
-        await signInWithPopup(auth, provider);
+        const result =
+          await signInWithPopup(
+            auth,
+            provider
+          );
+
+        console.log(
+          "LOGIN SUCCESS:",
+          result.user.uid
+        );
 
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          "LOGIN ERROR:",
+          error
+        );
 
-        alert("Login failed. Please try again.");
+        alert(
+          "Login failed:\n" +
+          error.message
+        );
 
       }
 
-    };
+    }
 
 
-    window.logout = async function () {
+    // LOGOUT
+
+    async function logout() {
 
       try {
 
@@ -294,207 +323,381 @@
 
       } catch (error) {
 
-        console.error(error);
-
-      }
-
-    };
-
-
-    onAuthStateChanged(auth, (user) => {
-
-      const loginBtn = document.getElementById("loginBtn");
-      const welcomeText = document.getElementById("welcomeText");
-      const profile = document.getElementById("profile");
-
-      if (user) {
-
-        const name = user.displayName || "User";
-
-        welcomeText.textContent = "Welcome, " + name + " 👋";
-
-        loginBtn.textContent = "🚪 Logout";
-
-        loginBtn.onclick = window.logout;
-
-
-        if (user.photoURL) {
-
-          profile.innerHTML =
-            '<img src="' +
-            user.photoURL +
-            '" alt="Profile">';
-
-        } else {
-
-          profile.textContent =
-            name.charAt(0).toUpperCase();
-
-        }
-
-      } else {
-
-        welcomeText.textContent = "Welcome 👋";
-
-        loginBtn.textContent = "🔐 Login with Google";
-
-        loginBtn.onclick = window.loginWithGoogle;
-
-        profile.textContent = "T";
-
-      }
-
-    });
-
-
-    async function loadRooms() {
-
-      const roomsContainer =
-        document.getElementById("rooms");
-
-      try {
-
-        const snapshot =
-          await getDocs(collection(db, "rooms"));
-
-        allRooms = [];
-
-        snapshot.forEach((doc) => {
-
-          allRooms.push({
-            id: doc.id,
-            ...doc.data()
-          });
-
-        });
-
-        displayRooms(allRooms);
-
-      } catch (error) {
-
-        console.error(error);
-
-        roomsContainer.innerHTML =
-          '<div class="empty">Unable to load rooms.</div>';
+        console.error(
+          "LOGOUT ERROR:",
+          error
+        );
 
       }
 
     }
 
 
-    function displayRooms(rooms) {
+    const loginBtn =
+      document.getElementById(
+        "loginBtn"
+      );
+
+
+    loginBtn.onclick =
+      loginWithGoogle;
+
+
+    // AUTH STATE
+
+    onAuthStateChanged(
+      auth,
+      (user) => {
+
+        const welcomeText =
+          document.getElementById(
+            "welcomeText"
+          );
+
+        const profile =
+          document.getElementById(
+            "profile"
+          );
+
+
+        if (user) {
+
+          console.log(
+            "AUTH USER:",
+            user.uid
+          );
+
+
+          const name =
+            user.displayName ||
+            "User";
+
+
+          welcomeText.textContent =
+            "Welcome, " +
+            name +
+            " 👋";
+
+
+          loginBtn.textContent =
+            "🚪 Logout";
+
+
+          loginBtn.onclick =
+            logout;
+
+
+          if (user.photoURL) {
+
+            profile.innerHTML =
+              '<img src="' +
+              user.photoURL +
+              '" alt="Profile">';
+
+          } else {
+
+            profile.textContent =
+              name
+                .charAt(0)
+                .toUpperCase();
+
+          }
+
+        } else {
+
+          console.log(
+            "NO USER LOGGED IN"
+          );
+
+
+          welcomeText.textContent =
+            "Welcome 👋";
+
+
+          loginBtn.textContent =
+            "🔐 Login with Google";
+
+
+          loginBtn.onclick =
+            loginWithGoogle;
+
+
+          profile.textContent =
+            "T";
+
+        }
+
+      }
+    );
+
+
+    // LOAD ROOMS
+
+    async function loadRooms() {
 
       const roomsContainer =
-        document.getElementById("rooms");
+        document.getElementById(
+          "rooms"
+        );
 
-      if (rooms.length === 0) {
+
+      try {
+
+        const snapshot =
+          await getDocs(
+            collection(
+              db,
+              "rooms"
+            )
+          );
+
+
+        allRooms = [];
+
+
+        snapshot.forEach(
+          (roomDoc) => {
+
+            allRooms.push({
+
+              id:
+                roomDoc.id,
+
+              ...roomDoc.data()
+
+            });
+
+          }
+        );
+
+
+        displayRooms(
+          allRooms
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "ROOM ERROR:",
+          error
+        );
+
 
         roomsContainer.innerHTML =
-          '<div class="empty">No rooms found.</div>';
+          '<div class="empty">' +
+          'Unable to load rooms.' +
+          '</div>';
+
+      }
+
+    }
+
+
+    // DISPLAY ROOMS
+
+    function displayRooms(
+      rooms
+    ) {
+
+      const roomsContainer =
+        document.getElementById(
+          "rooms"
+        );
+
+
+      if (
+        rooms.length === 0
+      ) {
+
+        roomsContainer.innerHTML =
+          '<div class="empty">' +
+          'No rooms found.' +
+          '</div>';
 
         return;
 
       }
 
 
-      roomsContainer.innerHTML = "";
+      roomsContainer.innerHTML =
+        "";
 
 
-      rooms.forEach((room) => {
+      rooms.forEach(
+        (room) => {
 
-        const roomName =
-          room.name || "Unnamed Room";
+          const roomName =
+            room.name ||
+            "Unnamed Room";
 
-        const host =
-          room.host || "Host";
+          const host =
+            room.host ||
+            "Host";
 
-        const status =
-          room.status || "live";
+          const status =
+            room.status ||
+            "live";
 
-        const users =
-          room.users || 0;
+          const users =
+            room.users ||
+            0;
 
 
-        const div =
-          document.createElement("div");
+          const div =
+            document.createElement(
+              "div"
+            );
 
-        div.className = "room";
 
-        div.innerHTML = `
+          div.className =
+            "room";
 
-          <div class="room-top">
 
-            <div class="room-name">
-              ${roomName}
+          div.innerHTML = `
+
+            <div class="room-top">
+
+              <div class="room-name">
+                ${roomName}
+              </div>
+
+              <div class="live">
+                🔴 ${status}
+              </div>
+
             </div>
 
-            <div class="live">
-              🔴 ${status}
+            <div class="room-info">
+              👤 Host: ${host}
+              &nbsp; • &nbsp;
+              🎙️ ${users} users
             </div>
 
-          </div>
+            <button class="join">
+              Join Room
+            </button>
 
-          <div class="room-info">
-            👤 Host: ${host}
-            &nbsp; • &nbsp;
-            🎙️ ${users} users
-          </div>
-
-          <button class="join">
-            Join Room
-          </button>
-
-        `;
+          `;
 
 
-        div.querySelector(".join")
-          .addEventListener("click", () => {
+          div
+            .querySelector(".join")
+            .addEventListener(
+              "click",
+              async () => {
 
-            window.location.href =
-              "voice-room.html?room=" +
-              encodeURIComponent(room.id);
-
-          });
+                const currentUser =
+                  auth.currentUser;
 
 
-        roomsContainer.appendChild(div);
+                // LOGIN CHECK
 
-      });
+                if (!currentUser) {
+
+                  alert(
+                    "Please login with Google first."
+                  );
+
+                  return;
+
+                }
+
+
+                // WAIT FOR AUTH
+
+                const uid =
+                  currentUser.uid;
+
+
+                console.log(
+                  "OPENING ROOM:",
+                  room.id,
+                  "USER:",
+                  uid
+                );
+
+
+                window.location.href =
+                  "voice-room.html?room=" +
+                  encodeURIComponent(
+                    room.id
+                  );
+
+              }
+            );
+
+
+          roomsContainer.appendChild(
+            div
+          );
+
+        }
+      );
 
     }
 
 
-    window.filterRooms = function () {
+    // SEARCH
 
-      const search =
-        document
-          .getElementById("searchInput")
-          .value
-          .toLowerCase()
-          .trim();
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .addEventListener(
+        "input",
+        () => {
+
+          const search =
+            document
+              .getElementById(
+                "searchInput"
+              )
+              .value
+              .toLowerCase()
+              .trim();
 
 
-      const filtered =
-        allRooms.filter((room) => {
+          const filtered =
+            allRooms.filter(
+              (room) => {
 
-          const name =
-            (room.name || "").toLowerCase();
+                const name =
+                  (
+                    room.name ||
+                    ""
+                  ).toLowerCase();
 
-          const host =
-            (room.host || "").toLowerCase();
 
-          return (
-            name.includes(search) ||
-            host.includes(search)
+                const host =
+                  (
+                    room.host ||
+                    ""
+                  ).toLowerCase();
+
+
+                return (
+                  name.includes(
+                    search
+                  ) ||
+                  host.includes(
+                    search
+                  )
+                );
+
+              }
+            );
+
+
+          displayRooms(
+            filtered
           );
 
-        });
+        }
+      );
 
 
-      displayRooms(filtered);
-
-    };
-
+    // START
 
     loadRooms();
 
