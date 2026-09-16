@@ -17,59 +17,173 @@
       min-height: 100vh;
       background: linear-gradient(145deg, #17102b, #241044, #0d1528);
       color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
     .app {
       width: 100%;
       max-width: 430px;
       min-height: 100vh;
-      padding: 35px 20px;
-      text-align: center;
+      margin: auto;
+      padding: 18px;
     }
 
-    .logo {
-      width: 105px;
-      height: 105px;
-      margin: 45px auto 20px;
-      border-radius: 30px;
-      background: linear-gradient(135deg, #ff4da6, #8b5cf6, #28d7ff);
+    .top {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      font-size: 45px;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      font-size: 22px;
       font-weight: bold;
     }
 
-    h1 {
-      font-size: 32px;
-      margin-bottom: 8px;
+    .profile {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff4da6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
     }
 
-    .tagline {
-      color: #c9c3d8;
-      margin-bottom: 45px;
-      font-size: 15px;
+    .welcome {
+      text-align: left;
+      margin-bottom: 20px;
     }
 
-    .start {
+    .welcome h2 {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .welcome p {
+      color: #aaa4b8;
+      font-size: 14px;
+    }
+
+    .search {
       width: 100%;
+      padding: 13px 16px;
+      border: 1px solid #3a3150;
+      border-radius: 25px;
+      background: #211936;
+      color: white;
+      outline: none;
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .section-title h3 {
+      font-size: 19px;
+    }
+
+    .section-title span {
+      color: #b9a9ff;
+      font-size: 13px;
+    }
+
+    .rooms {
+      display: grid;
+      gap: 14px;
+    }
+
+    .room {
+      background: linear-gradient(135deg, #292044, #1d1833);
+      border: 1px solid #3b3155;
+      border-radius: 18px;
       padding: 16px;
+      text-align: left;
+    }
+
+    .room-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .room-avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ff4da6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .room-info {
+      flex: 1;
+    }
+
+    .room-name {
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .room-host {
+      color: #aaa4b8;
+      font-size: 12px;
+    }
+
+    .live {
+      background: #e83e75;
+      padding: 5px 9px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    .room-bottom {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 13px;
+      color: #aaa4b8;
+      font-size: 12px;
+    }
+
+    .join {
+      margin-top: 13px;
+      width: 100%;
       border: 0;
-      border-radius: 30px;
+      padding: 11px;
+      border-radius: 22px;
       background: linear-gradient(90deg, #ff4da6, #8b5cf6);
       color: white;
-      font-size: 18px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .info {
-      margin-top: 25px;
-      color: #9992aa;
-      font-size: 12px;
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+      margin-top: 10px;
+    }
+
+    .category {
+      background: #211936;
+      border: 1px solid #3a3150;
+      border-radius: 14px;
+      padding: 12px 5px;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .bottom-space {
+      height: 30px;
     }
   </style>
 </head>
@@ -78,28 +192,95 @@
 
   <div class="app">
 
-    <div class="logo">T</div>
+    <div class="top">
+      <div class="brand">Tannu Voice Chat</div>
+      <div class="profile">T</div>
+    </div>
 
-    <h1>Tannu Voice Chat</h1>
+    <div class="welcome">
+      <h2>Welcome 👋</h2>
+      <p>Meet new friends and enjoy live voice rooms.</p>
+    </div>
 
-    <p class="tagline">
-      Meet new friends • Enjoy voice rooms • Have fun
-    </p>
+    <input
+      class="search"
+      type="text"
+      placeholder="Search rooms..."
+      oninput="searchRooms()"
+      id="searchBox"
+    >
 
-    <button class="start" onclick="startApp()">
-      Enter Voice Chat
-    </button>
+    <div class="section-title">
+      <h3>🔥 Popular Rooms</h3>
+      <span>View All</span>
+    </div>
 
-    <p class="info">
-      Indian Voice Chat Community • 18+
-    </p>
+    <div class="rooms" id="roomsList">
+
+      <div class="room">
+        <div class="room-top">
+          <div class="room-avatar">T</div>
+
+          <div class="room-info">
+            <div class="room-name">Tannu Friends</div>
+            <div class="room-host">Host: Tannu</div>
+          </div>
+
+          <div class="live">LIVE</div>
+        </div>
+
+        <div class="room-bottom">
+          <span>🎤 Voice Room</span>
+          <span>👥 4 people</span>
+        </div>
+
+        <button class="join" onclick="joinRoom()">
+          Join Room
+        </button>
+      </div>
+
+    </div>
+
+    <div class="section-title" style="margin-top:28px;">
+      <h3>🎙️ Categories</h3>
+    </div>
+
+    <div class="categories">
+      <div class="category">🔥 Popular</div>
+      <div class="category">🎵 Music</div>
+      <div class="category">💬 Chat</div>
+      <div class="category">🎮 Games</div>
+    </div>
+
+    <div class="bottom-space"></div>
 
   </div>
 
   <script>
-    function startApp() {
-      window.location.href = "room.html";
+
+    function joinRoom() {
+      window.location.href = "voice-room.html";
     }
+
+    function searchRooms() {
+      const input = document
+        .getElementById("searchBox")
+        .value
+        .toLowerCase();
+
+      const rooms = document.querySelectorAll(".room");
+
+      rooms.forEach(room => {
+        const name = room
+          .querySelector(".room-name")
+          .textContent
+          .toLowerCase();
+
+        room.style.display =
+          name.includes(input) ? "block" : "none";
+      });
+    }
+
   </script>
 
 </body>
