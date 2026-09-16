@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Tannu Voice Room</title>
 
   <style>
@@ -12,29 +14,7 @@
       padding: 0;
       font-family: Arial, sans-serif;
     }
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-  import {
-    getAuth,
-    GoogleAuthProvider,
-    signInWithPopup
-  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
-    authDomain: "tannu-voice-chat.firebaseapp.com",
-    projectId: "tannu-voice-chat",
-    storageBucket: "tannu-voice-chat.firebasestorage.app",
-    messagingSenderId: "720483733073",
-    appId: "1:720483733073:web:c65b96d255d6177b9d7270"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  console.log("Firebase connected successfully!");
-</script>
     body {
       min-height: 100vh;
       background: linear-gradient(145deg, #120b24, #291052, #081525);
@@ -125,6 +105,7 @@
     .person {
       font-size: 11px;
       color: #cfc8d8;
+      text-align: center;
     }
 
     .mini {
@@ -177,24 +158,38 @@
   <div class="room">
 
     <div class="top">
+
       <button class="back" onclick="goBack()">←</button>
 
       <div class="title">
         <h1>Tannu Friends</h1>
       </div>
 
-      <div class="live">● LIVE</div>
+      <div class="live">
+        ● LIVE
+      </div>
+
     </div>
+
 
     <div class="room-box">
 
-      <div class="host">ROOM HOST</div>
+      <div class="host">
+        ROOM HOST
+      </div>
 
-      <div class="avatar">T</div>
+      <div class="avatar">
+        T
+      </div>
 
-      <h2>Tannu Friends 🎙️</h2>
+      <h2>
+        Tannu Friends 🎙️
+      </h2>
 
-      <p>Welcome to Tannu Voice Chat ❤️</p>
+      <p>
+        Welcome to Tannu Voice Chat ❤️
+      </p>
+
 
       <div class="people">
 
@@ -222,155 +217,207 @@
 
     </div>
 
+
     <div class="controls">
 
-      <button id="mic" class="control" onclick="toggleMic()">
+      <button
+        id="mic"
+        class="control"
+        onclick="toggleMic()">
+
         🎙️
-        <span id="micText">Mute</span>
+
+        <span id="micText">
+          Mic
+        </span>
+
       </button>
 
-      <button class="control" onclick="speaker()">
+
+      <button
+        class="control"
+        onclick="speaker()">
+
         🔊
-        <span>Speaker</span>
+
+        <span>
+          Speaker
+        </span>
+
       </button>
 
-      <button class="control leave" onclick="leaveRoom()">
+
+      <button
+        class="control leave"
+        onclick="leaveRoom()">
+
         📞
-        <span>Leave</span>
+
+        <span>
+          Leave
+        </span>
+
       </button>
 
     </div>
 
   </div>
 
+
+  <!-- FIREBASE -->
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+
+    const firebaseConfig = {
+
+      apiKey: "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
+
+      authDomain: "tannu-voice-chat.firebaseapp.com",
+
+      projectId: "tannu-voice-chat",
+
+      storageBucket: "tannu-voice-chat.firebasestorage.app",
+
+      messagingSenderId: "720483733073",
+
+      appId: "1:720483733073:web:c65b96d255d6177b9d7270"
+
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+    const provider = new GoogleAuthProvider();
+
+    console.log("Firebase connected successfully!");
+
+  </script>
+
+
+  <!-- VOICE ROOM CONTROLS -->
+
   <script>
 
+    let stream = null;
+
     let muted = false;
-async function startMic() {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
-    alert("🎙️ Microphone connected!");
 
-    stream.getTracks().forEach(track => track.stop());
-  } catch (error) {
-    alert("Microphone permission denied ❌");
-  }
-}
-    async function startMic() {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
-    alert("🎙️ Microphone connected!");
-
-    stream.getTracks().forEach(track => track.stop());
-  } catch (error) {
-    alert("Microphone permission denied ❌");
-  }
-}
-    function toggleMic() {
-      startMic();
-      muted = !muted;
+    async function toggleMic() {
 
       const mic = document.getElementById("mic");
+
       const text = document.getElementById("micText");
 
-      if (muted) {
-        mic.classList.add("off");
-        text.innerText = "Unmute";
-      } else {
-        mic.classList.remove("off");
-        text.innerText = "Mute";
+
+      if (!stream) {
+
+        try {
+
+          stream = await navigator.mediaDevices.getUserMedia({
+            audio: true
+          });
+
+          muted = false;
+
+          mic.classList.remove("off");
+
+          text.innerText = "Mute";
+
+          alert("🎙️ Mic ON");
+
+        } catch (error) {
+
+          alert("Microphone permission denied ❌");
+
+        }
+
+        return;
       }
-    }
 
-    function speaker() {
-      alert("Speaker button pressed 🔊");
-    }
 
-    function leaveRoom() {
-      window.location.href = "index.html";
-    }
+      muted = !muted;
 
-    function goBack() {
-      window.location.href = "room.html";
-    }
 
-  
-<script>
+      stream.getAudioTracks().forEach(function(track) {
 
-let stream = null;
-let muted = false;
+        track.enabled = !muted;
 
-async function toggleMic() {
-
-  const mic = document.getElementById("mic");
-  const text = document.getElementById("micText");
-
-  if (!stream) {
-
-    try {
-
-      stream = await navigator.mediaDevices.getUserMedia({
-        audio: true
       });
 
-      muted = false;
-      text.innerText = "Mute";
 
-      alert("🎙️ Mic ON");
+      if (muted) {
 
-    } catch (error) {
+        mic.classList.add("off");
 
-      alert("Microphone permission denied ❌");
+        text.innerText = "Unmute";
 
-    }
+      } else {
 
-  } else {
+        mic.classList.remove("off");
 
-    muted = !muted;
+        text.innerText = "Mute";
 
-    stream.getAudioTracks().forEach(track => {
-      track.enabled = !muted;
-    });
-
-    if (muted) {
-
-      mic.classList.add("off");
-      text.innerText = "Unmute";
-
-    } else {
-
-      mic.classList.remove("off");
-      text.innerText = "Mute";
+      }
 
     }
 
-  }
-}
 
-function speaker() {
-  alert("🔊 Speaker button pressed");
-}
+    function speaker() {
 
-function leaveRoom() {
+      alert("🔊 Speaker button pressed");
 
-  if (stream) {
-    stream.getTracks().forEach(track => track.stop());
-  }
+    }
 
-  window.location.href = "index.html";
-}
 
-function goBack() {
+    function leaveRoom() {
 
-  if (stream) {
-    stream.getTracks().forEach(track => track.stop());
-  }
+      if (stream) {
 
-  window.location.href = "room.html";
-}
+        stream.getTracks().forEach(function(track) {
 
-</script>
+          track.stop();
+
+        });
+
+      }
+
+      window.location.href = "index.html";
+
+    }
+
+
+    function goBack() {
+
+      if (stream) {
+
+        stream.getTracks().forEach(function(track) {
+
+          track.stop();
+
+        });
+
+      }
+
+      window.location.href = "room.html";
+
+    }
+
+  </script>
+
 </body>
+
 </html>
