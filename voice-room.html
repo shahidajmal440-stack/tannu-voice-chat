@@ -1,117 +1,443 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tannu Auth Test</title>
+  <title>Tannu Friends</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #17102b;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .room {
+      padding: 25px 15px;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+    }
+
+    .live {
+      color: #ff4d6d;
+      font-weight: bold;
+    }
+
+    .host {
+      margin: 10px 0 25px;
+    }
+
+    .users {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .user {
+      background: #281c46;
+      border-radius: 15px;
+      padding: 18px 5px;
+    }
+
+    .avatar {
+      width: 55px;
+      height: 55px;
+      background: #6c4cff;
+      border-radius: 50%;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .controls {
+      margin-top: 35px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 20px;
+      margin: 5px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    #mic {
+      background: #35d07f;
+      color: white;
+    }
+
+    #speaker {
+      background: #555;
+      color: white;
+    }
+
+    #leave {
+      background: #e5484d;
+      color: white;
+    }
+
+    #status {
+      margin: 20px auto;
+      max-width: 500px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #211638;
+      font-size: 14px;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
 </head>
 
-<body style="background:#17102b;color:white;font-family:Arial;padding:30px">
+<body>
 
-  <h2>Tannu Voice Chat</h2>
+<div class="room">
 
-  <p id="status">Checking login...</p>
+  <h1>🎙️ Tannu Friends</h1>
 
-  <button id="mic" style="padding:15px;font-size:18px">
-    🎙️ Test Microphone
-  </button>
+  <div class="live">● LIVE</div>
 
-  <script type="module">
+  <div class="host">
+    HOST: <b>Tannu</b>
+  </div>
 
-    import { initializeApp }
-      from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  <div class="users">
 
-    import {
-      getAuth,
-      onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    <div class="user">
+      <div class="avatar">T</div>
+      <p>Tannu</p>
+    </div>
+
+    <div class="user">
+      <div class="avatar">S</div>
+      <p>Sameer</p>
+    </div>
+
+    <div class="user">
+      <div class="avatar">R</div>
+      <p>Rahul</p>
+    </div>
+
+    <div class="user">
+      <div class="avatar">A</div>
+      <p>Ali</p>
+    </div>
+
+    <div class="user">
+      <div class="avatar">N</div>
+      <p>Neha</p>
+    </div>
+
+    <div class="user">
+      <div class="avatar">+</div>
+      <p>Empty Seat</p>
+    </div>
+
+  </div>
+
+  <div id="status">Checking login...</div>
+
+  <div class="controls">
+    <button id="mic">🎙️ Mic OFF</button>
+    <button id="speaker">🔊 Speaker ON</button>
+    <button id="leave">🚪 Leave</button>
+  </div>
+
+  <audio id="remoteAudio" autoplay></audio>
+
+</div>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  onSnapshot,
+  collection,
+  addDoc
+}
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
-    const firebaseConfig = {
-
-      apiKey: "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
-
-      authDomain: "tannu-voice-chat.firebaseapp.com",
-
-      projectId: "tannu-voice-chat",
-
-      storageBucket: "tannu-voice-chat.firebasestorage.app",
-
-      messagingSenderId: "720483733073",
-
-      appId: "1:720483733073:web:c65b96d255d6177b9d7270"
-
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
+  authDomain: "tannu-voice-chat.firebaseapp.com",
+  projectId: "tannu-voice-chat",
+  storageBucket: "tannu-voice-chat.firebasestorage.app",
+  messagingSenderId: "720483733073",
+  appId: "1:720483733073:web:c65b96d255d6177b9d7270"
+};
 
 
-    const app =
-      initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-    const auth =
-      getAuth(app);
+const status = document.getElementById("status");
+const micButton = document.getElementById("mic");
+const speakerButton = document.getElementById("speaker");
+const leaveButton = document.getElementById("leave");
+const remoteAudio = document.getElementById("remoteAudio");
+
+let localStream = null;
+let peer = null;
+let micOn = false;
+let speakerOn = true;
+
+const params = new URLSearchParams(location.search);
+const roomId = params.get("room") || "test-room";
 
 
-    const status =
-      document.getElementById("status");
+// ---------------- LOGIN ----------------
+
+onAuthStateChanged(auth, async (user) => {
+
+  if (!user) {
+    status.innerText = "❌ Please login first.";
+    return;
+  }
+
+  status.innerText =
+    "✅ Login found\nWelcome " +
+    (user.displayName || "User") +
+    "\n\n🎙️ Press Mic to join voice.";
+
+});
 
 
-    onAuthStateChanged(
-      auth,
-      (user) => {
+// ---------------- MICROPHONE ----------------
 
-        if (user) {
+async function startMicrophone() {
 
-          status.innerText =
-            "✅ LOGIN FOUND\n\n" +
-            "Name: " +
-            (user.displayName || "User") +
-            "\n\nUID: " +
-            user.uid;
+  try {
 
-        } else {
+    localStream = await navigator.mediaDevices.getUserMedia({
+      audio: {
+        echoCancellation: true,
+        noiseSuppression: true,
+        autoGainControl: true
+      },
+      video: false
+    });
 
-          status.innerText =
-            "❌ NO LOGIN FOUND";
+    micOn = true;
 
-        }
+    micButton.innerText = "🎙️ Mic ON";
+    micButton.style.background = "#20b765";
 
+    status.innerText =
+      "🎙️ Microphone ON\nConnecting voice...";
+
+    await startVoiceConnection();
+
+  } catch (error) {
+
+    status.innerText =
+      "❌ Microphone error\n\n" +
+      error.name + "\n" +
+      error.message;
+
+  }
+
+}
+
+
+// ---------------- WEBRTC ----------------
+
+async function startVoiceConnection() {
+
+  if (!auth.currentUser) {
+    status.innerText = "❌ Login not found.";
+    return;
+  }
+
+  peer = new RTCPeerConnection({
+    iceServers: [
+      {
+        urls: "stun:stun.l.google.com:19302"
       }
+    ]
+  });
+
+
+  localStream.getTracks().forEach(track => {
+    peer.addTrack(track, localStream);
+  });
+
+
+  peer.ontrack = event => {
+
+    remoteAudio.srcObject = event.streams[0];
+
+    if (speakerOn) {
+      remoteAudio.play().catch(() => {});
+    }
+
+  };
+
+
+  const roomRef = doc(db, "voiceRooms", roomId);
+
+  const roomSnapshot = await getDoc(roomRef);
+
+
+  if (!roomSnapshot.exists()) {
+
+    const offer = await peer.createOffer();
+
+    await peer.setLocalDescription(offer);
+
+    await setDoc(roomRef, {
+      offer: {
+        type: offer.type,
+        sdp: offer.sdp
+      }
+    });
+
+
+    onSnapshot(roomRef, async snapshot => {
+
+      const data = snapshot.data();
+
+      if (!data || !data.answer) return;
+
+      if (peer.currentRemoteDescription) return;
+
+      await peer.setRemoteDescription(
+        new RTCSessionDescription(data.answer)
+      );
+
+    });
+
+  } else {
+
+    const data = roomSnapshot.data();
+
+    if (!data.offer) return;
+
+    await peer.setRemoteDescription(
+      new RTCSessionDescription(data.offer)
     );
 
+    const answer = await peer.createAnswer();
 
-    document
-      .getElementById("mic")
-      .onclick = async () => {
+    await peer.setLocalDescription(answer);
 
-        try {
+    await setDoc(roomRef, {
+      answer: {
+        type: answer.type,
+        sdp: answer.sdp
+      }
+    }, { merge: true });
 
-          const stream =
-            await navigator.mediaDevices
-              .getUserMedia({
-                audio: true
-              });
+  }
 
-          status.innerText =
-            "🎤 MICROPHONE WORKING ✅";
 
-          stream
-            .getTracks()
-            .forEach(
-              track => track.stop()
-            );
+  status.innerText =
+    "🎙️ Voice connected\nRoom: " + roomId;
 
-        } catch (error) {
+}
 
-          status.innerText =
-            "❌ MIC ERROR\n\n" +
-            error.name +
-            "\n\n" +
-            error.message;
 
-        }
+// ---------------- MIC BUTTON ----------------
 
-      };
+micButton.onclick = async () => {
 
-  </script>
+  if (!localStream) {
+
+    await startMicrophone();
+
+    return;
+  }
+
+
+  micOn = !micOn;
+
+  localStream.getAudioTracks().forEach(track => {
+    track.enabled = micOn;
+  });
+
+
+  if (micOn) {
+
+    micButton.innerText = "🎙️ Mic ON";
+    micButton.style.background = "#20b765";
+
+  } else {
+
+    micButton.innerText = "🔇 Mic OFF";
+    micButton.style.background = "#555";
+
+  }
+
+};
+
+
+// ---------------- SPEAKER ----------------
+
+speakerButton.onclick = () => {
+
+  speakerOn = !speakerOn;
+
+  remoteAudio.muted = !speakerOn;
+
+  if (speakerOn) {
+
+    speakerButton.innerText = "🔊 Speaker ON";
+    speakerButton.style.background = "#20b765";
+
+    remoteAudio.play().catch(() => {});
+
+  } else {
+
+    speakerButton.innerText = "🔇 Speaker OFF";
+    speakerButton.style.background = "#555";
+
+  }
+
+};
+
+
+// ---------------- LEAVE ----------------
+
+leaveButton.onclick = () => {
+
+  if (localStream) {
+    localStream.getTracks().forEach(track => track.stop());
+  }
+
+  if (peer) {
+    peer.close();
+  }
+
+  window.location.href = "index.html";
+
+};
+
+</script>
 
 </body>
 </html>
