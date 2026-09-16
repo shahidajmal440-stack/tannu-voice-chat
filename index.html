@@ -65,6 +65,19 @@
       font-size: 14px;
     }
 
+    .login {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 20px;
+      border: 1px solid #4a3d65;
+      border-radius: 25px;
+      background: #211936;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     .search {
       width: 100%;
       padding: 13px 16px;
@@ -77,9 +90,6 @@
     }
 
     .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       margin-bottom: 14px;
     }
 
@@ -161,12 +171,7 @@
       cursor: pointer;
     }
 
-    .loading {
-      text-align: center;
-      padding: 25px;
-      color: #aaa4b8;
-    }
-
+    .loading,
     .empty {
       text-align: center;
       padding: 25px;
@@ -203,13 +208,17 @@
 
     <div class="top">
       <div class="brand">Tannu Voice Chat</div>
-      <div class="profile">T</div>
+      <div class="profile" id="profileLetter">T</div>
     </div>
 
     <div class="welcome">
-      <h2>Welcome 👋</h2>
+      <h2 id="welcomeText">Welcome 👋</h2>
       <p>Meet new friends and enjoy live voice rooms.</p>
     </div>
+
+    <button class="login" id="loginButton" onclick="loginWithGoogle()">
+      🔐 Login with Google
+    </button>
 
     <input
       class="search"
@@ -248,6 +257,14 @@
       from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
     import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    import {
       getFirestore,
       collection,
       getDocs
@@ -263,19 +280,87 @@
     };
 
     const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
     const db = getFirestore(app);
+
+    const provider = new GoogleAuthProvider();
 
     let allRooms = [];
 
-    async function loadRooms() {
-
-      const roomsList = document.getElementById("roomsList");
+    window.loginWithGoogle = async function() {
 
       try {
 
-        const snapshot = await getDocs(
-          collection(db, "rooms")
-        );
+        await signInWithPopup(auth, provider);
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert("Login failed. Please try again.");
+
+      }
+
+    };
+
+    onAuthStateChanged(auth, (user) => {
+
+      const loginButton =
+        document.getElementById("loginButton");
+
+      const welcomeText =
+        document.getElementById("welcomeText");
+
+      const profileLetter =
+        document.getElementById("profileLetter");
+
+      if (user) {
+
+        const name =
+          user.displayName || "User";
+
+        welcomeText.textContent =
+          "Welcome, " + name + " 👋";
+
+        profileLetter.textContent =
+          name.charAt(0).toUpperCase();
+
+        loginButton.textContent =
+          "🚪 Logout";
+
+        loginButton.onclick = async function() {
+
+          await signOut(auth);
+
+        };
+
+      } else {
+
+        welcomeText.textContent =
+          "Welcome 👋";
+
+        profileLetter.textContent = "T";
+
+        loginButton.textContent =
+          "🔐 Login with Google";
+
+        loginButton.onclick =
+          window.loginWithGoogle;
+
+      }
+
+    });
+
+    async function loadRooms() {
+
+      const roomsList =
+        document.getElementById("roomsList");
+
+      try {
+
+        const snapshot =
+          await getDocs(collection(db, "rooms"));
 
         allRooms = [];
 
@@ -303,6 +388,7 @@
           '<div class="empty">Unable to load rooms.</div>';
 
       }
+
     }
 
     function displayRooms(rooms) {
@@ -316,6 +402,7 @@
           '<div class="empty">No live rooms available.</div>';
 
         return;
+
       }
 
       roomsList.innerHTML = "";
@@ -374,6 +461,7 @@
         roomsList.appendChild(roomElement);
 
       });
+
     }
 
     window.joinRoom = function(roomId) {
