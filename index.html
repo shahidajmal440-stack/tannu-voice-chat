@@ -24,14 +24,14 @@
       max-width: 430px;
       min-height: 100vh;
       margin: auto;
-      padding: 18px;
+      padding: 22px 18px 35px;
     }
 
     .top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 22px;
+      margin-bottom: 25px;
     }
 
     .brand {
@@ -40,164 +40,142 @@
     }
 
     .profile {
-      width: 42px;
-      height: 42px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
       background: linear-gradient(135deg, #ff4da6, #8b5cf6);
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      font-size: 20px;
       font-weight: bold;
     }
 
+    .profile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .welcome {
-      text-align: left;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .welcome h2 {
-      font-size: 24px;
-      margin-bottom: 6px;
+      font-size: 25px;
+      margin-bottom: 5px;
     }
 
     .welcome p {
-      color: #aaa4b8;
+      color: #aaa3bb;
       font-size: 14px;
     }
 
     .login {
       width: 100%;
-      padding: 13px;
-      margin-bottom: 20px;
-      border: 1px solid #4a3d65;
+      padding: 14px;
+      border: none;
+      border-radius: 25px;
+      background: white;
+      color: #222;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 22px;
+    }
+
+    .search {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1px solid #40345a;
       border-radius: 25px;
       background: #211936;
+      color: white;
+      outline: none;
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    .search::placeholder {
+      color: #8f889e;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .categories {
+      display: flex;
+      gap: 9px;
+      overflow-x: auto;
+      margin-bottom: 22px;
+    }
+
+    .category {
+      flex-shrink: 0;
+      padding: 9px 16px;
+      border-radius: 20px;
+      background: #2b2042;
+      color: #ddd6e8;
+      font-size: 13px;
+    }
+
+    .category.active {
+      background: linear-gradient(90deg, #ff4da6, #8b5cf6);
+      color: white;
+    }
+
+    .room {
+      background: #211936;
+      border: 1px solid #3a2d50;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .room-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .room-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .live {
+      color: #ff5b8d;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .room-info {
+      color: #aaa3bb;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .join {
+      width: 100%;
+      padding: 11px;
+      border: none;
+      border-radius: 22px;
+      background: linear-gradient(90deg, #ff4da6, #8b5cf6);
       color: white;
       font-size: 15px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .search {
-      width: 100%;
-      padding: 13px 16px;
-      border: 1px solid #3a3150;
-      border-radius: 25px;
-      background: #211936;
-      color: white;
-      outline: none;
-      margin-bottom: 25px;
-    }
-
-    .section-title {
-      margin-bottom: 14px;
-    }
-
-    .section-title h3 {
-      font-size: 19px;
-    }
-
-    .rooms {
-      display: grid;
-      gap: 14px;
-    }
-
-    .room {
-      background: linear-gradient(135deg, #292044, #1d1833);
-      border: 1px solid #3b3155;
-      border-radius: 18px;
-      padding: 16px;
-      text-align: left;
-    }
-
-    .room-top {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .room-avatar {
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #ff4da6, #8b5cf6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .room-info {
-      flex: 1;
-    }
-
-    .room-name {
-      font-size: 17px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .room-host {
-      color: #aaa4b8;
-      font-size: 12px;
-    }
-
-    .live {
-      background: #e83e75;
-      padding: 5px 9px;
-      border-radius: 12px;
-      font-size: 10px;
-      font-weight: bold;
-    }
-
-    .room-bottom {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 13px;
-      color: #aaa4b8;
-      font-size: 12px;
-    }
-
-    .join {
-      margin-top: 13px;
-      width: 100%;
-      border: 0;
-      padding: 11px;
-      border-radius: 22px;
-      background: linear-gradient(90deg, #ff4da6, #8b5cf6);
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .loading,
     .empty {
       text-align: center;
-      padding: 25px;
-      color: #aaa4b8;
-      background: #211936;
-      border-radius: 18px;
-    }
-
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 9px;
-      margin-top: 10px;
-    }
-
-    .category {
-      background: #211936;
-      border: 1px solid #3a3150;
-      border-radius: 14px;
-      padding: 12px 5px;
-      font-size: 11px;
-      text-align: center;
-    }
-
-    .bottom-space {
-      height: 30px;
+      color: #9992aa;
+      padding: 30px 10px;
     }
   </style>
 </head>
@@ -208,48 +186,46 @@
 
     <div class="top">
       <div class="brand">Tannu Voice Chat</div>
-      <div class="profile" id="profileLetter">T</div>
+
+      <div class="profile" id="profile">
+        T
+      </div>
     </div>
 
     <div class="welcome">
       <h2 id="welcomeText">Welcome 👋</h2>
-      <p>Meet new friends and enjoy live voice rooms.</p>
+      <p>Meet new friends • Enjoy voice rooms • Have fun</p>
     </div>
 
-    <button class="login" id="loginButton" onclick="loginWithGoogle()">
+    <button class="login" id="loginBtn" onclick="loginWithGoogle()">
       🔐 Login with Google
     </button>
 
     <input
       class="search"
+      id="searchInput"
       type="text"
-      placeholder="Search rooms..."
-      oninput="searchRooms()"
-      id="searchBox"
+      placeholder="🔍 Search rooms..."
+      oninput="filterRooms()"
     >
 
-    <div class="section-title">
-      <h3>🔥 Popular Rooms</h3>
-    </div>
-
-    <div class="rooms" id="roomsList">
-      <div class="loading">Loading rooms...</div>
-    </div>
-
-    <div class="section-title" style="margin-top:28px;">
-      <h3>🎙️ Categories</h3>
-    </div>
+    <div class="section-title">Categories</div>
 
     <div class="categories">
-      <div class="category">🔥 Popular</div>
-      <div class="category">🎵 Music</div>
-      <div class="category">💬 Chat</div>
-      <div class="category">🎮 Games</div>
+      <div class="category active">Popular</div>
+      <div class="category">Music</div>
+      <div class="category">Chat</div>
+      <div class="category">Games</div>
     </div>
 
-    <div class="bottom-space"></div>
+    <div class="section-title">🔥 Popular Rooms</div>
+
+    <div id="rooms">
+      <div class="empty">Loading rooms...</div>
+    </div>
 
   </div>
+
 
   <script type="module">
 
@@ -270,6 +246,7 @@
       getDocs
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+
     const firebaseConfig = {
       apiKey: "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
       authDomain: "tannu-voice-chat.firebaseapp.com",
@@ -279,16 +256,20 @@
       appId: "1:720483733073:web:c65b96d255d6177b9d7270"
     };
 
+
     const app = initializeApp(firebaseConfig);
 
     const auth = getAuth(app);
+
     const db = getFirestore(app);
 
     const provider = new GoogleAuthProvider();
 
+
     let allRooms = [];
 
-    window.loginWithGoogle = async function() {
+
+    window.loginWithGoogle = async function () {
 
       try {
 
@@ -304,58 +285,72 @@
 
     };
 
+
+    window.logout = async function () {
+
+      try {
+
+        await signOut(auth);
+
+      } catch (error) {
+
+        console.error(error);
+
+      }
+
+    };
+
+
     onAuthStateChanged(auth, (user) => {
 
-      const loginButton =
-        document.getElementById("loginButton");
-
-      const welcomeText =
-        document.getElementById("welcomeText");
-
-      const profileLetter =
-        document.getElementById("profileLetter");
+      const loginBtn = document.getElementById("loginBtn");
+      const welcomeText = document.getElementById("welcomeText");
+      const profile = document.getElementById("profile");
 
       if (user) {
 
-        const name =
-          user.displayName || "User";
+        const name = user.displayName || "User";
 
-        welcomeText.textContent =
-          "Welcome, " + name + " 👋";
+        welcomeText.textContent = "Welcome, " + name + " 👋";
 
-        profileLetter.textContent =
-          name.charAt(0).toUpperCase();
+        loginBtn.textContent = "🚪 Logout";
 
-        loginButton.textContent =
-          "🚪 Logout";
+        loginBtn.onclick = window.logout;
 
-        loginButton.onclick = async function() {
 
-          await signOut(auth);
+        if (user.photoURL) {
 
-        };
+          profile.innerHTML =
+            '<img src="' +
+            user.photoURL +
+            '" alt="Profile">';
+
+        } else {
+
+          profile.textContent =
+            name.charAt(0).toUpperCase();
+
+        }
 
       } else {
 
-        welcomeText.textContent =
-          "Welcome 👋";
+        welcomeText.textContent = "Welcome 👋";
 
-        profileLetter.textContent = "T";
+        loginBtn.textContent = "🔐 Login with Google";
 
-        loginButton.textContent =
-          "🔐 Login with Google";
+        loginBtn.onclick = window.loginWithGoogle;
 
-        loginButton.onclick =
-          window.loginWithGoogle;
+        profile.textContent = "T";
 
       }
 
     });
 
+
     async function loadRooms() {
 
-      const roomsList =
-        document.getElementById("roomsList");
+      const roomsContainer =
+        document.getElementById("rooms");
 
       try {
 
@@ -366,14 +361,9 @@
 
         snapshot.forEach((doc) => {
 
-          const data = doc.data();
-
           allRooms.push({
             id: doc.id,
-            name: data.name || "Unnamed Room",
-            host: data.host || "Unknown",
-            status: data.status || "offline",
-            users: data.users || 0
+            ...doc.data()
           });
 
         });
@@ -384,109 +374,127 @@
 
         console.error(error);
 
-        roomsList.innerHTML =
+        roomsContainer.innerHTML =
           '<div class="empty">Unable to load rooms.</div>';
 
       }
 
     }
 
+
     function displayRooms(rooms) {
 
-      const roomsList =
-        document.getElementById("roomsList");
+      const roomsContainer =
+        document.getElementById("rooms");
 
       if (rooms.length === 0) {
 
-        roomsList.innerHTML =
-          '<div class="empty">No live rooms available.</div>';
+        roomsContainer.innerHTML =
+          '<div class="empty">No rooms found.</div>';
 
         return;
 
       }
 
-      roomsList.innerHTML = "";
+
+      roomsContainer.innerHTML = "";
+
 
       rooms.forEach((room) => {
 
-        const roomElement =
+        const roomName =
+          room.name || "Unnamed Room";
+
+        const host =
+          room.host || "Host";
+
+        const status =
+          room.status || "live";
+
+        const users =
+          room.users || 0;
+
+
+        const div =
           document.createElement("div");
 
-        roomElement.className = "room";
+        div.className = "room";
 
-        roomElement.innerHTML = `
+        div.innerHTML = `
 
           <div class="room-top">
 
-            <div class="room-avatar">
-              ${room.name.charAt(0).toUpperCase()}
-            </div>
-
-            <div class="room-info">
-
-              <div class="room-name">
-                ${room.name}
-              </div>
-
-              <div class="room-host">
-                Host: ${room.host}
-              </div>
-
+            <div class="room-name">
+              ${roomName}
             </div>
 
             <div class="live">
-              ${room.status.toUpperCase()}
+              🔴 ${status}
             </div>
 
           </div>
 
-          <div class="room-bottom">
-
-            <span>🎤 Voice Room</span>
-
-            <span>
-              👥 ${room.users} people
-            </span>
-
+          <div class="room-info">
+            👤 Host: ${host}
+            &nbsp; • &nbsp;
+            🎙️ ${users} users
           </div>
 
-          <button
-            class="join"
-            onclick="joinRoom('${room.id}')">
+          <button class="join">
             Join Room
           </button>
 
         `;
 
-        roomsList.appendChild(roomElement);
+
+        div.querySelector(".join")
+          .addEventListener("click", () => {
+
+            window.location.href =
+              "voice-room.html?room=" +
+              encodeURIComponent(room.id);
+
+          });
+
+
+        roomsContainer.appendChild(div);
 
       });
 
     }
 
-    window.joinRoom = function(roomId) {
 
-      window.location.href =
-        "voice-room.html?room=" +
-        encodeURIComponent(roomId);
+    window.filterRooms = function () {
 
-    };
+      const search =
+        document
+          .getElementById("searchInput")
+          .value
+          .toLowerCase()
+          .trim();
 
-    window.searchRooms = function() {
-
-      const input =
-        document.getElementById("searchBox")
-        .value
-        .toLowerCase();
 
       const filtered =
-        allRooms.filter(room =>
-          room.name.toLowerCase().includes(input)
-        );
+        allRooms.filter((room) => {
+
+          const name =
+            (room.name || "").toLowerCase();
+
+          const host =
+            (room.host || "").toLowerCase();
+
+          return (
+            name.includes(search) ||
+            host.includes(search)
+          );
+
+        });
+
 
       displayRooms(filtered);
 
     };
+
 
     loadRooms();
 
