@@ -200,7 +200,7 @@
       </p>
 
       <div class="status" id="voiceStatus">
-        Connecting voice...
+        Starting microphone...
       </div>
 
       <div class="people">
@@ -231,42 +231,19 @@
 
     <div class="controls">
 
-      <button
-        id="mic"
-        class="control"
-        onclick="toggleMic()">
-
+      <button id="mic" class="control" onclick="toggleMic()">
         🎙️
-
-        <span id="micText">
-          Mic
-        </span>
-
+        <span id="micText">Mic</span>
       </button>
 
-      <button
-        id="speakerButton"
-        class="control"
-        onclick="speaker()">
-
+      <button id="speakerButton" class="control" onclick="speaker()">
         🔊
-
-        <span>
-          Speaker
-        </span>
-
+        <span id="speakerText">Speaker</span>
       </button>
 
-      <button
-        class="control leave"
-        onclick="leaveRoom()">
-
+      <button class="control leave" onclick="leaveRoom()">
         📞
-
-        <span>
-          Leave
-        </span>
-
+        <span>Leave</span>
       </button>
 
     </div>
@@ -274,9 +251,6 @@
   </div>
 
   <audio id="remoteAudio" autoplay playsinline></audio>
-
-
-  <!-- FIREBASE -->
 
   <script type="module">
 
@@ -294,7 +268,6 @@
       collection,
       getDocs,
       doc,
-      getDoc,
       setDoc,
       updateDoc,
       onSnapshot,
@@ -332,26 +305,26 @@
     let peer = null;
     let roomId = null;
     let userId = null;
+
     let muted = false;
     let isCaller = false;
-    let callerUnsubscribe = null;
-    let answerUnsubscribe = null;
+
+    let roomUnsubscribe = null;
     let candidateUnsubscribe = null;
 
+    let pendingCandidates = [];
 
     const remoteAudio =
       document.getElementById("remoteAudio");
-
 
     const voiceStatus =
       document.getElementById("voiceStatus");
 
 
-    // GET ROOM ID
+    // ROOM ID
 
-    const params = new URLSearchParams(
-      window.location.search
-    );
+    const params =
+      new URLSearchParams(window.location.search);
 
     roomId = params.get("room");
 
@@ -366,7 +339,7 @@
 
     // LOAD ROOM
 
-    async function loadRooms() {
+    async function loadRoom() {
 
       try {
 
@@ -377,196 +350,276 @@
           await getDocs(roomsRef);
 
 
-        snapshot.forEach((docSnap) => {
+        let found = false;
 
-          if (docSnap.id !== roomId && roomId) {
-            return;
+
+        snapshot.forEach((roomDoc) => {
+
+          if (roomDoc.id === roomId) {
+
+            found = true;
+
+            const room =
+              roomDoc.data();
+
+
+            document.getElementById(
+              "roomName"
+            ).innerText =
+              room.name || "Tannu Voice Room";
+
+
+            document.getElementById(
+              "roomTitle"
+            ).innerText =
+              (room.name || "Tannu Friends") +
+              " 🎙️";
+
+
+            document.getElementById(
+              "roomHost"
+            ).innerText =
+              "HOST: " +
+              (room.host || "Tannu");
+
+
+            document.getElementById(
+              "roomStatus"
+            ).innerText =
+              "● " +
+              (room.status || "LIVE")
+                .toUpperCase();
+
+
+            document.getElementById(
+              "roomUsers"
+            ).innerText =
+              "👥 " +
+              (room.users || 0) +
+              " Users";
+
           }
 
-          const room = docSnap.data();
-
-
-          document.getElementById("roomName").innerText =
-            room.name || "Tannu Voice Room";
-
-
-          document.getElementById("roomTitle").innerText =
-            (room.name || "Tannu Friends") + " 🎙️";
-
-
-          document.getElementById("roomHost").innerText =
-            "HOST: " + (room.host || "Tannu");
-
-
-          document.getElementById("roomStatus").innerText =
-            "● " +
-            (room.status || "LIVE").toUpperCase();
-
-
-          document.getElementById("roomUsers").innerText =
-            "👥 " +
-            (room.users || 0) +
-            " Users";
-
         });
+
+
+        if (!found) {
+
+          voiceStatus.innerText =
+            "Room not found ❌";
+
+        }
 
 
       } catch (error) {
 
         console.error(error);
 
-        document.getElementById("roomUsers").innerText =
-          "Room data loading error ❌";
+        voiceStatus.innerText =
+          "Room loading error ❌";
 
       }
 
     }
 
 
-    loadRooms();
+    loadRoom();
 
 
     // AUTH
 
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(
+      auth,
+      async (user) => {
 
-      if (!user) {
+        if (!user) {
 
-        voiceStatus.innerText =
-          "Please login first ❌";
+          voiceStatus.innerText =
+            "Please login first ❌";
 
-        return;
-      }
-
-
-      userId = user.uid;
-
-      console.log("Logged in:", userId);
-
-      await startVoice();
-
-    });
-
-
-    // CREATE WEBRTC
-
-    async function createPeer() {
-
-      peer = new RTCPeerConnection({
-
-        iceServers: [
-
-          {
-            urls: "stun:stun.l.google.com:19302"
-          },
-
-          {
-            urls: "stun:stun1.l.google.com:19302"
-          }
-
-        ]
-
-      });
-
-
-      peer.onicecandidate = async (event) => {
-
-        if (!event.candidate || !roomId) {
           return;
-        }
-
-
-        try {
-
-          await addDoc(
-
-            collection(
-              db,
-              "voiceRooms",
-              roomId,
-              "candidates"
-            ),
-
-            {
-
-              candidate:
-                event.candidate.toJSON(),
-
-              userId: userId,
-
-              createdAt:
-                serverTimestamp()
-
-            }
-
-          );
-
-        } catch (error) {
-
-          console.error(
-            "Candidate error:",
-            error
-          );
 
         }
 
-      };
 
+        userId = user.uid;
 
-      peer.ontrack = (event) => {
-
-        console.log("Remote audio received");
-
-        remoteAudio.srcObject =
-          event.streams[0];
-
-        remoteAudio.play().catch(() => {});
-
-        voiceStatus.innerText =
-          "🟢 Voice connected";
-
-      };
-
-
-      peer.onconnectionstatechange = () => {
 
         console.log(
-          "Connection:",
-          peer.connectionState
+          "Logged in:",
+          userId
         );
 
 
-        if (
-          peer.connectionState ===
-          "connected"
-        ) {
+        await startVoice();
+
+      }
+    );
+
+
+    // CREATE PEER
+
+    async function createPeer() {
+
+      peer =
+        new RTCPeerConnection({
+
+          iceServers: [
+
+            {
+              urls:
+                "stun:stun.l.google.com:19302"
+            },
+
+            {
+              urls:
+                "stun:stun1.l.google.com:19302"
+            }
+
+          ]
+
+        });
+
+
+      peer.onicecandidate =
+        async (event) => {
+
+          if (
+            !event.candidate ||
+            !roomId ||
+            !userId
+          ) {
+
+            return;
+
+          }
+
+
+          try {
+
+            await addDoc(
+
+              collection(
+                db,
+                "voiceRooms",
+                roomId,
+                "candidates"
+              ),
+
+              {
+
+                candidate:
+                  event.candidate.toJSON(),
+
+                userId:
+                  userId,
+
+                createdAt:
+                  serverTimestamp()
+
+              }
+
+            );
+
+          } catch (error) {
+
+            console.error(
+              "ICE candidate error:",
+              error
+            );
+
+          }
+
+        };
+
+
+      peer.ontrack =
+        async (event) => {
+
+          console.log(
+            "Remote audio received"
+          );
+
+
+          if (event.streams &&
+              event.streams[0]) {
+
+            remoteAudio.srcObject =
+              event.streams[0];
+
+          }
+
+
+          try {
+
+            await remoteAudio.play();
+
+          } catch (error) {
+
+            console.log(
+              "Audio autoplay blocked"
+            );
+
+          }
+
 
           voiceStatus.innerText =
             "🟢 Voice connected";
 
-        }
+        };
 
 
-        if (
-          peer.connectionState ===
-          "disconnected" ||
-          peer.connectionState ===
-          "failed"
-        ) {
+      peer.onconnectionstatechange =
+        () => {
 
-          voiceStatus.innerText =
-            "Voice disconnected ❌";
+          console.log(
+            "Connection:",
+            peer.connectionState
+          );
 
-        }
 
-      };
+          if (
+            peer.connectionState ===
+            "connected"
+          ) {
+
+            voiceStatus.innerText =
+              "🟢 Voice connected";
+
+          }
+
+
+          if (
+            peer.connectionState ===
+            "connecting"
+          ) {
+
+            voiceStatus.innerText =
+              "🔗 Connecting voice...";
+
+          }
+
+
+          if (
+            peer.connectionState ===
+            "disconnected" ||
+            peer.connectionState ===
+            "failed"
+          ) {
+
+            voiceStatus.innerText =
+              "Voice disconnected ❌";
+
+          }
+
+        };
 
 
       if (stream) {
 
         stream
           .getTracks()
-          .forEach(track => {
+          .forEach((track) => {
 
             peer.addTrack(
               track,
@@ -586,6 +639,17 @@
 
       try {
 
+        if (!navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia) {
+
+          voiceStatus.innerText =
+            "Microphone not supported ❌";
+
+          return;
+
+        }
+
+
         voiceStatus.innerText =
           "🎤 Requesting microphone...";
 
@@ -593,13 +657,50 @@
         stream =
           await navigator.mediaDevices
             .getUserMedia({
-              audio: true
+
+              audio: {
+
+                echoCancellation: true,
+
+                noiseSuppression: true,
+
+                autoGainControl: true
+
+              },
+
+              video: false
+
             });
 
 
         console.log(
           "Microphone ready"
         );
+
+
+        const audioTracks =
+          stream.getAudioTracks();
+
+
+        if (!audioTracks.length) {
+
+          throw new Error(
+            "No microphone track found"
+          );
+
+        }
+
+
+        audioTracks.forEach(
+          track => {
+
+            track.enabled = true;
+
+          }
+        );
+
+
+        muted = false;
 
 
         document.getElementById(
@@ -618,8 +719,6 @@
           );
 
 
-        // FIRST USER BECOMES CALLER
-
         await runTransaction(
           db,
           async (transaction) => {
@@ -635,11 +734,16 @@
               transaction.set(
                 roomRef,
                 {
-                  callerId: userId,
+
+                  callerId:
+                    userId,
+
                   createdAt:
                     serverTimestamp()
+
                 }
               );
+
 
               isCaller = true;
 
@@ -647,6 +751,7 @@
 
               const data =
                 snap.data();
+
 
               if (
                 data.callerId ===
@@ -681,26 +786,41 @@
       } catch (error) {
 
         console.error(
-          "Voice error:",
+          "VOICE ERROR:",
           error
         );
 
 
-        voiceStatus.innerText =
-          "Microphone error ❌";
+        if (
+          error.name ===
+          "NotAllowedError"
+        ) {
 
+          voiceStatus.innerText =
+            "🎤 Microphone permission denied ❌";
 
-        alert(
-          "Microphone/voice error: " +
-          error.message
-        );
+          alert(
+            "Microphone permission allow karo."
+          );
+
+        } else {
+
+          voiceStatus.innerText =
+            "Microphone error ❌";
+
+          alert(
+            "Voice error: " +
+            error.message
+          );
+
+        }
 
       }
 
     }
 
 
-    // CALLER CREATES OFFER
+    // CREATE OFFER
 
     async function createOffer() {
 
@@ -728,15 +848,22 @@
       await updateDoc(
         roomRef,
         {
+
           offer: {
-            type: offer.type,
-            sdp: offer.sdp
+
+            type:
+              offer.type,
+
+            sdp:
+              offer.sdp
+
           }
+
         }
       );
 
 
-      answerUnsubscribe =
+      roomUnsubscribe =
         onSnapshot(
           roomRef,
           async (snapshot) => {
@@ -764,15 +891,31 @@
             }
 
 
-            await peer.setRemoteDescription(
-              new RTCSessionDescription(
-                data.answer
-              )
-            );
+            try {
+
+              await peer.setRemoteDescription(
+
+                new RTCSessionDescription(
+                  data.answer
+                )
+
+              );
 
 
-            voiceStatus.innerText =
-              "🔗 Connecting voice...";
+              voiceStatus.innerText =
+                "🔗 Connecting voice...";
+
+
+              await addPendingCandidates();
+
+            } catch (error) {
+
+              console.error(
+                "Remote answer error:",
+                error
+              );
+
+            }
 
           }
         );
@@ -783,7 +926,7 @@
     }
 
 
-    // SECOND USER LISTENS FOR OFFER
+    // LISTEN FOR OFFER
 
     async function listenForOffer() {
 
@@ -799,7 +942,7 @@
         );
 
 
-      callerUnsubscribe =
+      roomUnsubscribe =
         onSnapshot(
           roomRef,
           async (snapshot) => {
@@ -827,37 +970,58 @@
             }
 
 
-            await peer.setRemoteDescription(
+            try {
 
-              new RTCSessionDescription(
-                data.offer
-              )
+              await peer.setRemoteDescription(
 
-            );
+                new RTCSessionDescription(
+                  data.offer
+                )
 
-
-            const answer =
-              await peer.createAnswer();
+              );
 
 
-            await peer.setLocalDescription(
-              answer
-            );
+              await addPendingCandidates();
 
 
-            await updateDoc(
-              roomRef,
-              {
-                answer: {
-                  type: answer.type,
-                  sdp: answer.sdp
+              const answer =
+                await peer.createAnswer();
+
+
+              await peer.setLocalDescription(
+                answer
+              );
+
+
+              await updateDoc(
+                roomRef,
+                {
+
+                  answer: {
+
+                    type:
+                      answer.type,
+
+                    sdp:
+                      answer.sdp
+
+                  }
+
                 }
-              }
-            );
+              );
 
 
-            voiceStatus.innerText =
-              "🔗 Connecting voice...";
+              voiceStatus.innerText =
+                "🔗 Connecting voice...";
+
+            } catch (error) {
+
+              console.error(
+                "Offer error:",
+                error
+              );
+
+            }
 
           }
         );
@@ -868,7 +1032,7 @@
     }
 
 
-    // ICE CANDIDATES
+    // LISTEN FOR ICE CANDIDATES
 
     function listenForCandidates() {
 
@@ -914,25 +1078,45 @@
 
 
               if (!peer) {
+
                 continue;
+
               }
 
 
-              try {
-
-                await peer.addIceCandidate(
-
-                  new RTCIceCandidate(
-                    data.candidate
-                  )
-
+              const candidate =
+                new RTCIceCandidate(
+                  data.candidate
                 );
 
-              } catch (error) {
 
-                console.error(
-                  "ICE error:",
-                  error
+              if (
+                peer.remoteDescription
+              ) {
+
+                try {
+
+                  await peer.addIceCandidate(
+                    candidate
+                  );
+
+                } catch (error) {
+
+                  console.error(
+                    "ICE error:",
+                    error
+                  );
+
+                }
+
+              } else {
+
+                pendingCandidates.push(
+                  candidate
+                );
+
+                console.log(
+                  "ICE candidate queued"
                 );
 
               }
@@ -946,123 +1130,189 @@
     }
 
 
-    // MIC
+    // ADD WAITING CANDIDATES
 
-    window.toggleMic = function() {
+    async function addPendingCandidates() {
 
-      if (!stream) {
-
-        alert(
-          "Microphone is not ready yet."
-        );
+      if (!peer ||
+          !peer.remoteDescription) {
 
         return;
 
       }
 
 
-      muted = !muted;
+      for (
+        const candidate
+        of pendingCandidates
+      ) {
 
+        try {
 
-      stream
-        .getAudioTracks()
-        .forEach(track => {
+          await peer.addIceCandidate(
+            candidate
+          );
 
-          track.enabled =
-            !muted;
+        } catch (error) {
 
-        });
+          console.error(
+            "Pending ICE error:",
+            error
+          );
 
-
-      const mic =
-        document.getElementById(
-          "mic"
-        );
-
-      const text =
-        document.getElementById(
-          "micText"
-        );
-
-
-      if (muted) {
-
-        mic.classList.add(
-          "off"
-        );
-
-        text.innerText =
-          "Unmute";
-
-      } else {
-
-        mic.classList.remove(
-          "off"
-        );
-
-        text.innerText =
-          "Mute";
+        }
 
       }
 
-    };
+
+      pendingCandidates = [];
+
+    }
+
+
+    // MIC BUTTON
+
+    window.toggleMic =
+      function () {
+
+        if (!stream) {
+
+          alert(
+            "Microphone is not ready yet."
+          );
+
+          return;
+
+        }
+
+
+        const tracks =
+          stream.getAudioTracks();
+
+
+        if (!tracks.length) {
+
+          alert(
+            "Microphone track not found."
+          );
+
+          return;
+
+        }
+
+
+        muted = !muted;
+
+
+        tracks.forEach(
+          track => {
+
+            track.enabled =
+              !muted;
+
+          }
+        );
+
+
+        const mic =
+          document.getElementById(
+            "mic"
+          );
+
+
+        const text =
+          document.getElementById(
+            "micText"
+          );
+
+
+        if (muted) {
+
+          mic.classList.add(
+            "off"
+          );
+
+          text.innerText =
+            "Unmute";
+
+        } else {
+
+          mic.classList.remove(
+            "off"
+          );
+
+          text.innerText =
+            "Mute";
+
+        }
+
+      };
 
 
     // SPEAKER
 
-    window.speaker = function() {
-
-      if (
-        remoteAudio
-      ) {
+    window.speaker =
+      function () {
 
         remoteAudio.muted =
           !remoteAudio.muted;
 
+
+        document.getElementById(
+          "speakerText"
+        ).innerText =
+          remoteAudio.muted
+            ? "Off"
+            : "Speaker";
+
+
         voiceStatus.innerText =
           remoteAudio.muted
-            ? "🔇 Speaker muted"
+            ? "🔇 Speaker OFF"
             : "🔊 Speaker ON";
 
-      }
-
-    };
+      };
 
 
     // LEAVE
 
-    window.leaveRoom = function() {
+    window.leaveRoom =
+      function () {
 
-      cleanup();
+        cleanup();
 
-      window.location.href =
-        "index.html";
+        window.location.href =
+          "index.html";
 
-    };
+      };
 
 
-    window.goBack = function() {
+    window.goBack =
+      function () {
 
-      cleanup();
+        cleanup();
 
-      window.location.href =
-        "index.html";
+        window.location.href =
+          "index.html";
 
-    };
+      };
 
+
+    // CLEANUP
 
     function cleanup() {
 
-      if (callerUnsubscribe) {
-        callerUnsubscribe();
+      if (roomUnsubscribe) {
+
+        roomUnsubscribe();
+
       }
 
-      if (answerUnsubscribe) {
-        answerUnsubscribe();
-      }
 
       if (candidateUnsubscribe) {
+
         candidateUnsubscribe();
+
       }
 
 
@@ -1070,9 +1320,9 @@
 
         stream
           .getTracks()
-          .forEach(track => {
-            track.stop();
-          });
+          .forEach(
+            track => track.stop()
+          );
 
       }
 
@@ -1082,6 +1332,10 @@
         peer.close();
 
       }
+
+
+      remoteAudio.srcObject =
+        null;
 
     }
 
