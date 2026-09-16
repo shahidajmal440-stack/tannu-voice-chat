@@ -12,7 +12,29 @@
       padding: 0;
       font-family: Arial, sans-serif;
     }
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
+    authDomain: "tannu-voice-chat.firebaseapp.com",
+    projectId: "tannu-voice-chat",
+    storageBucket: "tannu-voice-chat.firebasestorage.app",
+    messagingSenderId: "720483733073",
+    appId: "1:720483733073:web:c65b96d255d6177b9d7270"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  console.log("Firebase connected successfully!");
+</script>
     body {
       min-height: 100vh;
       background: linear-gradient(145deg, #120b24, #291052, #081525);
