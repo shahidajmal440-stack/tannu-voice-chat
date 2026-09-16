@@ -162,19 +162,18 @@
       <button class="back" onclick="goBack()">←</button>
 
       <div class="title">
-        <h1>Tannu Friends</h1>
+        <h1 id="roomName">Loading...</h1>
       </div>
 
-      <div class="live">
+      <div class="live" id="roomStatus">
         ● LIVE
       </div>
 
     </div>
 
-
     <div class="room-box">
 
-      <div class="host">
+      <div class="host" id="roomHost">
         ROOM HOST
       </div>
 
@@ -182,14 +181,13 @@
         T
       </div>
 
-      <h2>
-        Tannu Friends 🎙️
+      <h2 id="roomTitle">
+        Loading...
       </h2>
 
-      <p>
-        Welcome to Tannu Voice Chat ❤️
+      <p id="roomUsers">
+        Loading room data...
       </p>
-
 
       <div class="people">
 
@@ -217,7 +215,6 @@
 
     </div>
 
-
     <div class="controls">
 
       <button
@@ -233,7 +230,6 @@
 
       </button>
 
-
       <button
         class="control"
         onclick="speaker()">
@@ -245,7 +241,6 @@
         </span>
 
       </button>
-
 
       <button
         class="control leave"
@@ -274,10 +269,15 @@
 
     import {
       getAuth,
-      GoogleAuthProvider,
-      signInWithPopup
+      GoogleAuthProvider
     } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+    import {
+      getFirestore,
+      collection,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
 
     const firebaseConfig = {
 
@@ -299,10 +299,68 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/12.19.0/firebas
     const app = initializeApp(firebaseConfig);
 
     const auth = getAuth(app);
-const db = getFirestore(app);
+
+    const db = getFirestore(app);
+
     const provider = new GoogleAuthProvider();
 
+
     console.log("Firebase connected successfully!");
+
+
+    // READ ROOMS FROM FIRESTORE
+
+    async function loadRooms() {
+
+      try {
+
+        const roomsRef = collection(db, "rooms");
+
+        const snapshot = await getDocs(roomsRef);
+
+
+        snapshot.forEach((doc) => {
+
+          const room = doc.data();
+
+          console.log("Room from Firebase:", room);
+
+
+          document.getElementById("roomName").innerText =
+            room.name || "Tannu Voice Room";
+
+
+          document.getElementById("roomTitle").innerText =
+            (room.name || "Tannu Friends") + " 🎙️";
+
+
+          document.getElementById("roomHost").innerText =
+            "HOST: " + (room.host || "Tannu");
+
+
+          document.getElementById("roomStatus").innerText =
+            "● " + (room.status || "LIVE").toUpperCase();
+
+
+          document.getElementById("roomUsers").innerText =
+            "👥 " + (room.users || 0) + " Users";
+
+        });
+
+
+      } catch (error) {
+
+        console.error("Firebase rooms error:", error);
+
+        document.getElementById("roomUsers").innerText =
+          "Room data loading error ❌";
+
+      }
+
+    }
+
+
+    loadRooms();
 
   </script>
 
