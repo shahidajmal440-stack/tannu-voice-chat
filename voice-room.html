@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Tannu Voice Room</title>
 
   <style>
@@ -98,6 +96,8 @@
       margin-top: 15px;
       color: #65ffb0;
       font-size: 13px;
+      line-height: 1.5;
+      word-break: break-word;
     }
 
     .people {
@@ -168,7 +168,6 @@
   <div class="room">
 
     <div class="top">
-
       <button class="back" onclick="goBack()">←</button>
 
       <div class="title">
@@ -178,7 +177,6 @@
       <div class="live" id="roomStatus">
         ● LIVE
       </div>
-
     </div>
 
     <div class="room-box">
@@ -200,7 +198,7 @@
       </p>
 
       <div class="status" id="voiceStatus">
-        Starting microphone...
+        Starting...
       </div>
 
       <div class="people">
@@ -254,9 +252,8 @@
 
   <script type="module">
 
-    import {
-      initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
     import {
       getAuth,
@@ -295,9 +292,7 @@
 
 
     const app = initializeApp(firebaseConfig);
-
     const auth = getAuth(app);
-
     const db = getFirestore(app);
 
 
@@ -314,6 +309,7 @@
 
     let pendingCandidates = [];
 
+
     const remoteAudio =
       document.getElementById("remoteAudio");
 
@@ -321,18 +317,19 @@
       document.getElementById("voiceStatus");
 
 
-    // ROOM ID
+    // GET ROOM ID
 
     const params =
       new URLSearchParams(window.location.search);
 
-    roomId = params.get("room");
+    roomId =
+      params.get("room");
 
 
     if (!roomId) {
 
       voiceStatus.innerText =
-        "Room ID missing ❌";
+        "❌ Room ID missing. Open room using Join Room.";
 
     }
 
@@ -341,17 +338,19 @@
 
     async function loadRoom() {
 
+      if (!roomId) return;
+
       try {
 
-        const roomsRef =
-          collection(db, "rooms");
+        voiceStatus.innerText =
+          "Loading room...";
 
         const snapshot =
-          await getDocs(roomsRef);
-
+          await getDocs(
+            collection(db, "rooms")
+          );
 
         let found = false;
-
 
         snapshot.forEach((roomDoc) => {
 
@@ -362,12 +361,10 @@
             const room =
               roomDoc.data();
 
-
             document.getElementById(
               "roomName"
             ).innerText =
               room.name || "Tannu Voice Room";
-
 
             document.getElementById(
               "roomTitle"
@@ -375,13 +372,11 @@
               (room.name || "Tannu Friends") +
               " 🎙️";
 
-
             document.getElementById(
               "roomHost"
             ).innerText =
               "HOST: " +
               (room.host || "Tannu");
-
 
             document.getElementById(
               "roomStatus"
@@ -389,7 +384,6 @@
               "● " +
               (room.status || "LIVE")
                 .toUpperCase();
-
 
             document.getElementById(
               "roomUsers"
@@ -406,17 +400,20 @@
         if (!found) {
 
           voiceStatus.innerText =
-            "Room not found ❌";
+            "❌ Room not found.";
 
         }
 
-
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          "ROOM ERROR:",
+          error
+        );
 
         voiceStatus.innerText =
-          "Room loading error ❌";
+          "❌ Room loading error: " +
+          error.message;
 
       }
 
@@ -435,21 +432,19 @@
         if (!user) {
 
           voiceStatus.innerText =
-            "Please login first ❌";
+            "❌ Please login first.";
 
           return;
 
         }
 
-
-        userId = user.uid;
-
+        userId =
+          user.uid;
 
         console.log(
           "Logged in:",
           userId
         );
-
 
         await startVoice();
 
@@ -488,11 +483,7 @@
             !event.candidate ||
             !roomId ||
             !userId
-          ) {
-
-            return;
-
-          }
+          ) return;
 
 
           try {
@@ -524,7 +515,7 @@
           } catch (error) {
 
             console.error(
-              "ICE candidate error:",
+              "ICE ERROR:",
               error
             );
 
@@ -540,15 +531,15 @@
             "Remote audio received"
           );
 
-
-          if (event.streams &&
-              event.streams[0]) {
+          if (
+            event.streams &&
+            event.streams[0]
+          ) {
 
             remoteAudio.srcObject =
               event.streams[0];
 
           }
-
 
           try {
 
@@ -557,11 +548,11 @@
           } catch (error) {
 
             console.log(
-              "Audio autoplay blocked"
+              "Autoplay blocked:",
+              error
             );
 
           }
-
 
           voiceStatus.innerText =
             "🟢 Voice connected";
@@ -577,7 +568,6 @@
             peer.connectionState
           );
 
-
           if (
             peer.connectionState ===
             "connected"
@@ -588,8 +578,7 @@
 
           }
 
-
-          if (
+          else if (
             peer.connectionState ===
             "connecting"
           ) {
@@ -599,16 +588,23 @@
 
           }
 
-
-          if (
+          else if (
             peer.connectionState ===
-            "disconnected" ||
+            "disconnected"
+          ) {
+
+            voiceStatus.innerText =
+              "Voice disconnected ❌";
+
+          }
+
+          else if (
             peer.connectionState ===
             "failed"
           ) {
 
             voiceStatus.innerText =
-              "Voice disconnected ❌";
+              "Voice connection failed ❌";
 
           }
 
@@ -639,11 +635,46 @@
 
       try {
 
-        if (!navigator.mediaDevices ||
-            !navigator.mediaDevices.getUserMedia) {
+        if (!roomId) {
 
           voiceStatus.innerText =
-            "Microphone not supported ❌";
+            "❌ Room ID missing.";
+
+          return;
+
+        }
+
+
+        if (
+          !window.isSecureContext
+        ) {
+
+          voiceStatus.innerText =
+            "❌ Secure connection required.";
+
+          return;
+
+        }
+
+
+        if (
+          !navigator.mediaDevices
+        ) {
+
+          voiceStatus.innerText =
+            "❌ Browser microphone API unavailable.";
+
+          return;
+
+        }
+
+
+        if (
+          !navigator.mediaDevices.getUserMedia
+        ) {
+
+          voiceStatus.innerText =
+            "❌ Microphone API unavailable.";
 
           return;
 
@@ -655,48 +686,40 @@
 
 
         stream =
-          await navigator.mediaDevices
-            .getUserMedia({
+          await navigator.mediaDevices.getUserMedia({
 
-              audio: {
+            audio: true,
 
-                echoCancellation: true,
+            video: false
 
-                noiseSuppression: true,
-
-                autoGainControl: true
-
-              },
-
-              video: false
-
-            });
+          });
 
 
-        console.log(
-          "Microphone ready"
-        );
-
-
-        const audioTracks =
+        const tracks =
           stream.getAudioTracks();
 
 
-        if (!audioTracks.length) {
+        if (!tracks.length) {
 
           throw new Error(
-            "No microphone track found"
+            "No microphone track found."
           );
 
         }
 
 
-        audioTracks.forEach(
-          track => {
+        tracks.forEach(
+          (track) => {
 
             track.enabled = true;
 
           }
+        );
+
+
+        console.log(
+          "MICROPHONE READY:",
+          tracks[0].label
         );
 
 
@@ -705,7 +728,12 @@
 
         document.getElementById(
           "micText"
-        ).innerText = "Mute";
+        ).innerText =
+          "Mute";
+
+
+        voiceStatus.innerText =
+          "🎤 Microphone ready";
 
 
         await createPeer();
@@ -724,9 +752,7 @@
           async (transaction) => {
 
             const snap =
-              await transaction.get(
-                roomRef
-              );
+              await transaction.get(roomRef);
 
 
             if (!snap.exists()) {
@@ -744,27 +770,18 @@
                 }
               );
 
+              isCaller =
+                true;
 
-              isCaller = true;
+            }
 
-            } else {
+            else {
 
               const data =
                 snap.data();
 
-
-              if (
-                data.callerId ===
-                userId
-              ) {
-
-                isCaller = true;
-
-              } else {
-
-                isCaller = false;
-
-              }
+              isCaller =
+                data.callerId === userId;
 
             }
 
@@ -776,7 +793,9 @@
 
           await createOffer();
 
-        } else {
+        }
+
+        else {
 
           await listenForOffer();
 
@@ -791,29 +810,25 @@
         );
 
 
-        if (
-          error.name ===
-          "NotAllowedError"
-        ) {
+        const name =
+          error.name || "UnknownError";
 
-          voiceStatus.innerText =
-            "🎤 Microphone permission denied ❌";
+        const message =
+          error.message ||
+          "Unknown microphone error";
 
-          alert(
-            "Microphone permission allow karo."
-          );
 
-        } else {
+        voiceStatus.innerText =
+          "❌ Mic error: " +
+          name;
 
-          voiceStatus.innerText =
-            "Microphone error ❌";
 
-          alert(
-            "Voice error: " +
-            error.message
-          );
-
-        }
+        alert(
+          "Microphone error:\n\n" +
+          name +
+          "\n" +
+          message
+        );
 
       }
 
@@ -875,30 +890,20 @@
             if (
               !data ||
               !data.answer
-            ) {
-
-              return;
-
-            }
+            ) return;
 
 
             if (
               peer.currentRemoteDescription
-            ) {
-
-              return;
-
-            }
+            ) return;
 
 
             try {
 
               await peer.setRemoteDescription(
-
                 new RTCSessionDescription(
                   data.answer
                 )
-
               );
 
 
@@ -911,7 +916,7 @@
             } catch (error) {
 
               console.error(
-                "Remote answer error:",
+                "ANSWER ERROR:",
                 error
               );
 
@@ -954,20 +959,12 @@
             if (
               !data ||
               !data.offer
-            ) {
-
-              return;
-
-            }
+            ) return;
 
 
             if (
               peer.currentRemoteDescription
-            ) {
-
-              return;
-
-            }
+            ) return;
 
 
             try {
@@ -1017,7 +1014,7 @@
             } catch (error) {
 
               console.error(
-                "Offer error:",
+                "OFFER ERROR:",
                 error
               );
 
@@ -1032,7 +1029,7 @@
     }
 
 
-    // LISTEN FOR ICE CANDIDATES
+    // ICE CANDIDATES
 
     function listenForCandidates() {
 
@@ -1056,11 +1053,7 @@
               if (
                 change.type !==
                 "added"
-              ) {
-
-                continue;
-
-              }
+              ) continue;
 
 
               const data =
@@ -1068,20 +1061,11 @@
 
 
               if (
-                data.userId ===
-                userId
-              ) {
-
-                continue;
-
-              }
+                data.userId === userId
+              ) continue;
 
 
-              if (!peer) {
-
-                continue;
-
-              }
+              if (!peer) continue;
 
 
               const candidate =
@@ -1103,20 +1087,18 @@
                 } catch (error) {
 
                   console.error(
-                    "ICE error:",
+                    "ICE ERROR:",
                     error
                   );
 
                 }
 
-              } else {
+              }
+
+              else {
 
                 pendingCandidates.push(
                   candidate
-                );
-
-                console.log(
-                  "ICE candidate queued"
                 );
 
               }
@@ -1130,16 +1112,14 @@
     }
 
 
-    // ADD WAITING CANDIDATES
+    // ADD PENDING ICE
 
     async function addPendingCandidates() {
 
-      if (!peer ||
-          !peer.remoteDescription) {
-
-        return;
-
-      }
+      if (
+        !peer ||
+        !peer.remoteDescription
+      ) return;
 
 
       for (
@@ -1156,7 +1136,7 @@
         } catch (error) {
 
           console.error(
-            "Pending ICE error:",
+            "PENDING ICE ERROR:",
             error
           );
 
@@ -1201,11 +1181,12 @@
         }
 
 
-        muted = !muted;
+        muted =
+          !muted;
 
 
         tracks.forEach(
-          track => {
+          (track) => {
 
             track.enabled =
               !muted;
@@ -1215,34 +1196,34 @@
 
 
         const mic =
-          document.getElementById(
-            "mic"
-          );
+          document.getElementById("mic");
 
 
         const text =
-          document.getElementById(
-            "micText"
-          );
+          document.getElementById("micText");
 
 
         if (muted) {
 
-          mic.classList.add(
-            "off"
-          );
+          mic.classList.add("off");
 
           text.innerText =
             "Unmute";
 
-        } else {
+          voiceStatus.innerText =
+            "🔇 Microphone muted";
 
-          mic.classList.remove(
-            "off"
-          );
+        }
+
+        else {
+
+          mic.classList.remove("off");
 
           text.innerText =
             "Mute";
+
+          voiceStatus.innerText =
+            "🎤 Microphone ON";
 
         }
 
@@ -1306,12 +1287,18 @@
 
         roomUnsubscribe();
 
+        roomUnsubscribe =
+          null;
+
       }
 
 
       if (candidateUnsubscribe) {
 
         candidateUnsubscribe();
+
+        candidateUnsubscribe =
+          null;
 
       }
 
@@ -1321,8 +1308,11 @@
         stream
           .getTracks()
           .forEach(
-            track => track.stop()
+            (track) => track.stop()
           );
+
+        stream =
+          null;
 
       }
 
@@ -1330,6 +1320,9 @@
       if (peer) {
 
         peer.close();
+
+        peer =
+          null;
 
       }
 
@@ -1342,5 +1335,4 @@
   </script>
 
 </body>
-
 </html>
