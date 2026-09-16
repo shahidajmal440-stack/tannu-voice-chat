@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Tannu Friends</title>
 
   <style>
@@ -19,9 +18,7 @@
       padding: 25px 15px;
     }
 
-    h1 {
-      margin-bottom: 5px;
-    }
+    h1 { margin-bottom: 5px; }
 
     .live {
       color: #ff4d6d;
@@ -90,7 +87,7 @@
     #status {
       margin: 20px auto;
       max-width: 500px;
-      padding: 14px;
+      padding: 12px;
       border-radius: 10px;
       background: #211638;
       font-size: 14px;
@@ -149,30 +146,17 @@
 
   </div>
 
-  <div id="status">
-    Checking login...
-  </div>
+  <div id="status">Checking login...</div>
 
   <div class="controls">
-
-    <button id="mic">
-      🎙️ Mic OFF
-    </button>
-
-    <button id="speaker">
-      🔊 Speaker ON
-    </button>
-
-    <button id="leave">
-      🚪 Leave
-    </button>
-
+    <button id="mic">🎙️ Mic OFF</button>
+    <button id="speaker">🔊 Speaker ON</button>
+    <button id="leave">🚪 Leave</button>
   </div>
 
   <audio id="remoteAudio" autoplay playsinline></audio>
 
 </div>
-
 
 <script type="module">
 
@@ -190,6 +174,7 @@ import {
   doc,
   getDoc,
   setDoc,
+  runTransaction,
   onSnapshot,
   collection,
   addDoc
@@ -197,137 +182,67 @@ import {
 from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
-/* =========================
-   FIREBASE
-========================= */
-
 const firebaseConfig = {
-
-  apiKey:
-    "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
-
-  authDomain:
-    "tannu-voice-chat.firebaseapp.com",
-
-  projectId:
-    "tannu-voice-chat",
-
-  storageBucket:
-    "tannu-voice-chat.firebasestorage.app",
-
-  messagingSenderId:
-    "720483733073",
-
-  appId:
-    "1:720483733073:web:c65b96d255d6177b9d7270"
-
+  apiKey: "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
+  authDomain: "tannu-voice-chat.firebaseapp.com",
+  projectId: "tannu-voice-chat",
+  storageBucket: "tannu-voice-chat.firebasestorage.app",
+  messagingSenderId: "720483733073",
+  appId: "1:720483733073:web:c65b96d255d6177b9d7270"
 };
 
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
-
 const db = getFirestore(app);
 
-
-/* =========================
-   UI
-========================= */
-
-const status =
-  document.getElementById("status");
-
-const micButton =
-  document.getElementById("mic");
-
-const speakerButton =
-  document.getElementById("speaker");
-
-const leaveButton =
-  document.getElementById("leave");
-
-const remoteAudio =
-  document.getElementById("remoteAudio");
-
-
-/* =========================
-   VARIABLES
-========================= */
+const status = document.getElementById("status");
+const micButton = document.getElementById("mic");
+const speakerButton = document.getElementById("speaker");
+const leaveButton = document.getElementById("leave");
+const remoteAudio = document.getElementById("remoteAudio");
 
 let currentUser = null;
-
 let localStream = null;
-
 let peer = null;
-
 let micOn = false;
-
 let speakerOn = true;
 
+let pendingCandidates = [];
 let remoteDescriptionReady = false;
 
-let pendingCandidates = [];
+const params = new URLSearchParams(location.search);
+const roomId = params.get("room") || "test-room";
+
+const roomRef = doc(db, "voiceRooms", roomId);
+
+const callerCandidates =
+  collection(roomRef, "callerCandidates");
+
+const calleeCandidates =
+  collection(roomRef, "calleeCandidates");
 
 
-/* =========================
-   ROOM
-========================= */
+/* ---------------- LOGIN ---------------- */
 
-const params =
-  new URLSearchParams(location.search);
+onAuthStateChanged(auth, async (user) => {
 
-const roomId =
-  params.get("room") || "test-room";
-
-
-/*
-  Every page load gets a unique
-  session ID.
-
-  This prevents old test data
-  from being reused inside the
-  same voice room.
-*/
-
-const sessionId =
-  crypto.randomUUID();
-
-
-/* =========================
-   LOGIN
-========================= */
-
-onAuthStateChanged(
-  auth,
-  async (user) => {
-
-    if (!user) {
-
-      currentUser = null;
-
-      status.innerText =
-        "❌ Please login first.";
-
-      return;
-    }
-
-    currentUser = user;
-
-    status.innerText =
-      "✅ Login found\n\n" +
-      "Welcome " +
-      (user.displayName || "User") +
-      "\n\n" +
-      "🎙️ Press Mic to join voice.";
-
+  if (!user) {
+    status.innerText = "❌ Please login first.";
+    return;
   }
-);
+
+  currentUser = user;
+
+  status.innerText =
+    "✅ Login found\n" +
+    "Welcome " +
+    (user.displayName || "User") +
+    "\n\n🎙️ Press Mic to join voice.";
+});
 
 
-/* =========================
-   MICROPHONE
-========================= */
+/* ---------------- MICROPHONE ---------------- */
 
 async function startMicrophone() {
 
@@ -337,469 +252,257 @@ async function startMicrophone() {
         !navigator.mediaDevices.getUserMedia) {
 
       throw new Error(
-        "Microphone is not supported."
+        "Microphone is not supported in this browser."
       );
-
     }
-
 
     localStream =
       await navigator.mediaDevices.getUserMedia({
 
         audio: {
-
           echoCancellation: true,
-
           noiseSuppression: true,
-
           autoGainControl: true
-
         },
 
         video: false
-
       });
-
 
     micOn = true;
 
-
-    micButton.innerText =
-      "🎙️ Mic ON";
-
-    micButton.style.background =
-      "#20b765";
-
+    micButton.innerText = "🎙️ Mic ON";
+    micButton.style.background = "#20b765";
 
     status.innerText =
-      "🎙️ Microphone ON\n\n" +
+      "🎙️ Microphone ON\n" +
       "Connecting voice...";
-
 
     await startVoiceConnection();
 
+  } catch (error) {
+
+    status.innerText =
+      "❌ Microphone error\n\n" +
+      error.name + "\n" +
+      error.message;
+  }
+}
+
+
+/* ---------------- WEBRTC ---------------- */
+
+async function startVoiceConnection() {
+
+  if (!currentUser) {
+    status.innerText = "❌ Login not found.";
+    return;
+  }
+
+  peer = new RTCPeerConnection({
+
+    iceServers: [
+      {
+        urls: "stun:stun.l.google.com:19302"
+      },
+      {
+        urls: "stun:stun1.l.google.com:19302"
+      }
+    ]
+
+  });
+
+
+  /* Local microphone */
+
+  localStream.getTracks().forEach(track => {
+
+    peer.addTrack(track, localStream);
+
+  });
+
+
+  /* Remote voice */
+
+  peer.ontrack = event => {
+
+    console.log("REMOTE AUDIO RECEIVED");
+
+    remoteAudio.srcObject = event.streams[0];
+
+    remoteAudio.muted = !speakerOn;
+
+    remoteAudio.play().catch(() => {});
+
+  };
+
+
+  /* Connection state */
+
+  peer.onconnectionstatechange = () => {
+
+    console.log(
+      "Connection:",
+      peer.connectionState
+    );
+
+    if (peer.connectionState === "connected") {
+
+      status.innerText =
+        "🟢 VOICE CONNECTED\n\n" +
+        "Real voice connection active.";
+
+    }
+
+    if (peer.connectionState === "connecting") {
+
+      status.innerText =
+        "🟡 Connecting voice...";
+
+    }
+
+    if (
+      peer.connectionState === "failed" ||
+      peer.connectionState === "disconnected"
+    ) {
+
+      status.innerText =
+        "🔴 Voice connection failed.\n" +
+        "Please stay on this page.";
+
+    }
+
+  };
+
+
+  /* ICE state */
+
+  peer.oniceconnectionstatechange = () => {
+
+    console.log(
+      "ICE:",
+      peer.iceConnectionState
+    );
+
+  };
+
+
+  /*
+    IMPORTANT:
+    ICE handler is attached BEFORE
+    setLocalDescription().
+  */
+
+  peer.onicecandidate = async event => {
+
+    if (!event.candidate) return;
+
+    const candidateData =
+      event.candidate.toJSON();
+
+    try {
+
+      if (isCaller) {
+
+        await addDoc(
+          callerCandidates,
+          candidateData
+        );
+
+      } else {
+
+        await addDoc(
+          calleeCandidates,
+          candidateData
+        );
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "ICE save error:",
+        error
+      );
+
+    }
+
+  };
+
+
+  /* ---------------- ROLE ---------------- */
+
+  let isCaller = false;
+
+
+  try {
+
+    await runTransaction(
+      db,
+      async transaction => {
+
+        const snapshot =
+          await transaction.get(roomRef);
+
+        if (!snapshot.exists()) {
+
+          isCaller = true;
+
+          transaction.set(roomRef, {
+
+            callerUid: currentUser.uid,
+            createdAt: Date.now()
+
+          });
+
+        } else {
+
+          const data =
+            snapshot.data();
+
+          if (
+            data.callerUid &&
+            data.callerUid !== currentUser.uid
+          ) {
+
+            isCaller = false;
+
+          } else {
+
+            isCaller = false;
+
+          }
+
+        }
+
+      }
+    );
 
   } catch (error) {
 
     console.error(error);
 
     status.innerText =
-      "❌ Microphone error\n\n" +
-      error.name +
-      "\n" +
-      error.message;
-
-  }
-
-}
-
-
-/* =========================
-   ADD QUEUED ICE
-========================= */
-
-async function flushCandidates() {
-
-  if (!peer) return;
-
-  if (!remoteDescriptionReady) return;
-
-
-  while (
-    pendingCandidates.length > 0
-  ) {
-
-    const candidate =
-      pendingCandidates.shift();
-
-
-    try {
-
-      await peer.addIceCandidate(
-        candidate
-      );
-
-    } catch (error) {
-
-      console.log(
-        "Queued ICE error:",
-        error
-      );
-
-    }
-
-  }
-
-}
-
-
-/* =========================
-   ADD REMOTE ICE
-========================= */
-
-async function addRemoteCandidate(
-  data
-) {
-
-  if (!peer) return;
-
-
-  const candidate =
-    new RTCIceCandidate(data);
-
-
-  if (!remoteDescriptionReady) {
-
-    pendingCandidates.push(
-      candidate
-    );
+      "❌ Could not join voice room.";
 
     return;
-
   }
 
 
-  try {
+  /* ---------------- CALLER ---------------- */
 
-    await peer.addIceCandidate(
-      candidate
-    );
+  if (isCaller) {
 
-  } catch (error) {
-
-    console.log(
-      "ICE candidate error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================
-   WEBRTC
-========================= */
-
-async function startVoiceConnection() {
-
-  if (!currentUser) {
+    console.log("ROLE: CALLER");
 
     status.innerText =
-      "❌ Login not found.";
+      "📞 Creating voice call...\n" +
+      "Waiting for second user.";
 
-    return;
 
-  }
-
-
-  /* =========================
-     PEER
-  ========================= */
-
-  peer =
-    new RTCPeerConnection({
-
-      iceServers: [
-
-        {
-          urls:
-            "stun:stun.l.google.com:19302"
-        },
-
-        {
-          urls:
-            "stun:stun1.l.google.com:19302"
-        },
-
-        {
-          urls:
-            "stun:stun2.l.google.com:19302"
-        }
-
-      ]
-
-    });
-
-
-  /* =========================
-     LOCAL AUDIO
-  ========================= */
-
-  localStream
-    .getTracks()
-    .forEach(track => {
-
-      peer.addTrack(
-        track,
-        localStream
-      );
-
-    });
-
-
-  /* =========================
-     REMOTE AUDIO
-  ========================= */
-
-  peer.ontrack =
-    event => {
-
-      console.log(
-        "REMOTE AUDIO RECEIVED"
-      );
-
-
-      if (
-        event.streams &&
-        event.streams[0]
-      ) {
-
-        remoteAudio.srcObject =
-          event.streams[0];
-
-      }
-
-
-      remoteAudio.muted =
-        !speakerOn;
-
-
-      remoteAudio
-        .play()
-        .catch(error => {
-
-          console.log(
-            "Audio play:",
-            error
-          );
-
-        });
-
-    };
-
-
-  /* =========================
-     CONNECTION STATE
-  ========================= */
-
-  peer.onconnectionstatechange =
-    () => {
-
-      console.log(
-        "Connection:",
-        peer.connectionState
-      );
-
-
-      if (
-        peer.connectionState ===
-        "connected"
-      ) {
-
-        status.innerText =
-          "🟢 VOICE CONNECTED\n\n" +
-          "Real voice connection active.";
-
-      }
-
-
-      else if (
-        peer.connectionState ===
-        "connecting"
-      ) {
-
-        status.innerText =
-          "🟡 Connecting voice...";
-
-      }
-
-
-      else if (
-        peer.connectionState ===
-        "failed"
-      ) {
-
-        status.innerText =
-          "🔴 Voice connection failed.\n\n" +
-          "Internet/NAT connection problem.";
-
-      }
-
-
-      else if (
-        peer.connectionState ===
-        "disconnected"
-      ) {
-
-        status.innerText =
-          "🟠 Voice disconnected.";
-
-      }
-
-    };
-
-
-  /* =========================
-     ICE STATE
-  ========================= */
-
-  peer.oniceconnectionstatechange =
-    () => {
-
-      console.log(
-        "ICE:",
-        peer.iceConnectionState
-      );
-
-    };
-
-
-  /* =========================
-     ROOM REFERENCES
-  ========================= */
-
-  const roomRef =
-    doc(
-      db,
-      "voiceRooms",
-      roomId
-    );
-
-
-  const callerCandidates =
-    collection(
-      roomRef,
-      "callerCandidates"
-    );
-
-
-  const calleeCandidates =
-    collection(
-      roomRef,
-      "calleeCandidates"
-    );
-
-
-  /* =========================
-     CHECK ROOM
-  ========================= */
-
-  const roomSnapshot =
-    await getDoc(roomRef);
-
-
-  /* =========================
-     FIRST PHONE
-     CALLER
-  ========================= */
-
-  if (!roomSnapshot.exists()) {
-
-    console.log(
-      "ROLE: CALLER"
-    );
-
-
-    /*
-      IMPORTANT:
-      ICE handler is attached
-      BEFORE setLocalDescription.
-    */
-
-    peer.onicecandidate =
-      async event => {
-
-        if (
-          !event.candidate
-        ) return;
-
-
-        try {
-
-          await addDoc(
-            callerCandidates,
-
-            {
-              candidate:
-                event.candidate
-                  .candidate,
-
-              sdpMid:
-                event.candidate
-                  .sdpMid,
-
-              sdpMLineIndex:
-                event.candidate
-                  .sdpMLineIndex
-            }
-
-          );
-
-        } catch (error) {
-
-          console.log(
-            "Caller ICE save error:",
-            error
-          );
-
-        }
-
-      };
-
-
-    /* CREATE OFFER */
-
-    const offer =
-      await peer.createOffer();
-
-
-    await peer.setLocalDescription(
-      offer
-    );
-
-
-    /* SAVE OFFER */
-
-    await setDoc(
-      roomRef,
-
-      {
-
-        sessionId:
-          sessionId,
-
-        offer: {
-
-          type:
-            offer.type,
-
-          sdp:
-            offer.sdp
-
-        }
-
-      },
-
-      {
-        merge: false
-      }
-
-    );
-
-
-    status.innerText =
-      "📞 Waiting for friend...\n\n" +
-      "Share the same room link.";
-
-    
-    /* =========================
-       LISTEN FOR ANSWER
-    ========================= */
+    /* Listen for answer */
 
     onSnapshot(
       roomRef,
-
       async snapshot => {
 
         const data =
@@ -807,191 +510,217 @@ async function startVoiceConnection() {
 
         if (!data) return;
 
-
-        if (
-          data.sessionId !==
-          sessionId
-        ) {
-
-          return;
-
-        }
-
-
         if (
           data.answer &&
-          !peer.currentRemoteDescription
+          !remoteDescriptionReady
         ) {
 
-          console.log(
-            "ANSWER RECEIVED"
-          );
+          try {
 
+            await peer.setRemoteDescription(
 
-          await peer.setRemoteDescription(
+              new RTCSessionDescription(
+                data.answer
+              )
 
-            new RTCSessionDescription(
-              data.answer
-            )
+            );
 
-          );
+            remoteDescriptionReady = true;
 
+            for (
+              const candidate of pendingCandidates
+            ) {
 
-          remoteDescriptionReady =
-            true;
+              try {
 
+                await peer.addIceCandidate(
+                  candidate
+                );
 
-          await flushCandidates();
+              } catch (error) {
+
+                console.log(
+                  "Pending ICE error:",
+                  error
+                );
+
+              }
+
+            }
+
+            pendingCandidates = [];
+
+          } catch (error) {
+
+            console.error(
+              "Answer error:",
+              error
+            );
+
+          }
 
         }
 
-      },
-
-      error => {
-
-        console.log(
-          "Room listener error:",
-          error
-        );
-
       }
-
     );
 
 
-    /* =========================
-       LISTEN CALLEE ICE
-    ========================= */
+    /* Listen for callee ICE */
 
     onSnapshot(
       calleeCandidates,
-
       snapshot => {
 
         snapshot.docChanges()
-          .forEach(change => {
+        .forEach(async change => {
 
-            if (
-              change.type !==
-              "added"
-            ) return;
+          if (change.type !== "added")
+            return;
 
+          const data =
+            change.doc.data();
 
-            const data =
-              change.doc.data();
+          const candidate =
+            new RTCIceCandidate(data);
 
+          if (remoteDescriptionReady) {
 
-            addRemoteCandidate({
+            try {
 
-              candidate:
-                data.candidate,
+              await peer.addIceCandidate(
+                candidate
+              );
 
-              sdpMid:
-                data.sdpMid,
+            } catch (error) {
 
-              sdpMLineIndex:
-                data.sdpMLineIndex
+              console.log(
+                "ICE error:",
+                error
+              );
 
-            });
+            }
 
-          });
+          } else {
 
-      },
+            pendingCandidates.push(
+              candidate
+            );
 
-      error => {
+          }
 
-        console.log(
-          "Callee ICE listener error:",
-          error
-        );
+        });
 
       }
-
     );
+
+
+    /* Create offer */
+
+    const offer =
+      await peer.createOffer();
+
+    await peer.setLocalDescription(
+      offer
+    );
+
+
+    await setDoc(
+      roomRef,
+      {
+        offer: {
+          type: offer.type,
+          sdp: offer.sdp
+        }
+      },
+      {
+        merge: true
+      }
+    );
+
+
+    status.innerText =
+      "📞 Voice call created.\n\n" +
+      "Waiting for another user...";
 
   }
 
 
-  /* =========================
-     SECOND PHONE
-     ANSWERER
-  ========================= */
+  /* ---------------- ANSWERER ---------------- */
 
   else {
 
-    console.log(
-      "ROLE: ANSWERER"
+    console.log("ROLE: ANSWERER");
+
+    status.innerText =
+      "🟡 Joining voice call...";
+
+
+    /* Listen for caller ICE */
+
+    onSnapshot(
+      callerCandidates,
+      snapshot => {
+
+        snapshot.docChanges()
+        .forEach(async change => {
+
+          if (change.type !== "added")
+            return;
+
+          const data =
+            change.doc.data();
+
+          const candidate =
+            new RTCIceCandidate(data);
+
+          if (remoteDescriptionReady) {
+
+            try {
+
+              await peer.addIceCandidate(
+                candidate
+              );
+
+            } catch (error) {
+
+              console.log(
+                "ICE error:",
+                error
+              );
+
+            }
+
+          } else {
+
+            pendingCandidates.push(
+              candidate
+            );
+
+          }
+
+        });
+
+      }
     );
 
+
+    /* Get offer */
+
+    const roomSnapshot =
+      await getDoc(roomRef);
 
     const data =
       roomSnapshot.data();
 
 
-    if (!data.offer) {
+    if (!data || !data.offer) {
 
       status.innerText =
-        "❌ No offer found.";
+        "❌ Voice offer not found.";
 
       return;
-
     }
 
-
-    /*
-      Receive caller ICE
-    */
-
-    onSnapshot(
-      callerCandidates,
-
-      snapshot => {
-
-        snapshot.docChanges()
-          .forEach(change => {
-
-            if (
-              change.type !==
-              "added"
-            ) return;
-
-
-            const data =
-              change.doc.data();
-
-
-            addRemoteCandidate({
-
-              candidate:
-                data.candidate,
-
-              sdpMid:
-                data.sdpMid,
-
-              sdpMLineIndex:
-                data.sdpMLineIndex
-
-            });
-
-          });
-
-      },
-
-      error => {
-
-        console.log(
-          "Caller ICE listener error:",
-          error
-        );
-
-      }
-
-    );
-
-
-    /*
-      Set remote offer
-    */
 
     await peer.setRemoteDescription(
 
@@ -1001,98 +730,56 @@ async function startVoiceConnection() {
 
     );
 
-
-    remoteDescriptionReady =
-      true;
+    remoteDescriptionReady = true;
 
 
-    await flushCandidates();
+    /* Add pending ICE */
+
+    for (
+      const candidate of pendingCandidates
+    ) {
+
+      try {
+
+        await peer.addIceCandidate(
+          candidate
+        );
+
+      } catch (error) {
+
+        console.log(
+          "Pending ICE error:",
+          error
+        );
+
+      }
+
+    }
+
+    pendingCandidates = [];
 
 
-    /*
-      IMPORTANT:
-      ICE handler before
-      setLocalDescription.
-    */
-
-    peer.onicecandidate =
-      async event => {
-
-        if (
-          !event.candidate
-        ) return;
-
-
-        try {
-
-          await addDoc(
-            calleeCandidates,
-
-            {
-
-              candidate:
-                event.candidate
-                  .candidate,
-
-              sdpMid:
-                event.candidate
-                  .sdpMid,
-
-              sdpMLineIndex:
-                event.candidate
-                  .sdpMLineIndex
-
-            }
-
-          );
-
-        } catch (error) {
-
-          console.log(
-            "Callee ICE save error:",
-            error
-          );
-
-        }
-
-      };
-
-
-    /* CREATE ANSWER */
+    /* Create answer */
 
     const answer =
       await peer.createAnswer();
-
 
     await peer.setLocalDescription(
       answer
     );
 
 
-    /* SAVE ANSWER */
-
     await setDoc(
-
       roomRef,
-
       {
-
         answer: {
-
-          type:
-            answer.type,
-
-          sdp:
-            answer.sdp
-
+          type: answer.type,
+          sdp: answer.sdp
         }
-
       },
-
       {
         merge: true
       }
-
     );
 
 
@@ -1105,127 +792,106 @@ async function startVoiceConnection() {
 }
 
 
-/* =========================
-   MIC BUTTON
-========================= */
+/* ---------------- MIC BUTTON ---------------- */
 
-micButton.onclick =
-  async () => {
+micButton.onclick = async () => {
 
-    if (!localStream) {
+  if (!localStream) {
 
-      await startMicrophone();
+    await startMicrophone();
 
-      return;
-
-    }
+    return;
+  }
 
 
-    micOn =
-      !micOn;
+  micOn = !micOn;
 
+
+  localStream
+    .getAudioTracks()
+    .forEach(track => {
+
+      track.enabled = micOn;
+
+    });
+
+
+  if (micOn) {
+
+    micButton.innerText =
+      "🎙️ Mic ON";
+
+    micButton.style.background =
+      "#20b765";
+
+  } else {
+
+    micButton.innerText =
+      "🔇 Mic OFF";
+
+    micButton.style.background =
+      "#555";
+
+  }
+
+};
+
+
+/* ---------------- SPEAKER ---------------- */
+
+speakerButton.onclick = () => {
+
+  speakerOn = !speakerOn;
+
+  remoteAudio.muted =
+    !speakerOn;
+
+
+  if (speakerOn) {
+
+    speakerButton.innerText =
+      "🔊 Speaker ON";
+
+    speakerButton.style.background =
+      "#20b765";
+
+    remoteAudio.play().catch(() => {});
+
+  } else {
+
+    speakerButton.innerText =
+      "🔇 Speaker OFF";
+
+    speakerButton.style.background =
+      "#555";
+
+  }
+
+};
+
+
+/* ---------------- LEAVE ---------------- */
+
+leaveButton.onclick = () => {
+
+  if (localStream) {
 
     localStream
-      .getAudioTracks()
-      .forEach(track => {
+      .getTracks()
+      .forEach(track => track.stop());
 
-        track.enabled =
-          micOn;
+  }
 
-      });
+  if (peer) {
 
+    peer.close();
 
-    if (micOn) {
+  }
 
-      micButton.innerText =
-        "🎙️ Mic ON";
+  window.location.href =
+    "index.html";
 
-      micButton.style.background =
-        "#20b765";
-
-    } else {
-
-      micButton.innerText =
-        "🔇 Mic OFF";
-
-      micButton.style.background =
-        "#555";
-
-    }
-
-  };
-
-
-/* =========================
-   SPEAKER
-========================= */
-
-speakerButton.onclick =
-  () => {
-
-    speakerOn =
-      !speakerOn;
-
-
-    remoteAudio.muted =
-      !speakerOn;
-
-
-    if (speakerOn) {
-
-      speakerButton.innerText =
-        "🔊 Speaker ON";
-
-      speakerButton.style.background =
-        "#20b765";
-
-
-      remoteAudio
-        .play()
-        .catch(() => {});
-
-    } else {
-
-      speakerButton.innerText =
-        "🔇 Speaker OFF";
-
-      speakerButton.style.background =
-        "#555";
-
-    }
-
-  };
-
-
-/* =========================
-   LEAVE
-========================= */
-
-leaveButton.onclick =
-  () => {
-
-    if (localStream) {
-
-      localStream
-        .getTracks()
-        .forEach(track =>
-          track.stop()
-        );
-
-    }
-
-
-    if (peer) {
-
-      peer.close();
-
-    }
-
-
-    window.location.href =
-      "index.html";
-
-  };
+};
 
 </script>
 
