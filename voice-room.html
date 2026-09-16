@@ -94,6 +94,12 @@
       font-size: 14px;
     }
 
+    .status {
+      margin-top: 15px;
+      color: #65ffb0;
+      font-size: 13px;
+    }
+
     .people {
       display: flex;
       justify-content: center;
@@ -150,6 +156,10 @@
     .off {
       background: #555;
     }
+
+    #remoteAudio {
+      display: none;
+    }
   </style>
 </head>
 
@@ -188,6 +198,10 @@
       <p id="roomUsers">
         Loading room data...
       </p>
+
+      <div class="status" id="voiceStatus">
+        Connecting voice...
+      </div>
 
       <div class="people">
 
@@ -231,6 +245,7 @@
       </button>
 
       <button
+        id="speakerButton"
         class="control"
         onclick="speaker()">
 
@@ -258,6 +273,8 @@
 
   </div>
 
+  <audio id="remoteAudio" autoplay playsinline></audio>
+
 
   <!-- FIREBASE -->
 
@@ -269,19 +286,27 @@
 
     import {
       getAuth,
-      GoogleAuthProvider
+      onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
     import {
       getFirestore,
       collection,
-      getDocs
+      getDocs,
+      doc,
+      getDoc,
+      setDoc,
+      updateDoc,
+      onSnapshot,
+      addDoc,
+      serverTimestamp,
+      runTransaction
     } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
     const firebaseConfig = {
 
-      apiKey: "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
+      apiKey: "AIzaSyAc7BBnG5zzAmB4Mx-3haVwE0aob5HlVc",
 
       authDomain: "tannu-voice-chat.firebaseapp.com",
 
@@ -302,28 +327,63 @@
 
     const db = getFirestore(app);
 
-    const provider = new GoogleAuthProvider();
+
+    let stream = null;
+    let peer = null;
+    let roomId = null;
+    let userId = null;
+    let muted = false;
+    let isCaller = false;
+    let callerUnsubscribe = null;
+    let answerUnsubscribe = null;
+    let candidateUnsubscribe = null;
 
 
-    console.log("Firebase connected successfully!");
+    const remoteAudio =
+      document.getElementById("remoteAudio");
 
 
-    // READ ROOMS FROM FIRESTORE
+    const voiceStatus =
+      document.getElementById("voiceStatus");
+
+
+    // GET ROOM ID
+
+    const params = new URLSearchParams(
+      window.location.search
+    );
+
+    roomId = params.get("room");
+
+
+    if (!roomId) {
+
+      voiceStatus.innerText =
+        "Room ID missing ❌";
+
+    }
+
+
+    // LOAD ROOM
 
     async function loadRooms() {
 
       try {
 
-        const roomsRef = collection(db, "rooms");
+        const roomsRef =
+          collection(db, "rooms");
 
-        const snapshot = await getDocs(roomsRef);
+        const snapshot =
+          await getDocs(roomsRef);
 
 
-        snapshot.forEach((doc) => {
+        snapshot.forEach((docSnap) => {
 
-          const room = doc.data();
+          if (docSnap.id !== roomId && roomId) {
+            return;
+          }
 
-          console.log("Room from Firebase:", room);
+          const room = docSnap.data();
 
 
           document.getElementById("roomName").innerText =
@@ -339,18 +399,21 @@
 
 
           document.getElementById("roomStatus").innerText =
-            "● " + (room.status || "LIVE").toUpperCase();
+            "● " +
+            (room.status || "LIVE").toUpperCase();
 
 
           document.getElementById("roomUsers").innerText =
-            "👥 " + (room.users || 0) + " Users";
+            "👥 " +
+            (room.users || 0) +
+            " Users";
 
         });
 
 
       } catch (error) {
 
-        console.error("Firebase rooms error:", error);
+        console.error(error);
 
         document.getElementById("roomUsers").innerText =
           "Room data loading error ❌";
@@ -362,115 +425,663 @@
 
     loadRooms();
 
-  </script>
+
+    // AUTH
+
+    onAuthStateChanged(auth, async (user) => {
+
+      if (!user) {
+
+        voiceStatus.innerText =
+          "Please login first ❌";
+
+        return;
+      }
 
 
-  <!-- VOICE ROOM CONTROLS -->
+      userId = user.uid;
 
-  <script>
+      console.log("Logged in:", userId);
 
-    let stream = null;
+      await startVoice();
 
-    let muted = false;
-
-
-    async function toggleMic() {
-
-      const mic = document.getElementById("mic");
-
-      const text = document.getElementById("micText");
+    });
 
 
-      if (!stream) {
+    // CREATE WEBRTC
+
+    async function createPeer() {
+
+      peer = new RTCPeerConnection({
+
+        iceServers: [
+
+          {
+            urls: "stun:stun.l.google.com:19302"
+          },
+
+          {
+            urls: "stun:stun1.l.google.com:19302"
+          }
+
+        ]
+
+      });
+
+
+      peer.onicecandidate = async (event) => {
+
+        if (!event.candidate || !roomId) {
+          return;
+        }
+
 
         try {
 
-          stream = await navigator.mediaDevices.getUserMedia({
-            audio: true
-          });
+          await addDoc(
 
-          muted = false;
+            collection(
+              db,
+              "voiceRooms",
+              roomId,
+              "candidates"
+            ),
 
-          mic.classList.remove("off");
+            {
 
-          text.innerText = "Mute";
+              candidate:
+                event.candidate.toJSON(),
 
-          alert("🎙️ Mic ON");
+              userId: userId,
+
+              createdAt:
+                serverTimestamp()
+
+            }
+
+          );
 
         } catch (error) {
 
-          alert("Microphone permission denied ❌");
+          console.error(
+            "Candidate error:",
+            error
+          );
 
         }
 
+      };
+
+
+      peer.ontrack = (event) => {
+
+        console.log("Remote audio received");
+
+        remoteAudio.srcObject =
+          event.streams[0];
+
+        remoteAudio.play().catch(() => {});
+
+        voiceStatus.innerText =
+          "🟢 Voice connected";
+
+      };
+
+
+      peer.onconnectionstatechange = () => {
+
+        console.log(
+          "Connection:",
+          peer.connectionState
+        );
+
+
+        if (
+          peer.connectionState ===
+          "connected"
+        ) {
+
+          voiceStatus.innerText =
+            "🟢 Voice connected";
+
+        }
+
+
+        if (
+          peer.connectionState ===
+          "disconnected" ||
+          peer.connectionState ===
+          "failed"
+        ) {
+
+          voiceStatus.innerText =
+            "Voice disconnected ❌";
+
+        }
+
+      };
+
+
+      if (stream) {
+
+        stream
+          .getTracks()
+          .forEach(track => {
+
+            peer.addTrack(
+              track,
+              stream
+            );
+
+          });
+
+      }
+
+    }
+
+
+    // START VOICE
+
+    async function startVoice() {
+
+      try {
+
+        voiceStatus.innerText =
+          "🎤 Requesting microphone...";
+
+
+        stream =
+          await navigator.mediaDevices
+            .getUserMedia({
+              audio: true
+            });
+
+
+        console.log(
+          "Microphone ready"
+        );
+
+
+        document.getElementById(
+          "micText"
+        ).innerText = "Mute";
+
+
+        await createPeer();
+
+
+        const roomRef =
+          doc(
+            db,
+            "voiceRooms",
+            roomId
+          );
+
+
+        // FIRST USER BECOMES CALLER
+
+        await runTransaction(
+          db,
+          async (transaction) => {
+
+            const snap =
+              await transaction.get(
+                roomRef
+              );
+
+
+            if (!snap.exists()) {
+
+              transaction.set(
+                roomRef,
+                {
+                  callerId: userId,
+                  createdAt:
+                    serverTimestamp()
+                }
+              );
+
+              isCaller = true;
+
+            } else {
+
+              const data =
+                snap.data();
+
+              if (
+                data.callerId ===
+                userId
+              ) {
+
+                isCaller = true;
+
+              } else {
+
+                isCaller = false;
+
+              }
+
+            }
+
+          }
+        );
+
+
+        if (isCaller) {
+
+          await createOffer();
+
+        } else {
+
+          await listenForOffer();
+
+        }
+
+
+      } catch (error) {
+
+        console.error(
+          "Voice error:",
+          error
+        );
+
+
+        voiceStatus.innerText =
+          "Microphone error ❌";
+
+
+        alert(
+          "Microphone/voice error: " +
+          error.message
+        );
+
+      }
+
+    }
+
+
+    // CALLER CREATES OFFER
+
+    async function createOffer() {
+
+      voiceStatus.innerText =
+        "Waiting for another user...";
+
+
+      const offer =
+        await peer.createOffer();
+
+
+      await peer.setLocalDescription(
+        offer
+      );
+
+
+      const roomRef =
+        doc(
+          db,
+          "voiceRooms",
+          roomId
+        );
+
+
+      await updateDoc(
+        roomRef,
+        {
+          offer: {
+            type: offer.type,
+            sdp: offer.sdp
+          }
+        }
+      );
+
+
+      answerUnsubscribe =
+        onSnapshot(
+          roomRef,
+          async (snapshot) => {
+
+            const data =
+              snapshot.data();
+
+
+            if (
+              !data ||
+              !data.answer
+            ) {
+
+              return;
+
+            }
+
+
+            if (
+              peer.currentRemoteDescription
+            ) {
+
+              return;
+
+            }
+
+
+            await peer.setRemoteDescription(
+              new RTCSessionDescription(
+                data.answer
+              )
+            );
+
+
+            voiceStatus.innerText =
+              "🔗 Connecting voice...";
+
+          }
+        );
+
+
+      listenForCandidates();
+
+    }
+
+
+    // SECOND USER LISTENS FOR OFFER
+
+    async function listenForOffer() {
+
+      voiceStatus.innerText =
+        "Joining voice room...";
+
+
+      const roomRef =
+        doc(
+          db,
+          "voiceRooms",
+          roomId
+        );
+
+
+      callerUnsubscribe =
+        onSnapshot(
+          roomRef,
+          async (snapshot) => {
+
+            const data =
+              snapshot.data();
+
+
+            if (
+              !data ||
+              !data.offer
+            ) {
+
+              return;
+
+            }
+
+
+            if (
+              peer.currentRemoteDescription
+            ) {
+
+              return;
+
+            }
+
+
+            await peer.setRemoteDescription(
+
+              new RTCSessionDescription(
+                data.offer
+              )
+
+            );
+
+
+            const answer =
+              await peer.createAnswer();
+
+
+            await peer.setLocalDescription(
+              answer
+            );
+
+
+            await updateDoc(
+              roomRef,
+              {
+                answer: {
+                  type: answer.type,
+                  sdp: answer.sdp
+                }
+              }
+            );
+
+
+            voiceStatus.innerText =
+              "🔗 Connecting voice...";
+
+          }
+        );
+
+
+      listenForCandidates();
+
+    }
+
+
+    // ICE CANDIDATES
+
+    function listenForCandidates() {
+
+      candidateUnsubscribe =
+        onSnapshot(
+
+          collection(
+            db,
+            "voiceRooms",
+            roomId,
+            "candidates"
+          ),
+
+          async (snapshot) => {
+
+            for (
+              const change of
+              snapshot.docChanges()
+            ) {
+
+              if (
+                change.type !==
+                "added"
+              ) {
+
+                continue;
+
+              }
+
+
+              const data =
+                change.doc.data();
+
+
+              if (
+                data.userId ===
+                userId
+              ) {
+
+                continue;
+
+              }
+
+
+              if (!peer) {
+                continue;
+              }
+
+
+              try {
+
+                await peer.addIceCandidate(
+
+                  new RTCIceCandidate(
+                    data.candidate
+                  )
+
+                );
+
+              } catch (error) {
+
+                console.error(
+                  "ICE error:",
+                  error
+                );
+
+              }
+
+            }
+
+          }
+
+        );
+
+    }
+
+
+    // MIC
+
+    window.toggleMic = function() {
+
+      if (!stream) {
+
+        alert(
+          "Microphone is not ready yet."
+        );
+
         return;
+
       }
 
 
       muted = !muted;
 
 
-      stream.getAudioTracks().forEach(function(track) {
+      stream
+        .getAudioTracks()
+        .forEach(track => {
 
-        track.enabled = !muted;
+          track.enabled =
+            !muted;
 
-      });
+        });
+
+
+      const mic =
+        document.getElementById(
+          "mic"
+        );
+
+      const text =
+        document.getElementById(
+          "micText"
+        );
 
 
       if (muted) {
 
-        mic.classList.add("off");
+        mic.classList.add(
+          "off"
+        );
 
-        text.innerText = "Unmute";
+        text.innerText =
+          "Unmute";
 
       } else {
 
-        mic.classList.remove("off");
+        mic.classList.remove(
+          "off"
+        );
 
-        text.innerText = "Mute";
+        text.innerText =
+          "Mute";
 
       }
 
-    }
+    };
 
 
-    function speaker() {
+    // SPEAKER
 
-      alert("🔊 Speaker button pressed");
+    window.speaker = function() {
 
-    }
+      if (
+        remoteAudio
+      ) {
+
+        remoteAudio.muted =
+          !remoteAudio.muted;
+
+        voiceStatus.innerText =
+          remoteAudio.muted
+            ? "🔇 Speaker muted"
+            : "🔊 Speaker ON";
+
+      }
+
+    };
 
 
-    function leaveRoom() {
+    // LEAVE
+
+    window.leaveRoom = function() {
+
+      cleanup();
+
+      window.location.href =
+        "index.html";
+
+    };
+
+
+    window.goBack = function() {
+
+      cleanup();
+
+      window.location.href =
+        "index.html";
+
+    };
+
+
+    function cleanup() {
+
+      if (callerUnsubscribe) {
+        callerUnsubscribe();
+      }
+
+      if (answerUnsubscribe) {
+        answerUnsubscribe();
+      }
+
+      if (candidateUnsubscribe) {
+        candidateUnsubscribe();
+      }
+
 
       if (stream) {
 
-        stream.getTracks().forEach(function(track) {
-
-          track.stop();
-
-        });
-
-      }
-
-      window.location.href = "index.html";
-
-    }
-
-
-    function goBack() {
-
-      if (stream) {
-
-        stream.getTracks().forEach(function(track) {
-
-          track.stop();
-
-        });
+        stream
+          .getTracks()
+          .forEach(track => {
+            track.stop();
+          });
 
       }
 
-      window.location.href = "room.html";
+
+      if (peer) {
+
+        peer.close();
+
+      }
 
     }
 
