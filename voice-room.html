@@ -35,7 +35,8 @@ body:before{
     radial-gradient(circle at 50% 90%,rgba(255,40,180,.12),transparent 35%);
 }
 
-/* TOP */
+/* ================= TOP ================= */
+
 .top{
   display:flex;
   justify-content:space-between;
@@ -98,7 +99,8 @@ body:before{
   font-size:19px;
 }
 
-/* LOGO */
+/* ================= BRAND ================= */
+
 .brand{
   text-align:center;
   padding:4px 0 9px;
@@ -125,7 +127,8 @@ body:before{
   letter-spacing:.5px;
 }
 
-/* INFO */
+/* ================= INFO ================= */
+
 .info{
   display:flex;
   justify-content:space-between;
@@ -151,7 +154,8 @@ body:before{
   font-size:12px;
 }
 
-/* ANNOUNCEMENT */
+/* ================= ANNOUNCEMENT ================= */
+
 .announce{
   margin:4px 12px 12px;
   padding:11px 13px;
@@ -170,7 +174,174 @@ body:before{
   color:#ff75d9;
 }
 
-/* SEATS */
+/* ================= ROOM JOURNEY ================= */
+
+.journey{
+  margin:0 12px 14px;
+  padding:15px;
+  border-radius:22px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(126,42,190,.35),
+      rgba(35,9,65,.92)
+    );
+  border:1px solid rgba(255,93,220,.25);
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.25),
+    inset 0 0 25px rgba(255,50,210,.04);
+}
+
+.journey-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.journey-title{
+  font-size:16px;
+  font-weight:900;
+}
+
+.journey-sub{
+  margin-top:4px;
+  color:#a99ab7;
+  font-size:10px;
+}
+
+.journey-level{
+  padding:7px 10px;
+  border-radius:14px;
+  background:rgba(255,215,80,.1);
+  border:1px solid rgba(255,215,80,.2);
+  color:#ffd85a;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.xp-row{
+  display:flex;
+  justify-content:space-between;
+  margin-top:13px;
+  font-size:10px;
+  color:#c8b8d5;
+}
+
+.xp-row strong{
+  color:#ff8de3;
+}
+
+.xp-bar{
+  height:7px;
+  margin-top:6px;
+  border-radius:20px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+}
+
+.xp-fill{
+  height:100%;
+  width:0%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#ff42d0,#a54cff,#ffd84d);
+  transition:width .4s ease;
+}
+
+.streak{
+  margin-top:12px;
+  padding:9px 11px;
+  border-radius:14px;
+  background:rgba(255,100,40,.08);
+  border:1px solid rgba(255,150,60,.13);
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+}
+
+.streak strong{
+  color:#ff9b4a;
+}
+
+/* ================= MISSIONS ================= */
+
+.missions-title{
+  margin-top:15px;
+  margin-bottom:9px;
+  font-size:12px;
+  color:#ff9be5;
+  font-weight:bold;
+}
+
+.mission{
+  margin-top:8px;
+  padding:10px;
+  border-radius:15px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.07);
+}
+
+.mission.completed{
+  border-color:rgba(60,255,180,.3);
+  background:rgba(40,255,170,.05);
+}
+
+.mission-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.mission-name{
+  font-size:11px;
+  font-weight:bold;
+}
+
+.mission-reward{
+  color:#ffd85a;
+  font-size:10px;
+  white-space:nowrap;
+}
+
+.mission-progress-row{
+  display:flex;
+  justify-content:space-between;
+  margin-top:7px;
+  color:#888;
+  font-size:9px;
+}
+
+.mission-bar{
+  height:5px;
+  margin-top:5px;
+  border-radius:20px;
+  background:rgba(255,255,255,.07);
+  overflow:hidden;
+}
+
+.mission-fill{
+  width:0%;
+  height:100%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#ff4bd3,#ffd84d);
+  transition:width .4s ease;
+}
+
+.mission.completed .mission-fill{
+  background:linear-gradient(90deg,#36f5b0,#7affd2);
+}
+
+.mission-status{
+  margin-top:6px;
+  font-size:9px;
+  color:#888;
+}
+
+.mission.completed .mission-status{
+  color:#65ffc7;
+}
+
+/* ================= SEATS ================= */
+
 .seats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -258,7 +429,8 @@ body:before{
   color:#999;
 }
 
-/* QUICK BAR */
+/* ================= QUICK ================= */
+
 .quick{
   display:flex;
   gap:7px;
@@ -280,7 +452,8 @@ body:before{
   font-size:11px;
 }
 
-/* MAIN PANEL */
+/* ================= MAIN PANEL ================= */
+
 .panel{
   margin:0 11px 110px;
   border-radius:21px;
@@ -329,7 +502,8 @@ body:before{
   color:#ffd452;
 }
 
-/* RIGHT WALLET STYLE */
+/* ================= WALLET ================= */
+
 .wallet{
   margin:0 12px 10px;
   padding:11px 13px;
@@ -366,7 +540,8 @@ body:before{
   font-size:19px;
 }
 
-/* GIFT MENU */
+/* ================= GIFT MENU ================= */
+
 .gift-menu{
   position:fixed;
   left:10px;
@@ -421,7 +596,8 @@ body:before{
   margin-top:3px;
 }
 
-/* MODAL */
+/* ================= MODAL ================= */
+
 .modal{
   position:fixed;
   inset:0;
@@ -466,7 +642,8 @@ body:before{
   background:#a32b91;
 }
 
-/* BOTTOM */
+/* ================= BOTTOM ================= */
+
 .bottom{
   position:fixed;
   left:0;
@@ -516,7 +693,8 @@ body:before{
   background:linear-gradient(145deg,#ff426e,#91143c);
 }
 
-/* TOAST */
+/* ================= TOAST ================= */
+
 .toast{
   position:fixed;
   left:50%;
@@ -537,6 +715,8 @@ body:before{
   opacity:1;
   transform:translate(-50%,0);
 }
+
+/* ================= RESPONSIVE ================= */
 
 @media(max-width:360px){
 
@@ -567,7 +747,8 @@ body:before{
 
 <body>
 
-<!-- TOP -->
+<!-- ================= TOP ================= -->
+
 <div class="top">
 
   <div class="user">
@@ -575,6 +756,7 @@ body:before{
     <div class="avatar-main">👑</div>
 
     <div>
+
       <div class="name">
         Tannu Voice Chat 💗
       </div>
@@ -586,6 +768,7 @@ body:before{
       <div class="tag">
         🎤 Chat & Friends
       </div>
+
     </div>
 
   </div>
@@ -611,7 +794,8 @@ body:before{
 
 </div>
 
-<!-- BRAND -->
+<!-- ================= BRAND ================= -->
+
 <div class="brand">
 
   <div class="crown">👑</div>
@@ -626,7 +810,8 @@ body:before{
 
 </div>
 
-<!-- INFO -->
+<!-- ================= INFO ================= -->
+
 <div class="info">
 
   <div class="coin">
@@ -639,123 +824,424 @@ body:before{
 
 </div>
 
-<!-- ANNOUNCEMENT -->
+<!-- ================= ANNOUNCEMENT ================= -->
+
 <div class="announce">
+
   📢 <b>Tannu:</b>
   Welcome to Tannu Voice Chat Room ❤️
   Be kind, respect everyone and enjoy your time here.
+
 </div>
 
-<!-- SEATS -->
+<!-- ================= ROOM JOURNEY ================= -->
+
+<div class="journey">
+
+  <div class="journey-head">
+
+    <div>
+
+      <div class="journey-title">
+        🎯 Room Journey
+      </div>
+
+      <div class="journey-sub">
+        Stay active, complete missions & grow your room level
+      </div>
+
+    </div>
+
+    <div class="journey-level"
+      id="roomLevel">
+      LV.1
+    </div>
+
+  </div>
+
+  <div class="xp-row">
+
+    <span>
+      ⭐ Room XP
+    </span>
+
+    <strong id="roomXPText">
+      0 / 100
+    </strong>
+
+  </div>
+
+  <div class="xp-bar">
+
+    <div
+      class="xp-fill"
+      id="roomXPFill">
+    </div>
+
+  </div>
+
+  <div class="streak">
+
+    <span>
+      🔥 Daily Room Streak
+    </span>
+
+    <strong id="roomStreak">
+      1 Day
+    </strong>
+
+  </div>
+
+  <div class="missions-title">
+    🎯 Today's Missions
+  </div>
+
+  <!-- Mission 1 -->
+
+  <div class="mission"
+    id="missionTimeBox">
+
+    <div class="mission-top">
+
+      <div class="mission-name">
+        ⏱️ Stay in the room
+      </div>
+
+      <div class="mission-reward">
+        🪙 +5K · ⭐ +100
+      </div>
+
+    </div>
+
+    <div class="mission-progress-row">
+
+      <span id="timeMissionText">
+        0 / 30 min
+      </span>
+
+      <span id="timeMissionStatus">
+        In progress
+      </span>
+
+    </div>
+
+    <div class="mission-bar">
+
+      <div
+        class="mission-fill"
+        id="timeMissionFill">
+      </div>
+
+    </div>
+
+    <div class="mission-status">
+      Spend time in this room to complete the mission.
+    </div>
+
+  </div>
+
+  <!-- Mission 2 -->
+
+  <div class="mission"
+    id="chatMissionBox">
+
+    <div class="mission-top">
+
+      <div class="mission-name">
+        💬 Send messages
+      </div>
+
+      <div class="mission-reward">
+        🪙 +2K · ⭐ +50
+      </div>
+
+    </div>
+
+    <div class="mission-progress-row">
+
+      <span id="chatMissionText">
+        0 / 5 messages
+      </span>
+
+      <span id="chatMissionStatus">
+        In progress
+      </span>
+
+    </div>
+
+    <div class="mission-bar">
+
+      <div
+        class="mission-fill"
+        id="chatMissionFill">
+      </div>
+
+    </div>
+
+    <div class="mission-status">
+      Talk with the room community.
+    </div>
+
+  </div>
+
+  <!-- Mission 3 -->
+
+  <div class="mission"
+    id="giftMissionBox">
+
+    <div class="mission-top">
+
+      <div class="mission-name">
+        🎁 Send a gift
+      </div>
+
+      <div class="mission-reward">
+        🪙 +3K · ⭐ +75
+      </div>
+
+    </div>
+
+    <div class="mission-progress-row">
+
+      <span id="giftMissionText">
+        0 / 1 gift
+      </span>
+
+      <span id="giftMissionStatus">
+        In progress
+      </span>
+
+    </div>
+
+    <div class="mission-bar">
+
+      <div
+        class="mission-fill"
+        id="giftMissionFill">
+      </div>
+
+    </div>
+
+    <div class="mission-status">
+      Send any gift to complete this mission.
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ================= SEATS ================= -->
+
 <div class="seats">
 
   <div class="seat host">
+
     <div class="seat-avatar">
       👑
       <span class="mic">🎙</span>
     </div>
-    <div class="seat-name">Tannu 👑</div>
-    <div class="role">HOST</div>
+
+    <div class="seat-name">
+      Tannu 👑
+    </div>
+
+    <div class="role">
+      HOST
+    </div>
+
   </div>
 
   <div class="seat speaker">
+
     <div class="seat-avatar">
       👩🏻
       <span class="mic">🎙</span>
     </div>
-    <div class="seat-name">Sana ❤️</div>
-    <div class="role">SPEAKER</div>
+
+    <div class="seat-name">
+      Sana ❤️
+    </div>
+
+    <div class="role">
+      SPEAKER
+    </div>
+
   </div>
 
   <div class="seat muted">
+
     <div class="seat-avatar">
       👨🏽
       <span class="mic off">🔇</span>
     </div>
-    <div class="seat-name">Arman</div>
-    <div class="role">MUTED</div>
+
+    <div class="seat-name">
+      Arman
+    </div>
+
+    <div class="role">
+      MUTED
+    </div>
+
   </div>
 
   <div class="seat speaker">
+
     <div class="seat-avatar">
       👨🏻
       <span class="mic">🎙</span>
     </div>
-    <div class="seat-name">Rohan</div>
-    <div class="role">SPEAKER</div>
+
+    <div class="seat-name">
+      Rohan
+    </div>
+
+    <div class="role">
+      SPEAKER
+    </div>
+
   </div>
 
   <div class="seat speaker">
+
     <div class="seat-avatar">
       👨🏽
       <span class="mic">🎙</span>
     </div>
-    <div class="seat-name">Amit</div>
-    <div class="role">SPEAKER</div>
+
+    <div class="seat-name">
+      Amit
+    </div>
+
+    <div class="role">
+      SPEAKER
+    </div>
+
   </div>
 
   <div class="seat muted">
+
     <div class="seat-avatar">
       👩🏻
       <span class="mic off">🔇</span>
     </div>
-    <div class="seat-name">Priya</div>
-    <div class="role">MUTED</div>
+
+    <div class="seat-name">
+      Priya
+    </div>
+
+    <div class="role">
+      MUTED
+    </div>
+
   </div>
 
   <div class="seat speaker">
+
     <div class="seat-avatar">
       👨🏽
       <span class="mic">🎙</span>
     </div>
-    <div class="seat-name">Imran</div>
-    <div class="role">SPEAKER</div>
+
+    <div class="seat-name">
+      Imran
+    </div>
+
+    <div class="role">
+      SPEAKER
+    </div>
+
   </div>
 
   <div class="seat muted">
+
     <div class="seat-avatar">
       👨🏻
       <span class="mic off">🔇</span>
     </div>
-    <div class="seat-name">Rahul</div>
-    <div class="role">MUTED</div>
+
+    <div class="seat-name">
+      Rahul
+    </div>
+
+    <div class="role">
+      MUTED
+    </div>
+
   </div>
 
-  <div class="seat join-seat" onclick="joinSeat(9)">
+  <div class="seat join-seat"
+    onclick="joinSeat(9)">
+
     <div class="seat-avatar">
       <span class="lock">🔒</span>
     </div>
-    <div class="seat-name">No.9</div>
-    <div class="role">JOIN</div>
+
+    <div class="seat-name">
+      No.9
+    </div>
+
+    <div class="role">
+      JOIN
+    </div>
+
   </div>
 
-  <div class="seat join-seat" onclick="joinSeat(10)">
+  <div class="seat join-seat"
+    onclick="joinSeat(10)">
+
     <div class="seat-avatar">
       <span class="lock">🔒</span>
     </div>
-    <div class="seat-name">No.10</div>
-    <div class="role">JOIN</div>
+
+    <div class="seat-name">
+      No.10
+    </div>
+
+    <div class="role">
+      JOIN
+    </div>
+
   </div>
 
-  <div class="seat join-seat" onclick="joinSeat(11)">
+  <div class="seat join-seat"
+    onclick="joinSeat(11)">
+
     <div class="seat-avatar">
       <span class="lock">🔒</span>
     </div>
-    <div class="seat-name">No.11</div>
-    <div class="role">JOIN</div>
+
+    <div class="seat-name">
+      No.11
+    </div>
+
+    <div class="role">
+      JOIN
+    </div>
+
   </div>
 
-  <div class="seat join-seat" onclick="joinSeat(12)">
+  <div class="seat join-seat"
+    onclick="joinSeat(12)">
+
     <div class="seat-avatar">
       <span class="lock">🔒</span>
     </div>
-    <div class="seat-name">No.12</div>
-    <div class="role">JOIN</div>
+
+    <div class="seat-name">
+      No.12
+    </div>
+
+    <div class="role">
+      JOIN
+    </div>
+
   </div>
 
 </div>
 
-<!-- QUICK FEATURES -->
+<!-- ================= QUICK FEATURES ================= -->
+
 <div class="quick">
 
   <button onclick="openModal('events')">
@@ -780,7 +1266,8 @@ body:before{
 
 </div>
 
-<!-- MAIN PANEL -->
+<!-- ================= MAIN PANEL ================= -->
+
 <div class="panel">
 
   <div class="tabs">
@@ -803,7 +1290,8 @@ body:before{
 
   </div>
 
-  <div class="messages" id="messages">
+  <div class="messages"
+    id="messages">
 
     <div class="msg">
       👑 <b>Tannu:</b>
@@ -837,14 +1325,23 @@ body:before{
   </div>
 
   <!-- WALLET -->
+
   <div class="wallet">
 
     <div>
-      <small>MY COINS</small>
-      <strong>🪙 <span id="roomCoins">0</span></strong>
+
+      <small>
+        MY COINS
+      </small>
+
+      <strong>
+        🪙 <span id="roomCoins">0</span>
+      </strong>
+
     </div>
 
-    <button class="plus"
+    <button
+      class="plus"
       onclick="showToast('Recharge section coming next 💰')">
       +
     </button>
@@ -853,8 +1350,10 @@ body:before{
 
 </div>
 
-<!-- GIFT MENU -->
-<div class="gift-menu" id="giftMenu">
+<!-- ================= GIFT MENU ================= -->
+
+<div class="gift-menu"
+  id="giftMenu">
 
   <div class="gift-title">
     🎁 SEND GIFT
@@ -864,70 +1363,153 @@ body:before{
 
     <button class="gift"
       onclick="sendGift('Rose',100,'🌹')">
-      <div class="gift-icon">🌹</div>
-      <div class="gift-name">Rose</div>
-      <div class="gift-price">100</div>
+
+      <div class="gift-icon">
+        🌹
+      </div>
+
+      <div class="gift-name">
+        Rose
+      </div>
+
+      <div class="gift-price">
+        100
+      </div>
+
     </button>
 
     <button class="gift"
       onclick="sendGift('Diamond',1000,'💎')">
-      <div class="gift-icon">💎</div>
-      <div class="gift-name">Diamond</div>
-      <div class="gift-price">1K</div>
+
+      <div class="gift-icon">
+        💎
+      </div>
+
+      <div class="gift-name">
+        Diamond
+      </div>
+
+      <div class="gift-price">
+        1K
+      </div>
+
     </button>
 
     <button class="gift"
       onclick="sendGift('Crown',10000,'👑')">
-      <div class="gift-icon">👑</div>
-      <div class="gift-name">Crown</div>
-      <div class="gift-price">10K</div>
+
+      <div class="gift-icon">
+        👑
+      </div>
+
+      <div class="gift-name">
+        Crown
+      </div>
+
+      <div class="gift-price">
+        10K
+      </div>
+
     </button>
 
     <button class="gift"
       onclick="sendGift('Rocket',50000,'🚀')">
-      <div class="gift-icon">🚀</div>
-      <div class="gift-name">Rocket</div>
-      <div class="gift-price">50K</div>
+
+      <div class="gift-icon">
+        🚀
+      </div>
+
+      <div class="gift-name">
+        Rocket
+      </div>
+
+      <div class="gift-price">
+        50K
+      </div>
+
     </button>
 
     <button class="gift"
       onclick="sendGift('Car',100000,'🚗')">
-      <div class="gift-icon">🚗</div>
-      <div class="gift-name">Car</div>
-      <div class="gift-price">100K</div>
+
+      <div class="gift-icon">
+        🚗
+      </div>
+
+      <div class="gift-name">
+        Car
+      </div>
+
+      <div class="gift-price">
+        100K
+      </div>
+
     </button>
 
     <button class="gift"
       onclick="sendGift('Love',300000,'❤️')">
-      <div class="gift-icon">❤️</div>
-      <div class="gift-name">Love</div>
-      <div class="gift-price">300K</div>
+
+      <div class="gift-icon">
+        ❤️
+      </div>
+
+      <div class="gift-name">
+        Love
+      </div>
+
+      <div class="gift-price">
+        300K
+      </div>
+
     </button>
 
     <button class="gift"
       onclick="sendGift('Castle',500000,'🏰')">
-      <div class="gift-icon">🏰</div>
-      <div class="gift-name">Castle</div>
-      <div class="gift-price">500K</div>
+
+      <div class="gift-icon">
+        🏰
+      </div>
+
+      <div class="gift-name">
+        Castle
+      </div>
+
+      <div class="gift-price">
+        500K
+      </div>
+
     </button>
 
     <button class="gift"
       onclick="sendGift('Universe',1000000,'🌌')">
-      <div class="gift-icon">🌌</div>
-      <div class="gift-name">Universe</div>
-      <div class="gift-price">1M</div>
+
+      <div class="gift-icon">
+        🌌
+      </div>
+
+      <div class="gift-name">
+        Universe
+      </div>
+
+      <div class="gift-price">
+        1M
+      </div>
+
     </button>
 
   </div>
 
 </div>
 
-<!-- MODAL -->
-<div class="modal" id="modal">
+<!-- ================= MODAL ================= -->
+
+<div class="modal"
+  id="modal">
 
   <div class="modal-box">
 
-    <div class="modal-title" id="modalTitle">
+    <div class="modal-title"
+      id="modalTitle">
       Tannu
     </div>
 
@@ -942,7 +1524,8 @@ body:before{
 
 </div>
 
-<!-- BOTTOM -->
+<!-- ================= BOTTOM ================= -->
+
 <div class="bottom">
 
   <input
@@ -952,42 +1535,53 @@ body:before{
     onkeydown="if(event.key==='Enter')sendMessage()"
   >
 
-  <button class="action"
+  <button
+    class="action"
     id="micBtn"
     onclick="toggleMic()">
     🎙
   </button>
 
-  <button class="action"
+  <button
+    class="action"
     id="speakerBtn"
     onclick="toggleSpeaker()">
     🔊
   </button>
 
-  <button class="action gift"
+  <button
+    class="action gift"
     onclick="toggleGift()">
     🎁
   </button>
 
-  <button class="action"
+  <button
+    class="action"
     onclick="shareRoom()">
     ↗
   </button>
 
-  <button class="action leave"
+  <button
+    class="action leave"
     onclick="leaveRoom()">
     🚪
   </button>
 
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast"
+  id="toast">
+</div>
 
 <script>
 
-/* ===============================
-   TANNU ROOM V5
-   =============================== */
+/* =========================================
+   TANNU ROOM V6
+   ROOM JOURNEY + MISSIONS
+   ========================================= */
+
+
+/* ================= WALLET ================= */
 
 function updateWallet(){
 
@@ -995,11 +1589,21 @@ function updateWallet(){
 
   const coins=TannuWallet.getCoins();
 
-  document.getElementById("roomCoins")
-    .textContent=TannuWallet.formatCoins(coins);
+  const roomCoins=
+    document.getElementById("roomCoins");
 
-  document.getElementById("topCoins")
-    .textContent=TannuWallet.formatCoins(coins);
+  const topCoins=
+    document.getElementById("topCoins");
+
+  if(roomCoins){
+    roomCoins.textContent=
+      TannuWallet.formatCoins(coins);
+  }
+
+  if(topCoins){
+    topCoins.textContent=
+      TannuWallet.formatCoins(coins);
+  }
 }
 
 document.addEventListener(
@@ -1020,111 +1624,636 @@ window.addEventListener(
       e.key==="tannuWallet" ||
       e.key==="tannuCoins"
     ){
+
       updateWallet();
+
     }
 
   }
 );
 
-/* TOAST */
+
+/* ================= TOAST ================= */
 
 function showToast(text){
 
-  const t=document.getElementById("toast");
+  const t=
+    document.getElementById("toast");
 
   t.textContent=text;
+
   t.classList.add("show");
 
   clearTimeout(window.toastTimer);
 
-  window.toastTimer=setTimeout(()=>{
-    t.classList.remove("show");
-  },1800);
+  window.toastTimer=
+    setTimeout(()=>{
+
+      t.classList.remove("show");
+
+    },1800);
 }
 
-/* GIFT */
 
-function toggleGift(){
+/* =========================================
+   ROOM JOURNEY
+   ========================================= */
 
-  document
-    .getElementById("giftMenu")
-    .classList.toggle("show");
+const ROOM_DATA_KEY=
+  "tannuRoomJourneyV1";
+
+const today=
+  new Date().toISOString().slice(0,10);
+
+let roomData=
+  loadRoomData();
+
+
+function defaultRoomData(){
+
+  return {
+
+    date:today,
+
+    xp:0,
+
+    streak:1,
+
+    sessionSeconds:0,
+
+    chatCount:0,
+
+    giftCount:0,
+
+    completed:{
+      time:false,
+      chat:false,
+      gift:false
+    },
+
+    rewarded:{
+      time:false,
+      chat:false,
+      gift:false
+    }
+
+  };
 
 }
 
-function sendGift(name,price,icon){
 
-  if(!window.TannuWallet){
+function loadRoomData(){
 
-    showToast("Wallet not available");
-    return;
-  }
+  try{
 
-  const success=
-    TannuWallet.spendCoins(
-      price,
-      "Gift: "+name
+    const saved=
+      localStorage.getItem(
+        ROOM_DATA_KEY
+      );
+
+    if(!saved){
+
+      const fresh=
+        defaultRoomData();
+
+      saveRoomData(fresh);
+
+      return fresh;
+
+    }
+
+    const data=
+      JSON.parse(saved);
+
+    /*
+      New day:
+      Keep XP/streak but reset
+      daily missions.
+    */
+
+    if(data.date!==today){
+
+      data.date=today;
+
+      data.sessionSeconds=0;
+      data.chatCount=0;
+      data.giftCount=0;
+
+      data.completed={
+        time:false,
+        chat:false,
+        gift:false
+      };
+
+      data.rewarded={
+        time:false,
+        chat:false,
+        gift:false
+      };
+
+      data.streak=
+        Number(data.streak || 1)+1;
+
+      saveRoomData(data);
+
+    }
+
+    return data;
+
+  }catch(error){
+
+    console.error(
+      "Room journey error:",
+      error
     );
 
-  if(!success){
+    return defaultRoomData();
 
-    showToast("Not enough coins ❌");
-    return;
   }
 
-  const history=
-    JSON.parse(
-      localStorage.getItem("tannuGiftHistory") || "[]"
-    );
+}
 
-  history.unshift({
-    name:name,
-    price:price,
-    icon:icon,
-    time:new Date().toISOString()
-  });
+
+function saveRoomData(data){
 
   localStorage.setItem(
-    "tannuGiftHistory",
-    JSON.stringify(history.slice(0,100))
+    ROOM_DATA_KEY,
+    JSON.stringify(data)
   );
 
-  const msg=
-    document.createElement("div");
-
-  msg.className="msg gift-msg";
-
-  msg.innerHTML=
-    "🎁 <b>You</b> sent "+
-    icon+" "+name+
-    " to Tannu";
-
-  document
-    .getElementById("messages")
-    .appendChild(msg);
-
-  updateWallet();
-
-  toggleGift();
-
-  showToast(
-    icon+" "+name+" sent! 🎉"
-  );
 }
 
-/* CHAT */
+
+/* ================= LEVEL ================= */
+
+function getRoomLevel(){
+
+  return Math.floor(
+    roomData.xp / 100
+  ) + 1;
+
+}
+
+
+function getRoomLevelXP(){
+
+  return roomData.xp % 100;
+
+}
+
+
+function updateRoomJourney(){
+
+  const level=
+    getRoomLevel();
+
+  const levelXP=
+    getRoomLevelXP();
+
+  const levelEl=
+    document.getElementById(
+      "roomLevel"
+    );
+
+  const xpText=
+    document.getElementById(
+      "roomXPText"
+    );
+
+  const xpFill=
+    document.getElementById(
+      "roomXPFill"
+    );
+
+  const streak=
+    document.getElementById(
+      "roomStreak"
+    );
+
+  if(levelEl){
+
+    levelEl.textContent=
+      "LV."+level;
+
+  }
+
+  if(xpText){
+
+    xpText.textContent=
+      levelXP+" / 100";
+
+  }
+
+  if(xpFill){
+
+    xpFill.style.width=
+      levelXP+"%";
+
+  }
+
+  if(streak){
+
+    streak.textContent=
+      roomData.streak+" Day";
+
+  }
+
+  updateMissionUI();
+
+}
+
+
+/* ================= XP ================= */
+
+function addRoomXP(amount,reason){
+
+  amount=
+    Number(amount)||0;
+
+  if(amount<=0) return;
+
+  roomData.xp+=
+    Math.floor(amount);
+
+  saveRoomData(
+    roomData
+  );
+
+  updateRoomJourney();
+
+  showToast(
+    "⭐ +"+amount+
+    " Room XP · "+reason
+  );
+
+}
+
+
+/* =========================================
+   MISSION REWARD
+   ========================================= */
+
+function completeMission(
+  type,
+  coins,
+  xp,
+  title
+){
+
+  if(
+    roomData.rewarded[type]
+  ){
+
+    return;
+
+  }
+
+  roomData.completed[type]=true;
+  roomData.rewarded[type]=true;
+
+  saveRoomData(
+    roomData
+  );
+
+  if(
+    window.TannuWallet
+  ){
+
+    TannuWallet.addCoins(
+      coins,
+      "Room Mission: "+title
+    );
+
+  }
+
+  roomData.xp+=xp;
+
+  saveRoomData(
+    roomData
+  );
+
+  updateWallet();
+  updateRoomJourney();
+
+  addMissionMessage(
+    "🏆 Mission completed: "+
+    title+
+    " · 🪙 +"+
+    formatShortNumber(coins)+
+    " · ⭐ +"+
+    xp+" XP"
+  );
+
+  showToast(
+    "🏆 "+title+
+    " completed! 🎉"
+  );
+
+}
+
+
+/* ================= MISSION UI ================= */
+
+function updateMissionUI(){
+
+  /* ---------- TIME ---------- */
+
+  const minutes=
+    Math.floor(
+      roomData.sessionSeconds/60
+    );
+
+  const timeProgress=
+    Math.min(
+      minutes/30*100,
+      100
+    );
+
+  const timeText=
+    document.getElementById(
+      "timeMissionText"
+    );
+
+  const timeFill=
+    document.getElementById(
+      "timeMissionFill"
+    );
+
+  const timeStatus=
+    document.getElementById(
+      "timeMissionStatus"
+    );
+
+  const timeBox=
+    document.getElementById(
+      "missionTimeBox"
+    );
+
+  if(timeText){
+
+    timeText.textContent=
+      Math.min(minutes,30)+
+      " / 30 min";
+
+  }
+
+  if(timeFill){
+
+    timeFill.style.width=
+      timeProgress+"%";
+
+  }
+
+  if(roomData.completed.time){
+
+    if(timeStatus)
+      timeStatus.textContent=
+        "✅ Completed";
+
+    if(timeBox)
+      timeBox.classList.add(
+        "completed"
+      );
+
+  }
+
+
+  /* ---------- CHAT ---------- */
+
+  const chatProgress=
+    Math.min(
+      roomData.chatCount/5*100,
+      100
+    );
+
+  const chatText=
+    document.getElementById(
+      "chatMissionText"
+    );
+
+  const chatFill=
+    document.getElementById(
+      "chatMissionFill"
+    );
+
+  const chatStatus=
+    document.getElementById(
+      "chatMissionStatus"
+    );
+
+  const chatBox=
+    document.getElementById(
+      "chatMissionBox"
+    );
+
+  if(chatText){
+
+    chatText.textContent=
+      Math.min(
+        roomData.chatCount,
+        5
+      )+
+      " / 5 messages";
+
+  }
+
+  if(chatFill){
+
+    chatFill.style.width=
+      chatProgress+"%";
+
+  }
+
+  if(roomData.completed.chat){
+
+    if(chatStatus)
+      chatStatus.textContent=
+        "✅ Completed";
+
+    if(chatBox)
+      chatBox.classList.add(
+        "completed"
+      );
+
+  }
+
+
+  /* ---------- GIFT ---------- */
+
+  const giftProgress=
+    Math.min(
+      roomData.giftCount*100,
+      100
+    );
+
+  const giftText=
+    document.getElementById(
+      "giftMissionText"
+    );
+
+  const giftFill=
+    document.getElementById(
+      "giftMissionFill"
+    );
+
+  const giftStatus=
+    document.getElementById(
+      "giftMissionStatus"
+    );
+
+  const giftBox=
+    document.getElementById(
+      "giftMissionBox"
+    );
+
+  if(giftText){
+
+    giftText.textContent=
+      Math.min(
+        roomData.giftCount,
+        1
+      )+
+      " / 1 gift";
+
+  }
+
+  if(giftFill){
+
+    giftFill.style.width=
+      giftProgress+"%";
+
+  }
+
+  if(roomData.completed.gift){
+
+    if(giftStatus)
+      giftStatus.textContent=
+        "✅ Completed";
+
+    if(giftBox)
+      giftBox.classList.add(
+        "completed"
+      );
+
+  }
+
+}
+
+
+/* =========================================
+   ROOM ACTIVE TIME
+   ========================================= */
+
+let lastActiveTime=
+  Date.now();
+
+
+setInterval(()=>{
+
+  /*
+    Only count while this room page
+    is visible to the user.
+  */
+
+  if(
+    document.visibilityState!=="visible"
+  ){
+
+    lastActiveTime=
+      Date.now();
+
+    return;
+
+  }
+
+  const now=
+    Date.now();
+
+  const difference=
+    now-lastActiveTime;
+
+  /*
+    Prevent huge jumps after
+    phone/browser suspension.
+  */
+
+  if(
+    difference>=800 &&
+    difference<=10000
+  ){
+
+    roomData.sessionSeconds+=
+      Math.floor(
+        difference/1000
+      );
+
+  }
+
+  lastActiveTime=now;
+
+  if(
+    roomData.sessionSeconds>=
+    30*60
+  ){
+
+    roomData.sessionSeconds=
+      30*60;
+
+    if(
+      !roomData.completed.time
+    ){
+
+      completeMission(
+        "time",
+        5000,
+        100,
+        "30 Minute Room Mission"
+      );
+
+    }
+
+  }
+
+  saveRoomData(
+    roomData
+  );
+
+  updateRoomJourney();
+
+},1000);
+
+
+document.addEventListener(
+  "visibilitychange",
+  ()=>{
+
+    lastActiveTime=
+      Date.now();
+
+  }
+);
+
+
+/* =========================================
+   CHAT
+   ========================================= */
 
 function sendMessage(){
 
   const input=
-    document.getElementById("chatInput");
+    document.getElementById(
+      "chatInput"
+    );
 
-  const text=input.value.trim();
+  const text=
+    input.value.trim();
 
   if(!text) return;
 
   const msg=
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   msg.className="msg";
 
@@ -1139,22 +2268,251 @@ function sendMessage(){
   input.value="";
 
   const box=
-    document.getElementById("messages");
+    document.getElementById(
+      "messages"
+    );
 
-  box.scrollTop=box.scrollHeight;
+  box.scrollTop=
+    box.scrollHeight;
+
+  /* Mission progress */
+
+  roomData.chatCount++;
+
+  if(
+    roomData.chatCount>=5 &&
+    !roomData.completed.chat
+  ){
+
+    roomData.chatCount=5;
+
+    completeMission(
+      "chat",
+      2000,
+      50,
+      "5 Message Mission"
+    );
+
+  }
+
+  saveRoomData(
+    roomData
+  );
+
+  updateRoomJourney();
+
 }
+
 
 function escapeHTML(text){
 
   const div=
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   div.textContent=text;
 
   return div.innerHTML;
+
 }
 
-/* MIC */
+
+/* =========================================
+   GIFT
+   ========================================= */
+
+function toggleGift(){
+
+  document
+    .getElementById("giftMenu")
+    .classList.toggle("show");
+
+}
+
+
+function sendGift(
+  name,
+  price,
+  icon
+){
+
+  if(!window.TannuWallet){
+
+    showToast(
+      "Wallet not available"
+    );
+
+    return;
+
+  }
+
+  const success=
+    TannuWallet.spendCoins(
+      price,
+      "Gift: "+name
+    );
+
+  if(!success){
+
+    showToast(
+      "Not enough coins ❌"
+    );
+
+    return;
+
+  }
+
+  const history=
+    JSON.parse(
+      localStorage.getItem(
+        "tannuGiftHistory"
+      ) || "[]"
+    );
+
+  history.unshift({
+
+    name:name,
+    price:price,
+    icon:icon,
+    time:new Date().toISOString()
+
+  });
+
+  localStorage.setItem(
+    "tannuGiftHistory",
+    JSON.stringify(
+      history.slice(0,100)
+    )
+  );
+
+
+  const msg=
+    document.createElement(
+      "div"
+    );
+
+  msg.className=
+    "msg gift-msg";
+
+  msg.innerHTML=
+    "🎁 <b>You</b> sent "+
+    icon+" "+name+
+    " to Tannu";
+
+  document
+    .getElementById("messages")
+    .appendChild(msg);
+
+
+  /* Mission progress */
+
+  roomData.giftCount++;
+
+  if(
+    roomData.giftCount>=1 &&
+    !roomData.completed.gift
+  ){
+
+    roomData.giftCount=1;
+
+    completeMission(
+      "gift",
+      3000,
+      75,
+      "Gift Support Mission"
+    );
+
+  }
+
+  saveRoomData(
+    roomData
+  );
+
+  updateWallet();
+  updateRoomJourney();
+
+  toggleGift();
+
+  showToast(
+    icon+" "+name+
+    " sent! 🎉"
+  );
+
+}
+
+
+/* =========================================
+   MISSION MESSAGE
+   ========================================= */
+
+function addMissionMessage(text){
+
+  const msg=
+    document.createElement(
+      "div"
+    );
+
+  msg.className=
+    "msg gift-msg";
+
+  msg.textContent=
+    text;
+
+  document
+    .getElementById("messages")
+    .appendChild(msg);
+
+}
+
+
+/* =========================================
+   SHORT NUMBER
+   ========================================= */
+
+function formatShortNumber(number){
+
+  number=
+    Number(number)||0;
+
+  if(number>=10000000){
+
+    return (
+      number/10000000
+    ).toFixed(1)
+    .replace(".0","")
+    +"Cr";
+
+  }
+
+  if(number>=100000){
+
+    return (
+      number/100000
+    ).toFixed(1)
+    .replace(".0","")
+    +"L";
+
+  }
+
+  if(number>=1000){
+
+    return (
+      number/1000
+    ).toFixed(1)
+    .replace(".0","")
+    +"K";
+
+  }
+
+  return String(number);
+
+}
+
+
+/* =========================================
+   MIC
+   ========================================= */
 
 let micOn=true;
 
@@ -1162,18 +2520,25 @@ function toggleMic(){
 
   micOn=!micOn;
 
-  document.getElementById("micBtn")
+  document
+    .getElementById("micBtn")
     .textContent=
-    micOn ? "🎙" : "🔇";
+      micOn
+      ? "🎙"
+      : "🔇";
 
   showToast(
     micOn
     ? "Microphone ON 🎙"
     : "Microphone OFF 🔇"
   );
+
 }
 
-/* SPEAKER */
+
+/* =========================================
+   SPEAKER
+   ========================================= */
 
 let speakerOn=true;
 
@@ -1181,18 +2546,25 @@ function toggleSpeaker(){
 
   speakerOn=!speakerOn;
 
-  document.getElementById("speakerBtn")
+  document
+    .getElementById("speakerBtn")
     .textContent=
-    speakerOn ? "🔊" : "🔇";
+      speakerOn
+      ? "🔊"
+      : "🔇";
 
   showToast(
     speakerOn
     ? "Speaker ON 🔊"
     : "Speaker OFF 🔇"
   );
+
 }
 
-/* SEAT */
+
+/* =========================================
+   SEAT
+   ========================================= */
 
 function joinSeat(number){
 
@@ -1200,16 +2572,27 @@ function joinSeat(number){
     "Seat No."+number+
     " request sent 🎤"
   );
+
 }
 
-/* SHARE */
+
+/* =========================================
+   SHARE
+   ========================================= */
 
 function shareRoom(){
 
   const data={
-    title:"Tannu Voice Chat",
-    text:"Join my Tannu Voice Chat Room ❤️",
-    url:window.location.href
+
+    title:
+      "Tannu Voice Chat",
+
+    text:
+      "Join my Tannu Voice Chat Room ❤️",
+
+    url:
+      window.location.href
+
   };
 
   if(navigator.share){
@@ -1219,93 +2602,197 @@ function shareRoom(){
 
   }else{
 
-    navigator.clipboard
-      .writeText(window.location.href)
-      .then(()=>{
-        showToast("Room link copied 🔗");
-      })
-      .catch(()=>{
-        showToast("Share ready 🔗");
-      });
+    if(
+      navigator.clipboard
+    ){
+
+      navigator.clipboard
+        .writeText(
+          window.location.href
+        )
+        .then(()=>{
+
+          showToast(
+            "Room link copied 🔗"
+          );
+
+        })
+        .catch(()=>{
+
+          showToast(
+            "Share ready 🔗"
+          );
+
+        });
+
+    }else{
+
+      showToast(
+        "Share ready 🔗"
+      );
+
+    }
+
   }
+
 }
 
-/* MODAL */
+
+/* =========================================
+   MODALS
+   ========================================= */
 
 function openModal(type){
 
   const modal=
-    document.getElementById("modal");
+    document.getElementById(
+      "modal"
+    );
 
   const title=
-    document.getElementById("modalTitle");
+    document.getElementById(
+      "modalTitle"
+    );
 
   const content=
-    document.getElementById("modalContent");
+    document.getElementById(
+      "modalContent"
+    );
+
 
   if(type==="events"){
 
-    title.textContent="📅 Tannu Events";
+    title.textContent=
+      "📅 Tannu Events";
 
     content.innerHTML=`
-      <div class="modal-row">🔥 Daily Room Event</div>
-      <div class="modal-row">🎁 Free Spin</div>
-      <div class="modal-row">🏆 Weekly Ranking</div>
-      <div class="modal-row">💎 Gift Festival</div>
+
+      <div class="modal-row">
+        🔥 Daily Room Event
+      </div>
+
+      <div class="modal-row">
+        🎁 Free Spin
+      </div>
+
+      <div class="modal-row">
+        🏆 Weekly Ranking
+      </div>
+
+      <div class="modal-row">
+        💎 Gift Festival
+      </div>
+
     `;
 
   }
+
 
   if(type==="ranking"){
 
-    title.textContent="🏆 Room Ranking";
+    title.textContent=
+      "🏆 Room Ranking";
 
     content.innerHTML=`
-      <div class="modal-row">🥇 Tannu — 2.8M</div>
-      <div class="modal-row">🥈 Sana — 1.7M</div>
-      <div class="modal-row">🥉 Arman — 950K</div>
-      <div class="modal-row">4️⃣ Rohan — 620K</div>
+
+      <div class="modal-row">
+        🥇 Tannu — 2.8M
+      </div>
+
+      <div class="modal-row">
+        🥈 Sana — 1.7M
+      </div>
+
+      <div class="modal-row">
+        🥉 Arman — 950K
+      </div>
+
+      <div class="modal-row">
+        4️⃣ Rohan — 620K
+      </div>
+
     `;
 
   }
+
 
   if(type==="family"){
 
-    title.textContent="👨‍👩‍👧 Tannu Family";
+    title.textContent=
+      "👨‍👩‍👧 Tannu Family";
 
     content.innerHTML=`
-      <div class="modal-row">👑 Family Leader — Tannu</div>
-      <div class="modal-row">👥 Members — 128</div>
-      <div class="modal-row">🔥 Family Level — 12</div>
-      <div class="modal-row">💎 Family Rewards — Active</div>
+
+      <div class="modal-row">
+        👑 Family Leader — Tannu
+      </div>
+
+      <div class="modal-row">
+        👥 Members — 128
+      </div>
+
+      <div class="modal-row">
+        🔥 Family Level — 12
+      </div>
+
+      <div class="modal-row">
+        💎 Family Rewards — Active
+      </div>
+
     `;
 
   }
+
 
   if(type==="support"){
 
-    title.textContent="🎧 Tannu Support";
+    title.textContent=
+      "🎧 Tannu Support";
 
     content.innerHTML=`
-      <div class="modal-row">💬 Customer Support</div>
-      <div class="modal-row">🚨 Report a User</div>
-      <div class="modal-row">🛡 Safety Center</div>
-      <div class="modal-row">❓ Help Center</div>
+
+      <div class="modal-row">
+        💬 Customer Support
+      </div>
+
+      <div class="modal-row">
+        🚨 Report a User
+      </div>
+
+      <div class="modal-row">
+        🛡 Safety Center
+      </div>
+
+      <div class="modal-row">
+        ❓ Help Center
+      </div>
+
     `;
 
   }
 
-  modal.classList.add("show");
+
+  modal.classList.add(
+    "show"
+  );
+
 }
+
 
 function closeModal(){
 
   document
     .getElementById("modal")
-    .classList.remove("show");
+    .classList.remove(
+      "show"
+    );
+
 }
 
-/* LEAVE */
+
+/* =========================================
+   LEAVE
+   ========================================= */
 
 function leaveRoom(){
 
@@ -1315,31 +2802,16 @@ function leaveRoom(){
     )
   ){
 
-    window.location.href="index.html";
+    window.location.href=
+      "index.html";
 
   }
+
 }
 
-/* DEMO ONLINE */
+
+/* =========================================
+   DEMO ONLINE
+   ========================================= */
 
 let viewers=126;
-
-setInterval(()=>{
-
-  viewers +=
-    Math.floor(Math.random()*5)-2;
-
-  viewers=Math.max(
-    1,
-    viewers
-  );
-
-  document.getElementById("viewers")
-    .textContent=viewers;
-
-},5000);
-
-</script>
-
-</body>
-</html>
