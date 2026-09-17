@@ -24,10 +24,9 @@
       margin: auto;
       min-height: 100vh;
       background: white;
-      padding-bottom: 75px;
+      padding-bottom: 85px;
     }
 
-    /* TOP BAR */
     .topbar {
       padding: 18px 16px;
       display: flex;
@@ -55,7 +54,14 @@
       font-weight: bold;
     }
 
-    /* BANNER */
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
     .banner {
       margin: 15px;
       padding: 20px;
@@ -72,22 +78,22 @@
 
     .banner p {
       font-size: 13px;
-      opacity: .95;
       margin-bottom: 14px;
+      line-height: 1.5;
     }
 
-    .banner button {
+    .banner button,
+    .primary-btn {
       border: none;
       background: white;
       color: #7c4dff;
-      padding: 9px 16px;
+      padding: 10px 17px;
       border-radius: 20px;
       font-weight: bold;
     }
 
-    /* SECTION */
     .section {
-      padding: 5px 15px 15px;
+      padding: 8px 15px 15px;
     }
 
     .section-title {
@@ -106,7 +112,6 @@
       color: #777;
     }
 
-    /* CATEGORIES */
     .categories {
       display: flex;
       gap: 10px;
@@ -132,7 +137,6 @@
       margin-bottom: 5px;
     }
 
-    /* ROOMS */
     .rooms {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -145,6 +149,7 @@
       overflow: hidden;
       background: white;
       box-shadow: 0 3px 12px rgba(0,0,0,.05);
+      cursor: pointer;
     }
 
     .room-cover {
@@ -163,9 +168,6 @@
     .room-name {
       font-weight: bold;
       font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .host {
@@ -180,7 +182,6 @@
       color: #22a447;
     }
 
-    /* QUICK FEATURES */
     .features {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -193,6 +194,7 @@
       background: #fafafa;
       border-radius: 14px;
       font-size: 11px;
+      cursor: pointer;
     }
 
     .feature div {
@@ -200,7 +202,108 @@
       margin-bottom: 5px;
     }
 
-    /* BOTTOM NAV */
+    .page-title {
+      padding: 20px 15px 10px;
+    }
+
+    .page-title h2 {
+      font-size: 23px;
+    }
+
+    .page-title p {
+      color: #777;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .event-card,
+    .message-card,
+    .profile-card {
+      margin: 12px 15px;
+      padding: 17px;
+      border-radius: 16px;
+      background: #fafafa;
+      border: 1px solid #eee;
+    }
+
+    .event-card {
+      background: linear-gradient(135deg, #fff0f6, #f1edff);
+    }
+
+    .event-card h3,
+    .message-card h3 {
+      font-size: 16px;
+      margin-bottom: 7px;
+    }
+
+    .event-card p,
+    .message-card p {
+      color: #666;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .event-btn {
+      margin-top: 12px;
+      border: none;
+      background: #7c4dff;
+      color: white;
+      padding: 9px 15px;
+      border-radius: 18px;
+      font-weight: bold;
+    }
+
+    .profile-card {
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    .profile-avatar {
+      width: 75px;
+      height: 75px;
+      margin: auto;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      background: linear-gradient(135deg, #ff6fa5, #8c6cff);
+    }
+
+    .profile-card h3 {
+      margin-top: 12px;
+      font-size: 20px;
+    }
+
+    .profile-card p {
+      color: #777;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      padding: 12px 5px;
+      background: #f5f5f7;
+      border-radius: 12px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 16px;
+    }
+
+    .stat span {
+      font-size: 10px;
+      color: #777;
+    }
+
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -208,19 +311,24 @@
       transform: translateX(-50%);
       width: 100%;
       max-width: 500px;
-      height: 65px;
+      height: 68px;
       background: white;
       border-top: 1px solid #eee;
       display: flex;
       justify-content: space-around;
       align-items: center;
-      z-index: 100;
+      z-index: 1000;
+      box-shadow: 0 -3px 12px rgba(0,0,0,.06);
     }
 
     .nav-item {
+      flex: 1;
       text-align: center;
       font-size: 11px;
       color: #777;
+      cursor: pointer;
+      padding: 8px 0;
+      user-select: none;
     }
 
     .nav-item div {
@@ -233,8 +341,14 @@
       font-weight: bold;
     }
 
-    button {
-      cursor: pointer;
+    @media (max-width: 350px) {
+      .rooms {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
@@ -243,7 +357,7 @@
 
 <div class="app">
 
-  <!-- TOP -->
+  <!-- TOP BAR -->
   <div class="topbar">
     <div class="logo-area">
       <h1>🎙️ Tannu</h1>
@@ -255,128 +369,281 @@
     </div>
   </div>
 
-  <!-- BANNER -->
-  <div class="banner">
-    <h2>Welcome to Tannu ❤️</h2>
-    <p>Meet new friends, join voice rooms and enjoy live events.</p>
-    <button onclick="alert('Events coming soon!')">
-      🎉 View Events
-    </button>
+
+  <!-- HOME SCREEN -->
+  <div id="homeScreen" class="screen active">
+
+    <div class="banner">
+      <h2>Welcome to Tannu ❤️</h2>
+      <p>Meet new friends, join voice rooms and enjoy live events.</p>
+
+      <button onclick="showScreen('events')">
+        🎉 View Events
+      </button>
+    </div>
+
+    <div class="section">
+      <div class="section-title">
+        <h2>Categories</h2>
+        <span>See All</span>
+      </div>
+
+      <div class="categories">
+
+        <div class="category">
+          <div class="icon">🔥</div>
+          Popular
+        </div>
+
+        <div class="category">
+          <div class="icon">🎵</div>
+          Music
+        </div>
+
+        <div class="category">
+          <div class="icon">😂</div>
+          Fun
+        </div>
+
+        <div class="category">
+          <div class="icon">❤️</div>
+          Friends
+        </div>
+
+        <div class="category">
+          <div class="icon">🎮</div>
+          Games
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+
+      <div class="section-title">
+        <h2>🔥 Popular Rooms</h2>
+        <span>See All</span>
+      </div>
+
+      <div class="rooms">
+
+        <div class="room" onclick="joinRoom('Tannu Music Night')">
+          <div class="room-cover">🎤</div>
+          <div class="room-info">
+            <div class="room-name">Tannu Music Night</div>
+            <div class="host">Host: Tannu</div>
+            <div class="online">🟢 128 people</div>
+          </div>
+        </div>
+
+        <div class="room" onclick="joinRoom('Friends Zone')">
+          <div class="room-cover">❤️</div>
+          <div class="room-info">
+            <div class="room-name">Friends Zone</div>
+            <div class="host">Host: Rahul</div>
+            <div class="online">🟢 96 people</div>
+          </div>
+        </div>
+
+        <div class="room" onclick="joinRoom('Fun & Masti')">
+          <div class="room-cover">😂</div>
+          <div class="room-info">
+            <div class="room-name">Fun & Masti</div>
+            <div class="host">Host: Arjun</div>
+            <div class="online">🟢 74 people</div>
+          </div>
+        </div>
+
+        <div class="room" onclick="joinRoom('Gaming Room')">
+          <div class="room-cover">🎮</div>
+          <div class="room-info">
+            <div class="room-name">Gaming Room</div>
+            <div class="host">Host: Sameer</div>
+            <div class="online">🟢 61 people</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+
+      <div class="section-title">
+        <h2>✨ Explore</h2>
+      </div>
+
+      <div class="features">
+
+        <div class="feature" onclick="featureMessage('Gifts')">
+          <div>🎁</div>
+          Gifts
+        </div>
+
+        <div class="feature" onclick="featureMessage('VIP')">
+          <div>👑</div>
+          VIP
+        </div>
+
+        <div class="feature" onclick="featureMessage('Free Spin')">
+          <div>🎰</div>
+          Free Spin
+        </div>
+
+        <div class="feature" onclick="featureMessage('Rewards')">
+          <div>🏆</div>
+          Rewards
+        </div>
+
+      </div>
+    </div>
+
   </div>
 
-  <!-- CATEGORIES -->
-  <div class="section">
-    <div class="section-title">
-      <h2>Categories</h2>
-      <span>See All</span>
+
+  <!-- ROOMS SCREEN -->
+  <div id="roomsScreen" class="screen">
+
+    <div class="page-title">
+      <h2>🎙️ Voice Rooms</h2>
+      <p>Join a room and meet new friends.</p>
     </div>
 
-    <div class="categories">
+    <div class="section">
 
-      <div class="category">
-        <div class="icon">🔥</div>
-        Popular
-      </div>
+      <div class="rooms">
 
-      <div class="category">
-        <div class="icon">🎵</div>
-        Music
-      </div>
+        <div class="room" onclick="joinRoom('Tannu Music Night')">
+          <div class="room-cover">🎤</div>
+          <div class="room-info">
+            <div class="room-name">Tannu Music Night</div>
+            <div class="host">Host: Tannu</div>
+            <div class="online">🟢 128 people</div>
+          </div>
+        </div>
 
-      <div class="category">
-        <div class="icon">😂</div>
-        Fun
-      </div>
+        <div class="room" onclick="joinRoom('Friends Zone')">
+          <div class="room-cover">❤️</div>
+          <div class="room-info">
+            <div class="room-name">Friends Zone</div>
+            <div class="host">Host: Rahul</div>
+            <div class="online">🟢 96 people</div>
+          </div>
+        </div>
 
-      <div class="category">
-        <div class="icon">❤️</div>
-        Friends
-      </div>
+        <div class="room" onclick="joinRoom('Fun & Masti')">
+          <div class="room-cover">😂</div>
+          <div class="room-info">
+            <div class="room-name">Fun & Masti</div>
+            <div class="host">Host: Arjun</div>
+            <div class="online">🟢 74 people</div>
+          </div>
+        </div>
 
-      <div class="category">
-        <div class="icon">🎮</div>
-        Games
+        <div class="room" onclick="joinRoom('Gaming Room')">
+          <div class="room-cover">🎮</div>
+          <div class="room-info">
+            <div class="room-name">Gaming Room</div>
+            <div class="host">Host: Sameer</div>
+            <div class="online">🟢 61 people</div>
+          </div>
+        </div>
+
       </div>
 
     </div>
   </div>
 
-  <!-- POPULAR ROOMS -->
-  <div class="section">
 
-    <div class="section-title">
-      <h2>🔥 Popular Rooms</h2>
-      <span>See All</span>
+  <!-- EVENTS SCREEN -->
+  <div id="eventsScreen" class="screen">
+
+    <div class="page-title">
+      <h2>🎉 Events</h2>
+      <p>Daily events and activities.</p>
     </div>
 
-    <div class="rooms">
-
-      <div class="room">
-        <div class="room-cover">🎤</div>
-        <div class="room-info">
-          <div class="room-name">Tannu Music Night</div>
-          <div class="host">Host: Tannu</div>
-          <div class="online">🟢 128 people</div>
-        </div>
-      </div>
-
-      <div class="room">
-        <div class="room-cover">❤️</div>
-        <div class="room-info">
-          <div class="room-name">Friends Zone</div>
-          <div class="host">Host: Rahul</div>
-          <div class="online">🟢 96 people</div>
-        </div>
-      </div>
-
-      <div class="room">
-        <div class="room-cover">😂</div>
-        <div class="room-info">
-          <div class="room-name">Fun & Masti</div>
-          <div class="host">Host: Arjun</div>
-          <div class="online">🟢 74 people</div>
-        </div>
-      </div>
-
-      <div class="room">
-        <div class="room-cover">🎮</div>
-        <div class="room-info">
-          <div class="room-name">Gaming Room</div>
-          <div class="host">Host: Sameer</div>
-          <div class="online">🟢 61 people</div>
-        </div>
-      </div>
-
+    <div class="event-card">
+      <h3>🎁 Daily Welcome Event</h3>
+      <p>Join Tannu rooms, meet friends and collect rewards.</p>
+      <button class="event-btn" onclick="featureMessage('Daily Event')">
+        Join Event
+      </button>
     </div>
+
+    <div class="event-card">
+      <h3>🎰 Free Spin Event</h3>
+      <p>Use your daily free spins and enjoy exciting rewards.</p>
+      <button class="event-btn" onclick="featureMessage('Free Spin Event')">
+        Open Event
+      </button>
+    </div>
+
+    <div class="event-card">
+      <h3>🏆 Daily Rewards</h3>
+      <p>Complete activities and unlock your daily rewards.</p>
+      <button class="event-btn" onclick="featureMessage('Rewards')">
+        View Rewards
+      </button>
+    </div>
+
   </div>
 
-  <!-- FEATURES -->
-  <div class="section">
 
-    <div class="section-title">
-      <h2>✨ Explore</h2>
+  <!-- MESSAGES SCREEN -->
+  <div id="messagesScreen" class="screen">
+
+    <div class="page-title">
+      <h2>💬 Messages</h2>
+      <p>Your conversations will appear here.</p>
     </div>
 
-    <div class="features">
+    <div class="message-card">
+      <h3>👋 Welcome to Tannu</h3>
+      <p>Your messages and notifications will appear here.</p>
+    </div>
 
-      <div class="feature">
-        <div>🎁</div>
-        Gifts
+    <div class="message-card">
+      <h3>🎉 Tannu Team</h3>
+      <p>Welcome! More messaging features are coming soon.</p>
+    </div>
+
+  </div>
+
+
+  <!-- PROFILE SCREEN -->
+  <div id="profileScreen" class="screen">
+
+    <div class="page-title">
+      <h2>👤 Profile</h2>
+      <p>Your Tannu account.</p>
+    </div>
+
+    <div class="profile-card">
+
+      <div class="profile-avatar">
+        👤
       </div>
 
-      <div class="feature">
-        <div>👑</div>
-        VIP
-      </div>
+      <h3>Tannu User</h3>
+      <p>New Member</p>
 
-      <div class="feature">
-        <div>🎰</div>
-        Free Spin
-      </div>
+      <div class="profile-stats">
 
-      <div class="feature">
-        <div>🏆</div>
-        Rewards
+        <div class="stat">
+          <strong>0</strong>
+          <span>Followers</span>
+        </div>
+
+        <div class="stat">
+          <strong>0</strong>
+          <span>Following</span>
+        </div>
+
+        <div class="stat">
+          <strong>0</strong>
+          <span>Gifts</span>
+        </div>
+
       </div>
 
     </div>
@@ -385,35 +652,85 @@
 
 </div>
 
-<!-- BOTTOM NAV -->
+
+<!-- BOTTOM NAVIGATION -->
 <div class="bottom-nav">
 
-  <div class="nav-item active">
+  <div class="nav-item active" onclick="showScreen('home', this)">
     <div>🏠</div>
     Home
   </div>
 
-  <div class="nav-item">
+  <div class="nav-item" onclick="showScreen('rooms', this)">
     <div>🎙️</div>
     Rooms
   </div>
 
-  <div class="nav-item">
+  <div class="nav-item" onclick="showScreen('events', this)">
     <div>🎉</div>
     Events
   </div>
 
-  <div class="nav-item">
+  <div class="nav-item" onclick="showScreen('messages', this)">
     <div>💬</div>
     Messages
   </div>
 
-  <div class="nav-item">
+  <div class="nav-item" onclick="showScreen('profile', this)">
     <div>👤</div>
     Profile
   </div>
 
 </div>
+
+
+<script>
+
+  function showScreen(page, clickedItem) {
+
+    document.querySelectorAll(".screen").forEach(function(screen) {
+      screen.classList.remove("active");
+    });
+
+    var selectedScreen = document.getElementById(page + "Screen");
+
+    if (selectedScreen) {
+      selectedScreen.classList.add("active");
+    }
+
+    document.querySelectorAll(".nav-item").forEach(function(item) {
+      item.classList.remove("active");
+    });
+
+    if (clickedItem) {
+      clickedItem.classList.add("active");
+    } else {
+      document.querySelectorAll(".nav-item").forEach(function(item) {
+        if (item.textContent.includes(
+          page.charAt(0).toUpperCase() + page.slice(1)
+        )) {
+          item.classList.add("active");
+        }
+      });
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+
+  function joinRoom(roomName) {
+    alert("🎙️ " + roomName + "\n\nRoom system will be connected next.");
+  }
+
+
+  function featureMessage(featureName) {
+    alert("✨ " + featureName + "\n\nThis feature will be connected next.");
+  }
+
+</script>
 
 </body>
 </html>
