@@ -14,162 +14,238 @@
 }
 
 body{
+  background:#090812;
+  color:#fff;
   min-height:100vh;
-  background:
-    radial-gradient(circle at 10% 0%,#3b0750 0%,transparent 30%),
-    radial-gradient(circle at 90% 20%,#260047 0%,transparent 28%),
-    linear-gradient(135deg,#100016,#180020,#07000d);
-  color:white;
 }
 
-button{cursor:pointer}
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+  border:0;
+}
 
 .app{
-  max-width:600px;
+  max-width:520px;
   margin:auto;
   min-height:100vh;
-  padding-bottom:88px;
+  background:
+    radial-gradient(circle at top right,#32155f 0,#120d24 35%,#090812 70%);
+  padding-bottom:82px;
 }
 
-.page{
-  display:none;
-  padding:16px;
-}
-
-.page.active{display:block}
-
-/* TOP */
-
-.top{
+/* HEADER */
+.header{
+  padding:18px 16px 12px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  margin-bottom:16px;
+  justify-content:space-between;
 }
 
-.top h1{
-  font-size:24px;
-}
-
-.top h2{
-  font-size:22px;
-}
-
-.top p{
-  color:#aaa;
-  font-size:12px;
-  margin-top:5px;
+.logo-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
 .logo{
-  width:48px;
-  height:48px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#ff3cac,#784ba0);
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#ff4fd8,#754cff);
   display:flex;
+  align-items:center;
   justify-content:center;
-  align-items:center;
-  font-size:23px;
-  font-weight:bold;
-  box-shadow:0 0 25px rgba(255,60,172,.35);
-}
-
-/* WELCOME */
-
-.welcome{
-  padding:20px;
-  border-radius:24px;
-  background:
-    radial-gradient(circle at 90% 10%,rgba(255,255,255,.12),transparent 25%),
-    linear-gradient(135deg,rgba(255,60,172,.27),rgba(120,75,160,.18));
-  border:1px solid rgba(255,255,255,.1);
-  margin-bottom:16px;
-}
-
-.welcome h2{
-  font-size:23px;
-  margin-bottom:7px;
-}
-
-.muted{
-  color:#aaa;
-  font-size:12px;
-}
-
-/* QUICK ACTIONS */
-
-.quick-actions{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
-  margin-bottom:18px;
-}
-
-.quick-btn{
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.07);
-  color:white;
-  padding:13px 5px;
-  border-radius:17px;
-  font-size:11px;
-}
-
-.quick-btn span{
-  display:block;
   font-size:22px;
-  margin-bottom:5px;
+  font-weight:bold;
+  box-shadow:0 8px 25px #7d42ff55;
 }
 
-.quick-btn:hover{
-  background:rgba(255,60,172,.18);
-}
-
-/* SECTION HEADER */
-
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:18px 2px 10px;
-}
-
-.section-head h3{
+.logo-text h2{
   font-size:18px;
 }
 
-.see-all{
-  border:none;
-  background:transparent;
-  color:#ff5bb4;
-  font-size:12px;
+.logo-text p{
+  font-size:11px;
+  color:#aaa6bd;
+  margin-top:3px;
+}
+
+.header-actions{
+  display:flex;
+  gap:8px;
+}
+
+.icon-btn{
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  background:#ffffff0d;
+  color:white;
+  border:1px solid #ffffff12;
+}
+
+/* WELCOME */
+.welcome{
+  margin:4px 14px 16px;
+  padding:20px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#7b36ff,#d52fc9);
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 15px 40px #6c35ff35;
+}
+
+.welcome:after{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  right:-50px;
+  top:-55px;
+  background:#ffffff18;
+}
+
+.welcome h1{
+  font-size:23px;
+  margin-bottom:7px;
+  position:relative;
+  z-index:1;
+}
+
+.welcome p{
+  color:#eee;
+  font-size:13px;
+  line-height:1.5;
+  position:relative;
+  z-index:1;
+}
+
+.welcome-actions{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+  position:relative;
+  z-index:2;
+}
+
+.welcome-btn{
+  background:#ffffff;
+  color:#6829c9;
+  padding:10px 13px;
+  border-radius:12px;
   font-weight:bold;
+  font-size:12px;
+}
+
+.welcome-btn.dark{
+  background:#00000035;
+  color:white;
 }
 
 /* SEARCH */
+.search-wrap{
+  margin:0 14px 14px;
+  position:relative;
+}
 
 .search{
   width:100%;
-  padding:14px 16px;
-  border-radius:15px;
-  border:1px solid #3b2548;
-  outline:none;
-  background:#170b20;
+  background:#ffffff0b;
+  border:1px solid #ffffff12;
   color:white;
-  font-size:14px;
-  margin-bottom:12px;
+  padding:14px 15px 14px 43px;
+  border-radius:15px;
+  outline:none;
+}
+
+.search:focus{
+  border-color:#9d5cff;
 }
 
 .search::placeholder{
-  color:#777;
+  color:#858195;
+}
+
+.search-icon{
+  position:absolute;
+  left:15px;
+  top:13px;
+  color:#9992ad;
+}
+
+/* QUICK */
+.quick{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  padding:0 14px;
+  margin-bottom:20px;
+}
+
+.quick-card{
+  background:#ffffff0b;
+  border:1px solid #ffffff10;
+  border-radius:17px;
+  padding:14px 8px;
+  text-align:center;
+  transition:.2s;
+}
+
+.quick-card:active{
+  transform:scale(.96);
+}
+
+.quick-icon{
+  font-size:25px;
+  margin-bottom:7px;
+}
+
+.quick-card b{
+  display:block;
+  font-size:12px;
+}
+
+.quick-card span{
+  display:block;
+  font-size:10px;
+  color:#8f899e;
+  margin-top:3px;
+}
+
+/* SECTION */
+.section{
+  padding:0 14px;
+  margin-bottom:20px;
+}
+
+.section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:11px;
+}
+
+.section-head h3{
+  font-size:17px;
+}
+
+.see-all{
+  color:#b778ff;
+  font-size:12px;
+  background:none;
 }
 
 /* CATEGORIES */
-
 .categories{
   display:flex;
   gap:8px;
   overflow-x:auto;
-  padding-bottom:5px;
+  padding-bottom:3px;
   scrollbar-width:none;
 }
 
@@ -177,55 +253,62 @@ button{cursor:pointer}
   display:none;
 }
 
-.category{
+.cat{
   white-space:nowrap;
-  border:1px solid #422750;
-  background:#170b20;
-  color:#aaa;
-  padding:9px 13px;
-  border-radius:22px;
+  padding:9px 14px;
+  border-radius:12px;
+  background:#ffffff0b;
+  color:#aaa5b7;
+  border:1px solid #ffffff0d;
   font-size:12px;
 }
 
-.category.active{
-  background:linear-gradient(135deg,#ff3cac,#784ba0);
+.cat.active{
+  background:linear-gradient(135deg,#7f42ff,#c33de0);
   color:white;
   border-color:transparent;
 }
 
-/* ROOM CARD */
-
-.room-card{
-  position:relative;
+/* ROOM */
+.room-list{
   display:flex;
-  align-items:center;
+  flex-direction:column;
+  gap:11px;
+}
+
+.room{
+  background:linear-gradient(145deg,#171326,#100d19);
+  border:1px solid #ffffff10;
+  border-radius:19px;
+  padding:13px;
+  display:flex;
   gap:12px;
-  padding:14px;
-  border-radius:20px;
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,.08),
-    rgba(255,255,255,.035)
-  );
-  border:1px solid rgba(255,255,255,.09);
-  margin-bottom:11px;
-  overflow:hidden;
-}
-
-.room-card:hover{
-  border-color:rgba(255,60,172,.4);
-}
-
-.room-icon{
-  width:57px;
-  height:57px;
-  border-radius:17px;
-  background:linear-gradient(135deg,#ff3cac,#784ba0);
-  display:flex;
-  justify-content:center;
   align-items:center;
-  font-size:26px;
-  flex-shrink:0;
+  box-shadow:0 8px 25px #00000030;
+}
+
+.room-avatar{
+  width:58px;
+  height:58px;
+  min-width:58px;
+  border-radius:17px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  background:linear-gradient(135deg,#ff4fb3,#704dff);
+  position:relative;
+}
+
+.live-dot{
+  position:absolute;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#38e58a;
+  right:1px;
+  bottom:2px;
+  border:2px solid #171326;
 }
 
 .room-info{
@@ -233,516 +316,275 @@ button{cursor:pointer}
   min-width:0;
 }
 
-.room-info h3{
-  font-size:15px;
-  margin-bottom:5px;
-  overflow:hidden;
+.room-title{
+  font-size:14px;
+  font-weight:bold;
   white-space:nowrap;
+  overflow:hidden;
   text-overflow:ellipsis;
 }
 
-.host-line{
-  color:#aaa;
+.host{
+  color:#aaa4b6;
   font-size:11px;
-  margin-bottom:4px;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+  margin-top:4px;
 }
 
 .room-meta{
-  color:#888;
+  display:flex;
+  gap:9px;
+  margin-top:7px;
+  color:#817b91;
   font-size:10px;
-}
-
-.live{
-  color:#ff4d6d;
-  font-weight:bold;
-}
-
-.host-badge{
-  display:inline-block;
-  padding:3px 6px;
-  margin-left:4px;
-  border-radius:7px;
-  background:rgba(255,179,0,.15);
-  color:#ffc247;
-  font-size:8px;
 }
 
 .room-actions{
   display:flex;
   flex-direction:column;
-  gap:6px;
   align-items:flex-end;
-}
-
-.join-btn{
-  border:none;
-  background:linear-gradient(135deg,#ff3cac,#d51c8b);
-  color:white;
-  padding:9px 13px;
-  border-radius:12px;
-  font-weight:bold;
-  font-size:11px;
-}
-
-.small-actions{
-  display:flex;
-  gap:4px;
-}
-
-.icon-btn{
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.06);
-  color:#aaa;
-  width:28px;
-  height:26px;
-  border-radius:9px;
-  font-size:12px;
-}
-
-/* EMPTY */
-
-.empty{
-  text-align:center;
-  padding:25px 15px;
-  color:#777;
-  font-size:13px;
-}
-
-/* CREATE ROOM */
-
-.create-room-btn{
-  border:none;
-  background:linear-gradient(135deg,#ff3cac,#784ba0);
-  color:white;
-  padding:10px 14px;
-  border-radius:13px;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.create-box{
-  background:linear-gradient(
-    135deg,
-    rgba(255,60,172,.18),
-    rgba(120,75,160,.14)
-  );
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:22px;
-  padding:18px;
-  margin-bottom:16px;
-}
-
-.create-box h3{
-  font-size:19px;
-  margin-bottom:5px;
-}
-
-.create-input{
-  width:100%;
-  padding:14px;
-  margin-top:12px;
-  border-radius:13px;
-  border:1px solid #44284f;
-  outline:none;
-  background:#16091f;
-  color:white;
-  font-size:14px;
-}
-
-.create-label{
-  display:block;
-  color:#aaa;
-  font-size:11px;
-  margin-top:15px;
-  margin-bottom:6px;
-}
-
-.seat-options{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-}
-
-.seat-option{
-  border:1px solid #45284f;
-  background:#170b20;
-  color:#aaa;
-  padding:11px 5px;
-  border-radius:13px;
-  font-weight:bold;
-  font-size:11px;
-}
-
-.seat-option.active{
-  background:linear-gradient(135deg,#ff3cac,#784ba0);
-  border-color:transparent;
-  color:white;
-}
-
-.create-submit{
-  width:100%;
-  border:none;
-  margin-top:18px;
-  padding:15px;
-  border-radius:14px;
-  background:linear-gradient(135deg,#ff3cac,#784ba0);
-  color:white;
-  font-size:14px;
-  font-weight:bold;
-}
-
-.cancel-btn{
-  width:100%;
-  border:1px solid #4b2d55;
-  margin-top:9px;
-  padding:13px;
-  border-radius:14px;
-  background:transparent;
-  color:#aaa;
-}
-
-/* PROFILE */
-
-.profile-cover{
-  position:relative;
-  margin:-16px -16px 0;
-  padding:28px 16px 42px;
-  text-align:center;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 20% 10%,rgba(255,255,255,.22),transparent 25%),
-    linear-gradient(135deg,#ff3cac,#784ba0,#32105f);
-  border-radius:0 0 32px 32px;
-}
-
-.profile-cover-title{
-  font-size:11px;
-  opacity:.8;
-  letter-spacing:1px;
-  margin-bottom:15px;
-}
-
-.profile-avatar{
-  width:96px;
-  height:96px;
-  border-radius:50%;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#ff75c3,#784ba0);
-  font-size:35px;
-  font-weight:bold;
-  overflow:hidden;
-  border:4px solid white;
-}
-
-.profile-avatar img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.profile-name{
-  margin-top:12px;
-  font-size:23px;
-  font-weight:bold;
-}
-
-.profile-email{
-  color:rgba(255,255,255,.75);
-  font-size:11px;
-  margin-top:5px;
-  word-break:break-all;
-}
-
-.uid{
-  color:rgba(255,255,255,.55);
-  font-size:9px;
-  margin-top:6px;
-  word-break:break-all;
-}
-
-.online-dot{
-  display:inline-block;
-  width:8px;
-  height:8px;
-  background:#31e981;
-  border-radius:50%;
-  margin-right:5px;
-  box-shadow:0 0 8px #31e981;
-}
-
-.profile-id-badge{
-  display:inline-block;
-  margin-top:9px;
-  padding:6px 10px;
-  border-radius:20px;
-  background:rgba(0,0,0,.18);
-  font-size:10px;
-}
-
-.login-btn,
-.logout-btn{
-  width:100%;
-  padding:13px;
-  border:none;
-  border-radius:14px;
-  background:linear-gradient(135deg,#ff3cac,#784ba0);
-  color:white;
-  font-weight:bold;
-  font-size:14px;
-  margin-top:12px;
-}
-
-.profile-stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  margin-top:-20px;
-  position:relative;
-  z-index:2;
   gap:7px;
 }
 
-.profile-stat{
-  padding:14px 4px;
-  text-align:center;
-  border-radius:17px;
-  background:rgba(30,10,40,.95);
-  border:1px solid rgba(255,255,255,.1);
-}
-
-.profile-stat strong{
-  display:block;
-  font-size:18px;
-}
-
-.profile-stat span{
-  display:block;
-  margin-top:4px;
-  color:#999;
+.live{
+  background:#24c87822;
+  color:#41e798;
+  border:1px solid #36e29435;
+  padding:4px 7px;
+  border-radius:7px;
   font-size:9px;
-}
-
-.profile-wallet{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-top:11px;
-}
-
-.wallet-box{
-  padding:16px;
-  border-radius:19px;
-  min-height:105px;
-}
-
-.wallet-box.coins{
-  background:linear-gradient(135deg,#ffb300,#ff6900);
-}
-
-.wallet-box.vip{
-  background:linear-gradient(135deg,#7b2cff,#c000ff);
-}
-
-.wallet-icon{
-  font-size:23px;
-}
-
-.wallet-box small{
-  display:block;
-  margin-top:6px;
-  opacity:.8;
-  font-size:10px;
-}
-
-.wallet-box h3{
-  margin-top:4px;
-  font-size:19px;
-}
-
-.recharge-btn{
-  border:none;
-  margin-top:8px;
-  padding:7px 10px;
-  border-radius:11px;
-  background:rgba(255,255,255,.22);
-  color:white;
-  font-size:10px;
   font-weight:bold;
 }
 
-.card{
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:19px;
-  padding:16px;
-  margin-top:12px;
-}
-
-.level-card{
-  background:linear-gradient(
-    135deg,
-    rgba(255,60,172,.17),
-    rgba(120,75,160,.13)
-  );
-}
-
-.level-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:12px;
-}
-
-.level-badge{
-  background:linear-gradient(135deg,#ff3cac,#784ba0);
+.join-btn{
+  background:linear-gradient(135deg,#8449ff,#c535dc);
+  color:white;
   padding:8px 12px;
-  border-radius:20px;
+  border-radius:10px;
   font-size:11px;
   font-weight:bold;
 }
 
-.progress-bg{
-  width:100%;
-  height:9px;
-  background:#28152f;
-  border-radius:20px;
-  overflow:hidden;
+.room-bottom{
+  display:flex;
+  gap:7px;
 }
 
-.progress{
-  width:62%;
-  height:100%;
-  background:linear-gradient(90deg,#ff3cac,#784ba0);
-  border-radius:20px;
-}
-
-.exp-text{
-  color:#999;
+.small-action{
+  background:#ffffff0a;
+  color:#aaa4b7;
+  padding:6px 8px;
+  border-radius:8px;
   font-size:10px;
-  margin-top:7px;
-  text-align:right;
 }
 
-.menu-title{
-  font-size:11px;
-  color:#888;
-  margin:18px 4px 8px;
-  letter-spacing:.5px;
-}
-
-.profile-menu{
-  overflow:hidden;
+/* EVENT BANNER */
+.event-banner{
+  margin:0 14px 20px;
+  padding:16px;
   border-radius:19px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.menu-item{
-  width:100%;
+  background:linear-gradient(135deg,#211745,#351357);
+  border:1px solid #ffffff12;
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:14px;
-  background:transparent;
-  color:white;
-  border:none;
-  border-bottom:1px solid rgba(255,255,255,.07);
-  text-align:left;
+  gap:13px;
 }
 
-.menu-item:last-child{
-  border-bottom:none;
-}
-
-.menu-icon{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  background:rgba(255,255,255,.08);
+.event-icon{
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  background:#ffb52e20;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:18px;
+  font-size:24px;
 }
 
-.menu-text{
+.event-text{
   flex:1;
 }
 
-.menu-text strong{
-  display:block;
-  font-size:13px;
+.event-text b{
+  font-size:14px;
 }
 
-.menu-text span{
-  display:block;
-  color:#888;
-  font-size:9px;
-  margin-top:3px;
+.event-text p{
+  color:#9992a8;
+  font-size:10px;
+  margin-top:4px;
 }
 
-.arrow{
-  color:#777;
-  font-size:19px;
+.event-btn{
+  background:#ffb52e;
+  color:#241400;
+  border-radius:10px;
+  padding:8px 11px;
+  font-size:10px;
+  font-weight:bold;
 }
 
-/* BOTTOM NAV */
+/* EMPTY */
+.empty{
+  text-align:center;
+  padding:30px 15px;
+  color:#777184;
+  display:none;
+}
 
+.empty-icon{
+  font-size:38px;
+  margin-bottom:8px;
+}
+
+/* NAV */
 .bottom-nav{
   position:fixed;
-  bottom:0;
   left:50%;
   transform:translateX(-50%);
+  bottom:0;
   width:100%;
-  max-width:600px;
+  max-width:520px;
   height:72px;
+  background:#100d18ee;
+  backdrop-filter:blur(16px);
+  border-top:1px solid #ffffff10;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  background:rgba(14,5,20,.97);
-  border-top:1px solid rgba(255,255,255,.1);
-  backdrop-filter:blur(15px);
-  z-index:100;
+  z-index:50;
 }
 
 .nav-btn{
-  border:none;
-  background:transparent;
-  color:#777;
-  font-size:10px;
+  text-decoration:none;
+  color:#777182;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:5px;
-  text-decoration:none;
-}
-
-.nav-btn.active{
-  color:#ff3cac;
+  gap:4px;
+  font-size:10px;
 }
 
 .nav-icon{
   font-size:21px;
 }
 
-.events-link{
-  color:#777;
+.nav-btn.active{
+  color:#b96aff;
 }
 
-.events-link:hover{
-  color:#ff3cac;
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:#000000aa;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:100;
 }
 
-@media(max-width:400px){
-  .page{padding:14px}
-  .profile-name{font-size:21px}
-  .room-card{padding:12px}
-  .room-icon{width:52px;height:52px}
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:520px;
+  background:#171322;
+  border-radius:25px 25px 0 0;
+  padding:20px;
+  border-top:1px solid #ffffff15;
+  animation:up .25s ease;
+}
+
+@keyframes up{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:17px;
+}
+
+.modal-head h3{
+  font-size:18px;
+}
+
+.close{
+  background:#ffffff0d;
+  color:white;
+  width:34px;
+  height:34px;
+  border-radius:10px;
+}
+
+.create-input{
+  width:100%;
+  background:#ffffff08;
+  border:1px solid #ffffff12;
+  color:white;
+  padding:13px;
+  border-radius:12px;
+  outline:none;
+  margin-bottom:10px;
+}
+
+.create-select{
+  width:100%;
+  background:#201a2e;
+  color:white;
+  border:1px solid #ffffff12;
+  padding:13px;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+.create-btn{
+  width:100%;
+  padding:14px;
+  border-radius:13px;
+  background:linear-gradient(135deg,#8449ff,#c535dc);
+  color:white;
+  font-weight:bold;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:88px;
+  transform:translateX(-50%) translateY(20px);
+  background:#292331;
+  border:1px solid #ffffff15;
+  color:white;
+  padding:11px 16px;
+  border-radius:12px;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:200;
+  white-space:nowrap;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+@media(min-width:700px){
+  body{
+    background:#050509;
+  }
+
+  .app{
+    border-left:1px solid #ffffff08;
+    border-right:1px solid #ffffff08;
+  }
 }
 </style>
 </head>
@@ -751,1389 +593,696 @@ button{cursor:pointer}
 
 <div class="app">
 
-<!-- HOME -->
-
-<div id="homePage" class="page active">
-
-  <div class="top">
-    <div>
-      <h1>Tannu Voice Chat</h1>
-      <p>Meet new friends • Voice • Enjoy ❤️</p>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo-box">
+      <div class="logo">T</div>
+      <div class="logo-text">
+        <h2>Tannu Voice Chat</h2>
+        <p>Made for friends • Made in India 🇮🇳</p>
+      </div>
     </div>
 
-    <div class="logo">T</div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="showToast('Notifications coming soon 🔔')">🔔</button>
+      <button class="icon-btn" onclick="showToast('Messages coming soon 💬')">💬</button>
+    </div>
+  </header>
+
+
+  <!-- WELCOME -->
+  <section class="welcome">
+    <h1>Welcome to Tannu 👋</h1>
+    <p>Meet new friends, join live voice rooms and enjoy daily events.</p>
+
+    <div class="welcome-actions">
+      <button class="welcome-btn" onclick="openRooms()">🎙 Join Room</button>
+      <button class="welcome-btn dark" onclick="openCreateRoom()">＋ Create</button>
+    </div>
+  </section>
+
+
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input
+      id="searchInput"
+      class="search"
+      type="text"
+      placeholder="Search rooms or hosts..."
+      oninput="filterRooms()"
+    >
   </div>
 
-  <div class="welcome">
-    <h2 id="welcomeText">Welcome to Tannu ❤️</h2>
-    <p class="muted">
-      Join live voice rooms and meet new people.
-    </p>
-  </div>
 
-  <div class="quick-actions">
+  <!-- QUICK ACTIONS -->
+  <section class="quick">
 
-    <button class="quick-btn" onclick="openRooms()">
-      <span>🎙️</span>
-      Voice Rooms
+    <button class="quick-card" onclick="openRooms()">
+      <div class="quick-icon">🎙️</div>
+      <b>Voice Rooms</b>
+      <span>Join live</span>
     </button>
 
-    <button class="quick-btn" onclick="openCreateRoom()">
-      <span>➕</span>
-      Create Room
+    <button class="quick-card" onclick="openCreateRoom()">
+      <div class="quick-icon">➕</div>
+      <b>Create Room</b>
+      <span>Start yours</span>
     </button>
 
-    <button class="quick-btn" onclick="openEvents()">
-      <span>🎉</span>
-      Events
+    <button class="quick-card" onclick="openEvents()">
+      <div class="quick-icon">🎉</div>
+      <b>Events</b>
+      <span>Get rewards</span>
     </button>
 
-  </div>
+  </section>
 
-  <div class="section-head">
-    <h3>🔥 Popular Rooms</h3>
 
-    <button class="see-all" onclick="openRooms()">
-      See All →
-    </button>
-  </div>
+  <!-- CATEGORIES -->
+  <section class="section">
+    <div class="section-head">
+      <h3>Explore Rooms</h3>
+      <button class="see-all" onclick="clearFilters()">Reset</button>
+    </div>
 
-  <input
-    id="homeSearch"
-    class="search"
-    type="text"
-    placeholder="🔎 Search rooms or hosts..."
-  >
+    <div class="categories">
 
-  <div class="categories" id="homeCategories">
+      <button class="cat active" data-category="All" onclick="selectCategory(this,'All')">
+        🔥 Popular
+      </button>
 
-    <button class="category active" data-category="Popular">
-      🔥 Popular
-    </button>
+      <button class="cat" data-category="New" onclick="selectCategory(this,'New')">
+        ✨ New
+      </button>
 
-    <button class="category" data-category="New">
-      ✨ New
-    </button>
+      <button class="cat" data-category="Chat" onclick="selectCategory(this,'Chat')">
+        💬 Chat
+      </button>
 
-    <button class="category" data-category="Chat">
-      💬 Chat
-    </button>
+      <button class="cat" data-category="Music" onclick="selectCategory(this,'Music')">
+        🎵 Music
+      </button>
 
-    <button class="category" data-category="Music">
-      🎵 Music
-    </button>
+      <button class="cat" data-category="Friends" onclick="selectCategory(this,'Friends')">
+        👫 Friends
+      </button>
 
-    <button class="category" data-category="Friends">
-      👥 Friends
-    </button>
+      <button class="cat" data-category="Games" onclick="selectCategory(this,'Games')">
+        🎮 Games
+      </button>
 
-    <button class="category" data-category="Games">
-      🎮 Games
-    </button>
+    </div>
+  </section>
 
-  </div>
 
-  <div id="homeRooms">
-    <div class="empty">Loading rooms...</div>
-  </div>
+  <!-- POPULAR ROOMS -->
+  <section class="section">
+
+    <div class="section-head">
+      <h3>🔥 Popular Rooms</h3>
+      <button class="see-all" onclick="openRooms()">See all</button>
+    </div>
+
+    <div id="roomList" class="room-list">
+
+
+      <!-- ROOM 1 -->
+      <div class="room"
+           data-category="Chat"
+           data-search="late night talk aryan chat">
+
+        <div class="room-avatar">
+          🎤
+          <span class="live-dot"></span>
+        </div>
+
+        <div class="room-info">
+          <div class="room-title">Late Night Talk</div>
+          <div class="host">🎙 Host Aryan</div>
+
+          <div class="room-meta">
+            <span>👥 126/16</span>
+            <span>❤️ <span class="like-count">2.4K</span></span>
+          </div>
+
+          <div class="room-bottom">
+            <button class="small-action" onclick="likeRoom(this,event)">❤️ Like</button>
+            <button class="small-action" onclick="shareRoom('Late Night Talk',event)">📤 Share</button>
+          </div>
+        </div>
+
+        <div class="room-actions">
+          <span class="live">● LIVE</span>
+          <button class="join-btn" onclick="joinRoom('Late Night Talk')">JOIN</button>
+        </div>
+
+      </div>
+
+
+      <!-- ROOM 2 -->
+      <div class="room"
+           data-category="Music"
+           data-search="indian music dj rohan">
+
+        <div class="room-avatar">
+          🎵
+          <span class="live-dot"></span>
+        </div>
+
+        <div class="room-info">
+          <div class="room-title">Indian Music Night</div>
+          <div class="host">🎙 Host Rohan</div>
+
+          <div class="room-meta">
+            <span>👥 98/16</span>
+            <span>❤️ <span class="like-count">1.8K</span></span>
+          </div>
+
+          <div class="room-bottom">
+            <button class="small-action" onclick="likeRoom(this,event)">❤️ Like</button>
+            <button class="small-action" onclick="shareRoom('Indian Music Night',event)">📤 Share</button>
+          </div>
+        </div>
+
+        <div class="room-actions">
+          <span class="live">● LIVE</span>
+          <button class="join-btn" onclick="joinRoom('Indian Music Night')">JOIN</button>
+        </div>
+
+      </div>
+
+
+      <!-- ROOM 3 -->
+      <div class="room"
+           data-category="Friends"
+           data-search="new friends india sana friends">
+
+        <div class="room-avatar">
+          👫
+          <span class="live-dot"></span>
+        </div>
+
+        <div class="room-info">
+          <div class="room-title">Meet New Friends</div>
+          <div class="host">🎙 Host Sana</div>
+
+          <div class="room-meta">
+            <span>👥 74/12</span>
+            <span>❤️ <span class="like-count">1.2K</span></span>
+          </div>
+
+          <div class="room-bottom">
+            <button class="small-action" onclick="likeRoom(this,event)">❤️ Like</button>
+            <button class="small-action" onclick="shareRoom('Meet New Friends',event)">📤 Share</button>
+          </div>
+        </div>
+
+        <div class="room-actions">
+          <span class="live">● LIVE</span>
+          <button class="join-btn" onclick="joinRoom('Meet New Friends')">JOIN</button>
+        </div>
+
+      </div>
+
+
+      <!-- ROOM 4 -->
+      <div class="room"
+           data-category="Games"
+           data-search="fruit game fun gaming amit">
+
+        <div class="room-avatar">
+          🎮
+          <span class="live-dot"></span>
+        </div>
+
+        <div class="room-info">
+          <div class="room-title">Fun & Games Zone</div>
+          <div class="host">🎙 Host Amit</div>
+
+          <div class="room-meta">
+            <span>👥 61/8</span>
+            <span>❤️ <span class="like-count">940</span></span>
+          </div>
+
+          <div class="room-bottom">
+            <button class="small-action" onclick="likeRoom(this,event)">❤️ Like</button>
+            <button class="small-action" onclick="shareRoom('Fun & Games Zone',event)">📤 Share</button>
+          </div>
+        </div>
+
+        <div class="room-actions">
+          <span class="live">● LIVE</span>
+          <button class="join-btn" onclick="joinRoom('Fun & Games Zone')">JOIN</button>
+        </div>
+
+      </div>
+
+
+      <!-- ROOM 5 -->
+      <div class="room"
+           data-category="New"
+           data-search="new room chill priya">
+
+        <div class="room-avatar">
+          🌟
+          <span class="live-dot"></span>
+        </div>
+
+        <div class="room-info">
+          <div class="room-title">Chill & Chill</div>
+          <div class="host">🎙 Host Priya</div>
+
+          <div class="room-meta">
+            <span>👥 32/8</span>
+            <span>❤️ <span class="like-count">510</span></span>
+          </div>
+
+          <div class="room-bottom">
+            <button class="small-action" onclick="likeRoom(this,event)">❤️ Like</button>
+            <button class="small-action" onclick="shareRoom('Chill & Chill',event)">📤 Share</button>
+          </div>
+        </div>
+
+        <div class="room-actions">
+          <span class="live">● LIVE</span>
+          <button class="join-btn" onclick="joinRoom('Chill & Chill')">JOIN</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="empty" class="empty">
+      <div class="empty-icon">🔎</div>
+      <p>No rooms found</p>
+    </div>
+
+  </section>
+
+
+  <!-- EVENT BANNER -->
+  <section class="event-banner">
+
+    <div class="event-icon">🎁</div>
+
+    <div class="event-text">
+      <b>Daily Rewards</b>
+      <p>Open Events and collect your daily rewards.</p>
+    </div>
+
+    <button class="event-btn" onclick="openEvents()">OPEN</button>
+
+  </section>
 
 </div>
 
 
-<!-- ROOMS -->
+<!-- CREATE ROOM MODAL -->
+<div id="createModal" class="modal" onclick="closeModalOutside(event)">
 
-<div id="roomsPage" class="page">
+  <div class="modal-box">
 
-  <div class="top">
-
-    <div>
-      <h2>Voice Rooms 🎙️</h2>
-      <p>Find your favourite room</p>
+    <div class="modal-head">
+      <h3>➕ Create Voice Room</h3>
+      <button class="close" onclick="closeCreateRoom()">✕</button>
     </div>
-
-    <button id="createRoomBtn" class="create-room-btn">
-      + Create
-    </button>
-
-  </div>
-
-  <div id="createRoomBox"
-       class="create-box"
-       style="display:none;">
-
-    <h3>➕ Create Voice Room</h3>
-
-    <p class="muted">
-      Create your own room and invite people.
-    </p>
-
-    <label class="create-label">
-      Room Name
-    </label>
 
     <input
-      id="newRoomName"
+      id="roomName"
       class="create-input"
-      type="text"
+      placeholder="Enter room name"
       maxlength="40"
-      placeholder="Example: Tannu Friends">
+    >
 
-    <label class="create-label">
-      Category
-    </label>
-
-    <select id="newRoomCategory" class="create-input">
-
+    <select id="roomCategory" class="create-select">
       <option value="Chat">💬 Chat</option>
       <option value="Music">🎵 Music</option>
-      <option value="Friends">👥 Friends</option>
-      <option value="New">✨ New</option>
+      <option value="Friends">👫 Friends</option>
       <option value="Games">🎮 Games</option>
-
+      <option value="New">✨ New</option>
     </select>
 
-    <label class="create-label">
-      Voice Seats
-    </label>
+    <select id="roomSeats" class="create-select">
+      <option value="8">8 Seats</option>
+      <option value="12">12 Seats</option>
+      <option value="16">16 Seats</option>
+    </select>
 
-    <div class="seat-options">
-
-      <button type="button"
-              class="seat-option active"
-              data-seats="8">
-        8 Seats
-      </button>
-
-      <button type="button"
-              class="seat-option"
-              data-seats="12">
-        12 Seats
-      </button>
-
-      <button type="button"
-              class="seat-option"
-              data-seats="16">
-        16 Seats
-      </button>
-
-    </div>
-
-    <button id="submitCreateRoom"
-            class="create-submit">
+    <button class="create-btn" onclick="createRoom()">
       🚀 Create Room
     </button>
 
-    <button id="cancelCreateRoom"
-            class="cancel-btn">
-      Cancel
-    </button>
-
   </div>
-
-  <input
-    id="roomSearch"
-    class="search"
-    type="text"
-    placeholder="🔎 Search rooms or hosts...">
-
-  <div class="categories" id="roomCategories">
-
-    <button class="category active" data-category="Popular">
-      🔥 Popular
-    </button>
-
-    <button class="category" data-category="New">
-      ✨ New
-    </button>
-
-    <button class="category" data-category="Friends">
-      👥 Friends
-    </button>
-
-    <button class="category" data-category="Music">
-      🎵 Music
-    </button>
-
-    <button class="category" data-category="Chat">
-      💬 Chat
-    </button>
-
-    <button class="category" data-category="Games">
-      🎮 Games
-    </button>
-
-  </div>
-
-  <div id="roomsList">
-    <div class="empty">Loading rooms...</div>
-  </div>
-
-</div>
-
-
-<!-- PROFILE -->
-
-<div id="profilePage" class="page">
-
-  <div class="profile-cover">
-
-    <div class="profile-cover-title">
-      TANNU VOICE CHAT
-    </div>
-
-    <div class="profile-avatar" id="profileBig">
-      T
-    </div>
-
-    <div class="profile-name" id="profileName">
-      Guest User
-    </div>
-
-    <div class="profile-email" id="profileEmail">
-      Login to your account
-    </div>
-
-    <div class="uid" id="profileUid">
-      ID: Not logged in
-    </div>
-
-    <div class="profile-id-badge">
-      <span class="online-dot"></span>
-      Online
-    </div>
-
-    <button class="login-btn" id="profileLoginBtn">
-      Login with Google
-    </button>
-
-  </div>
-
-  <div class="profile-stats">
-
-    <div class="profile-stat">
-      <strong>0</strong>
-      <span>Following</span>
-    </div>
-
-    <div class="profile-stat">
-      <strong>0</strong>
-      <span>Followers</span>
-    </div>
-
-    <div class="profile-stat">
-      <strong>0</strong>
-      <span>Visitors</span>
-    </div>
-
-  </div>
-
-  <div class="profile-wallet">
-
-    <div class="wallet-box coins">
-
-      <div class="wallet-icon">🪙</div>
-
-      <small>MY COINS</small>
-
-      <h3>100,000</h3>
-
-      <button
-        class="recharge-btn"
-        onclick="showComingSoon('Recharge')">
-        + Recharge
-      </button>
-
-    </div>
-
-    <div class="wallet-box vip">
-
-      <div class="wallet-icon">👑</div>
-
-      <small>VIP STATUS</small>
-
-      <h3>VIP 0</h3>
-
-      <button
-        class="recharge-btn"
-        onclick="showComingSoon('VIP Center')">
-        Open VIP
-      </button>
-
-    </div>
-
-  </div>
-
-  <div class="card level-card">
-
-    <div class="level-row">
-
-      <div>
-        <strong>⭐ My Level</strong>
-
-        <div class="muted">
-          Keep enjoying Tannu Voice Chat
-        </div>
-      </div>
-
-      <div class="level-badge">
-        LEVEL 5
-      </div>
-
-    </div>
-
-    <div class="progress-bg">
-      <div class="progress"></div>
-    </div>
-
-    <div class="exp-text">
-      6,200 / 10,000 EXP
-    </div>
-
-  </div>
-
-  <div class="menu-title">
-    MY ACCOUNT
-  </div>
-
-  <div class="profile-menu">
-
-    <button class="menu-item"
-            onclick="showComingSoon('My Gifts')">
-
-      <div class="menu-icon">🎁</div>
-
-      <div class="menu-text">
-        <strong>My Gifts</strong>
-        <span>View received gifts</span>
-      </div>
-
-      <div class="arrow">›</div>
-
-    </button>
-
-    <button class="menu-item"
-            onclick="showComingSoon('VIP Center')">
-
-      <div class="menu-icon">👑</div>
-
-      <div class="menu-text">
-        <strong>VIP Center</strong>
-        <span>VIP benefits and membership</span>
-      </div>
-
-      <div class="arrow">›</div>
-
-    </button>
-
-    <button class="menu-item"
-            onclick="showComingSoon('Level & Rewards')">
-
-      <div class="menu-icon">🏆</div>
-
-      <div class="menu-text">
-        <strong>Level & Rewards</strong>
-        <span>Check your rewards</span>
-      </div>
-
-      <div class="arrow">›</div>
-
-    </button>
-
-  </div>
-
-  <div class="menu-title">
-    MORE
-  </div>
-
-  <div class="profile-menu">
-
-    <button class="menu-item"
-            onclick="showComingSoon('Settings')">
-
-      <div class="menu-icon">⚙️</div>
-
-      <div class="menu-text">
-        <strong>Settings</strong>
-        <span>Account and app settings</span>
-      </div>
-
-      <div class="arrow">›</div>
-
-    </button>
-
-    <button class="menu-item"
-            onclick="showComingSoon('Help & Support')">
-
-      <div class="menu-icon">🆘</div>
-
-      <div class="menu-text">
-        <strong>Help & Support</strong>
-        <span>Contact Tannu support team</span>
-      </div>
-
-      <div class="arrow">›</div>
-
-    </button>
-
-  </div>
-
-</div>
 
 </div>
 
 
 <!-- BOTTOM NAV -->
+<nav class="bottom-nav">
 
-<div class="bottom-nav">
-
-  <button class="nav-btn active"
-          data-page="homePage">
-
+  <a class="nav-btn active" href="index.html">
     <span class="nav-icon">🏠</span>
     Home
-
-  </button>
-
-  <button class="nav-btn"
-          data-page="roomsPage">
-
-    <span class="nav-icon">🎙️</span>
-    Rooms
-
-  </button>
-
-  <a class="nav-btn events-link"
-     href="events.html">
-
-    <span class="nav-icon">🎉</span>
-    Events
-
   </a>
 
-  <button class="nav-btn"
-          data-page="profilePage">
+  <a class="nav-btn" href="voice-room.html">
+    <span class="nav-icon">🎙️</span>
+    Rooms
+  </a>
 
+  <a class="nav-btn events-link" href="events.html">
+    <span class="nav-icon">🎉</span>
+    Events
+  </a>
+
+  <a class="nav-btn" href="profile.html">
     <span class="nav-icon">👤</span>
     Profile
+  </a>
 
-  </button>
-
-</div>
-
-
-<!-- FIREBASE -->
-
-<script type="module">
-
-import {
-  initializeApp
-}
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-  onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  addDoc,
-  serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+</nav>
 
 
-/* FIREBASE CONFIG */
-
-const firebaseConfig = {
-
-  apiKey:
-    "AIzaSyAc7BBnG5zzAmB4Mx-3haVwE0aob5HlVc",
-
-  authDomain:
-    "tannu-voice-chat.firebaseapp.com",
-
-  projectId:
-    "tannu-voice-chat",
-
-  storageBucket:
-    "tannu-voice-chat.firebasestorage.app",
-
-  messagingSenderId:
-    "720483733073",
-
-  appId:
-    "1:720483733073:web:c65b96d255d6177b9d7270"
-
-};
+<div id="toast" class="toast"></div>
 
 
-const app =
-  initializeApp(firebaseConfig);
+<script>
 
-const auth =
-  getAuth(app);
+/* =========================
+   APP STATE
+========================= */
 
-const db =
-  getFirestore(app);
-
-const provider =
-  new GoogleAuthProvider();
-
-let currentUser = null;
-
-let selectedSeats = 8;
-
-let activeCategory = "Popular";
+let selectedCategory = "All";
 
 
-/* ELEMENTS */
+/* =========================
+   TOAST
+========================= */
 
-const welcomeText =
-  document.getElementById("welcomeText");
+let toastTimer;
 
-const profileName =
-  document.getElementById("profileName");
+function showToast(message){
 
-const profileEmail =
-  document.getElementById("profileEmail");
+  const toast = document.getElementById("toast");
 
-const profileUid =
-  document.getElementById("profileUid");
+  toast.textContent = message;
+  toast.classList.add("show");
 
-const profileBig =
-  document.getElementById("profileBig");
+  clearTimeout(toastTimer);
 
-const profileLoginBtn =
-  document.getElementById("profileLoginBtn");
-
-const createRoomBtn =
-  document.getElementById("createRoomBtn");
-
-const createRoomBox =
-  document.getElementById("createRoomBox");
-
-const newRoomName =
-  document.getElementById("newRoomName");
-
-const newRoomCategory =
-  document.getElementById("newRoomCategory");
-
-const submitCreateRoom =
-  document.getElementById("submitCreateRoom");
-
-const cancelCreateRoom =
-  document.getElementById("cancelCreateRoom");
-
-
-/* LOGIN */
-
-async function login(){
-
-  try{
-
-    await signInWithPopup(
-      auth,
-      provider
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "Login failed: " +
-      error.message
-    );
-
-  }
-
+  toastTimer = setTimeout(()=>{
+    toast.classList.remove("show");
+  },2200);
 }
 
 
-/* LOGOUT */
-
-async function logout(){
-
-  try{
-
-    await signOut(auth);
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "Logout failed: " +
-      error.message
-    );
-
-  }
-
-}
-
-
-/* AUTH */
-
-onAuthStateChanged(
-  auth,
-  (user)=>{
-
-    currentUser = user;
-
-    if(user){
-
-      const name =
-        user.displayName ||
-        "Tannu User";
-
-      welcomeText.textContent =
-        "Welcome " +
-        name +
-        " ❤️";
-
-      profileName.textContent =
-        name;
-
-      profileEmail.textContent =
-        user.email || "";
-
-      profileUid.textContent =
-        "ID: " + (user.uid || "");
-
-      if(user.photoURL){
-
-        profileBig.innerHTML =
-          `<img src="${user.photoURL}" alt="Profile">`;
-
-      }else{
-
-        profileBig.textContent =
-          name
-          .charAt(0)
-          .toUpperCase();
-
-      }
-
-      profileLoginBtn.textContent =
-        "Logout";
-
-      profileLoginBtn.className =
-        "logout-btn";
-
-      profileLoginBtn.onclick =
-        logout;
-
-    }else{
-
-      welcomeText.textContent =
-        "Welcome to Tannu ❤️";
-
-      profileName.textContent =
-        "Guest User";
-
-      profileEmail.textContent =
-        "Login to your account";
-
-      profileUid.textContent =
-        "ID: Not logged in";
-
-      profileBig.textContent =
-        "T";
-
-      profileLoginBtn.textContent =
-        "Login with Google";
-
-      profileLoginBtn.className =
-        "login-btn";
-
-      profileLoginBtn.onclick =
-        login;
-
-    }
-
-  }
-);
-
-
-/* CREATE ROOM */
-
-createRoomBtn.addEventListener(
-  "click",
-  openCreateRoom
-);
-
-
-function openCreateRoom(){
-
-  if(!currentUser){
-
-    alert(
-      "Please login with Google first to create a room."
-    );
-
-    return;
-
-  }
-
-  document
-    .getElementById("roomsPage")
-    .classList
-    .add("active");
-
-  document
-    .getElementById("homePage")
-    .classList
-    .remove("active");
-
-  createRoomBox.style.display =
-    "block";
-
-  newRoomName.focus();
-
-  setActiveNav("roomsPage");
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-/* OPEN ROOMS */
+/* =========================
+   NAVIGATION
+========================= */
 
 function openRooms(){
 
-  document
-    .querySelectorAll(".page")
-    .forEach(
-      page =>
-        page.classList.remove("active")
-    );
-
-  document
-    .getElementById("roomsPage")
-    .classList.add("active");
-
-  setActiveNav("roomsPage");
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+  window.location.href = "voice-room.html";
 
 }
-
-
-/* OPEN EVENTS */
 
 function openEvents(){
 
-  window.location.href =
-    "events.html";
+  window.location.href = "events.html";
 
 }
 
 
-/* CANCEL */
+/* =========================
+   CREATE ROOM
+========================= */
 
-cancelCreateRoom.addEventListener(
-  "click",
-  ()=>{
+function openCreateRoom(){
 
-    createRoomBox.style.display =
-      "none";
+  document.getElementById("createModal").classList.add("show");
 
-    newRoomName.value =
-      "";
+}
 
-  }
-);
+function closeCreateRoom(){
 
+  document.getElementById("createModal").classList.remove("show");
 
-/* SEATS */
+}
 
-document
-  .querySelectorAll(".seat-option")
-  .forEach(
-    button=>{
+function closeModalOutside(event){
 
-      button.addEventListener(
-        "click",
-        ()=>{
-
-          document
-            .querySelectorAll(".seat-option")
-            .forEach(
-              btn =>
-                btn.classList
-                .remove("active")
-            );
-
-          button.classList
-            .add("active");
-
-          selectedSeats =
-            Number(
-              button.dataset.seats
-            );
-
-        }
-      );
-
-    }
-  );
-
-
-/* CREATE ROOM */
-
-submitCreateRoom.addEventListener(
-  "click",
-  async()=>{
-
-    if(!currentUser){
-
-      alert("Please login first.");
-
-      return;
-
-    }
-
-    const roomName =
-      newRoomName.value.trim();
-
-    const category =
-      newRoomCategory.value;
-
-    if(!roomName){
-
-      alert(
-        "Please enter a room name."
-      );
-
-      newRoomName.focus();
-
-      return;
-
-    }
-
-    submitCreateRoom.disabled =
-      true;
-
-    submitCreateRoom.textContent =
-      "Creating...";
-
-    try{
-
-      const roomData = {
-
-        name:roomName,
-
-        host:
-          currentUser.displayName ||
-          "Tannu User",
-
-        hostUid:
-          currentUser.uid,
-
-        hostPhoto:
-          currentUser.photoURL ||
-          "",
-
-        category:category,
-
-        seats:selectedSeats,
-
-        status:"live",
-
-        users:1,
-
-        likes:0,
-
-        createdAt:
-          serverTimestamp()
-
-      };
-
-      const roomRef =
-        await addDoc(
-          collection(db,"rooms"),
-          roomData
-        );
-
-      alert(
-        "Room created successfully! 🎉"
-      );
-
-      createRoomBox.style.display =
-        "none";
-
-      newRoomName.value =
-        "";
-
-      await loadRooms();
-
-      window.location.href =
-        "voice-room.html?room=" +
-        encodeURIComponent(
-          roomRef.id
-        );
-
-    }catch(error){
-
-      console.error(error);
-
-      alert(
-        "Room creation failed: " +
-        error.message
-      );
-
-    }
-
-    submitCreateRoom.disabled =
-      false;
-
-    submitCreateRoom.textContent =
-      "🚀 Create Room";
-
-  }
-);
-
-
-/* LOAD ROOMS */
-
-async function loadRooms(){
-
-  const homeRooms =
-    document.getElementById(
-      "homeRooms"
-    );
-
-  const roomsList =
-    document.getElementById(
-      "roomsList"
-    );
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(db,"rooms")
-      );
-
-    if(snapshot.empty){
-
-      homeRooms.innerHTML =
-        `<div class="empty">
-          🎙️ No live rooms yet.<br>
-          Create the first room!
-        </div>`;
-
-      roomsList.innerHTML =
-        `<div class="empty">
-          🎙️ No rooms available.
-        </div>`;
-
-      return;
-
-    }
-
-    const rooms = [];
-
-    snapshot.forEach(
-      docSnap=>{
-
-        rooms.push({
-          id:docSnap.id,
-          ...docSnap.data()
-        });
-
-      }
-    );
-
-    /* POPULAR FIRST */
-
-    rooms.sort(
-      (a,b)=>
-        Number(b.users || 0) -
-        Number(a.users || 0)
-    );
-
-    renderRooms(
-      rooms,
-      homeRooms,
-      true
-    );
-
-    renderRooms(
-      rooms,
-      roomsList,
-      false
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    homeRooms.innerHTML =
-      `<div class="empty">
-        Unable to load rooms.
-      </div>`;
-
-    roomsList.innerHTML =
-      `<div class="empty">
-        Unable to load rooms.
-      </div>`;
-
+  if(event.target.id === "createModal"){
+    closeCreateRoom();
   }
 
 }
 
+function createRoom(){
 
-/* RENDER ROOMS */
+  const name = document.getElementById("roomName").value.trim();
+  const category = document.getElementById("roomCategory").value;
+  const seats = document.getElementById("roomSeats").value;
 
-function renderRooms(
-  rooms,
-  container,
-  home
-){
+  if(!name){
 
-  container.innerHTML = "";
-
-  let filtered =
-    rooms.filter(
-      room =>
-        matchesRoom(
-          room,
-          activeCategory
-        )
-    );
-
-  if(home){
-
-    filtered =
-      filtered.slice(0,5);
-
-  }
-
-  if(filtered.length === 0){
-
-    container.innerHTML =
-      `<div class="empty">
-        No ${activeCategory}
-        rooms found.
-      </div>`;
+    showToast("Please enter room name");
 
     return;
-
   }
 
-  filtered.forEach(
-    room=>{
-
-      container.appendChild(
-        createRoomCard(room)
-      );
-
-    }
+  localStorage.setItem(
+    "tannuLastCreatedRoom",
+    JSON.stringify({
+      name:name,
+      category:category,
+      seats:seats,
+      createdAt:Date.now()
+    })
   );
+
+  closeCreateRoom();
+
+  showToast("Room created successfully 🚀");
+
+  setTimeout(()=>{
+    window.location.href =
+      "voice-room.html?room=" +
+      encodeURIComponent(name);
+  },700);
 
 }
 
 
-/* FILTER */
+/* =========================
+   JOIN ROOM
+========================= */
 
-function matchesRoom(
-  room,
-  category
-){
+function joinRoom(roomName){
 
-  if(category === "Popular"){
-
-    return true;
-
-  }
-
-  return (
-    String(room.category || "")
-      .toLowerCase() ===
-    category.toLowerCase()
+  localStorage.setItem(
+    "tannuLastJoinedRoom",
+    roomName
   );
 
-}
-
-
-/* ROOM CARD */
-
-function createRoomCard(room){
-
-  const div =
-    document.createElement("div");
-
-  div.className =
-    "room-card";
-
-  const name =
-    room.name ||
-    "Tannu Room";
-
-  const host =
-    room.host ||
-    "Host";
-
-  const status =
-    room.status ||
-    "live";
-
-  const users =
-    Number(room.users || 0);
-
-  const seats =
-    Number(room.seats || 8);
-
-  const category =
-    room.category ||
-    "Chat";
-
-  const likes =
-    Number(room.likes || 0);
-
-  let icon =
-    "🎙️";
-
-  if(category === "Music")
-    icon = "🎵";
-
-  if(category === "Friends")
-    icon = "👥";
-
-  if(category === "New")
-    icon = "✨";
-
-  if(category === "Games")
-    icon = "🎮";
-
-  const iconDiv =
-    document.createElement("div");
-
-  iconDiv.className =
-    "room-icon";
-
-  iconDiv.textContent =
-    icon;
-
-
-  const info =
-    document.createElement("div");
-
-  info.className =
-    "room-info";
-
-
-  const title =
-    document.createElement("h3");
-
-  title.textContent =
-    name;
-
-
-  const hostText =
-    document.createElement("div");
-
-  hostText.className =
-    "host-line";
-
-  hostText.innerHTML =
-    "👤 " +
-    escapeHtml(host) +
-    `<span class="host-badge">HOST</span>`;
-
-
-  const meta =
-    document.createElement("div");
-
-  meta.className =
-    "room-meta";
-
-  meta.innerHTML =
-    `<span class="live">● LIVE</span>
-     &nbsp; 👥 ${users}/${seats}
-     &nbsp; ❤️ ${likes}`;
-
-
-  info.appendChild(title);
-  info.appendChild(hostText);
-  info.appendChild(meta);
-
-
-  const actions =
-    document.createElement("div");
-
-  actions.className =
-    "room-actions";
-
-
-  const join =
-    document.createElement("button");
-
-  join.className =
-    "join-btn";
-
-  join.textContent =
-    "Join";
-
-  join.addEventListener(
-    "click",
-    ()=>{
-
-      window.location.href =
-        "voice-room.html?room=" +
-        encodeURIComponent(
-          room.id
-        );
-
-    }
-  );
-
-
-  const small =
-    document.createElement("div");
-
-  small.className =
-    "small-actions";
-
-
-  const like =
-    document.createElement("button");
-
-  like.className =
-    "icon-btn";
-
-  like.textContent =
-    "❤️";
-
-  like.title =
-    "Like";
-
-  like.addEventListener(
-    "click",
-    ()=>{
-
-      alert(
-        "Room liked! ❤️"
-      );
-
-    }
-  );
-
-
-  const share =
-    document.createElement("button");
-
-  share.className =
-    "icon-btn";
-
-  share.textContent =
-    "📤";
-
-  share.title =
-    "Share";
-
-  share.addEventListener(
-    "click",
-    ()=>{
-
-      shareRoom(
-        room.id,
-        name
-      );
-
-    }
-  );
-
-
-  small.appendChild(like);
-  small.appendChild(share);
-
-  actions.appendChild(join);
-  actions.appendChild(small);
-
-  div.appendChild(iconDiv);
-  div.appendChild(info);
-  div.appendChild(actions);
-
-  return div;
-
-}
-
-
-/* ESCAPE */
-
-function escapeHtml(text){
-
-  return String(text)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-/* SHARE */
-
-async function shareRoom(
-  roomId,
-  roomName
-){
-
-  const link =
-    location.origin +
-    location.pathname
-    .replace("index.html","") +
+  window.location.href =
     "voice-room.html?room=" +
-    encodeURIComponent(roomId);
+    encodeURIComponent(roomName);
 
-  if(
-    navigator.share
-  ){
+}
+
+
+/* =========================
+   CATEGORY
+========================= */
+
+function selectCategory(button, category){
+
+  selectedCategory = category;
+
+  document.querySelectorAll(".cat").forEach(cat=>{
+    cat.classList.remove("active");
+  });
+
+  button.classList.add("active");
+
+  filterRooms();
+
+}
+
+
+/* =========================
+   SEARCH + FILTER
+========================= */
+
+function filterRooms(){
+
+  const query =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+  const rooms =
+    document.querySelectorAll(".room");
+
+  let visible = 0;
+
+  rooms.forEach(room=>{
+
+    const category =
+      room.dataset.category;
+
+    const search =
+      room.dataset.search.toLowerCase();
+
+    const categoryMatch =
+      selectedCategory === "All" ||
+      category === selectedCategory;
+
+    const searchMatch =
+      search.includes(query);
+
+    if(categoryMatch && searchMatch){
+
+      room.style.display = "flex";
+
+      visible++;
+
+    }else{
+
+      room.style.display = "none";
+
+    }
+
+  });
+
+  document.getElementById("empty").style.display =
+    visible === 0 ? "block" : "none";
+
+}
+
+
+function clearFilters(){
+
+  selectedCategory = "All";
+
+  document.getElementById("searchInput").value = "";
+
+  document.querySelectorAll(".cat").forEach(cat=>{
+    cat.classList.remove("active");
+  });
+
+  document
+    .querySelector('.cat[data-category="All"]')
+    .classList.add("active");
+
+  filterRooms();
+
+}
+
+
+/* =========================
+   LIKE
+========================= */
+
+function likeRoom(button,event){
+
+  if(event){
+    event.stopPropagation();
+  }
+
+  const room =
+    button.closest(".room");
+
+  const count =
+    room.querySelector(".like-count");
+
+  if(button.dataset.liked === "true"){
+
+    showToast("You already liked this room ❤️");
+
+    return;
+  }
+
+  let text = count.textContent;
+
+  if(text.includes("K")){
+
+    let number =
+      parseFloat(text.replace("K",""));
+
+    number += 0.1;
+
+    count.textContent =
+      number.toFixed(1) + "K";
+
+  }else{
+
+    let number =
+      parseInt(text.replace(/,/g,"")) || 0;
+
+    number += 1;
+
+    count.textContent =
+      number.toLocaleString();
+
+  }
+
+  button.dataset.liked = "true";
+  button.style.color = "#ff5fa8";
+
+  showToast("Room liked ❤️");
+
+}
+
+
+/* =========================
+   SHARE
+========================= */
+
+async function shareRoom(roomName,event){
+
+  if(event){
+    event.stopPropagation();
+  }
+
+  const shareUrl =
+    window.location.origin +
+    window.location.pathname.replace(
+      "index.html",
+      ""
+    ) +
+    "voice-room.html?room=" +
+    encodeURIComponent(roomName);
+
+  if(navigator.share){
 
     try{
 
       await navigator.share({
-        title:
-          roomName +
-          " - Tannu Voice Chat",
-        text:
-          "Join my voice room 🎙️",
-        url:link
+        title:"Tannu Voice Chat",
+        text:"Join " + roomName + " on Tannu Voice Chat",
+        url:shareUrl
       });
 
-    }catch(e){}
+    }catch(error){
+
+      /* user closed share */
+
+    }
 
   }else{
 
     try{
 
-      await navigator.clipboard.writeText(
-        link
-      );
+      await navigator.clipboard.writeText(shareUrl);
 
-      alert(
-        "Room link copied! 📋"
-      );
+      showToast("Room link copied 📋");
 
-    }catch(e){
+    }catch(error){
 
-      alert(link);
+      showToast("Share link ready 📤");
 
     }
 
@@ -2142,200 +1291,139 @@ async function shareRoom(
 }
 
 
-/* SEARCH */
+/* =========================
+   RESTORE CREATED ROOM
+========================= */
 
-function setupSearch(
-  inputId,
-  containerId
-){
+function loadCreatedRoom(){
 
-  document
-    .getElementById(inputId)
-    .addEventListener(
-      "input",
-      function(){
+  try{
 
-        const search =
-          this.value
-            .toLowerCase()
-            .trim();
-
-        document
-          .querySelectorAll(
-            "#" +
-            containerId +
-            " .room-card"
-          )
-          .forEach(
-            card=>{
-
-              const text =
-                card.textContent
-                  .toLowerCase();
-
-              card.style.display =
-                text.includes(search)
-                ? "flex"
-                : "none";
-
-            }
-          );
-
-      }
-    );
-
-}
-
-setupSearch(
-  "homeSearch",
-  "homeRooms"
-);
-
-setupSearch(
-  "roomSearch",
-  "roomsList"
-);
-
-
-/* CATEGORY BUTTONS */
-
-document
-  .querySelectorAll(".category")
-  .forEach(
-    button=>{
-
-      button.addEventListener(
-        "click",
-        ()=>{
-
-          const category =
-            button.dataset.category;
-
-          if(!category)
-            return;
-
-          activeCategory =
-            category;
-
-          const parent =
-            button.parentElement;
-
-          parent
-            .querySelectorAll(".category")
-            .forEach(
-              btn =>
-                btn.classList
-                .remove("active")
-            );
-
-          button.classList
-            .add("active");
-
-          loadRooms();
-
-        }
+    const saved =
+      JSON.parse(
+        localStorage.getItem(
+          "tannuLastCreatedRoom"
+        )
       );
 
-    }
-  );
+    if(!saved) return;
 
+    const roomList =
+      document.getElementById("roomList");
 
-/* NAV */
+    const div =
+      document.createElement("div");
 
-document
-  .querySelectorAll(
-    ".nav-btn[data-page]"
-  )
-  .forEach(
-    button=>{
+    div.className = "room";
 
-      button.addEventListener(
-        "click",
-        ()=>{
+    div.dataset.category = saved.category;
 
-          const pageId =
-            button.dataset.page;
+    div.dataset.search =
+      saved.name.toLowerCase() +
+      " shahid";
 
-          document
-            .querySelectorAll(".page")
-            .forEach(
-              page =>
-                page.classList
-                .remove("active")
-            );
+    div.innerHTML = `
 
-          const target =
-            document.getElementById(
-              pageId
-            );
+      <div class="room-avatar">
+        🎙️
+        <span class="live-dot"></span>
+      </div>
 
-          if(target){
+      <div class="room-info">
 
-            target.classList
-              .add("active");
+        <div class="room-title">
+          ${escapeHtml(saved.name)}
+        </div>
 
-          }
+        <div class="host">
+          🎙 Host Shahid
+        </div>
 
-          setActiveNav(
-            pageId
-          );
+        <div class="room-meta">
+          <span>👥 1/${saved.seats}</span>
+          <span>❤️ 0</span>
+        </div>
 
-          window.scrollTo({
-            top:0,
-            behavior:"smooth"
-          });
+        <div class="room-bottom">
 
-        }
-      );
+          <button
+            class="small-action"
+            onclick="likeRoom(this,event)"
+          >
+            ❤️ Like
+          </button>
 
-    }
-  );
+          <button
+            class="small-action"
+            onclick="shareRoom('${escapeJs(saved.name)}',event)"
+          >
+            📤 Share
+          </button>
 
+        </div>
 
-function setActiveNav(
-  pageId
-){
+      </div>
 
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(
-      btn =>
-        btn.classList
-        .remove("active")
-    );
+      <div class="room-actions">
 
-  const target =
-    document.querySelector(
-      `.nav-btn[data-page="${pageId}"]`
-    );
+        <span class="live">
+          ● LIVE
+        </span>
 
-  if(target){
+        <button
+          class="join-btn"
+          onclick="joinRoom('${escapeJs(saved.name)}')"
+        >
+          JOIN
+        </button>
 
-    target.classList
-      .add("active");
+      </div>
+
+    `;
+
+    roomList.prepend(div);
+
+  }catch(error){
+
+    console.log("Created room restore error");
 
   }
 
 }
 
 
-/* START */
+/* =========================
+   SECURITY HELPERS
+========================= */
 
-loadRooms();
+function escapeHtml(text){
 
-</script>
-
-
-<script>
-
-function showComingSoon(feature){
-
-  alert(
-    feature +
-    " will be connected with Firebase soon 🚀"
-  );
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
+
+function escapeJs(text){
+
+  return String(text)
+    .replace(/\\/g,"\\\\")
+    .replace(/'/g,"\\'")
+    .replace(/"/g,'\\"');
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadCreatedRoom();
+
+filterRooms();
 
 </script>
 
