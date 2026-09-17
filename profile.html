@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tannu Voice Chat - Profile</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0b0b16;
+      color: white;
+      padding-bottom: 80px;
+    }
+
+    .top {
+      padding: 25px 18px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #17142d, #24143d);
+    }
+
+    .avatar {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      margin: auto;
+      background: linear-gradient(135deg, #ff4fd8, #6c5cff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 35px;
+      font-weight: bold;
+      border: 3px solid #fff;
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .name {
+      margin-top: 12px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .uid {
+      margin-top: 5px;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    .level {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: #33245d;
+      color: #d7c5ff;
+      font-size: 13px;
+    }
+
+    .wallet {
+      margin: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #19182b, #252040);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .wallet small {
+      color: #aaa;
+    }
+
+    .coins {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ffd54a;
+      margin-top: 5px;
+    }
+
+    .recharge {
+      background: linear-gradient(135deg, #ff4fd8, #7b5cff);
+      border: none;
+      color: white;
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 0 18px 18px;
+    }
+
+    .stat {
+      background: #171725;
+      padding: 15px 5px;
+      text-align: center;
+      border-radius: 15px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 18px;
+    }
+
+    .stat span {
+      color: #999;
+      font-size: 12px;
+      margin-top: 5px;
+      display: block;
+    }
+
+    .menu {
+      margin: 0 18px;
+      background: #151522;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .item {
+      padding: 17px;
+      border-bottom: 1px solid #292936;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: #29233e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+    }
+
+    .arrow {
+      color: #777;
+    }
+
+    .bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 65px;
+      background: #12121d;
+      border-top: 1px solid #292936;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .nav {
+      color: #888;
+      text-align: center;
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .nav span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 3px;
+    }
+
+    .nav.active {
+      color: #ff61dc;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top">
+    <div class="avatar" id="avatar">T</div>
+
+    <div class="name" id="name">Guest</div>
+    <div class="uid" id="uid">UID: --</div>
+
+    <div class="level">LEVEL 1 • New User</div>
+  </div>
+
+  <div class="wallet">
+    <div>
+      <small>My Coins</small>
+      <div class="coins">🪙 0</div>
+    </div>
+
+    <button class="recharge">Recharge</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <strong>0</strong>
+      <span>Following</span>
+    </div>
+
+    <div class="stat">
+      <strong>0</strong>
+      <span>Followers</span>
+    </div>
+
+    <div class="stat">
+      <strong>0</strong>
+      <span>Visitors</span>
+    </div>
+  </div>
+
+  <div class="menu">
+
+    <div class="item">
+      <div class="left">
+        <div class="icon">🎁</div>
+        <div>My Gifts</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+
+    <div class="item">
+      <div class="left">
+        <div class="icon">⭐</div>
+        <div>VIP Center</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+
+    <div class="item">
+      <div class="left">
+        <div class="icon">🏆</div>
+        <div>My Level & Rewards</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+
+    <div class="item">
+      <div class="left">
+        <div class="icon">⚙️</div>
+        <div>Settings</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+
+    <div class="item">
+      <div class="left">
+        <div class="icon">🛟</div>
+        <div>Help & Support</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+
+  </div>
+
+  <div class="bottom">
+    <a class="nav" href="index.html">
+      <span>🏠</span>
+      Home
+    </a>
+
+    <a class="nav" href="rooms.html">
+      <span>🎙️</span>
+      Rooms
+    </a>
+
+    <a class="nav" href="events.html">
+      <span>🎉</span>
+      Events
+    </a>
+
+    <a class="nav active" href="profile.html">
+      <span>👤</span>
+      Profile
+    </a>
+  </div>
+
+  <script type="module">
+
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged
+    }
+    from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
+      authDomain: "tannu-voice-chat.firebaseapp.com",
+      projectId: "tannu-voice-chat",
+      storageBucket: "tannu-voice-chat.firebasestorage.app",
+      messagingSenderId: "720483733073",
+      appId: "1:720483733073:web:c65b96d255d6177b9d7270"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+
+      if (user) {
+
+        document.getElementById("name").textContent =
+          user.displayName || "Tannu User";
+
+        document.getElementById("uid").textContent =
+          "UID: " + user.uid.substring(0, 10) + "...";
+
+        if (user.photoURL) {
+
+          const avatar = document.getElementById("avatar");
+
+          avatar.innerHTML =
+            `<img src="${user.photoURL}" alt="Profile">`;
+
+        } else {
+
+          document.getElementById("avatar").textContent =
+            (user.displayName || "T")[0].toUpperCase();
+
+        }
+
+      } else {
+
+        document.getElementById("name").textContent = "Guest";
+        document.getElementById("uid").textContent = "UID: Guest";
+        document.getElementById("avatar").textContent = "G";
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
