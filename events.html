@@ -7,23 +7,23 @@
 
 <style>
 *{
-  box-sizing:border-box;
   margin:0;
   padding:0;
+  box-sizing:border-box;
   font-family:Arial,sans-serif;
 }
 
 body{
-  background:#0b0714;
-  color:white;
+  background:#090611;
+  color:#fff;
   min-height:100vh;
-  padding-bottom:85px;
+  padding-bottom:80px;
 }
 
 .header{
-  padding:22px 18px 15px;
-  background:linear-gradient(135deg,#21103c,#100b20);
-  border-bottom:1px solid #30204a;
+  padding:20px;
+  background:linear-gradient(135deg,#241044,#10091d);
+  border-bottom:1px solid #352050;
 }
 
 .header h1{
@@ -32,158 +32,133 @@ body{
 
 .header p{
   color:#aaa;
+  font-size:13px;
   margin-top:6px;
-  font-size:14px;
 }
 
 .container{
-  padding:16px;
-  max-width:700px;
+  max-width:650px;
   margin:auto;
+  padding:16px;
 }
 
-.section-title{
+.title{
   font-size:19px;
-  margin:20px 0 12px;
+  margin:18px 0 12px;
 }
 
 .card{
-  background:linear-gradient(145deg,#1b122c,#100b1b);
-  border:1px solid #33214d;
+  background:linear-gradient(145deg,#1c102b,#100918);
+  border:1px solid #38204f;
   border-radius:18px;
   padding:16px;
   margin-bottom:14px;
-  box-shadow:0 8px 25px rgba(0,0,0,.25);
 }
 
-.reward-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.card h2{
+  font-size:18px;
 }
 
-.reward-title{
-  font-weight:bold;
-  font-size:17px;
-}
-
-.reward-sub{
+.sub{
   color:#aaa;
   font-size:13px;
-  margin-top:5px;
+  margin-top:6px;
+  line-height:1.5;
 }
 
-.coins{
-  color:#ffd45c;
-  font-weight:bold;
-}
+/* DAILY REWARD */
 
 .days{
   display:grid;
   grid-template-columns:repeat(7,1fr);
-  gap:7px;
-  margin-top:15px;
+  gap:6px;
+  margin-top:16px;
 }
 
 .day{
+  background:#28183a;
+  border:1px solid #3c2850;
+  border-radius:10px;
+  padding:9px 2px;
   text-align:center;
-  padding:9px 3px;
-  border-radius:12px;
-  background:#241737;
-  border:1px solid #38234f;
-  font-size:11px;
-}
-
-.day.active{
-  border-color:#c36cff;
-  box-shadow:0 0 12px rgba(195,108,255,.25);
-}
-
-.day.claimed{
-  background:#30204a;
-  color:#8e8e8e;
-}
-
-.day .amount{
-  color:#ffd45c;
-  margin-top:5px;
   font-size:10px;
 }
 
+.day strong{
+  display:block;
+  color:#ffd45a;
+  margin-top:5px;
+}
+
+.day.today{
+  border:1px solid #c45cff;
+  box-shadow:0 0 12px #9d3cff55;
+}
+
 button{
-  border:0;
-  cursor:pointer;
-  color:white;
-}
-
-.claim-btn{
   width:100%;
-  margin-top:15px;
-  padding:13px;
+  border:0;
   border-radius:12px;
-  background:linear-gradient(90deg,#8d35ff,#c653ff);
+  padding:13px;
+  margin-top:14px;
+  color:#fff;
+  font-size:14px;
   font-weight:bold;
-  font-size:15px;
+  cursor:pointer;
+  background:linear-gradient(90deg,#873cff,#c84dff);
 }
 
-.claim-btn:disabled{
+button:disabled{
   opacity:.45;
-  cursor:not-allowed;
 }
 
-.spin-card{
+/* SPIN */
+
+.spin{
   text-align:center;
 }
 
 .wheel{
   width:145px;
   height:145px;
-  margin:18px auto;
+  margin:20px auto;
   border-radius:50%;
+  border:7px solid #39204e;
   background:conic-gradient(
-    #ffcc4d 0deg 45deg,
-    #9d4edd 45deg 90deg,
-    #48cae4 90deg 135deg,
-    #ff6b6b 135deg 180deg,
-    #ffd166 180deg 225deg,
-    #7b2cbf 225deg 270deg,
-    #06d6a0 270deg 315deg,
-    #ef476f 315deg 360deg
+    #ffd166 0deg 45deg,
+    #9b5de5 45deg 90deg,
+    #00bbf9 90deg 135deg,
+    #ff595e 135deg 180deg,
+    #06d6a0 180deg 225deg,
+    #f15bb5 225deg 270deg,
+    #fee440 270deg 315deg,
+    #8338ec 315deg 360deg
   );
-  border:7px solid #302044;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:27px;
-  transition:transform 2s cubic-bezier(.17,.67,.12,.99);
+  font-size:35px;
+  transition:transform 2s ease;
 }
 
-.spin-count{
+.spinText{
   color:#aaa;
   font-size:13px;
 }
 
-.spin-btn{
-  margin-top:14px;
-  padding:13px 35px;
-  border-radius:13px;
-  background:linear-gradient(90deg,#ff9f1c,#ff4d6d);
-  font-weight:bold;
-  font-size:15px;
-}
+/* EVENTS */
 
 .event{
   position:relative;
-  overflow:hidden;
 }
 
-.event-badge{
+.badge{
   display:inline-block;
-  background:#7c3aed;
   padding:5px 9px;
-  border-radius:8px;
-  font-size:11px;
-  margin-bottom:10px;
+  background:#7136a8;
+  border-radius:7px;
+  font-size:10px;
+  margin-bottom:9px;
 }
 
 .event h3{
@@ -193,463 +168,461 @@ button{
 .event p{
   color:#aaa;
   font-size:13px;
-  margin:7px 0 12px;
   line-height:1.5;
+  margin-top:6px;
 }
 
-.event-info{
+.eventBottom{
   display:flex;
   justify-content:space-between;
-  color:#bbb;
-  font-size:12px;
-}
-
-.event-btn{
-  width:100%;
   margin-top:13px;
-  padding:11px;
-  border-radius:11px;
-  background:#241638;
-  border:1px solid #53336f;
+  font-size:12px;
+  color:#aaa;
 }
 
-.countdown{
-  color:#ffd45c;
+.timer{
+  color:#ffd45a;
   font-weight:bold;
 }
 
+.event button{
+  background:#261637;
+  border:1px solid #5b3478;
+}
+
+/* TOAST */
+
 .toast{
   position:fixed;
+  bottom:90px;
   left:50%;
-  bottom:95px;
-  transform:translateX(-50%) translateY(20px);
-  background:#251737;
-  border:1px solid #69428b;
+  transform:translateX(-50%);
+  background:#251535;
+  border:1px solid #74458e;
   padding:12px 18px;
   border-radius:12px;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  z-index:99;
+  display:none;
+  z-index:100;
   white-space:nowrap;
 }
 
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
+/* NAV */
 
-.bottom-nav{
+.nav{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  height:70px;
-  background:#100b1a;
-  border-top:1px solid #30203f;
+  height:68px;
+  background:#100a18;
+  border-top:1px solid #30203d;
   display:flex;
   justify-content:space-around;
   align-items:center;
-  z-index:50;
 }
 
-.nav-item{
+.nav a{
   color:#888;
+  text-decoration:none;
   text-align:center;
   font-size:11px;
-  text-decoration:none;
 }
 
-.nav-item span{
+.nav span{
   display:block;
   font-size:21px;
-  margin-bottom:4px;
+  margin-bottom:3px;
 }
 
-.nav-item.active{
-  color:#c76cff;
+.nav .active{
+  color:#c45cff;
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
+<div class="header">
   <h1>🎉 Events</h1>
-  <p>Daily activities, rewards and special events</p>
-</header>
+  <p>Play • Complete activities • Earn rewards</p>
+</div>
 
-<main class="container">
+<div class="container">
 
   <!-- DAILY REWARDS -->
-  <h2 class="section-title">🎁 Daily Rewards</h2>
+
+  <div class="title">🎁 Daily Rewards</div>
 
   <div class="card">
-    <div class="reward-top">
-      <div>
-        <div class="reward-title">Daily Login Rewards</div>
-        <div class="reward-sub">Come every day and collect your reward.</div>
-      </div>
 
-      <div class="coins">🪙 Coins</div>
+    <h2>7 Days Reward</h2>
+
+    <div class="sub">
+      Login every day and collect free coins.
     </div>
 
     <div class="days">
-      <div class="day active">
-        Day 1
-        <div class="amount">1K</div>
+
+      <div class="day today">
+        DAY 1
+        <strong>1K</strong>
       </div>
 
       <div class="day">
-        Day 2
-        <div class="amount">2K</div>
+        DAY 2
+        <strong>2K</strong>
       </div>
 
       <div class="day">
-        Day 3
-        <div class="amount">3K</div>
+        DAY 3
+        <strong>3K</strong>
       </div>
 
       <div class="day">
-        Day 4
-        <div class="amount">5K</div>
+        DAY 4
+        <strong>5K</strong>
       </div>
 
       <div class="day">
-        Day 5
-        <div class="amount">10K</div>
+        DAY 5
+        <strong>10K</strong>
       </div>
 
       <div class="day">
-        Day 6
-        <div class="amount">20K</div>
+        DAY 6
+        <strong>20K</strong>
       </div>
 
       <div class="day">
-        Day 7
-        <div class="amount">50K</div>
+        DAY 7
+        <strong>50K</strong>
       </div>
+
     </div>
 
-    <button class="claim-btn" id="claimBtn" onclick="claimDaily()">
-      Claim Today's Reward
+    <button id="claim" onclick="claimReward()">
+      🎁 Claim 1,000 Coins
     </button>
+
   </div>
 
 
   <!-- FREE SPIN -->
-  <h2 class="section-title">🎡 Free Spin</h2>
 
-  <div class="card spin-card">
+  <div class="title">🎡 Free Spin</div>
 
-    <div class="reward-title">Daily Free Spin</div>
+  <div class="card spin">
 
-    <div class="reward-sub">
-      Earn free spins by using the app and win coins.
+    <h2>Daily Free Spin</h2>
+
+    <div class="sub">
+      Use the app and collect free spins.
+      Maximum 5 spins every day.
     </div>
 
     <div class="wheel" id="wheel">
       🎁
     </div>
 
-    <div class="spin-count">
-      Spins today: <b id="spinCount">0</b> / 5
+    <div class="spinText">
+      Spins: <b id="spinNumber">0</b> / 5
     </div>
 
-    <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
+    <button id="spinButton" onclick="spin()">
       🎡 SPIN NOW
     </button>
 
   </div>
 
 
-  <!-- SPECIAL EVENTS -->
-  <h2 class="section-title">🔥 Special Events</h2>
+  <!-- EVENT 1 -->
+
+  <div class="title">🔥 Special Events</div>
 
   <div class="card event">
 
-    <span class="event-badge">LIMITED EVENT</span>
-
-    <h3>🌟 Welcome New Users</h3>
-
-    <p>
-      Complete your first activities and receive bonus coins.
-    </p>
-
-    <div class="event-info">
-      <span>Reward: 🪙 100K</span>
-      <span class="countdown" id="timer1">23:59:59</span>
-    </div>
-
-    <button class="event-btn" onclick="joinEvent('Welcome New Users')">
-      Join Event
-    </button>
-
-  </div>
-
-
-  <div class="card event">
-
-    <span class="event-badge">DAILY EVENT</span>
+    <span class="badge">LIVE EVENT</span>
 
     <h3>🎤 Voice Room Challenge</h3>
 
     <p>
-      Spend time in voice rooms and complete today's challenge.
+      Join voice rooms, talk with friends and complete
+      today's activity.
     </p>
 
-    <div class="event-info">
-      <span>Reward: 🪙 250K</span>
-      <span>Today</span>
+    <div class="eventBottom">
+      <span>Reward 🪙 250K</span>
+      <span class="timer">23:59:59</span>
     </div>
 
-    <button class="event-btn" onclick="joinEvent('Voice Room Challenge')">
-      View Challenge
+    <button onclick="joinEvent('Voice Room Challenge')">
+      JOIN EVENT
     </button>
 
   </div>
 
 
+  <!-- EVENT 2 -->
+
   <div class="card event">
 
-    <span class="event-badge">COMING SOON</span>
+    <span class="badge">DAILY</span>
+
+    <h3>🌟 New User Bonus</h3>
+
+    <p>
+      Complete your first activities and receive bonus
+      coins.
+    </p>
+
+    <div class="eventBottom">
+      <span>Reward 🪙 100K</span>
+      <span>Today</span>
+    </div>
+
+    <button onclick="joinEvent('New User Bonus')">
+      JOIN EVENT
+    </button>
+
+  </div>
+
+
+  <!-- EVENT 3 -->
+
+  <div class="card event">
+
+    <span class="badge">WEEKLY</span>
+
+    <h3>🏆 Weekly Level Challenge</h3>
+
+    <p>
+      Gain EXP, increase your level and unlock special
+      rewards.
+    </p>
+
+    <div class="eventBottom">
+      <span>EXP + Coins</span>
+      <span>7 Days</span>
+    </div>
+
+    <button onclick="joinEvent('Weekly Level Challenge')">
+      VIEW EVENT
+    </button>
+
+  </div>
+
+
+  <!-- EVENT 4 -->
+
+  <div class="card event">
+
+    <span class="badge">COMING SOON</span>
 
     <h3>👑 VIP Special Event</h3>
 
     <p>
-      Exclusive rewards, frames and special gifts for VIP users.
+      Exclusive frames, entry effects and special
+      rewards for VIP members.
     </p>
 
-    <div class="event-info">
+    <div class="eventBottom">
       <span>VIP Rewards</span>
-      <span>Coming Soon</span>
+      <span>Soon</span>
     </div>
 
-    <button class="event-btn" onclick="showToast('VIP event coming soon 🔥')">
-      Coming Soon
+    <button onclick="showToast('👑 VIP event coming soon')">
+      COMING SOON
     </button>
 
   </div>
 
-
-  <div class="card event">
-
-    <span class="event-badge">WEEKLY</span>
-
-    <h3>🏆 Weekly Ranking Event</h3>
-
-    <p>
-      Collect EXP and coins, increase your level and enter the weekly ranking.
-    </p>
-
-    <div class="event-info">
-      <span>Top Rewards</span>
-      <span>7 Days</span>
-    </div>
-
-    <button class="event-btn" onclick="joinEvent('Weekly Ranking Event')">
-      View Ranking
-    </button>
-
-  </div>
-
-</main>
+</div>
 
 
 <div class="toast" id="toast"></div>
 
 
 <!-- BOTTOM NAV -->
-<nav class="bottom-nav">
 
-  <a href="index.html" class="nav-item">
+<div class="nav">
+
+  <a href="index.html">
     <span>🏠</span>
     Home
   </a>
 
-  <a href="index.html#rooms" class="nav-item">
+  <a href="index.html#rooms">
     <span>🎤</span>
     Rooms
   </a>
 
-  <a href="events.html" class="nav-item active">
+  <a class="active" href="events.html">
     <span>🎉</span>
     Events
   </a>
 
-  <a href="profile.html" class="nav-item">
+  <a href="profile.html">
     <span>👤</span>
     Profile
   </a>
 
-</nav>
+</div>
 
 
 <script>
 
-let dailyClaimed =
-  localStorage.getItem("tannu_daily_claimed") === "true";
+/* DAILY REWARD */
 
-let spins =
-  Number(localStorage.getItem("tannu_spins")) || 0;
+let claimed =
+  localStorage.getItem("tannu_reward_claimed") === "yes";
 
-const claimBtn =
-  document.getElementById("claimBtn");
+function updateClaim(){
 
-const spinCount =
-  document.getElementById("spinCount");
+  const btn =
+    document.getElementById("claim");
 
-function updateUI(){
+  if(claimed){
 
-  spinCount.textContent = spins;
+    btn.innerText = "✓ Reward Already Claimed";
 
-  if(dailyClaimed){
+    btn.disabled = true;
 
-    claimBtn.textContent = "✓ Reward Claimed";
-
-    claimBtn.disabled = true;
   }
 
-  if(spins >= 5){
-
-    document.getElementById("spinBtn").disabled = true;
-
-    document.getElementById("spinBtn").style.opacity = ".45";
-
-    document.getElementById("spinBtn").textContent =
-      "Daily Limit Reached";
-  }
 }
 
-function claimDaily(){
+function claimReward(){
 
-  if(dailyClaimed) return;
+  if(claimed) return;
 
-  dailyClaimed = true;
+  claimed = true;
 
   localStorage.setItem(
-    "tannu_daily_claimed",
-    "true"
+    "tannu_reward_claimed",
+    "yes"
   );
 
-  claimBtn.textContent = "✓ Reward Claimed";
+  updateClaim();
 
-  claimBtn.disabled = true;
+  showToast("🎉 You received 1,000 coins!");
 
-  showToast("🎉 1,000 coins reward claimed!");
 }
 
 
-function spinWheel(){
+/* FREE SPIN */
 
-  if(spins >= 5){
+let spinCount =
+  Number(localStorage.getItem("tannu_spin_count")) || 0;
 
-    showToast("Today's 5 free spins are finished.");
+function updateSpin(){
+
+  document.getElementById("spinNumber").innerText =
+    spinCount;
+
+  if(spinCount >= 5){
+
+    const btn =
+      document.getElementById("spinButton");
+
+    btn.innerText =
+      "Daily Limit Reached";
+
+    btn.disabled = true;
+
+  }
+
+}
+
+function spin(){
+
+  if(spinCount >= 5){
+
+    showToast("You used all 5 spins today.");
 
     return;
+
   }
 
   const wheel =
     document.getElementById("wheel");
 
-  const random =
-    Math.floor(Math.random() * 360) + 1440;
+  const rotation =
+    1440 + Math.floor(Math.random() * 360);
 
   wheel.style.transform =
-    "rotate(" + random + "deg)";
+    "rotate(" + rotation + "deg)";
 
-  document.getElementById("spinBtn").disabled = true;
+  document.getElementById("spinButton").disabled =
+    true;
 
-  setTimeout(() => {
+  setTimeout(function(){
 
     const rewards = [
-      "100 coins",
-      "500 coins",
-      "1,000 coins",
-      "5,000 coins",
-      "10,000 coins"
+      "100 Coins",
+      "500 Coins",
+      "1,000 Coins",
+      "5,000 Coins",
+      "10,000 Coins"
     ];
 
     const reward =
       rewards[Math.floor(Math.random() * rewards.length)];
 
-    spins++;
+    spinCount++;
 
     localStorage.setItem(
-      "tannu_spins",
-      spins
+      "tannu_spin_count",
+      spinCount
     );
 
-    showToast("🎉 You won " + reward + "!");
+    showToast("🎉 You won " + reward);
 
-    document.getElementById("spinBtn").disabled =
-      spins >= 5;
+    document.getElementById("spinButton").disabled =
+      spinCount >= 5;
 
-    updateUI();
+    updateSpin();
 
-  },2100);
+  },2000);
+
 }
 
+
+/* EVENTS */
 
 function joinEvent(name){
 
-  showToast("🔥 " + name + " opened!");
+  showToast("🔥 " + name + " joined!");
+
 }
 
+
+/* TOAST */
 
 function showToast(message){
 
   const toast =
     document.getElementById("toast");
 
-  toast.textContent = message;
+  toast.innerText =
+    message;
 
-  toast.classList.add("show");
+  toast.style.display =
+    "block";
 
-  setTimeout(() => {
+  setTimeout(function(){
 
-    toast.classList.remove("show");
+    toast.style.display =
+      "none";
 
   },2500);
+
 }
 
 
-/* 24 HOUR EVENT TIMER */
+/* START */
 
-let secondsLeft =
-  24 * 60 * 60 - 1;
-
-function updateTimer(){
-
-  let h =
-    Math.floor(secondsLeft / 3600);
-
-  let m =
-    Math.floor((secondsLeft % 3600) / 60);
-
-  let s =
-    secondsLeft % 60;
-
-  document.getElementById("timer1").textContent =
-    String(h).padStart(2,"0") + ":" +
-    String(m).padStart(2,"0") + ":" +
-    String(s).padStart(2,"0");
-
-  if(secondsLeft > 0){
-
-    secondsLeft--;
-
-  }else{
-
-    secondsLeft =
-      24 * 60 * 60 - 1;
-  }
-}
-
-setInterval(updateTimer,1000);
-
-updateUI();
-updateTimer();
+updateClaim();
+updateSpin();
 
 </script>
 
