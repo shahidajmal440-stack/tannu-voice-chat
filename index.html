@@ -205,8 +205,6 @@
       margin-top: 12px;
     }
 
-    /* CREATE ROOM BUTTON */
-
     .create-room-btn {
       border: none;
       background: linear-gradient(135deg, #ff3cac, #784ba0);
@@ -217,8 +215,6 @@
       font-weight: bold;
       box-shadow: 0 0 18px rgba(255,60,172,.25);
     }
-
-    /* CREATE ROOM */
 
     .create-box {
       background:
@@ -568,26 +564,6 @@
       font-size: 20px;
     }
 
-    /* EVENTS */
-
-    .event-card {
-      padding: 20px;
-      border-radius: 20px;
-      background: linear-gradient(135deg,rgba(255,60,172,.18),rgba(120,75,160,.15));
-      border: 1px solid rgba(255,255,255,.08);
-      margin-bottom: 13px;
-    }
-
-    .event-card h3 {
-      margin-bottom: 7px;
-    }
-
-    .empty {
-      text-align: center;
-      padding: 30px 10px;
-      color: #777;
-    }
-
     /* BOTTOM NAV */
 
     .bottom-nav {
@@ -624,6 +600,17 @@
 
     .nav-icon {
       font-size: 21px;
+    }
+
+    /* EVENTS LINK */
+
+    .events-link {
+      text-decoration: none;
+      color: #777;
+    }
+
+    .events-link:hover {
+      color: #ff3cac;
     }
 
     @media (max-width:400px) {
@@ -844,49 +831,6 @@
       <div class="empty">
         Loading rooms...
       </div>
-    </div>
-
-  </div>
-
-
-  <!-- EVENTS -->
-
-  <div id="eventsPage" class="page">
-
-    <div class="top">
-
-      <div>
-        <h2>Events 🎉</h2>
-        <p>Daily events coming soon</p>
-      </div>
-
-    </div>
-
-
-    <div class="event-card">
-      <h3>🎁 Daily Rewards</h3>
-
-      <p class="muted">
-        Complete daily activities and earn rewards.
-      </p>
-    </div>
-
-
-    <div class="event-card">
-      <h3>🎡 Free Spin</h3>
-
-      <p class="muted">
-        Free spin system will be added soon.
-      </p>
-    </div>
-
-
-    <div class="event-card">
-      <h3>🏆 Special Events</h3>
-
-      <p class="muted">
-        More exciting events are coming to Tannu Voice Chat.
-      </p>
     </div>
 
   </div>
@@ -1195,9 +1139,11 @@
   </button>
 
 
-  <button
-    class="nav-btn"
-    data-page="eventsPage">
+  <!-- EVENTS OPENS events.html -->
+
+  <a
+    class="nav-btn events-link"
+    href="events.html">
 
     <span class="nav-icon">
       🎉
@@ -1205,7 +1151,7 @@
 
     Events
 
-  </button>
+  </a>
 
 
   <button
@@ -1757,8 +1703,6 @@
             docSnap.id;
 
 
-          /* HOME CARD */
-
           const homeCard =
             createRoomCard(
               room,
@@ -1770,8 +1714,6 @@
             homeCard
           );
 
-
-          /* ROOMS CARD */
 
           const roomCard =
             createRoomCard(
@@ -2049,8 +1991,14 @@
 
   /* BOTTOM NAV */
 
+  /*
+    IMPORTANT:
+    Only buttons having data-page are handled here.
+    Events is an <a> link and opens events.html.
+  */
+
   document
-    .querySelectorAll(".nav-btn")
+    .querySelectorAll(".nav-btn[data-page]")
     .forEach(
       button => {
 
@@ -2071,14 +2019,24 @@
               );
 
 
-            document
-              .getElementById(pageId)
-              .classList
-              .add("active");
+            const targetPage =
+              document.getElementById(
+                pageId
+              );
+
+
+            if (targetPage) {
+
+              targetPage.classList
+                .add("active");
+
+            }
 
 
             document
-              .querySelectorAll(".nav-btn")
+              .querySelectorAll(
+                ".nav-btn"
+              )
               .forEach(
                 btn =>
                   btn.classList
