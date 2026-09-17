@@ -640,12 +640,6 @@ button{
   border:1px solid #382b41;
   border-radius:28px 28px 0 0;
   padding:23px;
-  animation:up .2s ease;
-}
-
-@keyframes up{
-  from{transform:translateY(100%)}
-  to{transform:translateY(0)}
 }
 
 .modalTitle{
@@ -747,11 +741,11 @@ button{
   font-size:11px;
 }
 
-/* RESPONSIVE */
 @media(max-width:360px){
   .roomGrid{
     grid-template-columns:1fr;
   }
+
   .voiceSeats{
     grid-template-columns:repeat(3,1fr);
   }
@@ -769,7 +763,8 @@ button{
 </div>
 
 <!-- LOGIN -->
-<section id="loginScreen" class="hidden">
+<section id="loginScreen">
+
   <div class="loginBox">
 
     <div class="loginLogo">🎙️</div>
@@ -780,7 +775,7 @@ button{
       Meet new people, join voice rooms and enjoy live conversations.
     </div>
 
-    <button class="loginBtn" onclick="googleLogin()">
+    <button id="googleButton" class="loginBtn" onclick="googleLogin()">
       🔵 Continue with Google
     </button>
 
@@ -795,1646 +790,2309 @@ button{
     </div>
 
   </div>
+
 </section>
 
 <!-- APP -->
 <div id="app" class="hidden">
 
-  <header class="topbar">
+<header class="topbar">
 
-    <div class="brand">
-      <div class="brandIcon">🎙️</div>
-      <div>
-        <div class="brandName">Tannu Voice Chat</div>
-        <div class="status">
-          <span id="statusDot" class="statusDot"></span>
-          <span id="backendStatus">Connecting...</span>
-        </div>
+  <div class="brand">
+
+    <div class="brandIcon">🎙️</div>
+
+    <div>
+      <div class="brandName">Tannu Voice Chat</div>
+
+      <div class="status">
+        <span id="statusDot" class="statusDot"></span>
+        <span id="backendStatus">Connecting...</span>
       </div>
     </div>
 
-    <div class="coinBox">
-      🪙 <span id="topCoins">0</span>
-    </div>
+  </div>
 
-  </header>
+  <div class="coinBox">
+    🪙 <span id="topCoins">0</span>
+  </div>
 
-  <!-- HOME -->
-  <main id="homePage" class="page active">
+</header>
 
-    <div class="hero">
-      <h1>Meet new people.<br>Find your voice.</h1>
-      <p>
-        Join live voice rooms, make friends and enjoy Tannu's Indian voice-chat community.
-      </p>
+<!-- HOME -->
+<main id="homePage" class="page active">
 
-      <div class="heroBtns">
-        <button class="primary" onclick="go('rooms')">Explore Rooms</button>
-        <button class="secondary" onclick="showInfo('Create Room','Room creation will be connected to the backend in the next development step.')">
-          + Create
-        </button>
-      </div>
-    </div>
+<div class="hero">
 
-    <div class="sectionTitle">
-      <h2>Categories</h2>
-      <span>Explore</span>
-    </div>
+<h1>
+Meet new people.<br>
+Find your voice.
+</h1>
 
-    <div class="categories">
-      <button class="category active" onclick="filterCategory('All',this)">🔥 All</button>
-      <button class="category" onclick="filterCategory('Friends',this)">👥 Friends</button>
-      <button class="category" onclick="filterCategory('Music',this)">🎵 Music</button>
-      <button class="category" onclick="filterCategory('Gaming',this)">🎮 Gaming</button>
-      <button class="category" onclick="filterCategory('Talk',this)">💬 Talk</button>
-    </div>
+<p>
+Join live voice rooms, make friends and enjoy Tannu's Indian voice-chat community.
+</p>
 
-    <div class="sectionTitle">
-      <h2>Popular Rooms</h2>
-      <span onclick="go('rooms')">View all →</span>
-    </div>
+<div class="heroBtns">
 
-    <div id="homeRooms" class="roomGrid"></div>
+<button class="primary" onclick="go('rooms')">
+Explore Rooms
+</button>
 
-    <div class="sectionTitle">
-      <h2>Daily Features</h2>
-    </div>
+<button class="secondary"
+onclick="showInfo('Create Room','Room creation will be connected to the backend in the next development step.')">
++ Create
+</button>
 
-    <div class="feature">
-      <div class="featureTop">
-        <div class="featureIcon">🎁</div>
-        <div class="badge">DAILY</div>
-      </div>
-      <h3>Daily Reward</h3>
-      <p>Claim your daily coins and keep your streak alive.</p>
-      <button class="primary" style="margin-top:13px" onclick="claimReward()">
-        Claim Reward
-      </button>
-    </div>
+</div>
 
-    <div class="feature">
-      <div class="featureTop">
-        <div class="featureIcon">🎰</div>
-        <div class="badge">FREE</div>
-      </div>
-      <h3>Lucky Spin</h3>
-      <p>Use your free daily spins to win coins.</p>
-      <button class="secondary" style="margin-top:13px" onclick="spin()">
-        Spin Now
-      </button>
-    </div>
+</div>
 
-    <div class="feature">
-      <div class="featureTop">
-        <div class="featureIcon">🤖</div>
-        <div class="badge">COMING SOON</div>
-      </div>
-      <h3>Tannu AI Room Assistant</h3>
-      <p>An AI assistant that can make quiet rooms more active.</p>
-      <button class="secondary" style="margin-top:13px" onclick="showInfo('Tannu AI','The AI room assistant is planned for a future version. This card is only the UI preview.')">
-        Preview
-      </button>
-    </div>
+<div class="sectionTitle">
+<h2>Categories</h2>
+<span>Explore</span>
+</div>
 
-  </main>
+<div class="categories">
 
-  <!-- ROOMS -->
-  <main id="roomsPage" class="page">
+<button class="category active"
+onclick="filterCategory('All',this)">
+🔥 All
+</button>
 
-    <div class="sectionTitle">
-      <h2>Voice Rooms</h2>
-      <span>Live now</span>
-    </div>
+<button class="category"
+onclick="filterCategory('Friends',this)">
+👥 Friends
+</button>
 
-    <input
-      id="roomSearch"
-      class="search"
-      placeholder="🔎 Search rooms..."
-      oninput="renderRooms()"
-    >
+<button class="category"
+onclick="filterCategory('Music',this)">
+🎵 Music
+</button>
 
-    <div class="categories" style="margin-bottom:16px">
-      <button class="category active" onclick="filterCategory('All',this)">All</button>
-      <button class="category" onclick="filterCategory('Friends',this)">Friends</button>
-      <button class="category" onclick="filterCategory('Music',this)">Music</button>
-      <button class="category" onclick="filterCategory('Gaming',this)">Gaming</button>
-      <button class="category" onclick="filterCategory('Talk',this)">Talk</button>
-    </div>
+<button class="category"
+onclick="filterCategory('Gaming',this)">
+🎮 Gaming
+</button>
 
-    <div id="roomsList" class="roomGrid"></div>
+<button class="category"
+onclick="filterCategory('Talk',this)">
+💬 Talk
+</button>
 
-  </main>
+</div>
 
-  <!-- EVENTS -->
-  <main id="eventsPage" class="page">
+<div class="sectionTitle">
 
-    <div class="sectionTitle">
-      <h2>Daily Events</h2>
-      <span>Join & enjoy</span>
-    </div>
+<h2>Popular Rooms</h2>
 
-    <div id="eventsList"></div>
+<span onclick="go('rooms')">
+View all →
+</span>
 
-  </main>
+</div>
 
-  <!-- MESSAGES -->
-  <main id="messagesPage" class="page">
+<div id="homeRooms" class="roomGrid"></div>
 
-    <div class="sectionTitle">
-      <h2>Messages</h2>
-      <span>Community</span>
-    </div>
+<div class="sectionTitle">
+<h2>Daily Features</h2>
+</div>
 
-    <div id="messagesList"></div>
+<div class="feature">
 
-  </main>
+<div class="featureTop">
 
-  <!-- WALLET -->
-  <main id="walletPage" class="page">
+<div class="featureIcon">
+🎁
+</div>
 
-    <div class="sectionTitle">
-      <h2>My Wallet</h2>
-      <span>Coins</span>
-    </div>
+<div class="badge">
+DAILY
+</div>
 
-    <div class="wallet">
+</div>
 
-      <div class="walletLabel">Available Coins</div>
+<h3>Daily Reward</h3>
 
-      <div class="walletCoins">
-        🪙 <span id="walletCoins">0</span>
-      </div>
+<p>
+Claim your daily coins and keep your streak alive.
+</p>
 
-      <div class="walletActions">
-        <button onclick="showInfo('Recharge','Payment gateway is not connected yet. ₹100 / 30 lakh coins is part of the planned Tannu Voice Chat economy.')">
-          💳 Recharge
-        </button>
+<button class="primary"
+style="margin-top:13px"
+onclick="claimReward()">
+Claim Reward
+</button>
 
-        <button onclick="showInfo('Gifts','Gifts and diamond conversion will be connected in the next backend phase.')">
-          🎁 Gifts
-        </button>
-      </div>
+</div>
 
-    </div>
+<div class="feature">
 
-    <div class="task">
-      <b>🔥 Daily Activity</b>
-      <p style="color:#8f8596;font-size:12px;margin-top:6px">
-        Use Tannu Voice Chat and complete your daily activity.
-      </p>
+<div class="featureTop">
 
-      <div class="progress">
-        <div class="progressBar"></div>
-      </div>
+<div class="featureIcon">
+🎰
+</div>
 
-      <p style="color:#9c91a3;font-size:11px;margin-top:8px">
-        65% completed
-      </p>
-    </div>
+<div class="badge">
+FREE
+</div>
 
-    <div class="feature" style="margin-top:14px">
-      <div class="featureTop">
-        <div class="featureIcon">👑</div>
-        <div class="badge">VIP</div>
-      </div>
-      <h3>VIP 1 & VIP 2</h3>
-      <p>VIP levels, frames, entry effects and special rewards.</p>
-      <button class="secondary" style="margin-top:13px" onclick="showInfo('VIP','VIP 1 and VIP 2 are planned paid membership levels. Payment and subscription backend will be added later.')">
-        View VIP
-      </button>
-    </div>
+</div>
 
-  </main>
+<h3>Lucky Spin</h3>
 
-  <!-- PROFILE -->
-  <main id="profilePage" class="page">
+<p>
+Use your free daily spins to win coins.
+</p>
 
-    <div class="profileHead">
+<button class="secondary"
+style="margin-top:13px"
+onclick="spin()">
+Spin Now
+</button>
 
-      <div id="profileAvatarBox"></div>
+</div>
 
-      <div id="profileName" class="profileName">Guest User</div>
+<div class="feature">
 
-      <div id="profileEmail" class="profileEmail">Guest account</div>
+<div class="featureTop">
 
-    </div>
+<div class="featureIcon">
+🤖
+</div>
 
-    <div class="menuCard">
+<div class="badge">
+COMING SOON
+</div>
 
-      <div class="menuItem">
-        <span>⭐ Level</span>
-        <small id="profileLevel">1</small>
-      </div>
+</div>
 
-      <div class="menuItem">
-        <span>🪙 Coins</span>
-        <small id="profileCoins">0</small>
-      </div>
+<h3>Tannu AI Room Assistant</h3>
 
-      <div class="menuItem" onclick="seatSettings()">
-        <span>💺 Room Seats</span>
-        <small>8 / 12 / 16</small>
-      </div>
+<p>
+An AI assistant that can make quiet rooms more active.
+</p>
 
-      <div class="menuItem" onclick="showInfo('Support','Tannu Support Team will be connected with the support backend later.')">
-        <span>🎧 Support</span>
-        <small>Help</small>
-      </div>
+<button class="secondary"
+style="margin-top:13px"
+onclick="showInfo('Tannu AI','The AI room assistant is planned for a future version. This card is only the UI preview.')">
+Preview
+</button>
 
-      <div class="menuItem" onclick="showInfo('About Tannu','Tannu Voice Chat — Made for Indian classic voice chat communities.')">
-        <span>ℹ️ About</span>
-        <small>V1</small>
-      </div>
+</div>
 
-      <div class="menuItem" onclick="logout()">
-        <span style="color:#ff5572">🚪 Logout</span>
-        <small>Exit</small>
-      </div>
+</main>
 
-    </div>
+<!-- ROOMS -->
+<main id="roomsPage" class="page">
 
-  </main>
+<div class="sectionTitle">
 
-  <!-- NAV -->
-  <nav class="bottomNav">
+<h2>Voice Rooms</h2>
+<span>Live now</span>
 
-    <button class="navBtn active" data-page="home" onclick="go('home')">
-      <div>🏠</div>
-      Home
-    </button>
+</div>
 
-    <button class="navBtn" data-page="rooms" onclick="go('rooms')">
-      <div>🎙️</div>
-      Rooms
-    </button>
+<input
+id="roomSearch"
+class="search"
+placeholder="🔎 Search rooms..."
+oninput="renderRooms()"
+>
 
-    <button class="navBtn" data-page="events" onclick="go('events')">
-      <div>🎉</div>
-      Events
-    </button>
+<div class="categories" style="margin-bottom:16px">
 
-    <button class="navBtn" data-page="messages" onclick="go('messages')">
-      <div>💬</div>
-      Chat
-    </button>
+<button class="category active"
+onclick="filterCategory('All',this)">
+All
+</button>
 
-    <button class="navBtn" data-page="profile" onclick="go('profile')">
-      <div>👤</div>
-      Me
-    </button>
+<button class="category"
+onclick="filterCategory('Friends',this)">
+Friends
+</button>
 
-  </nav>
+<button class="category"
+onclick="filterCategory('Music',this)">
+Music
+</button>
+
+<button class="category"
+onclick="filterCategory('Gaming',this)">
+Gaming
+</button>
+
+<button class="category"
+onclick="filterCategory('Talk',this)">
+Talk
+</button>
+
+</div>
+
+<div id="roomsList" class="roomGrid"></div>
+
+</main>
+
+<!-- EVENTS -->
+<main id="eventsPage" class="page">
+
+<div class="sectionTitle">
+
+<h2>Daily Events</h2>
+<span>Join & enjoy</span>
+
+</div>
+
+<div id="eventsList"></div>
+
+</main>
+
+<!-- MESSAGES -->
+<main id="messagesPage" class="page">
+
+<div class="sectionTitle">
+
+<h2>Messages</h2>
+<span>Community</span>
+
+</div>
+
+<div id="messagesList"></div>
+
+</main>
+
+<!-- WALLET -->
+<main id="walletPage" class="page">
+
+<div class="sectionTitle">
+
+<h2>My Wallet</h2>
+<span>Coins</span>
+
+</div>
+
+<div class="wallet">
+
+<div class="walletLabel">
+Available Coins
+</div>
+
+<div class="walletCoins">
+🪙 <span id="walletCoins">0</span>
+</div>
+
+<div class="walletActions">
+
+<button onclick="showInfo('Recharge','Payment gateway is not connected yet. ₹100 / 30 lakh coins is part of the planned Tannu Voice Chat economy.')">
+💳 Recharge
+</button>
+
+<button onclick="showInfo('Gifts','Gifts and diamond conversion will be connected in the next backend phase.')">
+🎁 Gifts
+</button>
+
+</div>
+
+</div>
+
+<div class="task">
+
+<b>🔥 Daily Activity</b>
+
+<p style="color:#8f8596;font-size:12px;margin-top:6px">
+Use Tannu Voice Chat and complete your daily activity.
+</p>
+
+<div class="progress">
+<div class="progressBar"></div>
+</div>
+
+<p style="color:#9c91a3;font-size:11px;margin-top:8px">
+65% completed
+</p>
+
+</div>
+
+<div class="feature" style="margin-top:14px">
+
+<div class="featureTop">
+
+<div class="featureIcon">
+👑
+</div>
+
+<div class="badge">
+VIP
+</div>
+
+</div>
+
+<h3>VIP 1 & VIP 2</h3>
+
+<p>
+VIP levels, frames, entry effects and special rewards.
+</p>
+
+<button class="secondary"
+style="margin-top:13px"
+onclick="showInfo('VIP','VIP 1 and VIP 2 are planned paid membership levels. Payment and subscription backend will be added later.')">
+View VIP
+</button>
+
+</div>
+
+</main>
+
+<!-- PROFILE -->
+<main id="profilePage" class="page">
+
+<div class="profileHead">
+
+<div id="profileAvatarBox"></div>
+
+<div id="profileName" class="profileName">
+Guest User
+</div>
+
+<div id="profileEmail" class="profileEmail">
+Guest account
+</div>
+
+</div>
+
+<div class="menuCard">
+
+<div class="menuItem">
+<span>⭐ Level</span>
+<small id="profileLevel">1</small>
+</div>
+
+<div class="menuItem">
+<span>🪙 Coins</span>
+<small id="profileCoins">0</small>
+</div>
+
+<div class="menuItem"
+onclick="seatSettings()">
+<span>💺 Room Seats</span>
+<small>8 / 12 / 16</small>
+</div>
+
+<div class="menuItem"
+onclick="showInfo('Support','Tannu Support Team will be connected with the support backend later.')">
+<span>🎧 Support</span>
+<small>Help</small>
+</div>
+
+<div class="menuItem"
+onclick="showInfo('About Tannu','Tannu Voice Chat — Made for Indian classic voice chat communities.')">
+<span>ℹ️ About</span>
+<small>V1</small>
+</div>
+
+<div class="menuItem"
+onclick="logout()">
+
+<span style="color:#ff5572">
+🚪 Logout
+</span>
+
+<small>
+Exit
+</small>
+
+</div>
+
+</div>
+
+</main>
+
+<!-- NAV -->
+<nav class="bottomNav">
+
+<button class="navBtn active"
+data-page="home"
+onclick="go('home')">
+
+<div>🏠</div>
+Home
+
+</button>
+
+<button class="navBtn"
+data-page="rooms"
+onclick="go('rooms')">
+
+<div>🎙️</div>
+Rooms
+
+</button>
+
+<button class="navBtn"
+data-page="events"
+onclick="go('events')">
+
+<div>🎉</div>
+Events
+
+</button>
+
+<button class="navBtn"
+data-page="messages"
+onclick="go('messages')">
+
+<div>💬</div>
+Chat
+
+</button>
+
+<button class="navBtn"
+data-page="profile"
+onclick="go('profile')">
+
+<div>👤</div>
+Me
+
+</button>
+
+</nav>
 
 </div>
 
 <!-- MODAL -->
-<div id="modal" class="modal" onclick="closeModal(event)">
-  <div class="modalBox" onclick="event.stopPropagation()">
+<div id="modal"
+class="modal"
+onclick="closeModal(event)">
 
-    <div id="modalTitle" class="modalTitle">Tannu</div>
+<div class="modalBox"
+onclick="event.stopPropagation()">
 
-    <div id="modalText" class="modalText">
-      Welcome.
-    </div>
+<div id="modalTitle"
+class="modalTitle">
+Tannu
+</div>
 
-    <button class="closeModal" onclick="closeModal()">
-      OK
-    </button>
+<div id="modalText"
+class="modalText">
+Welcome.
+</div>
 
-  </div>
+<button class="closeModal"
+onclick="closeModal()">
+OK
+</button>
+
+</div>
+
 </div>
 
 <!-- VOICE ROOM -->
 <div id="voiceRoom">
 
-  <div class="voiceTop">
+<div class="voiceTop">
 
-    <div>
-      <div id="voiceRoomTitle" class="voiceTitle">India Friends</div>
-      <div class="voiceSub">🎙️ Voice room • 12 seats</div>
-    </div>
+<div>
 
-    <button class="secondary" onclick="closeRoom()">✕</button>
+<div id="voiceRoomTitle"
+class="voiceTitle">
+India Friends
+</div>
 
-  </div>
-
-  <div id="voiceSeats" class="voiceSeats"></div>
-
-  <div class="voiceBottom">
-
-    <button class="voiceAction" onclick="showInfo('Microphone','Real microphone/WebRTC voice connection will be connected in the next development phase.')">
-      🎤 Mic
-    </button>
-
-    <button class="voiceAction" onclick="showInfo('Chat','Real-time room chat will be connected to Firestore.')">
-      💬 Chat
-    </button>
-
-    <button class="voiceAction" onclick="showInfo('Gift','Gifts and coins will be connected after the wallet backend is secured.')">
-      🎁 Gift
-    </button>
-
-    <button class="voiceAction" onclick="closeRoom()">
-      🚪 Leave
-    </button>
-
-  </div>
+<div class="voiceSub">
+🎙️ Voice room • 12 seats
+</div>
 
 </div>
 
-<script type="module">
+<button class="secondary"
+onclick="closeRoom()">
+✕
+</button>
 
-/* ==========================================
-   FIREBASE
-========================================== */
+</div>
+
+<div id="voiceSeats"
+class="voiceSeats"></div>
+
+<div class="voiceBottom">
+
+<button class="voiceAction"
+onclick="showInfo('Microphone','Real microphone/WebRTC voice connection will be connected in the next development phase.')">
+🎤 Mic
+</button>
+
+<button class="voiceAction"
+onclick="showInfo('Chat','Real-time room chat will be connected to Firestore.')">
+💬 Chat
+</button>
+
+<button class="voiceAction"
+onclick="showInfo('Gift','Gifts and coins will be connected after the wallet backend is secured.')">
+🎁 Gift
+</button>
+
+<button class="voiceAction"
+onclick="closeRoom()">
+🚪 Leave
+</button>
+
+</div>
+
+</div>
+
+
+<!-- FIREBASE -->
+
+<script type="module">
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithRedirect,
-  getRedirectResult,
-  onAuthStateChanged,
-  signOut
+getAuth,
+GoogleAuthProvider,
+signInWithPopup,
+signInWithRedirect,
+getRedirectResult,
+onAuthStateChanged,
+signOut
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  collection,
-  getDocs,
-  serverTimestamp,
-  runTransaction
+getFirestore,
+doc,
+getDoc,
+setDoc,
+collection,
+getDocs,
+serverTimestamp,
+runTransaction
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAc7BBn6G5zzABm4Bx-3haVwE0aob5HlVc",
-  authDomain: "tannu-voice-chat.firebaseapp.com",
-  projectId: "tannu-voice-chat",
-  storageBucket: "tannu-voice-chat.firebasestorage.app",
-  messagingSenderId: "720483733073",
-  appId: "1:720483733073:web:c65b96d255d6177b9d7270"
+
+apiKey:"AIzaSyAc7BBn6G5zzABm4Bx-3haVwE0aob5HlVc",
+
+authDomain:"tannu-voice-chat.firebaseapp.com",
+
+projectId:"tannu-voice-chat",
+
+storageBucket:"tannu-voice-chat.firebasestorage.app",
+
+messagingSenderId:"720483733073",
+
+appId:"1:720483733073:web:c65b96d255d6177b9d7270"
+
 };
 
 
-let app;
-let auth;
-let db;
+let app=null;
+let auth=null;
+let db=null;
 
-try{
+let currentUser=null;
+let currentCategory="All";
+let rooms=[];
+let walletCoins=0;
 
-  app = initializeApp(firebaseConfig);
 
-  auth = getAuth(app);
+/* DEMO DATA */
 
-  db = getFirestore(app);
+const demoRooms=[
 
-  setBackendStatus("Firebase Connected",true);
+{
+id:"demo1",
+name:"India Friends",
+category:"Friends",
+online:128,
+icon:"🇮🇳"
+},
 
-}catch(error){
+{
+id:"demo2",
+name:"Music Lovers",
+category:"Music",
+online:86,
+icon:"🎵"
+},
 
-  console.error(error);
+{
+id:"demo3",
+name:"Gaming Room",
+category:"Gaming",
+online:64,
+icon:"🎮"
+},
 
-  setBackendStatus("Firebase Error",false);
+{
+id:"demo4",
+name:"Night Talk",
+category:"Talk",
+online:52,
+icon:"🌙"
+},
 
+{
+id:"demo5",
+name:"Tannu Music Night",
+category:"Music",
+online:94,
+icon:"🎤"
+},
+
+{
+id:"demo6",
+name:"Friends Zone",
+category:"Friends",
+online:37,
+icon:"👥"
 }
 
+];
 
-/* ==========================================
-   DEMO DATA
-========================================== */
+const demoEvents=[
 
-const demoRooms = [
+{
+name:"Daily Welcome",
+text:"Welcome to Tannu Voice Chat.",
+icon:"👋"
+},
 
-  {
-    id:"demo1",
-    name:"India Friends",
-    category:"Friends",
-    online:128,
-    icon:"🇮🇳"
-  },
+{
+name:"Free Spin",
+text:"Use your daily free spin and win coins.",
+icon:"🎰"
+},
 
-  {
-    id:"demo2",
-    name:"Music Lovers",
-    category:"Music",
-    online:86,
-    icon:"🎵"
-  },
+{
+name:"Room Activity",
+text:"Join a live room and meet new friends.",
+icon:"🎙️"
+},
 
-  {
-    id:"demo3",
-    name:"Gaming Room",
-    category:"Gaming",
-    online:64,
-    icon:"🎮"
-  },
-
-  {
-    id:"demo4",
-    name:"Night Talk",
-    category:"Talk",
-    online:52,
-    icon:"🌙"
-  },
-
-  {
-    id:"demo5",
-    name:"Tannu Music Night",
-    category:"Music",
-    online:94,
-    icon:"🎤"
-  },
-
-  {
-    id:"demo6",
-    name:"Friends Zone",
-    category:"Friends",
-    online:37,
-    icon:"👥"
-  }
+{
+name:"Weekend Bonus",
+text:"Special community activities are coming soon.",
+icon:"🎁"
+}
 
 ];
 
+const demoMessages=[
 
-const demoEvents = [
+{
+name:"Tannu Team",
+text:"Welcome to Tannu Voice Chat ❤️",
+icon:"💜"
+},
 
-  {
-    name:"Daily Welcome",
-    text:"Welcome to Tannu Voice Chat.",
-    icon:"👋"
-  },
+{
+name:"System",
+text:"Your daily rewards are waiting.",
+icon:"🔔"
+},
 
-  {
-    name:"Free Spin",
-    text:"Use your daily free spin and win coins.",
-    icon:"🎰"
-  },
-
-  {
-    name:"Room Activity",
-    text:"Join a live room and meet new friends.",
-    icon:"🎙️"
-  },
-
-  {
-    name:"Weekend Bonus",
-    text:"Special community activities are coming soon.",
-    icon:"🎁"
-  }
+{
+name:"Community",
+text:"Join a room and start talking!",
+icon:"🎙️"
+}
 
 ];
 
-
-const demoMessages = [
-
-  {
-    name:"Tannu Team",
-    text:"Welcome to Tannu Voice Chat ❤️",
-    icon:"💜"
-  },
-
-  {
-    name:"System",
-    text:"Your daily rewards are waiting.",
-    icon:"🔔"
-  },
-
-  {
-    name:"Community",
-    text:"Join a room and start talking!",
-    icon:"🎙️"
-  }
-
-];
+rooms=[...demoRooms];
 
 
-let currentUser = null;
-let currentCategory = "All";
-let rooms = [...demoRooms];
-let walletCoins = 0;
-
-
-/* ==========================================
-   HELPERS
-========================================== */
+/* HELPERS */
 
 function setBackendStatus(text,connected){
 
-  const el = document.getElementById("backendStatus");
-  const dot = document.getElementById("statusDot");
+const el=document.getElementById("backendStatus");
+const dot=document.getElementById("statusDot");
 
-  if(el) el.textContent = text;
-
-  if(dot){
-    dot.style.background = connected ? "#28e07c" : "#ff526b";
-  }
-
+if(el){
+el.textContent=text;
 }
 
+if(dot){
+dot.style.background=connected
+?"#28e07c"
+:"#ff526b";
+}
+
+}
 
 function setAuthStatus(text){
 
-  const el = document.getElementById("authStatus");
+const el=document.getElementById("authStatus");
 
-  if(el) el.textContent = text;
+if(el){
+el.textContent=text;
+}
 
 }
 
 
-/* ==========================================
-   SPLASH
-========================================== */
+/* APP INITIALIZATION */
+
+function showLogin(){
+
+document.getElementById("splash")
+.classList.add("hidden");
+
+document.getElementById("loginScreen")
+.classList.remove("hidden");
+
+document.getElementById("app")
+.classList.add("hidden");
+
+}
+
+function showApp(){
+
+document.getElementById("splash")
+.classList.add("hidden");
+
+document.getElementById("loginScreen")
+.classList.add("hidden");
+
+document.getElementById("app")
+.classList.remove("hidden");
+
+}
+
+
+/*
+IMPORTANT:
+Splash is controlled OUTSIDE Firebase.
+So Firebase failure cannot leave a black screen.
+*/
 
 setTimeout(()=>{
 
-  document.getElementById("splash").classList.add("hidden");
+showLogin();
 
-  if(!auth){
-
-    document.getElementById("loginScreen").classList.remove("hidden");
-
-  }
-
-},1800);
+},1500);
 
 
-/* ==========================================
-   GOOGLE LOGIN
-========================================== */
+/* FIREBASE INIT */
 
-window.googleLogin = async function(){
+try{
 
-  if(!auth){
+app=initializeApp(firebaseConfig);
 
-    setAuthStatus("Firebase is not initialized.");
+auth=getAuth(app);
 
-    return;
+db=getFirestore(app);
 
-  }
+setBackendStatus(
+"Firebase Connected",
+true
+);
 
-  setAuthStatus("Connecting to Google...");
+}catch(error){
 
-  const provider = new GoogleAuthProvider();
+console.error(
+"Firebase initialization error:",
+error
+);
 
-  provider.setCustomParameters({
-    prompt:"select_account"
-  });
+setBackendStatus(
+"Demo Mode",
+false
+);
 
-  try{
+}
 
-    await signInWithPopup(auth,provider);
 
-  }catch(error){
+/* GOOGLE LOGIN */
 
-    console.error(error);
+window.googleLogin=async function(){
 
-    if(
-      error.code === "auth/popup-blocked" ||
-      error.code === "auth/operation-not-supported-in-this-environment"
-    ){
+if(!auth){
 
-      try{
+setAuthStatus(
+"Firebase is unavailable. Guest mode is ready."
+);
 
-        setAuthStatus("Opening Google login...");
+showInfo(
+"Firebase Error",
+"Firebase could not be initialized. You can continue as Guest while we fix the connection."
+);
 
-        await signInWithRedirect(auth,provider);
+return;
 
-      }catch(redirectError){
+}
 
-        showFirebaseError(redirectError);
+const button=document.getElementById("googleButton");
 
-      }
+button.disabled=true;
 
-      return;
+button.style.opacity="0.7";
 
-    }
+setAuthStatus(
+"Connecting to Google..."
+);
 
-    showFirebaseError(error);
+const provider=new GoogleAuthProvider();
 
-  }
+provider.setCustomParameters({
+prompt:"select_account"
+});
+
+try{
+
+await signInWithPopup(
+auth,
+provider
+);
+
+}catch(error){
+
+console.error(
+"Google Login:",
+error
+);
+
+if(
+error.code==="auth/popup-blocked" ||
+error.code==="auth/operation-not-supported-in-this-environment"
+){
+
+try{
+
+setAuthStatus(
+"Opening Google login..."
+);
+
+await signInWithRedirect(
+auth,
+provider
+);
+
+return;
+
+}catch(redirectError){
+
+showFirebaseError(
+redirectError
+);
+
+}
+
+}else{
+
+showFirebaseError(error);
+
+}
+
+}finally{
+
+button.disabled=false;
+
+button.style.opacity="1";
+
+}
 
 };
 
 
-/* ==========================================
-   REDIRECT RESULT
-========================================== */
+/* REDIRECT */
 
 if(auth){
 
-  getRedirectResult(auth).catch(error=>{
+getRedirectResult(auth)
+.catch(error=>{
 
-    if(error){
+if(error){
 
-      console.error(error);
+console.error(error);
 
-      showFirebaseError(error);
+showFirebaseError(error);
 
-    }
+}
 
-  });
+});
 
 
-  onAuthStateChanged(auth,async(user)=>{
+onAuthStateChanged(
+auth,
+async(user)=>{
 
-    if(user){
+if(user){
 
-      await setupUser(user);
+await setupUser(user);
 
-    }
+}
 
-  });
+}
+);
 
 }
 
 
-/* ==========================================
-   FIREBASE ERROR
-========================================== */
+/* FIREBASE ERROR */
 
 function showFirebaseError(error){
 
-  let message = "Google Login failed.";
+let message=
+"Google Login failed.";
 
-  if(error.code === "auth/api-key-not-valid"){
+if(error.code==="auth/api-key-not-valid"){
 
-    message =
-      "Firebase API key is not accepted. Please check the Web App Config and Google Cloud API key.";
+message=
+"Firebase API key is not accepted. Please check the Firebase Web App configuration and Google Cloud API key.";
 
-  }
-  else if(error.code === "auth/unauthorized-domain"){
+}
 
-    message =
-      "This website domain is not authorized in Firebase. Add shahidajmal440-stack.github.io in Firebase Authentication → Settings → Authorized domains.";
+else if(
+error.code==="auth/unauthorized-domain"
+){
 
-  }
-  else if(error.code === "auth/popup-closed-by-user"){
+message=
+"This website is not authorized in Firebase Authentication. Add shahidajmal440-stack.github.io to Authentication → Settings → Authorized domains.";
 
-    message = "Google login window was closed.";
+}
 
-  }
-  else if(error.code === "auth/network-request-failed"){
+else if(
+error.code==="auth/popup-closed-by-user"
+){
 
-    message = "Internet connection problem. Please try again.";
+message=
+"Google login window was closed.";
 
-  }
-  else if(error.message){
+}
 
-    message = "Firebase: " + error.message;
+else if(
+error.code==="auth/network-request-failed"
+){
 
-  }
+message=
+"Internet connection problem. Please try again.";
 
-  setAuthStatus(message);
+}
 
-  showInfo("Google Login Error",message);
+else if(error.message){
+
+message=
+"Firebase: "+error.message;
+
+}
+
+setAuthStatus(message);
+
+showInfo(
+"Google Login Error",
+message
+);
 
 }
 
 
-/* ==========================================
-   USER SETUP
-========================================== */
+/* USER SETUP */
 
 async function setupUser(user){
 
-  currentUser = user;
+currentUser=user;
 
-  document.getElementById("loginScreen").classList.add("hidden");
+showApp();
 
-  document.getElementById("app").classList.remove("hidden");
+setAuthStatus("");
 
-  setAuthStatus("");
+try{
 
-  try{
+await loadUserFromFirestore(user);
 
-    await loadUserFromFirestore(user);
+setBackendStatus(
+"Firebase Connected",
+true
+);
 
-    setBackendStatus("Firebase Connected",true);
+}catch(error){
 
-  }catch(error){
+console.error(
+"User Firestore error:",
+error
+);
 
-    console.error(error);
+setBackendStatus(
+"Demo Wallet",
+false
+);
 
-    setBackendStatus("Demo Mode",false);
-
-    walletCoins = Number(
-      localStorage.getItem("tannu_guest_coins") || 0
-    );
-
-  }
-
-  updateProfile();
-
-  await loadBackendData();
-
-  renderRooms();
-
-  updateCoins();
-
-}
-
-
-/* ==========================================
-   FIRESTORE USER
-========================================== */
-
-async function loadUserFromFirestore(user){
-
-  if(!db) throw new Error("Firestore not initialized");
-
-  const userRef = doc(db,"users",user.uid);
-
-  const userSnap = await getDoc(userRef);
-
-  let existingCoins = 0;
-  let existingLevel = 1;
-
-  if(userSnap.exists()){
-
-    const data = userSnap.data();
-
-    existingCoins = Number(data.coins || 0);
-
-    existingLevel = Number(data.level || 1);
-
-  }
-
-
-  await setDoc(
-    userRef,
-    {
-      name:user.displayName || "Tannu User",
-      email:user.email || "",
-      photo:user.photoURL || "",
-      level:existingLevel,
-      coins:existingCoins,
-      provider:"google",
-      updatedAt:serverTimestamp()
-    },
-    {merge:true}
-  );
-
-
-  const walletRef = doc(db,"wallets",user.uid);
-
-  const walletSnap = await getDoc(walletRef);
-
-  if(walletSnap.exists()){
-
-    walletCoins = Number(
-      walletSnap.data().coins || existingCoins || 0
-    );
-
-  }else{
-
-    walletCoins = existingCoins;
-
-    await setDoc(walletRef,{
-      userId:user.uid,
-      coins:walletCoins,
-      updatedAt:serverTimestamp()
-    });
-
-  }
+walletCoins=Number(
+localStorage.getItem(
+"tannu_guest_coins"
+)||0
+);
 
 }
 
+updateProfile();
 
-/* ==========================================
-   BACKEND DATA
-========================================== */
-
-async function loadBackendData(){
-
-  if(!db) return;
-
-  try{
-
-    const roomSnap = await getDocs(collection(db,"rooms"));
-
-    if(!roomSnap.empty){
-
-      rooms = [];
-
-      roomSnap.forEach(item=>{
-
-        const data = item.data();
-
-        rooms.push({
-          id:item.id,
-          name:data.name || "Voice Room",
-          category:data.category || "Friends",
-          online:Number(data.online || 0),
-          icon:data.icon || "🎙️"
-        });
-
-      });
-
-    }
-
-  }catch(error){
-
-    console.log("Using demo rooms");
-
-  }
-
-
-  try{
-
-    const eventSnap = await getDocs(collection(db,"events"));
-
-    if(!eventSnap.empty){
-
-      const list = [];
-
-      eventSnap.forEach(item=>{
-
-        const data = item.data();
-
-        list.push({
-          name:data.name || "Event",
-          text:data.description || data.status || "Join the event.",
-          icon:data.icon || "🎉"
-        });
-
-      });
-
-      renderEvents(list);
-
-    }else{
-
-      renderEvents(demoEvents);
-
-    }
-
-  }catch(error){
-
-    renderEvents(demoEvents);
-
-  }
-
-
-  try{
-
-    const messageSnap = await getDocs(collection(db,"messages"));
-
-    if(!messageSnap.empty){
-
-      const list = [];
-
-      messageSnap.forEach(item=>{
-
-        const data = item.data();
-
-        list.push({
-          name:data.sender || "Tannu Team",
-          text:data.text || "",
-          icon:"💬"
-        });
-
-      });
-
-      renderMessages(list);
-
-    }else{
-
-      renderMessages(demoMessages);
-
-    }
-
-  }catch(error){
-
-    renderMessages(demoMessages);
-
-  }
-
-}
-
-
-/* ==========================================
-   GUEST LOGIN
-========================================== */
-
-window.guestLogin = function(){
-
-  currentUser = {
-    uid:"guest",
-    displayName:"Guest User",
-    email:"",
-    photoURL:""
-  };
-
-  walletCoins = Number(
-    localStorage.getItem("tannu_guest_coins") || 0
-  );
-
-  document.getElementById("loginScreen").classList.add("hidden");
-
-  document.getElementById("app").classList.remove("hidden");
-
-  setBackendStatus("Guest / Demo",false);
-
-  updateProfile();
-
-  renderRooms();
-
-  renderEvents(demoEvents);
-
-  renderMessages(demoMessages);
-
-  updateCoins();
-
-};
-
-
-/* ==========================================
-   NAVIGATION
-========================================== */
-
-window.go = function(page){
-
-  document.querySelectorAll(".page").forEach(el=>{
-    el.classList.remove("active");
-  });
-
-  const target = document.getElementById(page+"Page");
-
-  if(target){
-    target.classList.add("active");
-  }
-
-  document.querySelectorAll(".navBtn").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  const nav = document.querySelector(
-    `.navBtn[data-page="${page}"]`
-  );
-
-  if(nav){
-    nav.classList.add("active");
-  }
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-};
-
-
-/* ==========================================
-   ROOM FILTER
-========================================== */
-
-window.filterCategory = function(category,button){
-
-  currentCategory = category;
-
-  document.querySelectorAll(".category").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  if(button){
-    button.classList.add("active");
-  }
-
-  renderRooms();
-
-};
-
-
-/* ==========================================
-   RENDER ROOMS
-========================================== */
-
-window.renderRooms = function(){
-
-  const search =
-    (
-      document.getElementById("roomSearch")?.value || ""
-    ).toLowerCase().trim();
-
-
-  const filtered = rooms.filter(room=>{
-
-    const categoryMatch =
-      currentCategory === "All" ||
-      room.category === currentCategory;
-
-    const searchMatch =
-      !search ||
-      room.name.toLowerCase().includes(search) ||
-      room.category.toLowerCase().includes(search);
-
-    return categoryMatch && searchMatch;
-
-  });
-
-
-  const html = filtered.map(room=>`
-
-    <div class="roomCard">
-
-      <div class="live">LIVE</div>
-
-      <div class="roomAvatar">
-        ${room.icon}
-      </div>
-
-      <div class="roomName">
-        ${escapeHtml(room.name)}
-      </div>
-
-      <div class="roomMeta">
-        👥 ${room.online} online • ${escapeHtml(room.category)}
-      </div>
-
-      <button
-        class="joinBtn"
-        onclick="openRoom('${escapeJs(room.name)}')"
-      >
-        🎙️ Join Room
-      </button>
-
-    </div>
-
-  `).join("");
-
-
-  const home = document.getElementById("homeRooms");
-  const list = document.getElementById("roomsList");
-
-  if(home){
-
-    home.innerHTML =
-      filtered.slice(0,4).map(room=>`
-
-      <div class="roomCard">
-
-        <div class="live">LIVE</div>
-
-        <div class="roomAvatar">
-          ${room.icon}
-        </div>
-
-        <div class="roomName">
-          ${escapeHtml(room.name)}
-        </div>
-
-        <div class="roomMeta">
-          👥 ${room.online} online
-        </div>
-
-        <button
-          class="joinBtn"
-          onclick="openRoom('${escapeJs(room.name)}')"
-        >
-          Join
-        </button>
-
-      </div>
-
-      `).join("");
-
-  }
-
-
-  if(list){
-
-    list.innerHTML =
-      html ||
-      `<div style="grid-column:1/-1;text-align:center;color:#807687;padding:40px">
-        No rooms found.
-      </div>`;
-
-  }
-
-};
-
-
-/* ==========================================
-   EVENTS
-========================================== */
-
-function renderEvents(list){
-
-  const box = document.getElementById("eventsList");
-
-  if(!box) return;
-
-  box.innerHTML = list.map(event=>`
-
-    <div class="eventCard">
-
-      <div class="eventRow">
-
-        <div class="eventIcon">
-          ${event.icon}
-        </div>
-
-        <div style="flex:1">
-
-          <h3>${escapeHtml(event.name)}</h3>
-
-          <p>${escapeHtml(event.text)}</p>
-
-        </div>
-
-        <button
-          class="primary"
-          style="padding:9px 12px;font-size:11px"
-          onclick="showInfo('${escapeJs(event.name)}','Join this Tannu event. Event actions will be connected to the backend later.')"
-        >
-          Join
-        </button>
-
-      </div>
-
-    </div>
-
-  `).join("");
-
-}
-
-
-/* ==========================================
-   MESSAGES
-========================================== */
-
-function renderMessages(list){
-
-  const box = document.getElementById("messagesList");
-
-  if(!box) return;
-
-  box.innerHTML = list.map(item=>`
-
-    <div class="eventCard">
-
-      <div class="eventRow">
-
-        <div class="eventIcon">
-          ${item.icon}
-        </div>
-
-        <div>
-
-          <h3>${escapeHtml(item.name)}</h3>
-
-          <p>${escapeHtml(item.text)}</p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  `).join("");
-
-}
-
-
-/* ==========================================
-   PROFILE
-========================================== */
-
-function updateProfile(){
-
-  if(!currentUser) return;
-
-  const name =
-    currentUser.displayName || "Guest User";
-
-  const email =
-    currentUser.email || "Guest account";
-
-  document.getElementById("profileName").textContent = name;
-
-  document.getElementById("profileEmail").textContent = email;
-
-  document.getElementById("profileCoins").textContent =
-    formatCoins(walletCoins);
-
-  document.getElementById("profileLevel").textContent = "1";
-
-
-  const avatar =
-    document.getElementById("profileAvatarBox");
-
-
-  if(currentUser.photoURL){
-
-    avatar.innerHTML = `
-      <img
-        class="profileAvatar"
-        src="${escapeHtml(currentUser.photoURL)}"
-        alt="Profile"
-      >
-    `;
-
-  }else{
-
-    avatar.innerHTML = `
-      <div class="profileEmoji">👤</div>
-    `;
-
-  }
-
-}
-
-
-/* ==========================================
-   COINS
-========================================== */
-
-function updateCoins(){
-
-  document.getElementById("topCoins").textContent =
-    formatCoins(walletCoins);
-
-  document.getElementById("walletCoins").textContent =
-    formatCoins(walletCoins);
-
-  document.getElementById("profileCoins").textContent =
-    formatCoins(walletCoins);
-
-}
-
-
-function formatCoins(number){
-
-  return Number(number || 0).toLocaleString("en-IN");
-
-}
-
-
-/* ==========================================
-   ADD COINS
-========================================== */
-
-async function addCoins(amount){
-
-  amount = Number(amount);
-
-  if(!amount) return;
-
-
-  if(
-    currentUser &&
-    currentUser.uid !== "guest" &&
-    db
-  ){
-
-    try{
-
-      const walletRef =
-        doc(db,"wallets",currentUser.uid);
-
-      const userRef =
-        doc(db,"users",currentUser.uid);
-
-
-      await runTransaction(db,async(transaction)=>{
-
-        const walletSnap =
-          await transaction.get(walletRef);
-
-        const userSnap =
-          await transaction.get(userRef);
-
-
-        const oldWalletCoins =
-          walletSnap.exists()
-            ? Number(walletSnap.data().coins || 0)
-            : 0;
-
-        const newCoins =
-          oldWalletCoins + amount;
-
-
-        if(walletSnap.exists()){
-
-          transaction.update(walletRef,{
-            coins:newCoins,
-            updatedAt:serverTimestamp()
-          });
-
-        }else{
-
-          transaction.set(walletRef,{
-            userId:currentUser.uid,
-            coins:newCoins,
-            updatedAt:serverTimestamp()
-          });
-
-        }
-
-
-        if(userSnap.exists()){
-
-          transaction.update(userRef,{
-            coins:newCoins,
-            updatedAt:serverTimestamp()
-          });
-
-        }
-
-      });
-
-
-      walletCoins += amount;
-
-      updateCoins();
-
-      return;
-
-    }catch(error){
-
-      console.error("Firestore coin update failed",error);
-
-      setBackendStatus("Demo Wallet",false);
-
-    }
-
-  }
-
-
-  walletCoins += amount;
-
-  localStorage.setItem(
-    "tannu_guest_coins",
-    walletCoins
-  );
-
-  updateCoins();
-
-}
-
-
-/* ==========================================
-   DAILY REWARD
-========================================== */
-
-window.claimReward = async function(){
-
-  const today =
-    new Date().toISOString().slice(0,10);
-
-  const claimed =
-    localStorage.getItem("tannu_reward_date");
-
-
-  if(claimed === today){
-
-    showInfo(
-      "Already Claimed",
-      "Today's reward has already been claimed on this device."
-    );
-
-    return;
-
-  }
-
-
-  await addCoins(10000);
-
-  localStorage.setItem(
-    "tannu_reward_date",
-    today
-  );
-
-
-  showInfo(
-    "🎁 Reward Claimed",
-    "10,000 coins added to your wallet."
-  );
-
-};
-
-
-/* ==========================================
-   SPIN
-========================================== */
-
-window.spin = async function(){
-
-  const today =
-    new Date().toISOString().slice(0,10);
-
-  const key =
-    "tannu_spins_"+today;
-
-  let spins =
-    Number(localStorage.getItem(key) || 0);
-
-
-  if(spins >= 5){
-
-    showInfo(
-      "No Spins Left",
-      "You have used the maximum 5 free spins for today."
-    );
-
-    return;
-
-  }
-
-
-  spins++;
-
-  localStorage.setItem(key,spins);
-
-
-  const rewards = [
-    1000,
-    2000,
-    5000,
-    10000,
-    25000
-  ];
-
-  const reward =
-    rewards[Math.floor(Math.random()*rewards.length)];
-
-
-  await addCoins(reward);
-
-
-  showInfo(
-    "🎰 Lucky Spin",
-    "Congratulations! You won "+formatCoins(reward)+" coins. Spins used today: "+spins+"/5."
-  );
-
-};
-
-
-/* ==========================================
-   ROOM
-========================================== */
-
-window.openRoom = function(name){
-
-  document.getElementById("voiceRoomTitle").textContent = name;
-
-  const room = document.getElementById("voiceRoom");
-
-  room.style.display = "flex";
-
-  const seats = document.getElementById("voiceSeats");
-
-  const people = [
-    "👤","😊","😎","🥰",
-    "🤩","🧑","👩","🧔",
-    "🙂","🔥","🎵","💜"
-  ];
-
-  seats.innerHTML = people.map((person,index)=>`
-
-    <div class="seat">
-
-      <div class="seatAvatar">
-        ${person}
-      </div>
-
-      <div class="seatName">
-        ${index === 0 ? "Host" : "User "+(index+1)}
-      </div>
-
-    </div>
-
-  `).join("");
-
-};
-
-
-window.closeRoom = function(){
-
-  document.getElementById("voiceRoom").style.display = "none";
-
-};
-
-
-/* ==========================================
-   ROOM SEAT SETTINGS
-========================================== */
-
-window.seatSettings = function(){
-
-  showInfo(
-    "Room Seat Settings",
-    "Choose 8, 12 or 16 seats for your room. This is currently a UI preview; actual room-seat enforcement will be connected to the backend."
-  );
-
-};
-
-
-/* ==========================================
-   MODAL
-========================================== */
-
-window.showInfo = function(title,text){
-
-  document.getElementById("modalTitle").textContent = title;
-
-  document.getElementById("modalText").textContent = text;
-
-  document.getElementById("modal").classList.add("show");
-
-};
-
-
-window.closeModal = function(event){
-
-  if(event && event.target !== document.getElementById("modal")){
-
-    return;
-
-  }
-
-  document.getElementById("modal").classList.remove("show");
-
-};
-
-
-/* ==========================================
-   LOGOUT
-========================================== */
-
-window.logout = async function(){
-
-  try{
-
-    if(auth && currentUser && currentUser.uid !== "guest"){
-
-      await signOut(auth);
-
-    }
-
-  }catch(error){
-
-    console.error(error);
-
-  }
-
-
-  currentUser = null;
-
-  document.getElementById("app").classList.add("hidden");
-
-  document.getElementById("loginScreen").classList.remove("hidden");
-
-  setBackendStatus("Connecting...",false);
-
-  setAuthStatus("You have been logged out.");
-
-};
-
-
-/* ==========================================
-   ESCAPE
-========================================== */
-
-function escapeHtml(value){
-
-  return String(value || "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-function escapeJs(value){
-
-  return String(value || "")
-    .replaceAll("\\","\\\\")
-    .replaceAll("'","\\'")
-    .replaceAll("\n"," ");
-
-}
-
-
-/* ==========================================
-   INITIAL DEMO RENDER
-========================================== */
+await loadBackendData();
 
 renderRooms();
 
-renderEvents(demoEvents);
+updateCoins();
 
-renderMessages(demoMessages);
+}
+
+
+/* FIRESTORE USER */
+
+async function loadUserFromFirestore(user){
+
+if(!db){
+
+throw new Error(
+"Firestore not initialized"
+);
+
+}
+
+const userRef=
+doc(
+db,
+"users",
+user.uid
+);
+
+const userSnap=
+await getDoc(userRef);
+
+let existingCoins=0;
+let existingLevel=1;
+
+if(userSnap.exists()){
+
+const data=userSnap.data();
+
+existingCoins=
+Number(data.coins||0);
+
+existingLevel=
+Number(data.level||1);
+
+}
+
+await setDoc(
+userRef,
+{
+
+name:
+user.displayName||
+"Tannu User",
+
+email:
+user.email||"",
+
+photo:
+user.photoURL||"",
+
+level:
+existingLevel,
+
+coins:
+existingCoins,
+
+provider:"google",
+
+updatedAt:
+serverTimestamp()
+
+},
+{
+merge:true
+}
+);
+
+
+const walletRef=
+doc(
+db,
+"wallets",
+user.uid
+);
+
+const walletSnap=
+await getDoc(walletRef);
+
+if(walletSnap.exists()){
+
+walletCoins=
+Number(
+walletSnap.data().coins||
+existingCoins||
+0
+);
+
+}else{
+
+walletCoins=
+existingCoins;
+
+await setDoc(
+walletRef,
+{
+
+userId:user.uid,
+
+coins:walletCoins,
+
+updatedAt:
+serverTimestamp()
+
+}
+);
+
+}
+
+}
+
+
+/* BACKEND DATA */
+
+async function loadBackendData(){
+
+if(!db){
+
+renderEvents(
+demoEvents
+);
+
+renderMessages(
+demoMessages
+);
+
+return;
+
+}
+
+
+/* ROOMS */
+
+try{
+
+const roomSnap=
+await getDocs(
+collection(db,"rooms")
+);
+
+if(!roomSnap.empty){
+
+rooms=[];
+
+roomSnap.forEach(item=>{
+
+const data=item.data();
+
+rooms.push({
+
+id:item.id,
+
+name:
+data.name||
+"Voice Room",
+
+category:
+data.category||
+"Friends",
+
+online:
+Number(data.online||0),
+
+icon:
+data.icon||
+"🎙️"
+
+});
+
+});
+
+}
+
+}catch(error){
+
+console.log(
+"Using demo rooms"
+);
+
+rooms=[...demoRooms];
+
+}
+
+
+/* EVENTS */
+
+try{
+
+const eventSnap=
+await getDocs(
+collection(db,"events")
+);
+
+if(!eventSnap.empty){
+
+const list=[];
+
+eventSnap.forEach(item=>{
+
+const data=item.data();
+
+list.push({
+
+name:
+data.name||
+"Event",
+
+text:
+data.description||
+data.status||
+"Join the event.",
+
+icon:
+data.icon||
+"🎉"
+
+});
+
+});
+
+renderEvents(list);
+
+}else{
+
+renderEvents(
+demoEvents
+);
+
+}
+
+}catch(error){
+
+renderEvents(
+demoEvents
+);
+
+}
+
+
+/* MESSAGES */
+
+try{
+
+const messageSnap=
+await getDocs(
+collection(db,"messages")
+);
+
+if(!messageSnap.empty){
+
+const list=[];
+
+messageSnap.forEach(item=>{
+
+const data=item.data();
+
+list.push({
+
+name:
+data.sender||
+"Tannu Team",
+
+text:
+data.text||
+"",
+
+icon:"💬"
+
+});
+
+});
+
+renderMessages(list);
+
+}else{
+
+renderMessages(
+demoMessages
+);
+
+}
+
+}catch(error){
+
+renderMessages(
+demoMessages
+);
+
+}
+
+}
+
+
+/* GUEST */
+
+window.guestLogin=function(){
+
+currentUser={
+
+uid:"guest",
+
+displayName:"Guest User",
+
+email:"",
+
+photoURL:""
+
+};
+
+walletCoins=Number(
+localStorage.getItem(
+"tannu_guest_coins"
+)||0
+);
+
+showApp();
+
+setBackendStatus(
+"Guest / Demo",
+false
+);
+
+updateProfile();
+
+renderRooms();
+
+renderEvents(
+demoEvents
+);
+
+renderMessages(
+demoMessages
+);
+
+updateCoins();
+
+};
+
+
+/* NAV */
+
+window.go=function(page){
+
+document
+.querySelectorAll(".page")
+.forEach(el=>{
+el.classList.remove("active");
+});
+
+const target=
+document.getElementById(
+page+"Page"
+);
+
+if(target){
+
+target.classList.add(
+"active"
+);
+
+}
+
+document
+.querySelectorAll(".navBtn")
+.forEach(btn=>{
+btn.classList.remove(
+"active"
+);
+});
+
+const nav=
+document.querySelector(
+`.navBtn[data-page="${page}"]`
+);
+
+if(nav){
+
+nav.classList.add(
+"active"
+);
+
+}
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+};
+
+
+/* FILTER */
+
+window.filterCategory=
+function(category,button){
+
+currentCategory=
+category;
+
+document
+.querySelectorAll(".category")
+.forEach(btn=>{
+btn.classList.remove(
+"active"
+);
+});
+
+if(button){
+
+button.classList.add(
+"active"
+);
+
+}
+
+renderRooms();
+
+};
+
+
+/* ROOMS */
+
+window.renderRooms=function(){
+
+const search=
+(
+document.getElementById(
+"roomSearch"
+)?.value||""
+)
+.toLowerCase()
+.trim();
+
+const filtered=
+rooms.filter(room=>{
+
+const categoryMatch=
+currentCategory==="All"||
+room.category===currentCategory;
+
+const searchMatch=
+!search||
+room.name
+.toLowerCase()
+.includes(search)||
+room.category
+.toLowerCase()
+.includes(search);
+
+return categoryMatch&&
+searchMatch;
+
+});
+
+
+const html=
+filtered.map(room=>`
+
+<div class="roomCard">
+
+<div class="live">
+LIVE
+</div>
+
+<div class="roomAvatar">
+${room.icon}
+</div>
+
+<div class="roomName">
+${escapeHtml(room.name)}
+</div>
+
+<div class="roomMeta">
+👥 ${room.online} online •
+${escapeHtml(room.category)}
+</div>
+
+<button
+class="joinBtn"
+onclick="openRoom('${escapeJs(room.name)}')"
+>
+🎙️ Join Room
+</button>
+
+</div>
+
+`).join("");
+
+
+const home=
+document.getElementById(
+"homeRooms"
+);
+
+const list=
+document.getElementById(
+"roomsList"
+);
+
+
+if(home){
+
+home.innerHTML=
+filtered
+.slice(0,4)
+.map(room=>`
+
+<div class="roomCard">
+
+<div class="live">
+LIVE
+</div>
+
+<div class="roomAvatar">
+${room.icon}
+</div>
+
+<div class="roomName">
+${escapeHtml(room.name)}
+</div>
+
+<div class="roomMeta">
+👥 ${room.online} online
+</div>
+
+<button
+class="joinBtn"
+onclick="openRoom('${escapeJs(room.name)}')"
+>
+Join
+</button>
+
+</div>
+
+`)
+.join("");
+
+}
+
+
+if(list){
+
+list.innerHTML=
+html||
+`
+<div style="
+grid-column:1/-1;
+text-align:center;
+color:#807687;
+padding:40px
+">
+No rooms found.
+</div>
+`;
+
+}
+
+};
+
+
+/* EVENTS */
+
+function renderEvents(list){
+
+const box=
+document.getElementById(
+"eventsList"
+);
+
+if(!box)return;
+
+box.innerHTML=
+list.map(event=>`
+
+<div class="eventCard">
+
+<div class="eventRow">
+
+<div class="eventIcon">
+${event.icon}
+</div>
+
+<div style="flex:1">
+
+<h3>
+${escapeHtml(event.name)}
+</h3>
+
+<p>
+${escapeHtml(event.text)}
+</p>
+
+</div>
+
+<button
+class="primary"
+style="padding:9px 12px;font-size:11px"
+onclick="showInfo('${escapeJs(event.name)}','Join this Tannu event. Event actions will be connected to the backend later.')"
+>
+Join
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* MESSAGES */
+
+function renderMessages(list){
+
+const box=
+document.getElementById(
+"messagesList"
+);
+
+if(!box)return;
+
+box.innerHTML=
+list.map(item=>`
+
+<div class="eventCard">
+
+<div class="eventRow">
+
+<div class="eventIcon">
+${item.icon}
+</div>
+
+<div>
+
+<h3>
+${escapeHtml(item.name)}
+</h3>
+
+<p>
+${escapeHtml(item.text)}
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* PROFILE */
+
+function updateProfile(){
+
+if(!currentUser)return;
+
+const name=
+currentUser.displayName||
+"Guest User";
+
+const email=
+currentUser.email||
+"Guest account";
+
+document.getElementById(
+"profileName"
+).textContent=name;
+
+document.getElementById(
+"profileEmail"
+).textContent=email;
+
+document.getElementById(
+"profileCoins"
+).textContent=
+formatCoins(walletCoins);
+
+document.getElementById(
+"profileLevel"
+).textContent="1";
+
+
+const avatar=
+document.getElementById(
+"profileAvatarBox"
+);
+
+if(currentUser.photoURL){
+
+avatar.innerHTML=`
+
+<img
+class="profileAvatar"
+src="${escapeHtml(currentUser.photoURL)}"
+alt="Profile"
+>
+`;
+
+}else{
+
+avatar.innerHTML=`
+
+<div class="profileEmoji">
+👤
+</div>
+`;
+
+}
+
+}
+
+
+/* COINS */
+
+function updateCoins(){
+
+document.getElementById(
+"topCoins"
+).textContent=
+formatCoins(walletCoins);
+
+document.getElementById(
+"walletCoins"
+).textContent=
+formatCoins(walletCoins);
+
+document.getElementById(
+"profileCoins"
+).textContent=
+formatCoins(walletCoins);
+
+}
+
+function formatCoins(number){
+
+return Number(
+number||0
+).toLocaleString(
+"en-IN"
+);
+
+}
+
+
+/* ADD COINS */
+
+async function addCoins(amount){
+
+amount=Number(amount);
+
+if(!amount)return;
+
+
+if(
+currentUser&&
+currentUser.uid!=="guest"&&
+db
+){
+
+try{
+
+const walletRef=
+doc(
+db,
+"wallets",
+currentUser.uid
+);
+
+const userRef=
+doc(
+db,
+"users",
+currentUser.uid
+);
+
+await runTransaction(
+db,
+async(transaction)=>{
+
+const walletSnap=
+await transaction.get(
+walletRef
+);
+
+const userSnap=
+await transaction.get(
+userRef
+);
+
+const oldCoins=
+walletSnap.exists()
+?
+Number(
+walletSnap.data().coins||0
+)
+:
+0;
+
+const newCoins=
+oldCoins+amount;
+
+
+if(walletSnap.exists()){
+
+transaction.update(
+walletRef,
+{
+
+coins:newCoins,
+
+updatedAt:
+serverTimestamp()
+
+}
+);
+
+}else{
+
+transaction.set(
+walletRef,
+{
+
+userId:
+currentUser.uid,
+
+coins:newCoins,
+
+updatedAt:
+serverTimestamp()
+
+}
+);
+
+}
+
+
+if(userSnap.exists()){
+
+transaction.update(
+userRef,
+{
+
+coins:newCoins,
+
+updatedAt:
+serverTimestamp()
+
+}
+);
+
+}
+
+}
+);
+
+
+walletCoins+=amount;
+
+updateCoins();
+
+return;
+
+}catch(error){
+
+console.error(
+"Coin update failed:",
+error
+);
+
+setBackendStatus(
+"Demo Wallet",
+false
+);
+
+}
+
+}
+
+
+walletCoins+=amount;
+
+localStorage.setItem(
+"tannu_guest_coins",
+walletCoins
+);
+
+updateCoins();
+
+}
+
+
+/* DAILY REWARD */
+
+window.claimReward=
+async function(){
+
+const today=
+new Date()
+.toISOString()
+.slice(0,10);
+
+const claimed=
+localStorage.getItem(
+"tannu_reward_date"
+);
+
+if(claimed===today){
+
+showInfo(
+"Already Claimed",
+"Today's reward has already been claimed on this device."
+);
+
+return;
+
+}
+
+await addCoins(
+10000
+);
+
+localStorage.setItem(
+"tannu_reward_date",
+today
+);
+
+showInfo(
+"🎁 Reward Claimed",
+"10,000 coins added to your wallet."
+);
+
+};
+
+
+/* SPIN */
+
+window.spin=
+async function(){
+
+const today=
+new Date()
+.toISOString()
+.slice(0,10);
+
+const key=
+"tannu_spins_"+today;
+
+let spins=
+Number(
+localStorage.getItem(key)||0
+);
+
+if(spins>=5){
+
+showInfo(
+"No Spins Left",
+"You have used the maximum 5 free spins for today."
+);
+
+return;
+
+}
+
+spins++;
+
+localStorage.setItem(
+key,
+spins
+);
+
+const rewards=[
+1000,
+2000,
+5000,
+10000,
+25000
+];
+
+const reward=
+rewards[
+Math.floor(
+Math.random()*
+rewards.length
+)
+];
+
+await addCoins(
+reward
+);
+
+showInfo(
+"🎰 Lucky Spin",
+"Congratulations! You won "+
+formatCoins(reward)+
+" coins. Spins used today: "+
+spins+"/5."
+);
+
+};
+
+
+/* ROOM */
+
+window.openRoom=
+function(name){
+
+document.getElementById(
+"voiceRoomTitle"
+).textContent=name;
+
+const room=
+document.getElementById(
+"voiceRoom"
+);
+
+room.style.display="flex";
+
+const seats=
+document.getElementById(
+"voiceSeats"
+);
+
+const people=[
+"👤",
+"😊",
+"😎",
+"🥰",
+"🤩",
+"🧑",
+"👩",
+"🧔",
+"🙂",
+"🔥",
+"🎵",
+"💜"
+];
+
+seats.innerHTML=
+people.map(
+(person,index)=>`
+
+<div class="seat">
+
+<div class="seatAvatar">
+${person}
+</div>
+
+<div class="seatName">
+${
+index===0
+?
+"Host"
+:
+"User "+(index+1)
+}
+</div>
+
+</div>
+
+`
+).join("");
+
+};
+
+
+window.closeRoom=
+function(){
+
+document.getElementById(
+"voiceRoom"
+).style.display="none";
+
+};
+
+
+/* SEATS */
+
+window.seatSettings=
+function(){
+
+showInfo(
+"Room Seat Settings",
+"Choose 8, 12 or 16 seats for your room. This is currently a UI preview; actual room-seat enforcement will be connected to the backend."
+);
+
+};
+
+
+/* MODAL */
+
+window.showInfo=
+function(title,text){
+
+document.getElementById(
+"modalTitle"
+).textContent=title;
+
+document.getElementById(
+"modalText"
+).textContent=text;
+
+document.getElementById(
+"modal"
+).classList.add("show");
+
+};
+
+window.closeModal=
+function(event){
+
+if(
+event&&
+event.target!==
+document.getElementById(
+"modal"
+)
+){
+
+return;
+
+}
+
+document.getElementById(
+"modal"
+).classList.remove(
+"show"
+);
+
+};
+
+
+/* LOGOUT */
+
+window.logout=
+async function(){
+
+try{
+
+if(
+auth&&
+currentUser&&
+currentUser.uid!=="guest"
+){
+
+await signOut(auth);
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+currentUser=null;
+
+document.getElementById(
+"app"
+).classList.add(
+"hidden"
+);
+
+document.getElementById(
+"loginScreen"
+).classList.remove(
+"hidden"
+);
+
+setBackendStatus(
+"Connecting...",
+false
+);
+
+setAuthStatus(
+"You have been logged out."
+);
+
+};
+
+
+/* ESCAPE */
+
+function escapeHtml(value){
+
+return String(value||"")
+
+.replaceAll(
+"&",
+"&amp;"
+)
+
+.replaceAll(
+"<",
+"&lt;"
+)
+
+.replaceAll(
+">",
+"&gt;"
+)
+
+.replaceAll(
+'"',
+"&quot;"
+)
+
+.replaceAll(
+"'",
+"&#039;"
+);
+
+}
+
+function escapeJs(value){
+
+return String(value||"")
+
+.replaceAll(
+"\\",
+"\\\\"
+)
+
+.replaceAll(
+"'",
+"\\'"
+)
+
+.replaceAll(
+"\n",
+" "
+);
+
+}
+
+
+/* INITIAL RENDER */
+
+renderRooms();
+
+renderEvents(
+demoEvents
+);
+
+renderMessages(
+demoMessages
+);
 
 </script>
 
