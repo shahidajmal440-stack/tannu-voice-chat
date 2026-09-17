@@ -31,8 +31,6 @@ button{
   padding-bottom:90px;
 }
 
-/* HEADER */
-
 .header{
   height:65px;
   display:flex;
@@ -48,8 +46,6 @@ button{
 .header h2{
   font-size:18px;
 }
-
-/* PROFILE */
 
 .profile{
   text-align:center;
@@ -98,7 +94,29 @@ button{
   color:#d8b7ff;
 }
 
-/* WALLET */
+.profile-actions{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-top:14px;
+}
+
+.action-btn{
+  padding:9px 18px;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:11px;
+}
+
+.follow-btn{
+  background:#8b45e8;
+  color:white;
+}
+
+.gift-btn{
+  background:#ff4f91;
+  color:white;
+}
 
 .wallet{
   margin:10px 15px;
@@ -134,8 +152,6 @@ button{
   font-weight:bold;
 }
 
-/* STATS */
-
 .stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -166,8 +182,6 @@ button{
   font-size:10px;
   margin-top:5px;
 }
-
-/* LEVEL */
 
 .level-card{
   margin:10px 15px;
@@ -215,15 +229,11 @@ button{
   font-size:10px;
 }
 
-/* SECTION */
-
 .title{
   font-size:15px;
   font-weight:bold;
   padding:12px 15px 7px;
 }
-
-/* VIP */
 
 .vip-card{
   margin:10px 15px;
@@ -273,8 +283,6 @@ button{
   font-weight:bold;
   font-size:11px;
 }
-
-/* DAILY */
 
 .daily{
   margin:10px 15px;
@@ -328,8 +336,6 @@ button{
   background:#7540c2;
 }
 
-/* BUTTON */
-
 .claim{
   width:100%;
   margin-top:12px;
@@ -339,8 +345,6 @@ button{
   border-radius:11px;
   font-weight:bold;
 }
-
-/* SPIN */
 
 .spin{
   margin:10px 15px;
@@ -385,8 +389,6 @@ button{
   border-radius:10px;
   font-weight:bold;
 }
-
-/* MENU */
 
 .menu{
   margin:0 15px;
@@ -441,8 +443,6 @@ button{
   font-size:18px;
 }
 
-/* NAV */
-
 .nav{
   position:fixed;
   bottom:0;
@@ -473,8 +473,6 @@ button{
 .nav button.active{
   color:#b66cff;
 }
-
-/* MODAL */
 
 .modal{
   position:fixed;
@@ -547,8 +545,6 @@ button{
   color:white;
 }
 
-/* POPUP CONTENT */
-
 .popup-text{
   color:#aaa;
   font-size:12px;
@@ -596,7 +592,53 @@ button{
   font-size:10px;
 }
 
-/* TOAST */
+.gift-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.gift-card{
+  background:#251837;
+  border:1px solid #3b2851;
+  padding:14px;
+  border-radius:14px;
+  text-align:center;
+}
+
+.gift-card .gift-icon{
+  font-size:32px;
+}
+
+.gift-card b{
+  display:block;
+  margin-top:5px;
+}
+
+.gift-card small{
+  display:block;
+  color:#999;
+  margin-top:4px;
+}
+
+.gift-card button{
+  width:100%;
+  margin-top:9px;
+  padding:8px;
+  border-radius:8px;
+  background:#d84f92;
+  color:white;
+  font-weight:bold;
+  font-size:10px;
+}
+
+.danger-btn{
+  background:#9d355d;
+  color:white;
+  padding:9px 12px;
+  border-radius:9px;
+  font-size:10px;
+}
 
 .toast{
   position:fixed;
@@ -614,21 +656,10 @@ button{
 }
 
 @media(max-width:400px){
-  .days{
-    gap:3px;
-  }
-
-  .day{
-    font-size:8px;
-  }
-
-  .spin{
-    gap:8px;
-  }
-
-  .spin-text p{
-    font-size:9px;
-  }
+  .days{gap:3px}
+  .day{font-size:8px}
+  .spin{gap:8px}
+  .spin-text p{font-size:9px}
 }
 </style>
 </head>
@@ -637,294 +668,256 @@ button{
 
 <div class="app">
 
-  <div class="header">
-    <h2>My Profile</h2>
-  </div>
+<div class="header">
+<h2>My Profile</h2>
+</div>
 
-  <!-- PROFILE -->
+<div class="profile">
 
-  <div class="profile">
+<div class="avatar">S</div>
 
-    <div class="avatar">S</div>
+<h1>Shahid</h1>
 
-    <h1>Shahid</h1>
+<p>UID: TV44012345</p>
 
-    <p>UID: TV44012345</p>
+<div class="badges">
+<div class="badge" id="levelBadge">⭐ Level 5</div>
+<div class="badge">🎙️ Host</div>
+<div class="badge">🇮🇳 India</div>
+</div>
 
-    <div class="badges">
-      <div class="badge">⭐ Level 5</div>
-      <div class="badge">🎙️ Host</div>
-      <div class="badge">🇮🇳 India</div>
-    </div>
+<div class="profile-actions">
 
-  </div>
+<button class="action-btn follow-btn" id="followBtn" onclick="toggleFollow()">
++ Follow
+</button>
 
-  <!-- WALLET -->
-
-  <div class="wallet">
-
-    <div class="wallet-top">
-
-      <div>
-        <div class="wallet-title">My Coins</div>
-        <div class="coins" id="coins">100,000 🪙</div>
-      </div>
-
-      <button class="recharge" onclick="openRecharge()">
-        + Recharge
-      </button>
-
-    </div>
-
-  </div>
-
-  <!-- STATS -->
-
-  <div class="stats">
-
-    <div class="stat">
-      <b>128</b>
-      <span>Following</span>
-    </div>
-
-    <div class="stat">
-      <b>356</b>
-      <span>Followers</span>
-    </div>
-
-    <div class="stat">
-      <b>89</b>
-      <span>Visitors</span>
-    </div>
-
-  </div>
-
-  <!-- LEVEL -->
-
-  <div class="level-card">
-
-    <div class="level-top">
-
-      <div class="level" id="levelText">
-        ⭐ Level 5
-      </div>
-
-      <div class="exp" id="expText">
-        6,200 / 10,000 EXP
-      </div>
-
-    </div>
-
-    <div class="progress">
-      <div class="progress-bar" id="progressBar"></div>
-    </div>
-
-    <div class="level-bottom">
-      <span>Current Level</span>
-      <span id="nextLevel">Next: Level 6</span>
-    </div>
-
-  </div>
-
-  <!-- VIP -->
-
-  <div class="title">
-    👑 VIP Center
-  </div>
-
-  <div class="vip-card">
-
-    <div class="vip-top">
-
-      <div class="vip-icon">👑</div>
-
-      <div class="vip-text">
-        <h3 id="vipTitle">VIP 0</h3>
-        <p id="vipDescription">
-          Unlock VIP benefits and special rewards
-        </p>
-      </div>
-
-      <button class="vip-button" onclick="openVIP()">
-        VIEW
-      </button>
-
-    </div>
-
-  </div>
-
-  <!-- DAILY -->
-
-  <div class="title">
-    🎁 Daily Rewards
-  </div>
-
-  <div class="daily">
-
-    <div class="daily-head">
-      <h3>7 Day Rewards</h3>
-      <span id="dayStatus">Day 4 / 7</span>
-    </div>
-
-    <div class="days">
-
-      <div class="day done">
-        <b>🪙</b>
-        1K
-      </div>
-
-      <div class="day done">
-        <b>🪙</b>
-        2K
-      </div>
-
-      <div class="day done">
-        <b>🎁</b>
-        Gift
-      </div>
-
-      <div class="day today">
-        <b>🪙</b>
-        5K
-      </div>
-
-      <div class="day">
-        <b>💎</b>
-        8K
-      </div>
-
-      <div class="day">
-        <b>🎁</b>
-        VIP
-      </div>
-
-      <div class="day">
-        <b>👑</b>
-        Big
-      </div>
-
-    </div>
-
-    <button class="claim" id="claimButton" onclick="claimDaily()">
-      Claim Today's Reward
-    </button>
-
-  </div>
-
-  <!-- SPIN -->
-
-  <div class="title">
-    🎡 Free Spin
-  </div>
-
-  <div class="spin">
-
-    <div class="spin-wheel">
-      🎡
-    </div>
-
-    <div class="spin-text">
-      <b>Free Daily Spin</b>
-      <p id="spinText">
-        5 free spins available today
-      </p>
-    </div>
-
-    <button class="spin-btn" onclick="spinWheel()">
-      SPIN
-    </button>
-
-  </div>
-
-  <!-- ACCOUNT -->
-
-  <div class="title">
-    📦 My Account
-  </div>
-
-  <div class="menu">
-
-    <div class="item" onclick="openGifts()">
-      <div class="icon">🎁</div>
-      <div class="item-info">
-        <b>My Gifts</b>
-        <span>View received gifts</span>
-      </div>
-      <div class="arrow">›</div>
-    </div>
-
-    <div class="item" onclick="openLevels()">
-      <div class="icon">⭐</div>
-      <div class="item-info">
-        <b>Level & Rewards</b>
-        <span>See your level rewards</span>
-      </div>
-      <div class="arrow">›</div>
-    </div>
-
-    <div class="item" onclick="openVisitors()">
-      <div class="icon">👀</div>
-      <div class="item-info">
-        <b>Visitors</b>
-        <span>People who visited your profile</span>
-      </div>
-      <div class="arrow">›</div>
-    </div>
-
-    <div class="item" onclick="openFamily()">
-      <div class="icon">👨‍👩‍👧</div>
-      <div class="item-info">
-        <b>My Family</b>
-        <span>Join and manage your family</span>
-      </div>
-      <div class="arrow">›</div>
-    </div>
-
-    <div class="item" onclick="openSettings()">
-      <div class="icon">⚙️</div>
-      <div class="item-info">
-        <b>Settings</b>
-        <span>Account and privacy settings</span>
-      </div>
-      <div class="arrow">›</div>
-    </div>
-
-    <div class="item" onclick="openSupport()">
-      <div class="icon">🎧</div>
-      <div class="item-info">
-        <b>Help & Support</b>
-        <span>Contact Tannu support team</span>
-      </div>
-      <div class="arrow">›</div>
-    </div>
-
-  </div>
+<button class="action-btn gift-btn" onclick="openGiftSend()">
+🎁 Send Gift
+</button>
 
 </div>
 
-<!-- BOTTOM NAV -->
+</div>
+
+<div class="wallet">
+
+<div class="wallet-top">
+
+<div>
+<div class="wallet-title">My Coins</div>
+<div class="coins" id="coins">100,000 🪙</div>
+</div>
+
+<button class="recharge" onclick="openRecharge()">
++ Recharge
+</button>
+
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<b id="followingCount">128</b>
+<span>Following</span>
+</div>
+
+<div class="stat">
+<b id="followersCount">356</b>
+<span>Followers</span>
+</div>
+
+<div class="stat">
+<b id="visitorCount">89</b>
+<span>Visitors</span>
+</div>
+
+</div>
+
+<div class="level-card">
+
+<div class="level-top">
+
+<div class="level" id="levelText">
+⭐ Level 5
+</div>
+
+<div class="exp" id="expText">
+6,200 / 10,000 EXP
+</div>
+
+</div>
+
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="level-bottom">
+<span>Current Level</span>
+<span id="nextLevel">Next: Level 6</span>
+</div>
+
+</div>
+
+<div class="title">👑 VIP Center</div>
+
+<div class="vip-card">
+
+<div class="vip-top">
+
+<div class="vip-icon">👑</div>
+
+<div class="vip-text">
+<h3 id="vipTitle">VIP 0</h3>
+<p id="vipDescription">
+Unlock VIP benefits and special rewards
+</p>
+</div>
+
+<button class="vip-button" onclick="openVIP()">
+VIEW
+</button>
+
+</div>
+
+</div>
+
+<div class="title">🎁 Daily Rewards</div>
+
+<div class="daily">
+
+<div class="daily-head">
+<h3>7 Day Rewards</h3>
+<span id="dayStatus">Day 4 / 7</span>
+</div>
+
+<div class="days">
+
+<div class="day done"><b>🪙</b>1K</div>
+<div class="day done"><b>🪙</b>2K</div>
+<div class="day done"><b>🎁</b>Gift</div>
+<div class="day today"><b>🪙</b>5K</div>
+<div class="day"><b>💎</b>8K</div>
+<div class="day"><b>🎁</b>VIP</div>
+<div class="day"><b>👑</b>Big</div>
+
+</div>
+
+<button class="claim" id="claimButton" onclick="claimDaily()">
+Claim Today's Reward
+</button>
+
+</div>
+
+<div class="title">🎡 Free Spin</div>
+
+<div class="spin">
+
+<div class="spin-wheel">🎡</div>
+
+<div class="spin-text">
+<b>Free Daily Spin</b>
+<p id="spinText">5 free spins available today</p>
+</div>
+
+<button class="spin-btn" onclick="spinWheel()">SPIN</button>
+
+</div>
+
+<div class="title">📦 My Account</div>
+
+<div class="menu">
+
+<div class="item" onclick="openGifts()">
+<div class="icon">🎁</div>
+<div class="item-info">
+<b>My Gifts</b>
+<span>View received gifts</span>
+</div>
+<div class="arrow">›</div>
+</div>
+
+<div class="item" onclick="openGiftHistory()">
+<div class="icon">📜</div>
+<div class="item-info">
+<b>Gift History</b>
+<span>View gifts you sent</span>
+</div>
+<div class="arrow">›</div>
+</div>
+
+<div class="item" onclick="openLevels()">
+<div class="icon">⭐</div>
+<div class="item-info">
+<b>Level & Rewards</b>
+<span>See your level rewards</span>
+</div>
+<div class="arrow">›</div>
+</div>
+
+<div class="item" onclick="openVisitors()">
+<div class="icon">👀</div>
+<div class="item-info">
+<b>Visitors</b>
+<span>People who visited your profile</span>
+</div>
+<div class="arrow">›</div>
+</div>
+
+<div class="item" onclick="openFamily()">
+<div class="icon">👨‍👩‍👧</div>
+<div class="item-info">
+<b>My Family</b>
+<span>Join and manage your family</span>
+</div>
+<div class="arrow">›</div>
+</div>
+
+<div class="item" onclick="openSettings()">
+<div class="icon">⚙️</div>
+<div class="item-info">
+<b>Settings</b>
+<span>Account and privacy settings</span>
+</div>
+<div class="arrow">›</div>
+</div>
+
+<div class="item" onclick="openSupport()">
+<div class="icon">🎧</div>
+<div class="item-info">
+<b>Help & Support</b>
+<span>Contact Tannu support team</span>
+</div>
+<div class="arrow">›</div>
+</div>
+
+</div>
+
+</div>
 
 <div class="nav">
 
-  <button onclick="goHome()">
-    <span>🏠</span>
-    Home
-  </button>
+<button onclick="goHome()">
+<span>🏠</span>
+Home
+</button>
 
-  <button onclick="goRooms()">
-    <span>🎙️</span>
-    Rooms
-  </button>
+<button onclick="goRooms()">
+<span>🎙️</span>
+Rooms
+</button>
 
-  <button onclick="goEvents()">
-    <span>🎉</span>
-    Events
-  </button>
+<button onclick="goEvents()">
+<span>🎉</span>
+Events
+</button>
 
-  <button class="active">
-    <span>👤</span>
-    Profile
-  </button>
+<button class="active">
+<span>👤</span>
+Profile
+</button>
 
 </div>
 
@@ -932,808 +925,934 @@ button{
 
 <div class="modal" id="rechargeModal">
 
-  <div class="modal-box">
+<div class="modal-box">
 
-    <div class="modal-head">
+<div class="modal-head">
 
-      <div>
-        <h3>🪙 Recharge Coins</h3>
-        <p style="font-size:10px;color:#999;margin-top:4px;">
-          Demo packages — payment will be connected later
-        </p>
-      </div>
+<div>
+<h3>🪙 Recharge Coins</h3>
+<p style="font-size:10px;color:#999;margin-top:4px;">
+Demo packages — payment will be connected later
+</p>
+</div>
 
-      <button class="close" onclick="closeModal('rechargeModal')">
-        ×
-      </button>
+<button class="close" onclick="closeModal('rechargeModal')">×</button>
 
-    </div>
+</div>
 
-    <div class="packages">
+<div class="packages">
 
-      <div class="package">
-        <b>100K 🪙</b>
-        <p>Starter Package</p>
-        <button class="buy" onclick="buyCoins(100000)">
-          Select
-        </button>
-      </div>
+<div class="package">
+<b>100K 🪙</b>
+<p>Starter Package</p>
+<button class="buy" onclick="buyCoins(100000)">Select</button>
+</div>
 
-      <div class="package">
-        <b>500K 🪙</b>
-        <p>Popular Package</p>
-        <button class="buy" onclick="buyCoins(500000)">
-          Select
-        </button>
-      </div>
+<div class="package">
+<b>500K 🪙</b>
+<p>Popular Package</p>
+<button class="buy" onclick="buyCoins(500000)">Select</button>
+</div>
 
-      <div class="package">
-        <b>1M 🪙</b>
-        <p>Premium Package</p>
-        <button class="buy" onclick="buyCoins(1000000)">
-          Select
-        </button>
-      </div>
+<div class="package">
+<b>1M 🪙</b>
+<p>Premium Package</p>
+<button class="buy" onclick="buyCoins(1000000)">Select</button>
+</div>
 
-      <div class="package">
-        <b>3M 🪙</b>
-        <p>First Recharge</p>
-        <button class="buy" onclick="buyCoins(3000000)">
-          Select
-        </button>
-      </div>
+<div class="package">
+<b>3M 🪙</b>
+<p>First Recharge</p>
+<button class="buy" onclick="buyCoins(3000000)">Select</button>
+</div>
 
-    </div>
+</div>
 
-  </div>
-
+</div>
 </div>
 
 <!-- GENERAL MODAL -->
 
 <div class="modal" id="generalModal">
 
-  <div class="modal-box">
+<div class="modal-box">
 
-    <div class="modal-head">
+<div class="modal-head">
 
-      <h3 id="modalTitle">Tannu Voice Chat</h3>
+<h3 id="modalTitle">Tannu Voice Chat</h3>
 
-      <button class="close" onclick="closeModal('generalModal')">
-        ×
-      </button>
-
-    </div>
-
-    <div id="modalContent"></div>
-
-  </div>
+<button class="close" onclick="closeModal('generalModal')">×</button>
 
 </div>
 
-<!-- TOAST -->
+<div id="modalContent"></div>
+
+</div>
+</div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 
-/* =========================
-   APP DATA
-========================= */
-
 const defaultData = {
-  coins:100000,
-  exp:6200,
-  level:5,
-  dailyClaimed:false,
-  spinCount:0,
-  lastSpinDate:"",
-  lastDailyDate:"",
-  vip:0
+
+coins:100000,
+
+exp:6200,
+
+level:5,
+
+dailyClaimed:false,
+
+spinCount:0,
+
+lastSpinDate:"",
+
+lastDailyDate:"",
+
+vip:0,
+
+following:128,
+
+followers:356,
+
+visitors:89,
+
+followingMe:false,
+
+giftHistory:[],
+
+receivedGifts:[],
+
+family:"Not Joined"
+
 };
 
-let data = loadData();
+let data=loadData();
 
 function loadData(){
 
-  try{
+try{
 
-    const saved = localStorage.getItem("tannuProfileData");
+const saved=localStorage.getItem("tannuProfileData");
 
-    if(saved){
-      return {...defaultData,...JSON.parse(saved)};
-    }
+if(saved){
 
-  }catch(error){
-    console.log(error);
-  }
+return {...defaultData,...JSON.parse(saved)};
 
-  return {...defaultData};
+}
+
+}catch(e){
+
+console.log(e);
+
+}
+
+return {...defaultData};
+
 }
 
 function saveData(){
 
-  localStorage.setItem(
-    "tannuProfileData",
-    JSON.stringify(data)
-  );
+localStorage.setItem(
+"tannuProfileData",
+JSON.stringify(data)
+);
 
 }
-
-
-/* =========================
-   DATE
-========================= */
 
 function today(){
 
-  const d = new Date();
+const d=new Date();
 
-  return d.getFullYear()+"-"+
-         String(d.getMonth()+1).padStart(2,"0")+"-"+
-         String(d.getDate()).padStart(2,"0");
+return d.getFullYear()+"-"+
+String(d.getMonth()+1).padStart(2,"0")+"-"+
+String(d.getDate()).padStart(2,"0");
 
 }
-
-
-/* =========================
-   RESET DAILY DATA
-========================= */
 
 function checkDailyReset(){
 
-  const current = today();
+const current=today();
 
-  if(data.lastSpinDate !== current){
+if(data.lastSpinDate!==current){
 
-    data.spinCount = 0;
-    data.lastSpinDate = current;
-
-  }
-
-  if(data.lastDailyDate !== current){
-
-    data.dailyClaimed = false;
-
-  }
-
-  saveData();
+data.spinCount=0;
+data.lastSpinDate=current;
 
 }
 
+if(data.lastDailyDate!==current){
 
-/* =========================
-   UPDATE UI
-========================= */
+data.dailyClaimed=false;
+
+}
+
+saveData();
+
+}
 
 function updateUI(){
 
-  checkDailyReset();
+checkDailyReset();
 
-  document.getElementById("coins").textContent =
-    data.coins.toLocaleString()+" 🪙";
+document.getElementById("coins").textContent=
+data.coins.toLocaleString()+" 🪙";
 
-  document.getElementById("levelText").textContent =
-    "⭐ Level "+data.level;
+document.getElementById("levelText").textContent=
+"⭐ Level "+data.level;
 
-  document.getElementById("expText").textContent =
-    data.exp.toLocaleString()+" / 10,000 EXP";
+document.getElementById("levelBadge").textContent=
+"⭐ Level "+data.level;
 
-  const percent =
-    Math.min((data.exp/10000)*100,100);
+document.getElementById("expText").textContent=
+data.exp.toLocaleString()+" / 10,000 EXP";
 
-  document.getElementById("progressBar").style.width =
-    percent+"%";
+document.getElementById("progressBar").style.width=
+Math.min((data.exp/10000)*100,100)+"%";
 
-  document.getElementById("nextLevel").textContent =
-    "Next: Level "+(data.level+1);
+document.getElementById("nextLevel").textContent=
+"Next: Level "+(data.level+1);
 
-  document.querySelector(".badges .badge").textContent =
-    "⭐ Level "+data.level;
+document.getElementById("followingCount").textContent=
+data.following;
 
-  document.getElementById("spinText").textContent =
-    Math.max(0,5-data.spinCount)+
-    " free spins available today";
+document.getElementById("followersCount").textContent=
+data.followers;
 
-  if(data.dailyClaimed){
+document.getElementById("visitorCount").textContent=
+data.visitors;
 
-    document.getElementById("claimButton").textContent =
-      "✓ Today's Reward Claimed";
+document.getElementById("spinText").textContent=
+Math.max(0,5-data.spinCount)+
+" free spins available today";
 
-    document.getElementById("claimButton").style.opacity =
-      ".55";
+document.getElementById("followBtn").textContent=
+data.followingMe ? "✓ Following" : "+ Follow";
 
-  }else{
+if(data.followingMe){
 
-    document.getElementById("claimButton").textContent =
-      "Claim Today's Reward";
+document.getElementById("followBtn").style.background="#49305f";
 
-    document.getElementById("claimButton").style.opacity =
-      "1";
+}else{
 
-  }
-
-  if(data.vip > 0){
-
-    document.getElementById("vipTitle").textContent =
-      "VIP "+data.vip;
-
-    document.getElementById("vipDescription").textContent =
-      "VIP benefits are active";
-
-  }
+document.getElementById("followBtn").style.background="#8b45e8";
 
 }
 
+if(data.dailyClaimed){
 
-/* =========================
-   COINS
-========================= */
+document.getElementById("claimButton").textContent=
+"✓ Today's Reward Claimed";
+
+document.getElementById("claimButton").style.opacity=".55";
+
+}else{
+
+document.getElementById("claimButton").textContent=
+"Claim Today's Reward";
+
+document.getElementById("claimButton").style.opacity="1";
+
+}
+
+if(data.vip>0){
+
+document.getElementById("vipTitle").textContent=
+"VIP "+data.vip;
+
+document.getElementById("vipDescription").textContent=
+"VIP benefits are active";
+
+}
+
+}
 
 function addCoins(amount){
 
-  data.coins += amount;
+data.coins+=amount;
 
-  saveData();
-  updateUI();
+saveData();
+updateUI();
 
 }
 
+function spendCoins(amount){
 
-/* =========================
-   EXP
-========================= */
+if(data.coins<amount){
+
+showToast("❌ Not enough coins");
+
+return false;
+
+}
+
+data.coins-=amount;
+
+saveData();
+updateUI();
+
+return true;
+
+}
 
 function addEXP(amount){
 
-  data.exp += amount;
+data.exp+=amount;
 
-  if(data.exp >= 10000){
+while(data.exp>=10000){
 
-    data.exp -= 10000;
-    data.level++;
+data.exp-=10000;
+data.level++;
 
-    showToast(
-      "🎉 Level Up! You are now Level "+data.level
-    );
-
-  }
-
-  saveData();
-  updateUI();
+showToast(
+"🎉 Level Up! Level "+data.level
+);
 
 }
 
+saveData();
+updateUI();
 
-/* =========================
-   RECHARGE
-========================= */
+}
+
+function toggleFollow(){
+
+if(data.followingMe){
+
+data.followingMe=false;
+
+data.following=Math.max(0,data.following-1);
+
+showToast("Unfollowed Shahid");
+
+}else{
+
+data.followingMe=true;
+
+data.following++;
+
+showToast("❤️ Following Shahid");
+
+}
+
+saveData();
+updateUI();
+
+}
 
 function openRecharge(){
 
-  document.getElementById("rechargeModal")
-    .style.display="flex";
+document.getElementById("rechargeModal")
+.style.display="flex";
 
 }
 
 function buyCoins(amount){
 
-  closeModal("rechargeModal");
+closeModal("rechargeModal");
 
-  showToast(
-    "🪙 "+amount.toLocaleString()+
-    " coins package selected. Payment coming soon."
-  );
+showToast(
+"🪙 "+amount.toLocaleString()+
+" coins package selected. Payment coming soon."
+);
 
 }
-
-
-/* =========================
-   DAILY REWARD
-========================= */
 
 function claimDaily(){
 
-  checkDailyReset();
+checkDailyReset();
 
-  if(data.dailyClaimed){
+if(data.dailyClaimed){
 
-    showToast("Today's reward already claimed");
+showToast("Today's reward already claimed");
 
-    return;
-
-  }
-
-  addCoins(5000);
-  addEXP(100);
-
-  data.dailyClaimed=true;
-  data.lastDailyDate=today();
-
-  saveData();
-  updateUI();
-
-  showToast(
-    "🎁 5,000 coins + 100 EXP claimed!"
-  );
+return;
 
 }
 
+data.dailyClaimed=true;
+data.lastDailyDate=today();
 
-/* =========================
-   FREE SPIN
-========================= */
+addCoins(5000);
+addEXP(100);
+
+saveData();
+updateUI();
+
+showToast("🎁 5,000 coins + 100 EXP claimed!");
+
+}
 
 function spinWheel(){
 
-  checkDailyReset();
+checkDailyReset();
 
-  if(data.spinCount >= 5){
+if(data.spinCount>=5){
 
-    showToast("❌ Today's 5 free spins are finished");
+showToast("❌ Today's 5 free spins are finished");
 
-    return;
-
-  }
-
-  data.spinCount++;
-
-  const rewards=[
-    100,
-    500,
-    1000,
-    5000,
-    10000
-  ];
-
-  const reward =
-    rewards[Math.floor(Math.random()*rewards.length)];
-
-  addCoins(reward);
-  addEXP(25);
-
-  saveData();
-  updateUI();
-
-  showToast(
-    "🎉 You won "+
-    reward.toLocaleString()+
-    " coins + 25 EXP!"
-  );
+return;
 
 }
 
+data.spinCount++;
 
-/* =========================
-   GENERAL MODAL
-========================= */
+const rewards=[100,500,1000,5000,10000];
+
+const reward=
+rewards[Math.floor(Math.random()*rewards.length)];
+
+addCoins(reward);
+addEXP(25);
+
+saveData();
+updateUI();
+
+showToast(
+"🎉 You won "+reward.toLocaleString()+
+" coins + 25 EXP!"
+);
+
+}
 
 function openGeneral(title,content){
 
-  document.getElementById("modalTitle").textContent =
-    title;
+document.getElementById("modalTitle").textContent=title;
 
-  document.getElementById("modalContent").innerHTML =
-    content;
+document.getElementById("modalContent").innerHTML=content;
 
-  document.getElementById("generalModal")
-    .style.display="flex";
+document.getElementById("generalModal").style.display="flex";
 
 }
 
 function closeModal(id){
 
-  document.getElementById(id)
-    .style.display="none";
+document.getElementById(id).style.display="none";
 
 }
 
+function openGiftSend(){
 
-/* =========================
-   VIP
-========================= */
+openGeneral(
+"🎁 Send Gift",
+
+`
+<div class="popup-text">
+Choose a gift to send to Shahid.
+Coins will be deducted from your demo wallet.
+</div>
+
+<div class="gift-grid">
+
+<div class="gift-card">
+<div class="gift-icon">🌹</div>
+<b>Rose</b>
+<small>100 🪙</small>
+<button onclick="sendGift('Rose','🌹',100)">SEND</button>
+</div>
+
+<div class="gift-card">
+<div class="gift-icon">💎</div>
+<b>Diamond</b>
+<small>1,000 🪙</small>
+<button onclick="sendGift('Diamond','💎',1000)">SEND</button>
+</div>
+
+<div class="gift-card">
+<div class="gift-icon">👑</div>
+<b>Crown</b>
+<small>10,000 🪙</small>
+<button onclick="sendGift('Crown','👑',10000)">SEND</button>
+</div>
+
+<div class="gift-card">
+<div class="gift-icon">🚀</div>
+<b>Rocket</b>
+<small>50,000 🪙</small>
+<button onclick="sendGift('Rocket','🚀',50000)">SEND</button>
+</div>
+
+</div>
+`
+);
+
+}
+
+function sendGift(name,icon,price){
+
+if(!spendCoins(price)) return;
+
+data.giftHistory.unshift({
+
+name:name,
+
+icon:icon,
+
+price:price,
+
+time:new Date().toLocaleString()
+
+});
+
+data.giftHistory=data.giftHistory.slice(0,20);
+
+saveData();
+updateUI();
+
+closeModal("generalModal");
+
+showToast(
+icon+" "+name+" sent for "+
+price.toLocaleString()+" coins!"
+);
+
+}
+
+function openGifts(){
+
+openGeneral(
+"🎁 My Gifts",
+
+`
+<div class="popup-text">
+Received gifts will appear here.
+</div>
+
+<div class="popup-list">
+
+<div class="popup-row">
+<div class="big">🌹</div>
+<div>
+<b>Rose</b>
+<span>Received in Voice Room</span>
+</div>
+<b>100 🪙</b>
+</div>
+
+<div class="popup-row">
+<div class="big">💎</div>
+<div>
+<b>Diamond</b>
+<span>Received from a friend</span>
+</div>
+<b>1K 🪙</b>
+</div>
+
+<div class="popup-row">
+<div class="big">👑</div>
+<div>
+<b>Crown</b>
+<span>Special room gift</span>
+</div>
+<b>10K 🪙</b>
+</div>
+
+</div>
+`
+);
+
+}
+
+function openGiftHistory(){
+
+let html="";
+
+if(data.giftHistory.length===0){
+
+html=`
+<div class="popup-text">
+No gifts sent yet.
+</div>
+`;
+
+}else{
+
+html=`
+<div class="popup-list">
+${data.giftHistory.map(g=>`
+
+<div class="popup-row">
+
+<div class="big">${g.icon}</div>
+
+<div>
+<b>${g.name}</b>
+<span>${g.time}</span>
+</div>
+
+<b>${g.price.toLocaleString()} 🪙</b>
+
+</div>
+
+`).join("")}
+</div>
+`;
+
+}
+
+openGeneral("📜 Gift History",html);
+
+}
 
 function openVIP(){
 
-  openGeneral(
-    "👑 VIP Center",
+openGeneral(
+"👑 VIP Center",
 
-    `
-    <div class="popup-text">
-      Choose your VIP level and unlock special benefits.
-    </div>
+`
+<div class="popup-text">
+VIP 1 and VIP 2 are the first VIP levels planned for Tannu Voice Chat.
+</div>
 
-    <div class="popup-list">
+<div class="popup-list">
 
-      <div class="popup-row">
-        <div class="big">👑</div>
-        <div>
-          <b>VIP 1</b>
-          <span>Extra rewards • VIP badge • Special frame</span>
-        </div>
-        <button class="small-btn"
-          onclick="selectVIP(1)">
-          VIEW
-        </button>
-      </div>
+<div class="popup-row">
+<div class="big">👑</div>
+<div>
+<b>VIP 1</b>
+<span>VIP badge • special frame • extra rewards</span>
+</div>
+<button class="small-btn" onclick="selectVIP(1)">
+SELECT
+</button>
+</div>
 
-      <div class="popup-row">
-        <div class="big">💎</div>
-        <div>
-          <b>VIP 2</b>
-          <span>More rewards • Premium frame • VIP effects</span>
-        </div>
-        <button class="small-btn"
-          onclick="selectVIP(2)">
-          VIEW
-        </button>
-      </div>
+<div class="popup-row">
+<div class="big">💎</div>
+<div>
+<b>VIP 2</b>
+<span>Premium frame • special effects • more rewards</span>
+</div>
+<button class="small-btn" onclick="selectVIP(2)">
+SELECT
+</button>
+</div>
 
-    </div>
-    `
-  );
+</div>
+`
+);
 
 }
 
 function selectVIP(level){
 
-  data.vip=level;
+data.vip=level;
 
-  saveData();
-  updateUI();
+saveData();
+updateUI();
 
-  closeModal("generalModal");
+closeModal("generalModal");
 
-  showToast(
-    "👑 VIP "+level+" selected. Payment coming soon."
-  );
-
-}
-
-
-/* =========================
-   GIFTS
-========================= */
-
-function openGifts(){
-
-  openGeneral(
-    "🎁 My Gifts",
-
-    `
-    <div class="popup-text">
-      Your received gifts will appear here.
-    </div>
-
-    <div class="popup-list">
-
-      <div class="popup-row">
-        <div class="big">🌹</div>
-        <div>
-          <b>Rose</b>
-          <span>Received in Voice Room</span>
-        </div>
-        <b>100 🪙</b>
-      </div>
-
-      <div class="popup-row">
-        <div class="big">💎</div>
-        <div>
-          <b>Diamond</b>
-          <span>Received from a friend</span>
-        </div>
-        <b>1K 🪙</b>
-      </div>
-
-      <div class="popup-row">
-        <div class="big">👑</div>
-        <div>
-          <b>Crown</b>
-          <span>Special room gift</span>
-        </div>
-        <b>10K 🪙</b>
-      </div>
-
-    </div>
-    `
-  );
+showToast(
+"👑 VIP "+level+" selected. Payment coming soon."
+);
 
 }
-
-
-/* =========================
-   LEVELS
-========================= */
 
 function openLevels(){
 
-  openGeneral(
-    "⭐ Level & Rewards",
+const rewards={
 
-    `
-    <div class="popup-text">
-      Earn EXP from activities, rooms, events and rewards.
-    </div>
+10:"🎁 Special badge + coins",
 
-    <div class="popup-list">
+20:"👑 Count title + special rewards",
 
-      <div class="popup-row">
-        <div class="big">⭐</div>
-        <div>
-          <b>Level 5</b>
-          <span>Current level</span>
-        </div>
-        <b>${data.exp}/10K</b>
-      </div>
+30:"👑 Special Count",
 
-      <div class="popup-row">
-        <div class="big">🎁</div>
-        <div>
-          <b>Level 10</b>
-          <span>Special badge + coins</span>
-        </div>
-        <b>LOCKED</b>
-      </div>
+40:"🏅 Marquis",
 
-      <div class="popup-row">
-        <div class="big">👑</div>
-        <div>
-          <b>Level 20</b>
-          <span>Count title + special rewards</span>
-        </div>
-        <b>LOCKED</b>
-      </div>
+50:"👑 King",
 
-    </div>
-    `
-  );
+60:"💎 Special King",
+
+70:"👑 Duke",
+
+80:"💎 Special Duke",
+
+100:"👑 Emperor"
+
+};
+
+let html=`
+<div class="popup-text">
+Your current level is ${data.level}. Keep earning EXP to unlock higher titles.
+</div>
+
+<div class="popup-list">
+`;
+
+Object.keys(rewards).forEach(level=>{
+
+const unlocked=data.level>=Number(level);
+
+html+=`
+
+<div class="popup-row">
+
+<div class="big">${unlocked?"✅":"🔒"}</div>
+
+<div>
+<b>Level ${level}</b>
+<span>${rewards[level]}</span>
+</div>
+
+<b>${unlocked?"UNLOCKED":"LOCKED"}</b>
+
+</div>
+`;
+
+});
+
+html+=`</div>`;
+
+openGeneral("⭐ Level & Rewards",html);
 
 }
-
-
-/* =========================
-   VISITORS
-========================= */
 
 function openVisitors(){
 
-  openGeneral(
-    "👀 Visitors",
+data.visitors++;
 
-    `
-    <div class="popup-text">
-      Recent visitors to your profile.
-    </div>
+saveData();
+updateUI();
 
-    <div class="popup-list">
+openGeneral(
+"👀 Visitors",
 
-      <div class="popup-row">
-        <div class="big">👤</div>
-        <div>
-          <b>Arman</b>
-          <span>Visited recently</span>
-        </div>
-      </div>
+`
+<div class="popup-text">
+Your profile visitor count is now ${data.visitors}.
+</div>
 
-      <div class="popup-row">
-        <div class="big">👤</div>
-        <div>
-          <b>Royal Girl</b>
-          <span>Visited recently</span>
-        </div>
-      </div>
+<div class="popup-list">
 
-      <div class="popup-row">
-        <div class="big">👤</div>
-        <div>
-          <b>King 786</b>
-          <span>Visited recently</span>
-        </div>
-      </div>
+<div class="popup-row">
+<div class="big">👤</div>
+<div>
+<b>Arman</b>
+<span>Visited recently</span>
+</div>
+</div>
 
-    </div>
-    `
-  );
+<div class="popup-row">
+<div class="big">👤</div>
+<div>
+<b>Royal Girl</b>
+<span>Visited recently</span>
+</div>
+</div>
+
+<div class="popup-row">
+<div class="big">👤</div>
+<div>
+<b>King 786</b>
+<span>Visited recently</span>
+</div>
+</div>
+
+</div>
+`
+);
 
 }
-
-
-/* =========================
-   FAMILY
-========================= */
 
 function openFamily(){
 
-  openGeneral(
-    "👨‍👩‍👧 My Family",
+openGeneral(
+"👨‍👩‍👧 My Family",
 
-    `
-    <div class="popup-text">
-      Family system is ready for the next development stage.
-    </div>
+`
+<div class="popup-text">
+Family system — create or join your Tannu Voice Chat family.
+</div>
 
-    <div class="popup-list">
+<div class="popup-list">
 
-      <div class="popup-row">
-        <div class="big">🏠</div>
-        <div>
-          <b>Family System</b>
-          <span>Create or join a family</span>
-        </div>
-      </div>
+<div class="popup-row">
+<div class="big">🏠</div>
+<div>
+<b>${data.family}</b>
+<span>Your current family status</span>
+</div>
+</div>
 
-      <div class="popup-row">
-        <div class="big">👑</div>
-        <div>
-          <b>Family Leader</b>
-          <span>Manage family members and activities</span>
-        </div>
-      </div>
+<div class="popup-row">
+<div class="big">➕</div>
+<div>
+<b>Create Family</b>
+<span>Start your own family</span>
+</div>
+<button class="small-btn" onclick="createFamily()">
+CREATE
+</button>
+</div>
 
-      <div class="popup-row">
-        <div class="big">🎁</div>
-        <div>
-          <b>Family Rewards</b>
-          <span>Future family events and rewards</span>
-        </div>
-      </div>
+<div class="popup-row">
+<div class="big">🤝</div>
+<div>
+<b>Join Family</b>
+<span>Join another family</span>
+</div>
+<button class="small-btn" onclick="joinFamily()">
+JOIN
+</button>
+</div>
 
-    </div>
-    `
-  );
+</div>
+`
+);
 
 }
 
+function createFamily(){
 
-/* =========================
-   SETTINGS
-========================= */
+data.family="Shahid Family";
+
+saveData();
+
+closeModal("generalModal");
+
+showToast("🏠 Shahid Family created!");
+
+}
+
+function joinFamily(){
+
+data.family="Royal Family";
+
+saveData();
+
+closeModal("generalModal");
+
+showToast("🤝 Joined Royal Family!");
+
+}
 
 function openSettings(){
 
-  openGeneral(
-    "⚙️ Settings",
+openGeneral(
+"⚙️ Settings",
 
-    `
-    <div class="popup-list">
+`
+<div class="popup-list">
 
-      <div class="popup-row">
-        <div class="big">🔔</div>
-        <div>
-          <b>Notifications</b>
-          <span>Room and event notifications</span>
-        </div>
-        <button class="small-btn"
-          onclick="showToast('Notifications enabled')">
-          ON
-        </button>
-      </div>
+<div class="popup-row">
+<div class="big">🔔</div>
+<div>
+<b>Notifications</b>
+<span>Room and event notifications</span>
+</div>
+<button class="small-btn"
+onclick="showToast('Notifications enabled')">
+ON
+</button>
+</div>
 
-      <div class="popup-row">
-        <div class="big">🔒</div>
-        <div>
-          <b>Privacy</b>
-          <span>Profile and visitor privacy</span>
-        </div>
-      </div>
+<div class="popup-row">
+<div class="big">🔒</div>
+<div>
+<b>Privacy</b>
+<span>Profile and visitor privacy</span>
+</div>
+</div>
 
-      <div class="popup-row">
-        <div class="big">🌐</div>
-        <div>
-          <b>Language</b>
-          <span>English • Hindi coming later</span>
-        </div>
-      </div>
+<div class="popup-row">
+<div class="big">🌐</div>
+<div>
+<b>Language</b>
+<span>English • Hindi coming later</span>
+</div>
+</div>
 
-    </div>
-    `
-  );
+</div>
+`
+);
 
 }
-
-
-/* =========================
-   SUPPORT
-========================= */
 
 function openSupport(){
 
-  openGeneral(
-    "🎧 Help & Support",
+openGeneral(
+"🎧 Help & Support",
 
-    `
-    <div class="popup-text">
-      Tannu Voice Chat Support
-      <br><br>
-      Need help with your account, rooms, coins or events?
-      Contact the Tannu support team.
-    </div>
+`
+<div class="popup-text">
+Tannu Voice Chat Support
+<br><br>
+Need help with your account, rooms, coins or events?
+Contact the Tannu support team.
+</div>
 
-    <div class="popup-list">
+<div class="popup-list">
 
-      <div class="popup-row">
-        <div class="big">💬</div>
-        <div>
-          <b>Customer Support</b>
-          <span>Chat with support team</span>
-        </div>
-        <button class="small-btn"
-          onclick="showToast('Support chat coming soon')">
-          OPEN
-        </button>
-      </div>
+<div class="popup-row">
+<div class="big">💬</div>
+<div>
+<b>Customer Support</b>
+<span>Chat with support team</span>
+</div>
+<button class="small-btn"
+onclick="showToast('Support chat coming soon')">
+OPEN
+</button>
+</div>
 
-      <div class="popup-row">
-        <div class="big">📋</div>
-        <div>
-          <b>Report Problem</b>
-          <span>Report an issue</span>
-        </div>
-        <button class="small-btn"
-          onclick="showToast('Report system coming soon')">
-          REPORT
-        </button>
-      </div>
+<div class="popup-row">
+<div class="big">📋</div>
+<div>
+<b>Report Problem</b>
+<span>Report an issue</span>
+</div>
+<button class="danger-btn"
+onclick="showToast('Report system coming soon')">
+REPORT
+</button>
+</div>
 
-    </div>
-    `
-  );
+</div>
+`
+);
 
 }
-
-
-/* =========================
-   TOAST
-========================= */
 
 let toastTimer;
 
 function showToast(text){
 
-  const toast =
-    document.getElementById("toast");
+const toast=document.getElementById("toast");
 
-  toast.textContent=text;
+toast.textContent=text;
 
-  toast.style.display="block";
+toast.style.display="block";
 
-  clearTimeout(toastTimer);
+clearTimeout(toastTimer);
 
-  toastTimer=setTimeout(function(){
+toastTimer=setTimeout(()=>{
 
-    toast.style.display="none";
+toast.style.display="none";
 
-  },2500);
+},2500);
 
 }
 
-
-/* =========================
-   NAVIGATION
-========================= */
-
 function goHome(){
 
-  window.location.href="index.html";
+window.location.href="index.html";
 
 }
 
 function goRooms(){
 
-  window.location.href="index.html#rooms";
+window.location.href="index.html#rooms";
 
 }
 
 function goEvents(){
 
-  window.location.href="events.html";
+window.location.href="events.html";
 
 }
-
-
-/* =========================
-   START
-========================= */
 
 updateUI();
 
