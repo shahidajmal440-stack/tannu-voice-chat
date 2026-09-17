@@ -19,7 +19,7 @@ html{
 
 body{
   background:#090912;
-  color:white;
+  color:#fff;
   -webkit-tap-highlight-color:transparent;
 }
 
@@ -27,8 +27,14 @@ button,
 .nav-item,
 .category,
 .card,
-.room{
+.room,
+.feature,
+.menu{
   -webkit-tap-highlight-color:transparent;
+}
+
+button{
+  font-family:inherit;
 }
 
 .app{
@@ -40,7 +46,7 @@ button,
   overflow:hidden;
 }
 
-/* TOP BAR */
+/* ================= TOP BAR ================= */
 
 .topbar{
   position:sticky;
@@ -49,10 +55,10 @@ button,
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:15px 16px;
-  background:rgba(23,23,37,.96);
+  padding:13px 15px;
+  background:rgba(23,23,37,.97);
   border-bottom:1px solid #29293a;
-  backdrop-filter:blur(12px);
+  backdrop-filter:blur(14px);
 }
 
 .logo{
@@ -72,6 +78,27 @@ button,
   justify-content:center;
   background:linear-gradient(135deg,#8b5cf6,#ec4899);
   font-size:19px;
+  box-shadow:0 5px 18px rgba(139,92,246,.25);
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.icon-btn{
+  width:36px;
+  height:36px;
+  border:1px solid #34344c;
+  background:#24243a;
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:16px;
 }
 
 .coins{
@@ -80,13 +107,13 @@ button,
   gap:5px;
   background:#24243a;
   border:1px solid #34344c;
-  padding:8px 13px;
+  padding:8px 11px;
   border-radius:20px;
-  font-size:13px;
+  font-size:12px;
   font-weight:bold;
 }
 
-/* SCREENS */
+/* ================= SCREENS ================= */
 
 .screen{
   display:none;
@@ -100,8 +127,8 @@ button,
 
 @keyframes fadeIn{
   from{
-    opacity:.5;
-    transform:translateY(4px);
+    opacity:.45;
+    transform:translateY(5px);
   }
   to{
     opacity:1;
@@ -109,7 +136,37 @@ button,
   }
 }
 
-/* HOME BANNER */
+/* ================= SEARCH ================= */
+
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:3px 0 13px;
+  background:#1b1b2a;
+  border:1px solid #29293d;
+  padding:10px 13px;
+  border-radius:14px;
+}
+
+.search-box span{
+  color:#777;
+}
+
+.search-box input{
+  width:100%;
+  background:transparent;
+  border:0;
+  outline:none;
+  color:#fff;
+  font-size:12px;
+}
+
+.search-box input::placeholder{
+  color:#777;
+}
+
+/* ================= HOME BANNER ================= */
 
 .banner{
   position:relative;
@@ -120,20 +177,20 @@ button,
   background:
     radial-gradient(circle at 90% 10%,rgba(255,255,255,.18),transparent 25%),
     linear-gradient(135deg,#6b21a8,#db2777);
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
 .banner:after{
   content:"🎙️";
   position:absolute;
-  right:18px;
-  bottom:-8px;
-  font-size:75px;
+  right:15px;
+  bottom:-10px;
+  font-size:78px;
   opacity:.12;
 }
 
 .banner-small{
-  font-size:12px;
+  font-size:11px;
   opacity:.9;
   margin-bottom:7px;
   font-weight:bold;
@@ -162,14 +219,14 @@ button,
   border:0;
   padding:10px 17px;
   border-radius:22px;
-  background:white;
+  background:#fff;
   color:#6b21a8;
   font-weight:bold;
   font-size:13px;
   cursor:pointer;
 }
 
-/* SECTION */
+/* ================= SECTION ================= */
 
 .section-title{
   display:flex;
@@ -188,7 +245,7 @@ button,
   cursor:pointer;
 }
 
-/* CATEGORIES */
+/* ================= CATEGORIES ================= */
 
 .categories{
   display:flex;
@@ -217,10 +274,10 @@ button,
 .category.active{
   background:#8b5cf6;
   border-color:#8b5cf6;
-  color:white;
+  color:#fff;
 }
 
-/* ROOM */
+/* ================= ROOM ================= */
 
 .room{
   background:#1b1b2a;
@@ -282,11 +339,12 @@ button,
   border-radius:50%;
   background:#22c55e;
   margin-right:4px;
+  box-shadow:0 0 7px rgba(34,197,94,.7);
 }
 
 .join{
   background:#8b5cf6;
-  color:white;
+  color:#fff;
   border:0;
   padding:8px 13px;
   border-radius:18px;
@@ -296,7 +354,7 @@ button,
   flex-shrink:0;
 }
 
-/* DAILY FEATURES */
+/* ================= DAILY FEATURES ================= */
 
 .feature-grid{
   display:grid;
@@ -334,7 +392,7 @@ button,
   line-height:1.4;
 }
 
-/* CARDS */
+/* ================= CARDS ================= */
 
 .card{
   background:#1b1b2a;
@@ -355,7 +413,7 @@ button,
   line-height:1.5;
 }
 
-/* EVENT HOME CARD */
+/* ================= EVENT ================= */
 
 .event-home{
   display:flex;
@@ -377,7 +435,7 @@ button,
   font-size:25px;
 }
 
-/* PROFILE */
+/* ================= PROFILE ================= */
 
 .profile{
   text-align:center;
@@ -431,7 +489,7 @@ button,
   cursor:pointer;
 }
 
-/* BOTTOM NAV */
+/* ================= BOTTOM NAV ================= */
 
 .bottom-nav{
   position:fixed;
@@ -441,13 +499,13 @@ button,
   width:100%;
   max-width:480px;
   height:70px;
-  background:rgba(23,23,37,.97);
+  background:rgba(23,23,37,.98);
   border-top:1px solid #29293a;
   display:flex;
   justify-content:space-around;
   align-items:center;
   z-index:100;
-  backdrop-filter:blur(12px);
+  backdrop-filter:blur(14px);
 }
 
 .nav-item{
@@ -473,15 +531,68 @@ button,
   transform:translateY(-1px);
 }
 
-/* EMPTY */
+/* ================= MODAL ================= */
 
-.empty{
-  text-align:center;
-  padding:45px 15px;
-  color:#999;
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  background:rgba(0,0,0,.65);
+  padding:15px;
 }
 
-/* SMALL FOOTER */
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:450px;
+  background:#1b1b2a;
+  border:1px solid #34344c;
+  border-radius:22px;
+  padding:20px;
+  animation:modalUp .2s ease;
+}
+
+@keyframes modalUp{
+  from{
+    transform:translateY(30px);
+    opacity:0;
+  }
+  to{
+    transform:translateY(0);
+    opacity:1;
+  }
+}
+
+.modal-title{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.modal-text{
+  color:#aaa;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.modal-close{
+  width:100%;
+  margin-top:16px;
+  border:0;
+  padding:12px;
+  border-radius:20px;
+  background:#8b5cf6;
+  color:#fff;
+  font-weight:bold;
+}
+
+/* ================= FOOTER ================= */
 
 .footer{
   text-align:center;
@@ -490,9 +601,10 @@ button,
   padding:20px 0 5px;
 }
 
-/* MOBILE */
+/* ================= SMALL ================= */
 
 @media(max-width:360px){
+
   .banner h1{
     font-size:22px;
   }
@@ -510,6 +622,11 @@ button,
   .join{
     padding:7px 10px;
   }
+
+  .coins{
+    padding:7px 9px;
+  }
+
 }
 </style>
 </head>
@@ -518,7 +635,7 @@ button,
 
 <div class="app">
 
-<!-- TOP BAR -->
+<!-- ================= TOP BAR ================= -->
 
 <div class="topbar">
 
@@ -527,8 +644,16 @@ button,
     <span>Tannu</span>
   </div>
 
-  <div class="coins">
-    🪙 <span id="coinBalance">0</span> Coins
+  <div class="top-actions">
+
+    <button class="icon-btn" onclick="showFeature('🔔 Notifications','Your notifications will appear here.')">
+      🔔
+    </button>
+
+    <div class="coins">
+      🪙 <span id="coinBalance">0</span> Coins
+    </div>
+
   </div>
 
 </div>
@@ -538,7 +663,14 @@ button,
 
 <div id="home" class="screen active">
 
-  <!-- WELCOME -->
+  <div class="search-box">
+    <span>🔍</span>
+    <input
+      type="text"
+      placeholder="Search rooms, users..."
+      oninput="searchRooms(this.value)">
+  </div>
+
 
   <div class="banner">
 
@@ -568,30 +700,30 @@ button,
 
   <div class="categories">
 
-    <div class="category active" onclick="go('rooms')">
+    <div class="category active" onclick="filterCategory(this,'Popular')">
       🔥 Popular
     </div>
 
-    <div class="category" onclick="go('rooms')">
+    <div class="category" onclick="filterCategory(this,'Music')">
       🎵 Music
     </div>
 
-    <div class="category" onclick="go('rooms')">
+    <div class="category" onclick="filterCategory(this,'Fun')">
       😂 Fun
     </div>
 
-    <div class="category" onclick="go('rooms')">
+    <div class="category" onclick="filterCategory(this,'Friends')">
       👥 Friends
     </div>
 
-    <div class="category" onclick="go('rooms')">
+    <div class="category" onclick="filterCategory(this,'Games')">
       🎮 Games
     </div>
 
   </div>
 
 
-  <!-- POPULAR ROOMS -->
+  <!-- POPULAR -->
 
   <div class="section-title">
 
@@ -604,7 +736,7 @@ button,
   </div>
 
 
-  <div class="room">
+  <div class="room searchable-room">
 
     <div class="room-left">
 
@@ -627,14 +759,14 @@ button,
 
     </div>
 
-    <button class="join" onclick="openRoom()">
+    <button class="join" onclick="openRoom('Tannu Music Night')">
       Join
     </button>
 
   </div>
 
 
-  <div class="room">
+  <div class="room searchable-room">
 
     <div class="room-left">
 
@@ -657,14 +789,14 @@ button,
 
     </div>
 
-    <button class="join" onclick="openRoom()">
+    <button class="join" onclick="openRoom('Friends Zone')">
       Join
     </button>
 
   </div>
 
 
-  <div class="room">
+  <div class="room searchable-room">
 
     <div class="room-left">
 
@@ -687,14 +819,14 @@ button,
 
     </div>
 
-    <button class="join" onclick="openRoom()">
+    <button class="join" onclick="openRoom('Fun & Masti')">
       Join
     </button>
 
   </div>
 
 
-  <!-- DAILY FEATURES -->
+  <!-- DAILY -->
 
   <div class="section-title">
     <h2>✨ Daily for You</h2>
@@ -710,9 +842,7 @@ button,
 
       <h3>Gifts</h3>
 
-      <p>
-        Send gifts in rooms
-      </p>
+      <p>Send gifts in rooms</p>
 
     </div>
 
@@ -725,9 +855,7 @@ button,
 
       <h3>VIP</h3>
 
-      <p>
-        Unlock VIP benefits
-      </p>
+      <p>Unlock VIP benefits</p>
 
     </div>
 
@@ -740,9 +868,7 @@ button,
 
       <h3>Free Spin</h3>
 
-      <p>
-        Win daily coins
-      </p>
+      <p>Win daily coins</p>
 
     </div>
 
@@ -755,16 +881,14 @@ button,
 
       <h3>Rewards</h3>
 
-      <p>
-        Claim daily rewards
-      </p>
+      <p>Claim daily rewards</p>
 
     </div>
 
   </div>
 
 
-  <!-- TODAY EVENT -->
+  <!-- EVENT -->
 
   <div class="section-title">
 
@@ -787,9 +911,7 @@ button,
 
     <div>
 
-      <h3>
-        Daily Welcome Event
-      </h3>
+      <h3>Daily Welcome Event</h3>
 
       <p>
         Open the event and collect your daily reward.
@@ -817,21 +939,10 @@ button,
 
   <div class="categories">
 
-    <div class="category active">
-      🔥 Popular
-    </div>
-
-    <div class="category">
-      🎵 Music
-    </div>
-
-    <div class="category">
-      😂 Fun
-    </div>
-
-    <div class="category">
-      🎮 Games
-    </div>
+    <div class="category active">🔥 Popular</div>
+    <div class="category">🎵 Music</div>
+    <div class="category">😂 Fun</div>
+    <div class="category">🎮 Games</div>
 
   </div>
 
@@ -857,7 +968,7 @@ button,
 
     </div>
 
-    <button class="join" onclick="openRoom()">
+    <button class="join" onclick="openRoom('India Friends')">
       Join
     </button>
 
@@ -883,7 +994,7 @@ button,
 
     </div>
 
-    <button class="join" onclick="openRoom()">
+    <button class="join" onclick="openRoom('Music Lovers')">
       Join
     </button>
 
@@ -909,7 +1020,7 @@ button,
 
     </div>
 
-    <button class="join" onclick="openRoom()">
+    <button class="join" onclick="openRoom('Gaming Room')">
       Join
     </button>
 
@@ -926,36 +1037,24 @@ button,
     <h2>🎉 Daily Events</h2>
   </div>
 
-
   <div class="card">
     <h3>🎁 Daily Welcome</h3>
-    <p>
-      Open the app every day and collect your reward.
-    </p>
+    <p>Open the app every day and collect your reward.</p>
   </div>
-
 
   <div class="card">
     <h3>🎡 Free Spin</h3>
-    <p>
-      Play your free spin and win coins & rewards.
-    </p>
+    <p>Play your free spin and win coins & rewards.</p>
   </div>
-
 
   <div class="card">
     <h3>🏆 Daily Reward</h3>
-    <p>
-      Complete your daily activity and receive rewards.
-    </p>
+    <p>Complete your daily activity and receive rewards.</p>
   </div>
-
 
   <div class="card">
     <h3>🔥 Room Activity</h3>
-    <p>
-      Join active rooms and participate with friends.
-    </p>
+    <p>Join active rooms and participate with friends.</p>
   </div>
 
 </div>
@@ -969,28 +1068,19 @@ button,
     <h2>💬 Messages</h2>
   </div>
 
-
   <div class="card">
     <h3>🎙️ Tannu Team</h3>
-    <p>
-      Welcome to Tannu Voice Chat ❤️
-    </p>
+    <p>Welcome to Tannu Voice Chat ❤️</p>
   </div>
-
 
   <div class="card">
     <h3>🎁 Rewards</h3>
-    <p>
-      Your daily rewards will appear here.
-    </p>
+    <p>Your daily rewards will appear here.</p>
   </div>
-
 
   <div class="card">
     <h3>🔔 System</h3>
-    <p>
-      No new notifications.
-    </p>
+    <p>No new notifications.</p>
   </div>
 
 </div>
@@ -1035,23 +1125,28 @@ button,
   </div>
 
 
-  <div class="menu">
+  <div class="menu"
+       onclick="showFeature('👑 My VIP','Your VIP level and benefits will appear here.')">
     👑 My VIP
   </div>
 
-  <div class="menu">
+  <div class="menu"
+       onclick="showFeature('🪙 Wallet','Your coins and wallet details will appear here.')">
     🪙 Wallet
   </div>
 
-  <div class="menu">
+  <div class="menu"
+       onclick="showFeature('🎁 Rewards','Your rewards will appear here.')">
     🎁 Rewards
   </div>
 
-  <div class="menu">
+  <div class="menu"
+       onclick="showFeature('⚙️ Settings','Account settings will be available here.')">
     ⚙️ Settings
   </div>
 
-  <div class="menu">
+  <div class="menu"
+       onclick="showFeature('🛟 Support','Tannu Support will be available here.')">
     🛟 Support
   </div>
 
@@ -1121,6 +1216,27 @@ button,
 </div>
 
 
+<!-- ================= MODAL ================= -->
+
+<div id="modal" class="modal" onclick="closeModal(event)">
+
+  <div class="modal-box">
+
+    <div id="modalTitle" class="modal-title"></div>
+
+    <div id="modalText" class="modal-text"></div>
+
+    <button
+      class="modal-close"
+      onclick="hideModal()">
+      Okay
+    </button>
+
+  </div>
+
+</div>
+
+
 <script>
 
 /* ================= NAVIGATION ================= */
@@ -1131,31 +1247,23 @@ function go(page){
     screen.classList.remove('active');
   });
 
-
-  const selected =
-    document.getElementById(page);
-
+  const selected=document.getElementById(page);
 
   if(selected){
     selected.classList.add('active');
   }
 
-
   document.querySelectorAll('.nav-item').forEach(function(item){
     item.classList.remove('active');
   });
 
-
-  const nav =
-    document.querySelector(
-      '.nav-item[data-page="' + page + '"]'
-    );
-
+  const nav=document.querySelector(
+    '.nav-item[data-page="' + page + '"]'
+  );
 
   if(nav){
     nav.classList.add('active');
   }
-
 
   window.scrollTo({
     top:0,
@@ -1167,28 +1275,80 @@ function go(page){
 
 /* ================= ROOM DEMO ================= */
 
-function openRoom(){
+function openRoom(roomName){
 
-  alert(
-    "🎙️ Voice Room\n\n" +
-    "Room screen is ready for the next build.\n\n" +
-    "12 mic seats\n" +
-    "Join Mic\n" +
-    "Mute / Unmute\n" +
-    "Room Chat\n" +
-    "Gifts"
+  showFeature(
+    '🎙️ ' + roomName,
+    'Voice Room UI is ready for the next backend build.\n\n' +
+    '12 mic seats • Join Mic • Mute/Unmute • Room Chat • Gifts'
   );
 
 }
 
 
-/* ================= FEATURE DEMO ================= */
+/* ================= FEATURE ================= */
 
 function showFeature(title,message){
 
-  alert(
-    title + "\n\n" + message
+  document.getElementById('modalTitle').innerText=title;
+  document.getElementById('modalText').innerText=message;
+
+  document.getElementById('modal').classList.add('show');
+
+}
+
+
+function hideModal(){
+
+  document.getElementById('modal').classList.remove('show');
+
+}
+
+
+function closeModal(event){
+
+  if(event.target.id==='modal'){
+    hideModal();
+  }
+
+}
+
+
+/* ================= CATEGORY ================= */
+
+function filterCategory(element,name){
+
+  document.querySelectorAll('.category').forEach(function(item){
+    item.classList.remove('active');
+  });
+
+  element.classList.add('active');
+
+  showFeature(
+    '🔎 ' + name,
+    name + ' rooms will be loaded from the backend here.'
   );
+
+}
+
+
+/* ================= SEARCH ================= */
+
+function searchRooms(value){
+
+  const search=value.toLowerCase().trim();
+
+  document.querySelectorAll('.searchable-room').forEach(function(room){
+
+    const text=room.innerText.toLowerCase();
+
+    if(text.includes(search)){
+      room.style.display='flex';
+    }else{
+      room.style.display='none';
+    }
+
+  });
 
 }
 
