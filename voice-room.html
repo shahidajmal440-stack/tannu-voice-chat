@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tannu Voice Chat - Voice Room</title>
+<title>Tannu Voice Chat - Room</title>
 
 <style>
 *{
@@ -14,689 +14,709 @@
 }
 
 body{
-  background:#100c20;
+  background:#07060c;
   color:white;
   min-height:100vh;
 }
 
-button{
-  border:0;
-  cursor:pointer;
-}
-
-.room{
-  max-width:600px;
+.app{
+  max-width:520px;
   margin:auto;
   min-height:100vh;
-  background:linear-gradient(180deg,#17102d,#0d0a18);
-  position:relative;
-  padding-bottom:90px;
+  background:
+    radial-gradient(circle at 20% 0%,#3b155c 0,#120b1d 30%,#07060c 70%);
+  padding-bottom:80px;
 }
 
-/* HEADER */
-
-.header{
-  height:70px;
+/* TOP */
+.top{
+  padding:15px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  padding:12px 15px;
-  background:rgba(20,12,40,.95);
+  gap:10px;
   position:sticky;
   top:0;
-  z-index:10;
-  border-bottom:1px solid #332457;
+  z-index:20;
+  background:#0b0812dd;
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid #ffffff10;
 }
 
 .back{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:#26183f;
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  background:#ffffff0c;
   color:white;
-  font-size:22px;
+  font-size:19px;
 }
 
-.room-info{
+.room-title-box{
   flex:1;
-  margin-left:12px;
+  min-width:0;
 }
 
-.room-info h2{
-  font-size:16px;
+.room-title{
+  font-size:15px;
+  font-weight:bold;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.room-info p{
-  color:#aaa;
-  font-size:12px;
+.room-id{
+  font-size:10px;
+  color:#898394;
   margin-top:3px;
 }
 
-.header-actions{
-  display:flex;
-  gap:7px;
-}
-
-.header-btn{
+.top-btn{
   width:38px;
   height:38px;
-  border-radius:50%;
-  background:#26183f;
+  border-radius:12px;
+  background:#ffffff0c;
   color:white;
-  font-size:17px;
 }
 
-/* ANNOUNCEMENT */
-
-.announcement{
-  margin:12px;
-  padding:11px 13px;
-  background:#21153a;
-  border:1px solid #3b2760;
-  border-radius:14px;
-  font-size:13px;
-}
-
-.announcement span{
-  margin-right:7px;
-}
-
-/* HOST */
-
-.host-card{
-  margin:12px;
-  padding:14px;
-  border-radius:18px;
-  background:linear-gradient(135deg,#2b1850,#171026);
-  border:1px solid #57328c;
+/* LIVE BAR */
+.live-bar{
+  margin:13px;
+  padding:12px 14px;
+  border-radius:15px;
+  background:#ffffff08;
+  border:1px solid #ffffff0c;
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:10px;
 }
 
-.avatar{
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#ff8a00,#ff3d81);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:22px;
-  font-weight:bold;
-  border:2px solid #ffd36a;
-}
-
-.host-details{
-  flex:1;
-}
-
-.host-details h3{
-  font-size:15px;
-}
-
-.host-details p{
-  font-size:12px;
-  color:#aaa;
-  margin-top:4px;
-}
-
-.host-badge{
-  background:#ffd34d;
-  color:#321f00;
-  padding:4px 8px;
+.live-badge{
+  background:#25d57d20;
+  color:#4af09a;
+  border:1px solid #40e38a35;
+  padding:6px 9px;
   border-radius:8px;
   font-size:10px;
   font-weight:bold;
 }
 
-/* SEATS */
-
-.section-title{
-  padding:8px 15px;
-  font-size:15px;
-  font-weight:bold;
+.viewer{
+  font-size:11px;
+  color:#aaa4b6;
 }
 
+.live-spacer{
+  flex:1;
+}
+
+.like-btn{
+  background:#ff4e9b18;
+  color:#ff72ae;
+  border:1px solid #ff4e9b25;
+  padding:7px 10px;
+  border-radius:9px;
+  font-size:11px;
+}
+
+/* ANNOUNCEMENT */
+.announcement{
+  margin:0 13px 14px;
+  padding:11px 13px;
+  border-radius:13px;
+  background:#ffb52e12;
+  border:1px solid #ffb52e20;
+  display:none;
+  font-size:11px;
+  color:#ffd982;
+}
+
+/* SEATS */
 .seats{
+  padding:0 13px;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  padding:10px 15px;
+  gap:10px;
 }
 
 .seat{
-  min-height:105px;
-  background:#191329;
-  border:1px solid #30234a;
+  min-height:112px;
   border-radius:18px;
+  background:linear-gradient(145deg,#191323,#100c17);
+  border:1px solid #ffffff10;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   position:relative;
+  padding:9px 5px;
 }
 
-.seat.active{
-  border-color:#8d4dff;
-  box-shadow:0 0 15px rgba(141,77,255,.25);
+.seat.host-seat{
+  border-color:#c45dff70;
+  box-shadow:0 0 22px #a83cff18;
 }
 
-.seat-avatar{
+.seat.locked{
+  background:#0d0b11;
+}
+
+.avatar{
   width:48px;
   height:48px;
-  border-radius:50%;
-  background:#29213c;
+  border-radius:15px;
   display:flex;
-  justify-content:center;
   align-items:center;
-  font-size:20px;
-  margin-bottom:7px;
-  border:2px solid #41345d;
+  justify-content:center;
+  font-size:21px;
+  background:linear-gradient(135deg,#8146ff,#e13ab0);
+  position:relative;
+}
+
+.host-crown{
+  position:absolute;
+  top:-9px;
+  right:-7px;
+  font-size:15px;
+}
+
+.mic-status{
+  position:absolute;
+  right:-5px;
+  bottom:-4px;
+  width:19px;
+  height:19px;
+  border-radius:50%;
+  background:#25d47c;
+  border:2px solid #191323;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:9px;
+}
+
+.mic-status.off{
+  background:#e84967;
 }
 
 .seat-name{
-  font-size:11px;
-  max-width:80px;
+  font-size:10px;
+  margin-top:7px;
+  max-width:75px;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
 }
 
-.mic{
-  position:absolute;
-  right:6px;
-  top:6px;
-  font-size:12px;
-}
-
-.vip{
-  position:absolute;
-  left:6px;
-  top:6px;
-  background:#6c36c9;
-  border-radius:6px;
-  padding:2px 5px;
+.seat-label{
   font-size:8px;
-  font-weight:bold;
+  color:#777080;
+  margin-top:3px;
 }
 
-.empty{
-  color:#71677e;
-  font-size:11px;
+.lock-icon{
+  font-size:20px;
+  margin-bottom:4px;
 }
 
-/* USERS */
-
-.online{
-  margin:5px 15px 15px;
-  background:#171124;
-  border-radius:15px;
-  padding:12px;
-  border:1px solid #2d2144;
+/* ROOM INFO */
+.info{
+  margin:15px 13px;
+  padding:14px;
+  border-radius:16px;
+  background:#ffffff08;
+  border:1px solid #ffffff0d;
 }
 
-.online-head{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:10px;
-}
-
-.online-head span{
-  color:#70e69a;
-  font-size:12px;
-}
-
-.user-list{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-}
-
-.user{
-  min-width:52px;
-  text-align:center;
-}
-
-.user-avatar{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#30233e;
-  margin:auto;
+.info-row{
   display:flex;
   align-items:center;
-  justify-content:center;
+  gap:9px;
+  color:#a29bab;
+  font-size:11px;
+  margin-bottom:9px;
 }
 
-.user p{
-  font-size:9px;
-  color:#aaa;
-  margin-top:4px;
+.info-row:last-child{
+  margin-bottom:0;
+}
+
+.info-row b{
+  color:white;
 }
 
 /* CHAT */
-
-.chat{
-  margin:10px 15px;
-  background:#151021;
-  border:1px solid #2c2141;
-  border-radius:18px;
+.chat-box{
+  margin:0 13px 15px;
+  background:#ffffff06;
+  border:1px solid #ffffff0b;
+  border-radius:17px;
   overflow:hidden;
 }
 
 .chat-head{
-  padding:12px;
-  font-size:14px;
+  padding:12px 14px;
+  border-bottom:1px solid #ffffff0b;
+  font-size:13px;
   font-weight:bold;
-  border-bottom:1px solid #2b2140;
 }
 
 .messages{
-  height:170px;
+  height:155px;
   overflow-y:auto;
-  padding:10px;
+  padding:11px;
 }
 
-.message{
+.msg{
   margin-bottom:9px;
-  font-size:12px;
+  font-size:11px;
   line-height:1.4;
 }
 
-.message b{
-  color:#c993ff;
+.msg b{
+  color:#c98aff;
 }
 
-.system{
-  color:#777;
-  font-size:11px;
+.msg span{
+  color:#aaa3b3;
 }
 
 .chat-input{
   display:flex;
   gap:7px;
   padding:9px;
-  border-top:1px solid #2b2140;
+  border-top:1px solid #ffffff0b;
 }
 
 .chat-input input{
   flex:1;
-  background:#241b35;
+  min-width:0;
+  background:#ffffff09;
+  border:1px solid #ffffff0c;
   color:white;
-  border:1px solid #3a2b52;
   outline:none;
   padding:10px;
-  border-radius:12px;
+  border-radius:10px;
+  font-size:11px;
 }
 
 .send{
-  background:#7b42e8;
+  width:42px;
+  border-radius:10px;
+  background:#8748ff;
   color:white;
-  border-radius:12px;
-  padding:0 15px;
 }
 
 /* BOTTOM CONTROLS */
-
 .controls{
   position:fixed;
-  bottom:0;
   left:50%;
   transform:translateX(-50%);
+  bottom:0;
   width:100%;
-  max-width:600px;
-  background:rgba(14,10,25,.97);
-  border-top:1px solid #33244d;
-  padding:12px;
+  max-width:520px;
+  height:76px;
+  background:#100d17f2;
+  backdrop-filter:blur(16px);
+  border-top:1px solid #ffffff12;
   display:flex;
-  gap:8px;
-  justify-content:center;
-  z-index:20;
+  align-items:center;
+  justify-content:space-around;
+  z-index:50;
 }
 
 .control{
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  background:#292039;
+  width:45px;
+  height:45px;
+  border-radius:14px;
+  background:#ffffff0c;
   color:white;
-  font-size:20px;
+  font-size:18px;
+  border:1px solid #ffffff0c;
 }
 
 .control.active{
-  background:#7a3de1;
+  background:#8548ff;
 }
 
-.control.danger{
-  background:#d73855;
+.leave{
+  background:#e84967;
+  width:52px;
 }
 
-/* GIFT PANEL */
+/* ACTIONS */
+.actions{
+  padding:0 13px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-bottom:16px;
+}
 
-.overlay{
+.action{
+  padding:11px 5px;
+  border-radius:12px;
+  background:#ffffff08;
+  color:#aaa3b4;
+  border:1px solid #ffffff0b;
+  font-size:10px;
+}
+
+.action:active{
+  transform:scale(.96);
+}
+
+/* MODAL */
+.modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.65);
+  background:#000000b5;
   display:none;
   align-items:flex-end;
   justify-content:center;
-  z-index:30;
+  z-index:100;
 }
 
-.gift-panel{
-  width:100%;
-  max-width:600px;
-  background:#191128;
-  border-radius:25px 25px 0 0;
-  padding:20px;
-  border-top:1px solid #563477;
-}
-
-.gift-head{
+.modal.show{
   display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:520px;
+  background:#171321;
+  border-radius:24px 24px 0 0;
+  padding:20px;
+  border-top:1px solid #ffffff15;
+  animation:up .25s ease;
+}
+
+@keyframes up{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+
+.modal-head{
+  display:flex;
+  align-items:center;
   justify-content:space-between;
-  margin-bottom:15px;
+  margin-bottom:17px;
+}
+
+.modal-head h3{
+  font-size:17px;
 }
 
 .close{
-  background:#30233f;
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:#ffffff0c;
   color:white;
-  width:32px;
-  height:32px;
-  border-radius:50%;
 }
 
+/* GIFTS */
 .gifts{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:10px;
+  gap:9px;
 }
 
 .gift{
-  background:#251936;
-  border:1px solid #38274d;
-  border-radius:15px;
-  padding:12px 5px;
+  background:#ffffff08;
+  border:1px solid #ffffff0c;
+  border-radius:14px;
+  padding:11px 5px;
   text-align:center;
   color:white;
 }
 
 .gift-icon{
-  font-size:27px;
+  font-size:25px;
+  margin-bottom:6px;
 }
 
 .gift-name{
   font-size:10px;
-  margin-top:5px;
 }
 
 .gift-price{
   font-size:9px;
-  color:#f0bd55;
+  color:#f4c75e;
   margin-top:3px;
 }
 
-/* ADMIN PANEL */
-
-.admin-panel{
-  display:none;
-  margin:10px 15px;
-  padding:14px;
-  background:#1c1429;
-  border:1px solid #3c2b56;
-  border-radius:16px;
-}
-
-.admin-panel h3{
-  margin-bottom:10px;
-  font-size:14px;
-}
-
-.admin-buttons{
+/* HOST CONTROLS */
+.host-list{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
+  gap:9px;
 }
 
-.admin-buttons button{
-  padding:10px;
-  border-radius:10px;
-  background:#2b2040;
+.host-option{
+  width:100%;
+  text-align:left;
+  padding:13px;
+  border-radius:12px;
+  background:#ffffff08;
   color:white;
+  border:1px solid #ffffff0b;
 }
 
 /* TOAST */
-
 .toast{
   position:fixed;
   left:50%;
-  bottom:85px;
-  transform:translateX(-50%);
-  background:#2c2140;
-  border:1px solid #574078;
-  padding:10px 16px;
+  bottom:90px;
+  transform:translateX(-50%) translateY(20px);
+  background:#292331;
+  color:white;
+  padding:11px 16px;
   border-radius:12px;
-  font-size:12px;
-  display:none;
-  z-index:50;
+  font-size:11px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:200;
+  white-space:nowrap;
 }
 
-/* RESPONSIVE */
-
-@media(max-width:430px){
-  .seats{
-    gap:7px;
-    padding:8px 10px;
-  }
-
-  .seat{
-    min-height:95px;
-  }
-
-  .seat-avatar{
-    width:43px;
-    height:43px;
-  }
-
-  .section-title{
-    padding-left:10px;
-  }
-
-  .announcement,
-  .host-card,
-  .online,
-  .chat{
-    margin-left:10px;
-    margin-right:10px;
-  }
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 </style>
 </head>
 
 <body>
 
-<div class="room">
+<div class="app">
 
-  <!-- HEADER -->
-  <div class="header">
+  <!-- TOP -->
+  <header class="top">
 
-    <button class="back" onclick="goBack()">‹</button>
+    <button class="back" onclick="goHome()">‹</button>
 
-    <div class="room-info">
-      <h2 id="roomTitle">Tannu Friends Room</h2>
-      <p>🟢 <span id="onlineCount">18</span> Online · Room ID: <span id="roomId">TV12345</span></p>
+    <div class="room-title-box">
+      <div id="roomTitle" class="room-title">
+        Late Night Talk
+      </div>
+
+      <div class="room-id">
+        Room ID: <span id="roomId">TV44001</span>
+      </div>
     </div>
 
-    <div class="header-actions">
-      <button class="header-btn" onclick="shareRoom()">↗</button>
-      <button class="header-btn" onclick="showToast('Report option opened')">⚑</button>
-    </div>
+    <button class="top-btn" onclick="shareRoom()">📤</button>
+
+  </header>
+
+
+  <!-- LIVE -->
+  <div class="live-bar">
+
+    <span class="live-badge">● LIVE</span>
+
+    <span class="viewer">
+      👥 <b id="viewerCount">126</b> online
+    </span>
+
+    <div class="live-spacer"></div>
+
+    <button class="like-btn" onclick="likeRoom()">
+      ❤️ <span id="likes">2400</span>
+    </button>
 
   </div>
+
 
   <!-- ANNOUNCEMENT -->
+  <div id="announcement" class="announcement"></div>
 
-  <div class="announcement">
-    <span>📢</span>
-    Welcome to Tannu Voice Chat ❤️ Be respectful and enjoy the room!
-  </div>
-
-  <!-- HOST -->
-
-  <div class="host-card">
-
-    <div class="avatar">T</div>
-
-    <div class="host-details">
-      <h3>Tannu Host 👑</h3>
-      <p>Room Host · Level 20 · Online</p>
-    </div>
-
-    <div class="host-badge">HOST</div>
-
-  </div>
 
   <!-- SEATS -->
+  <section id="seats" class="seats">
 
-  <div class="section-title">
-    🎙️ Voice Seats <span style="color:#8d71b5;font-size:11px;">8 Seats</span>
-  </div>
+    <!-- HOST -->
+    <div class="seat host-seat">
 
-  <div class="seats">
+      <div class="avatar">
+        👑
+        <span class="host-crown">👑</span>
 
-    <div class="seat active">
-      <span class="vip">VIP2</span>
-      <span class="mic">🎤</span>
-      <div class="seat-avatar">T</div>
-      <div class="seat-name">Tannu</div>
+        <span id="hostMic" class="mic-status">
+          🎤
+        </span>
+      </div>
+
+      <div class="seat-name">Shahid</div>
+      <div class="seat-label">HOST</div>
+
     </div>
 
-    <div class="seat active">
-      <span class="vip">VIP1</span>
-      <span class="mic">🎤</span>
-      <div class="seat-avatar">A</div>
+
+    <!-- USER -->
+    <div class="seat">
+
+      <div class="avatar">
+        😎
+        <span class="mic-status">🎤</span>
+      </div>
+
       <div class="seat-name">Arman</div>
+      <div class="seat-label">Speaker</div>
+
     </div>
 
-    <div class="seat active">
-      <span class="mic">🔇</span>
-      <div class="seat-avatar">R</div>
+
+    <div class="seat">
+
+      <div class="avatar">
+        😊
+        <span class="mic-status">🎤</span>
+      </div>
+
+      <div class="seat-name">Sana</div>
+      <div class="seat-label">Speaker</div>
+
+    </div>
+
+
+    <div class="seat">
+
+      <div class="avatar">
+        😄
+        <span class="mic-status off">🔇</span>
+      </div>
+
+      <div class="seat-name">Rohan</div>
+      <div class="seat-label">Muted</div>
+
+    </div>
+
+
+    <div class="seat">
+
+      <div class="avatar">
+        🧑
+        <span class="mic-status">🎤</span>
+      </div>
+
+      <div class="seat-name">Amit</div>
+      <div class="seat-label">Speaker</div>
+
+    </div>
+
+
+    <div class="seat">
+
+      <div class="avatar">
+        👩
+        <span class="mic-status">🎤</span>
+      </div>
+
+      <div class="seat-name">Priya</div>
+      <div class="seat-label">Speaker</div>
+
+    </div>
+
+
+    <div class="seat">
+
+      <div class="avatar">
+        🧔
+        <span class="mic-status off">🔇</span>
+      </div>
+
+      <div class="seat-name">Imran</div>
+      <div class="seat-label">Muted</div>
+
+    </div>
+
+
+    <div class="seat">
+
+      <div class="avatar">
+        👦
+        <span class="mic-status">🎤</span>
+      </div>
+
       <div class="seat-name">Rahul</div>
+      <div class="seat-label">Speaker</div>
+
     </div>
 
-    <div class="seat active">
-      <span class="mic">🎤</span>
-      <div class="seat-avatar">S</div>
-      <div class="seat-name">Sameer</div>
+  </section>
+
+
+  <!-- ROOM INFO -->
+  <div class="info">
+
+    <div class="info-row">
+      🏷️ Category:
+      <b>Chat & Friends</b>
     </div>
 
-    <div class="seat">
-      <div class="seat-avatar">＋</div>
-      <div class="empty">Empty Seat</div>
+    <div class="info-row">
+      👑 Host:
+      <b>Shahid</b>
     </div>
 
-    <div class="seat">
-      <div class="seat-avatar">＋</div>
-      <div class="empty">Empty Seat</div>
-    </div>
-
-    <div class="seat">
-      <div class="seat-avatar">＋</div>
-      <div class="empty">Empty Seat</div>
-    </div>
-
-    <div class="seat">
-      <div class="seat-avatar">＋</div>
-      <div class="empty">Empty Seat</div>
+    <div class="info-row">
+      👥 Seats:
+      <b>8 / 8</b>
     </div>
 
   </div>
 
-  <!-- ONLINE USERS -->
 
-  <div class="online">
+  <!-- ACTIONS -->
+  <div class="actions">
 
-    <div class="online-head">
-      <b>👥 Online Users</b>
-      <span>● Live</span>
-    </div>
+    <button class="action" onclick="openGift()">
+      🎁 Gifts
+    </button>
 
-    <div class="user-list">
+    <button class="action" onclick="openUsers()">
+      👥 Users
+    </button>
 
-      <div class="user">
-        <div class="user-avatar">A</div>
-        <p>Arman</p>
-      </div>
+    <button class="action" onclick="openHostControls()">
+      🛡️ Host
+    </button>
 
-      <div class="user">
-        <div class="user-avatar">R</div>
-        <p>Rahul</p>
-      </div>
-
-      <div class="user">
-        <div class="user-avatar">S</div>
-        <p>Sameer</p>
-      </div>
-
-      <div class="user">
-        <div class="user-avatar">M</div>
-        <p>Mohit</p>
-      </div>
-
-      <div class="user">
-        <div class="user-avatar">K</div>
-        <p>Karan</p>
-      </div>
-
-      <div class="user">
-        <div class="user-avatar">N</div>
-        <p>Nisha</p>
-      </div>
-
-    </div>
+    <button class="action" onclick="lockSeat()">
+      🔒 Seat
+    </button>
 
   </div>
 
-  <!-- ADMIN -->
-
-  <div class="admin-panel" id="adminPanel">
-
-    <h3>👑 Host Controls</h3>
-
-    <div class="admin-buttons">
-      <button onclick="showToast('User muted')">🔇 Mute User</button>
-      <button onclick="showToast('User kicked')">🚫 Kick User</button>
-      <button onclick="showToast('Announcement sent')">📢 Announcement</button>
-      <button onclick="showToast('Seat locked')">🔒 Lock Seat</button>
-    </div>
-
-  </div>
 
   <!-- CHAT -->
-
-  <div class="chat">
+  <section class="chat-box">
 
     <div class="chat-head">
       💬 Room Chat
     </div>
 
-    <div class="messages" id="messages">
+    <div id="messages" class="messages">
 
-      <div class="message system">
-        Welcome to the room.
+      <div class="msg">
+        <b>Shahid:</b>
+        <span>Welcome everyone ❤️</span>
       </div>
 
-      <div class="message">
-        <b>Arman:</b> Hello everyone 👋
+      <div class="msg">
+        <b>Sana:</b>
+        <span>Hello everyone 👋</span>
       </div>
 
-      <div class="message">
-        <b>Rahul:</b> Kya haal hai ❤️
+      <div class="msg">
+        <b>Arman:</b>
+        <span>Nice room 🔥</span>
       </div>
 
-      <div class="message">
-        <b>Sameer:</b> Nice room 🔥
+      <div class="msg">
+        <b>Rohan:</b>
+        <span>Good evening!</span>
       </div>
 
     </div>
@@ -704,119 +724,86 @@ button{
     <div class="chat-input">
 
       <input
-        id="chatInput"
-        type="text"
+        id="messageInput"
         placeholder="Write a message..."
+        maxlength="100"
         onkeydown="if(event.key==='Enter') sendMessage()"
       >
 
       <button class="send" onclick="sendMessage()">
-        Send
+        ➤
       </button>
 
     </div>
 
-  </div>
+  </section>
 
 </div>
 
 
-<!-- BOTTOM CONTROLS -->
-
+<!-- CONTROLS -->
 <div class="controls">
 
-  <button class="control active" id="micBtn" onclick="toggleMic()">
+  <button id="micBtn" class="control active" onclick="toggleMic()">
     🎤
   </button>
 
-  <button class="control" onclick="showToast('Speaker changed')">
+  <button id="speakerBtn" class="control active" onclick="toggleSpeaker()">
     🔊
   </button>
 
-  <button class="control" onclick="openGifts()">
+  <button class="control" onclick="openGift()">
     🎁
   </button>
 
-  <button class="control" onclick="sendLike()">
-    ❤️
+  <button class="control" onclick="shareRoom()">
+    📤
   </button>
 
-  <button class="control" onclick="toggleAdmin()">
-    👑
-  </button>
-
-  <button class="control danger" onclick="leaveRoom()">
-    📞
+  <button class="control leave" onclick="leaveRoom()">
+    🚪
   </button>
 
 </div>
 
 
-<!-- GIFT PANEL -->
+<!-- GIFT MODAL -->
+<div id="giftModal" class="modal">
 
-<div class="overlay" id="giftOverlay">
+  <div class="modal-box">
 
-  <div class="gift-panel">
+    <div class="modal-head">
 
-    <div class="gift-head">
-      <div>
-        <h3>🎁 Send Gift</h3>
-        <p style="font-size:11px;color:#999;margin-top:4px;">
-          Your Coins: <b style="color:#f5c45d;">100,000 🪙</b>
-        </p>
-      </div>
+      <h3>🎁 Send Gift</h3>
 
-      <button class="close" onclick="closeGifts()">×</button>
+      <button class="close" onclick="closeGift()">✕</button>
+
     </div>
 
     <div class="gifts">
 
-      <button class="gift" onclick="sendGift('Rose 🌹',100)">
+      <button class="gift" onclick="sendGift('Rose',100,'🌹')">
         <div class="gift-icon">🌹</div>
         <div class="gift-name">Rose</div>
         <div class="gift-price">100 🪙</div>
       </button>
 
-      <button class="gift" onclick="sendGift('Heart ❤️',500)">
-        <div class="gift-icon">❤️</div>
-        <div class="gift-name">Heart</div>
-        <div class="gift-price">500 🪙</div>
-      </button>
-
-      <button class="gift" onclick="sendGift('Diamond 💎',1000)">
+      <button class="gift" onclick="sendGift('Diamond',1000,'💎')">
         <div class="gift-icon">💎</div>
         <div class="gift-name">Diamond</div>
         <div class="gift-price">1K 🪙</div>
       </button>
 
-      <button class="gift" onclick="sendGift('Crown 👑',5000)">
+      <button class="gift" onclick="sendGift('Crown',10000,'👑')">
         <div class="gift-icon">👑</div>
         <div class="gift-name">Crown</div>
-        <div class="gift-price">5K 🪙</div>
-      </button>
-
-      <button class="gift" onclick="sendGift('Love 💕',10000)">
-        <div class="gift-icon">💕</div>
-        <div class="gift-name">Love</div>
         <div class="gift-price">10K 🪙</div>
       </button>
 
-      <button class="gift" onclick="sendGift('Car 🚗',25000)">
-        <div class="gift-icon">🚗</div>
-        <div class="gift-name">Car</div>
-        <div class="gift-price">25K 🪙</div>
-      </button>
-
-      <button class="gift" onclick="sendGift('Rocket 🚀',50000)">
+      <button class="gift" onclick="sendGift('Rocket',50000,'🚀')">
         <div class="gift-icon">🚀</div>
         <div class="gift-name">Rocket</div>
         <div class="gift-price">50K 🪙</div>
-      </button>
-
-      <button class="gift" onclick="sendGift('King 👑',70000)">
-        <div class="gift-icon">🏆</div>
-        <div class="gift-name">King</div>
-        <div class="gift-price">70K 🪙</div>
       </button>
 
     </div>
@@ -826,54 +813,156 @@ button{
 </div>
 
 
-<!-- TOAST -->
+<!-- USERS MODAL -->
+<div id="usersModal" class="modal">
 
-<div class="toast" id="toast"></div>
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h3>👥 Online Users</h3>
+
+      <button class="close" onclick="closeUsers()">✕</button>
+
+    </div>
+
+    <div class="host-list">
+
+      <button class="host-option">👑 Shahid — Host</button>
+      <button class="host-option">😎 Arman — Speaker</button>
+      <button class="host-option">😊 Sana — Speaker</button>
+      <button class="host-option">😄 Rohan — Muted</button>
+      <button class="host-option">🧑 Amit — Speaker</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- HOST MODAL -->
+<div id="hostModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h3>🛡️ Host Controls</h3>
+
+      <button class="close" onclick="closeHostControls()">✕</button>
+
+    </div>
+
+    <div class="host-list">
+
+      <button class="host-option" onclick="announce()">
+        📢 Room Announcement
+      </button>
+
+      <button class="host-option" onclick="muteAll()">
+        🔇 Mute All Speakers
+      </button>
+
+      <button class="host-option" onclick="showToast('Kick feature selected')">
+        🚫 Kick User
+      </button>
+
+      <button class="host-option" onclick="showToast('Room lock enabled 🔒')">
+        🔒 Lock Room
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
 
 
 <script>
 
-/* ---------------------------
+/* =========================
    ROOM DATA
----------------------------- */
+========================= */
 
-let micOn = true;
-let likes = 0;
-let coins = 100000;
+const params =
+  new URLSearchParams(window.location.search);
 
+const incomingRoom =
+  params.get("room");
 
-/* ---------------------------
-   ROOM ID
----------------------------- */
+if(incomingRoom){
 
-const params = new URLSearchParams(window.location.search);
-
-const roomId =
-  params.get("room") ||
-  "TV12345";
-
-document.getElementById("roomId").textContent =
-  roomId;
-
-
-/* ---------------------------
-   BACK
----------------------------- */
-
-function goBack(){
-
-  if(document.referrer){
-    history.back();
-  }else{
-    window.location.href="index.html";
-  }
+  document.getElementById("roomTitle")
+    .textContent = incomingRoom;
 
 }
 
 
-/* ---------------------------
+/* =========================
+   COINS
+========================= */
+
+let coins =
+  Number(localStorage.getItem("tannuCoins"));
+
+if(!coins){
+
+  coins = 100000;
+
+  localStorage.setItem(
+    "tannuCoins",
+    coins
+  );
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(()=>{
+      toast.classList.remove("show");
+    },2200);
+
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function goHome(){
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* =========================
    MIC
----------------------------- */
+========================= */
+
+let micOn = true;
 
 function toggleMic(){
 
@@ -882,250 +971,489 @@ function toggleMic(){
   const btn =
     document.getElementById("micBtn");
 
+  const status =
+    document.getElementById("hostMic");
+
   if(micOn){
 
-    btn.innerHTML="🎤";
     btn.classList.add("active");
+    btn.textContent = "🎤";
 
-    showToast("Microphone ON");
+    status.classList.remove("off");
+    status.textContent = "🎤";
+
+    showToast("Microphone ON 🎤");
 
   }else{
 
-    btn.innerHTML="🔇";
     btn.classList.remove("active");
+    btn.textContent = "🔇";
 
-    showToast("Microphone OFF");
+    status.classList.add("off");
+    status.textContent = "🔇";
+
+    showToast("Microphone OFF 🔇");
 
   }
 
 }
 
 
-/* ---------------------------
+/* =========================
+   SPEAKER
+========================= */
+
+let speakerOn = true;
+
+function toggleSpeaker(){
+
+  speakerOn = !speakerOn;
+
+  const btn =
+    document.getElementById("speakerBtn");
+
+  if(speakerOn){
+
+    btn.classList.add("active");
+    btn.textContent = "🔊";
+
+    showToast("Speaker ON 🔊");
+
+  }else{
+
+    btn.classList.remove("active");
+    btn.textContent = "🔇";
+
+    showToast("Speaker OFF 🔇");
+
+  }
+
+}
+
+
+/* =========================
    LIKE
----------------------------- */
+========================= */
 
-function sendLike(){
+function likeRoom(){
 
-  likes++;
+  const likes =
+    document.getElementById("likes");
 
-  showToast("❤️ Like sent!");
+  let value =
+    Number(likes.textContent);
+
+  value++;
+
+  likes.textContent =
+    value.toLocaleString();
+
+  showToast("Room liked ❤️");
 
 }
 
 
-/* ---------------------------
+/* =========================
    GIFTS
----------------------------- */
+========================= */
 
-function openGifts(){
+function openGift(){
 
-  document.getElementById("giftOverlay").style.display =
-    "flex";
-
-}
-
-function closeGifts(){
-
-  document.getElementById("giftOverlay").style.display =
-    "none";
+  document
+    .getElementById("giftModal")
+    .classList.add("show");
 
 }
 
-function sendGift(name,price){
+function closeGift(){
+
+  document
+    .getElementById("giftModal")
+    .classList.remove("show");
+
+}
+
+function sendGift(name,price,icon){
 
   if(coins < price){
 
-    showToast("Not enough coins 🪙");
-    return;
+    closeGift();
 
+    showToast(
+      "Not enough coins 🪙"
+    );
+
+    return;
   }
 
   coins -= price;
 
-  closeGifts();
+  localStorage.setItem(
+    "tannuCoins",
+    coins
+  );
+
+  const giftHistory =
+    JSON.parse(
+      localStorage.getItem(
+        "tannuGiftHistory"
+      ) || "[]"
+    );
+
+  giftHistory.push({
+
+    gift:name,
+    icon:icon,
+    price:price,
+    room:
+      document.getElementById(
+        "roomTitle"
+      ).textContent,
+    time:Date.now()
+
+  });
+
+  localStorage.setItem(
+    "tannuGiftHistory",
+    JSON.stringify(giftHistory)
+  );
+
+  closeGift();
+
+  addMessage(
+    "Shahid",
+    "sent " + icon + " " + name
+  );
 
   showToast(
-    "🎁 "+name+" sent! -"+price.toLocaleString()+" coins"
+    icon + " " +
+    name +
+    " sent! -" +
+    price.toLocaleString() +
+    " coins"
   );
 
 }
 
 
-/* ---------------------------
+/* =========================
    CHAT
----------------------------- */
+========================= */
 
 function sendMessage(){
 
   const input =
-    document.getElementById("chatInput");
+    document.getElementById(
+      "messageInput"
+    );
 
   const text =
     input.value.trim();
 
   if(!text) return;
 
-  const messages =
-    document.getElementById("messages");
+  addMessage(
+    "Shahid",
+    text
+  );
 
-  const div =
+  input.value = "";
+
+}
+
+
+function addMessage(user,text){
+
+  const messages =
+    document.getElementById(
+      "messages"
+    );
+
+  const msg =
     document.createElement("div");
 
-  div.className="message";
+  msg.className = "msg";
 
-  div.innerHTML =
-    "<b>You:</b> "+
-    escapeHTML(text);
+  msg.innerHTML =
+    "<b>" +
+    escapeHtml(user) +
+    ":</b> " +
+    "<span>" +
+    escapeHtml(text) +
+    "</span>";
 
-  messages.appendChild(div);
+  messages.appendChild(msg);
 
   messages.scrollTop =
     messages.scrollHeight;
 
-  input.value="";
+}
+
+
+function escapeHtml(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
 
-/* ---------------------------
-   SECURITY
----------------------------- */
+/* =========================
+   USERS
+========================= */
 
-function escapeHTML(text){
+function openUsers(){
 
-  const div =
-    document.createElement("div");
+  document
+    .getElementById("usersModal")
+    .classList.add("show");
 
-  div.textContent=text;
+}
 
-  return div.innerHTML;
+function closeUsers(){
+
+  document
+    .getElementById("usersModal")
+    .classList.remove("show");
 
 }
 
 
-/* ---------------------------
-   ADMIN
----------------------------- */
+/* =========================
+   HOST
+========================= */
 
-function toggleAdmin(){
+function openHostControls(){
 
-  const panel =
-    document.getElementById("adminPanel");
+  document
+    .getElementById("hostModal")
+    .classList.add("show");
 
-  if(panel.style.display==="block"){
+}
 
-    panel.style.display="none";
+function closeHostControls(){
+
+  document
+    .getElementById("hostModal")
+    .classList.remove("show");
+
+}
+
+function announce(){
+
+  closeHostControls();
+
+  const box =
+    document.getElementById(
+      "announcement"
+    );
+
+  box.textContent =
+    "📢 Welcome to Tannu Voice Chat! Be respectful and enjoy the room.";
+
+  box.style.display = "block";
+
+  showToast(
+    "Announcement posted 📢"
+  );
+
+}
+
+function muteAll(){
+
+  closeHostControls();
+
+  document
+    .querySelectorAll(".mic-status")
+    .forEach(status=>{
+
+      status.classList.add("off");
+      status.textContent = "🔇";
+
+    });
+
+  showToast(
+    "All speakers muted 🔇"
+  );
+
+}
+
+
+/* =========================
+   LOCK SEAT
+========================= */
+
+let seatLocked = false;
+
+function lockSeat(){
+
+  seatLocked = !seatLocked;
+
+  const seats =
+    document.querySelectorAll(
+      ".seat:not(.host-seat)"
+    );
+
+  if(seatLocked){
+
+    seats.forEach(seat=>{
+      seat.classList.add("locked");
+    });
+
+    showToast(
+      "Seats locked 🔒"
+    );
 
   }else{
 
-    panel.style.display="block";
+    seats.forEach(seat=>{
+      seat.classList.remove("locked");
+    });
+
+    showToast(
+      "Seats unlocked 🔓"
+    );
 
   }
 
 }
 
 
-/* ---------------------------
+/* =========================
    SHARE
----------------------------- */
+========================= */
 
-function shareRoom(){
+async function shareRoom(){
+
+  const room =
+    document.getElementById(
+      "roomTitle"
+    ).textContent;
 
   const url =
     window.location.href;
 
   if(navigator.share){
 
-    navigator.share({
+    try{
 
-      title:"Tannu Voice Chat",
-      text:"Join my Tannu Voice Chat room ❤️",
-      url:url
+      await navigator.share({
 
-    });
+        title:
+          "Tannu Voice Chat",
+
+        text:
+          "Join " +
+          room +
+          " on Tannu Voice Chat",
+
+        url:url
+
+      });
+
+    }catch(error){}
 
   }else{
 
-    navigator.clipboard.writeText(url);
+    try{
 
-    showToast("Room link copied 🔗");
+      await navigator.clipboard.writeText(url);
+
+      showToast(
+        "Room link copied 📋"
+      );
+
+    }catch(error){
+
+      showToast(
+        "Share link ready 📤"
+      );
+
+    }
 
   }
 
 }
 
 
-/* ---------------------------
+/* =========================
    LEAVE
----------------------------- */
+========================= */
 
 function leaveRoom(){
 
-  const ok =
-    confirm("Leave this voice room?");
+  const yes =
+    confirm(
+      "Leave this voice room?"
+    );
 
-  if(ok){
+  if(yes){
 
-    window.location.href="index.html";
+    goHome();
 
   }
 
 }
 
 
-/* ---------------------------
-   TOAST
----------------------------- */
+/* =========================
+   DEMO VIEWERS
+========================= */
 
-let toastTimer;
+setInterval(()=>{
 
-function showToast(text){
+  const viewer =
+    document.getElementById(
+      "viewerCount"
+    );
 
-  const toast =
-    document.getElementById("toast");
+  let value =
+    Number(viewer.textContent);
 
-  toast.textContent=text;
+  const change =
+    Math.floor(
+      Math.random()*7
+    ) - 3;
 
-  toast.style.display="block";
+  value += change;
 
-  clearTimeout(toastTimer);
-
-  toastTimer =
-    setTimeout(function(){
-
-      toast.style.display="none";
-
-    },2200);
-
-}
-
-
-/* ---------------------------
-   DEMO ONLINE COUNT
----------------------------- */
-
-setInterval(function(){
-
-  const el =
-    document.getElementById("onlineCount");
-
-  let count =
-    parseInt(el.textContent);
-
-  if(Math.random()>.5){
-
-    count += 1;
-
-  }else if(count>5){
-
-    count -= 1;
-
+  if(value < 1){
+    value = 1;
   }
 
-  el.textContent=count;
+  viewer.textContent =
+    value;
 
-},7000);
+},5000);
+
+
+/* =========================
+   MODAL OUTSIDE CLOSE
+========================= */
+
+document.querySelectorAll(".modal")
+.forEach(modal=>{
+
+  modal.addEventListener(
+    "click",
+    function(event){
+
+      if(event.target === modal){
+
+        modal.classList.remove(
+          "show"
+        );
+
+      }
+
+    }
+  );
+
+});
 
 </script>
 
