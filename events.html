@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tannu Voice Chat - Events</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#0b0714;
+  color:white;
+  min-height:100vh;
+  padding-bottom:85px;
+}
+
+.header{
+  padding:22px 18px 15px;
+  background:linear-gradient(135deg,#21103c,#100b20);
+  border-bottom:1px solid #30204a;
+}
+
+.header h1{
+  font-size:25px;
+}
+
+.header p{
+  color:#aaa;
+  margin-top:6px;
+  font-size:14px;
+}
+
+.container{
+  padding:16px;
+  max-width:700px;
+  margin:auto;
+}
+
+.section-title{
+  font-size:19px;
+  margin:20px 0 12px;
+}
+
+.card{
+  background:linear-gradient(145deg,#1b122c,#100b1b);
+  border:1px solid #33214d;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.reward-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.reward-title{
+  font-weight:bold;
+  font-size:17px;
+}
+
+.reward-sub{
+  color:#aaa;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.coins{
+  color:#ffd45c;
+  font-weight:bold;
+}
+
+.days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:7px;
+  margin-top:15px;
+}
+
+.day{
+  text-align:center;
+  padding:9px 3px;
+  border-radius:12px;
+  background:#241737;
+  border:1px solid #38234f;
+  font-size:11px;
+}
+
+.day.active{
+  border-color:#c36cff;
+  box-shadow:0 0 12px rgba(195,108,255,.25);
+}
+
+.day.claimed{
+  background:#30204a;
+  color:#8e8e8e;
+}
+
+.day .amount{
+  color:#ffd45c;
+  margin-top:5px;
+  font-size:10px;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+  color:white;
+}
+
+.claim-btn{
+  width:100%;
+  margin-top:15px;
+  padding:13px;
+  border-radius:12px;
+  background:linear-gradient(90deg,#8d35ff,#c653ff);
+  font-weight:bold;
+  font-size:15px;
+}
+
+.claim-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.spin-card{
+  text-align:center;
+}
+
+.wheel{
+  width:145px;
+  height:145px;
+  margin:18px auto;
+  border-radius:50%;
+  background:conic-gradient(
+    #ffcc4d 0deg 45deg,
+    #9d4edd 45deg 90deg,
+    #48cae4 90deg 135deg,
+    #ff6b6b 135deg 180deg,
+    #ffd166 180deg 225deg,
+    #7b2cbf 225deg 270deg,
+    #06d6a0 270deg 315deg,
+    #ef476f 315deg 360deg
+  );
+  border:7px solid #302044;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:27px;
+  transition:transform 2s cubic-bezier(.17,.67,.12,.99);
+}
+
+.spin-count{
+  color:#aaa;
+  font-size:13px;
+}
+
+.spin-btn{
+  margin-top:14px;
+  padding:13px 35px;
+  border-radius:13px;
+  background:linear-gradient(90deg,#ff9f1c,#ff4d6d);
+  font-weight:bold;
+  font-size:15px;
+}
+
+.event{
+  position:relative;
+  overflow:hidden;
+}
+
+.event-badge{
+  display:inline-block;
+  background:#7c3aed;
+  padding:5px 9px;
+  border-radius:8px;
+  font-size:11px;
+  margin-bottom:10px;
+}
+
+.event h3{
+  font-size:18px;
+}
+
+.event p{
+  color:#aaa;
+  font-size:13px;
+  margin:7px 0 12px;
+  line-height:1.5;
+}
+
+.event-info{
+  display:flex;
+  justify-content:space-between;
+  color:#bbb;
+  font-size:12px;
+}
+
+.event-btn{
+  width:100%;
+  margin-top:13px;
+  padding:11px;
+  border-radius:11px;
+  background:#241638;
+  border:1px solid #53336f;
+}
+
+.countdown{
+  color:#ffd45c;
+  font-weight:bold;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:95px;
+  transform:translateX(-50%) translateY(20px);
+  background:#251737;
+  border:1px solid #69428b;
+  padding:12px 18px;
+  border-radius:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:99;
+  white-space:nowrap;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:70px;
+  background:#100b1a;
+  border-top:1px solid #30203f;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:50;
+}
+
+.nav-item{
+  color:#888;
+  text-align:center;
+  font-size:11px;
+  text-decoration:none;
+}
+
+.nav-item span{
+  display:block;
+  font-size:21px;
+  margin-bottom:4px;
+}
+
+.nav-item.active{
+  color:#c76cff;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <h1>🎉 Events</h1>
+  <p>Daily activities, rewards and special events</p>
+</header>
+
+<main class="container">
+
+  <!-- DAILY REWARDS -->
+  <h2 class="section-title">🎁 Daily Rewards</h2>
+
+  <div class="card">
+    <div class="reward-top">
+      <div>
+        <div class="reward-title">Daily Login Rewards</div>
+        <div class="reward-sub">Come every day and collect your reward.</div>
+      </div>
+
+      <div class="coins">🪙 Coins</div>
+    </div>
+
+    <div class="days">
+      <div class="day active">
+        Day 1
+        <div class="amount">1K</div>
+      </div>
+
+      <div class="day">
+        Day 2
+        <div class="amount">2K</div>
+      </div>
+
+      <div class="day">
+        Day 3
+        <div class="amount">3K</div>
+      </div>
+
+      <div class="day">
+        Day 4
+        <div class="amount">5K</div>
+      </div>
+
+      <div class="day">
+        Day 5
+        <div class="amount">10K</div>
+      </div>
+
+      <div class="day">
+        Day 6
+        <div class="amount">20K</div>
+      </div>
+
+      <div class="day">
+        Day 7
+        <div class="amount">50K</div>
+      </div>
+    </div>
+
+    <button class="claim-btn" id="claimBtn" onclick="claimDaily()">
+      Claim Today's Reward
+    </button>
+  </div>
+
+
+  <!-- FREE SPIN -->
+  <h2 class="section-title">🎡 Free Spin</h2>
+
+  <div class="card spin-card">
+
+    <div class="reward-title">Daily Free Spin</div>
+
+    <div class="reward-sub">
+      Earn free spins by using the app and win coins.
+    </div>
+
+    <div class="wheel" id="wheel">
+      🎁
+    </div>
+
+    <div class="spin-count">
+      Spins today: <b id="spinCount">0</b> / 5
+    </div>
+
+    <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
+      🎡 SPIN NOW
+    </button>
+
+  </div>
+
+
+  <!-- SPECIAL EVENTS -->
+  <h2 class="section-title">🔥 Special Events</h2>
+
+  <div class="card event">
+
+    <span class="event-badge">LIMITED EVENT</span>
+
+    <h3>🌟 Welcome New Users</h3>
+
+    <p>
+      Complete your first activities and receive bonus coins.
+    </p>
+
+    <div class="event-info">
+      <span>Reward: 🪙 100K</span>
+      <span class="countdown" id="timer1">23:59:59</span>
+    </div>
+
+    <button class="event-btn" onclick="joinEvent('Welcome New Users')">
+      Join Event
+    </button>
+
+  </div>
+
+
+  <div class="card event">
+
+    <span class="event-badge">DAILY EVENT</span>
+
+    <h3>🎤 Voice Room Challenge</h3>
+
+    <p>
+      Spend time in voice rooms and complete today's challenge.
+    </p>
+
+    <div class="event-info">
+      <span>Reward: 🪙 250K</span>
+      <span>Today</span>
+    </div>
+
+    <button class="event-btn" onclick="joinEvent('Voice Room Challenge')">
+      View Challenge
+    </button>
+
+  </div>
+
+
+  <div class="card event">
+
+    <span class="event-badge">COMING SOON</span>
+
+    <h3>👑 VIP Special Event</h3>
+
+    <p>
+      Exclusive rewards, frames and special gifts for VIP users.
+    </p>
+
+    <div class="event-info">
+      <span>VIP Rewards</span>
+      <span>Coming Soon</span>
+    </div>
+
+    <button class="event-btn" onclick="showToast('VIP event coming soon 🔥')">
+      Coming Soon
+    </button>
+
+  </div>
+
+
+  <div class="card event">
+
+    <span class="event-badge">WEEKLY</span>
+
+    <h3>🏆 Weekly Ranking Event</h3>
+
+    <p>
+      Collect EXP and coins, increase your level and enter the weekly ranking.
+    </p>
+
+    <div class="event-info">
+      <span>Top Rewards</span>
+      <span>7 Days</span>
+    </div>
+
+    <button class="event-btn" onclick="joinEvent('Weekly Ranking Event')">
+      View Ranking
+    </button>
+
+  </div>
+
+</main>
+
+
+<div class="toast" id="toast"></div>
+
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+
+  <a href="index.html" class="nav-item">
+    <span>🏠</span>
+    Home
+  </a>
+
+  <a href="index.html#rooms" class="nav-item">
+    <span>🎤</span>
+    Rooms
+  </a>
+
+  <a href="events.html" class="nav-item active">
+    <span>🎉</span>
+    Events
+  </a>
+
+  <a href="profile.html" class="nav-item">
+    <span>👤</span>
+    Profile
+  </a>
+
+</nav>
+
+
+<script>
+
+let dailyClaimed =
+  localStorage.getItem("tannu_daily_claimed") === "true";
+
+let spins =
+  Number(localStorage.getItem("tannu_spins")) || 0;
+
+const claimBtn =
+  document.getElementById("claimBtn");
+
+const spinCount =
+  document.getElementById("spinCount");
+
+function updateUI(){
+
+  spinCount.textContent = spins;
+
+  if(dailyClaimed){
+
+    claimBtn.textContent = "✓ Reward Claimed";
+
+    claimBtn.disabled = true;
+  }
+
+  if(spins >= 5){
+
+    document.getElementById("spinBtn").disabled = true;
+
+    document.getElementById("spinBtn").style.opacity = ".45";
+
+    document.getElementById("spinBtn").textContent =
+      "Daily Limit Reached";
+  }
+}
+
+function claimDaily(){
+
+  if(dailyClaimed) return;
+
+  dailyClaimed = true;
+
+  localStorage.setItem(
+    "tannu_daily_claimed",
+    "true"
+  );
+
+  claimBtn.textContent = "✓ Reward Claimed";
+
+  claimBtn.disabled = true;
+
+  showToast("🎉 1,000 coins reward claimed!");
+}
+
+
+function spinWheel(){
+
+  if(spins >= 5){
+
+    showToast("Today's 5 free spins are finished.");
+
+    return;
+  }
+
+  const wheel =
+    document.getElementById("wheel");
+
+  const random =
+    Math.floor(Math.random() * 360) + 1440;
+
+  wheel.style.transform =
+    "rotate(" + random + "deg)";
+
+  document.getElementById("spinBtn").disabled = true;
+
+  setTimeout(() => {
+
+    const rewards = [
+      "100 coins",
+      "500 coins",
+      "1,000 coins",
+      "5,000 coins",
+      "10,000 coins"
+    ];
+
+    const reward =
+      rewards[Math.floor(Math.random() * rewards.length)];
+
+    spins++;
+
+    localStorage.setItem(
+      "tannu_spins",
+      spins
+    );
+
+    showToast("🎉 You won " + reward + "!");
+
+    document.getElementById("spinBtn").disabled =
+      spins >= 5;
+
+    updateUI();
+
+  },2100);
+}
+
+
+function joinEvent(name){
+
+  showToast("🔥 " + name + " opened!");
+}
+
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  setTimeout(() => {
+
+    toast.classList.remove("show");
+
+  },2500);
+}
+
+
+/* 24 HOUR EVENT TIMER */
+
+let secondsLeft =
+  24 * 60 * 60 - 1;
+
+function updateTimer(){
+
+  let h =
+    Math.floor(secondsLeft / 3600);
+
+  let m =
+    Math.floor((secondsLeft % 3600) / 60);
+
+  let s =
+    secondsLeft % 60;
+
+  document.getElementById("timer1").textContent =
+    String(h).padStart(2,"0") + ":" +
+    String(m).padStart(2,"0") + ":" +
+    String(s).padStart(2,"0");
+
+  if(secondsLeft > 0){
+
+    secondsLeft--;
+
+  }else{
+
+    secondsLeft =
+      24 * 60 * 60 - 1;
+  }
+}
+
+setInterval(updateTimer,1000);
+
+updateUI();
+updateTimer();
+
+</script>
+
+</body>
+</html>
