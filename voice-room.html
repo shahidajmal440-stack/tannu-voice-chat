@@ -1,1487 +1,1131 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tannu Friends</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tannu Voice Chat - Voice Room</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
 
-    body {
-      margin: 0;
-      background: #17102b;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
+body{
+  background:#100c20;
+  color:white;
+  min-height:100vh;
+}
 
-    .room {
-      padding: 25px 15px 40px;
-    }
+button{
+  border:0;
+  cursor:pointer;
+}
 
-    h1 {
-      margin-bottom: 5px;
-    }
+.room{
+  max-width:600px;
+  margin:auto;
+  min-height:100vh;
+  background:linear-gradient(180deg,#17102d,#0d0a18);
+  position:relative;
+  padding-bottom:90px;
+}
 
-    .live {
-      color: #ff4d6d;
-      font-weight: bold;
-    }
+/* HEADER */
 
-    .host {
-      margin: 10px 0 25px;
-    }
+.header{
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 15px;
+  background:rgba(20,12,40,.95);
+  position:sticky;
+  top:0;
+  z-index:10;
+  border-bottom:1px solid #332457;
+}
 
-    .users {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      max-width: 500px;
-      margin: auto;
-    }
+.back{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#26183f;
+  color:white;
+  font-size:22px;
+}
 
-    .user {
-      background: #281c46;
-      border-radius: 15px;
-      padding: 18px 5px;
-    }
+.room-info{
+  flex:1;
+  margin-left:12px;
+}
 
-    .avatar {
-      width: 55px;
-      height: 55px;
-      background: #6c4cff;
-      border-radius: 50%;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      font-weight: bold;
-    }
+.room-info h2{
+  font-size:16px;
+}
 
-    .controls {
-      margin-top: 25px;
-    }
+.room-info p{
+  color:#aaa;
+  font-size:12px;
+  margin-top:3px;
+}
 
-    button {
-      border: 0;
-      border-radius: 12px;
-      padding: 14px 20px;
-      margin: 5px;
-      font-size: 16px;
-      font-weight: bold;
-    }
+.header-actions{
+  display:flex;
+  gap:7px;
+}
 
-    #mic {
-      background: #555;
-      color: white;
-    }
+.header-btn{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#26183f;
+  color:white;
+  font-size:17px;
+}
 
-    #speaker {
-      background: #20b765;
-      color: white;
-    }
+/* ANNOUNCEMENT */
 
-    #leave {
-      background: #e5484d;
-      color: white;
-    }
+.announcement{
+  margin:12px;
+  padding:11px 13px;
+  background:#21153a;
+  border:1px solid #3b2760;
+  border-radius:14px;
+  font-size:13px;
+}
 
-    #status {
-      margin: 20px auto;
-      max-width: 500px;
-      padding: 14px;
-      border-radius: 10px;
-      background: #211638;
-      font-size: 14px;
-      white-space: pre-line;
-      line-height: 1.5;
-    }
+.announcement span{
+  margin-right:7px;
+}
 
-    #remoteAudio {
-      width: 90%;
-      max-width: 400px;
-      margin-top: 10px;
-    }
+/* HOST */
 
-    .hidden {
-      display: none;
-    }
-  </style>
+.host-card{
+  margin:12px;
+  padding:14px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#2b1850,#171026);
+  border:1px solid #57328c;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.avatar{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ff8a00,#ff3d81);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:22px;
+  font-weight:bold;
+  border:2px solid #ffd36a;
+}
+
+.host-details{
+  flex:1;
+}
+
+.host-details h3{
+  font-size:15px;
+}
+
+.host-details p{
+  font-size:12px;
+  color:#aaa;
+  margin-top:4px;
+}
+
+.host-badge{
+  background:#ffd34d;
+  color:#321f00;
+  padding:4px 8px;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:bold;
+}
+
+/* SEATS */
+
+.section-title{
+  padding:8px 15px;
+  font-size:15px;
+  font-weight:bold;
+}
+
+.seats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  padding:10px 15px;
+}
+
+.seat{
+  min-height:105px;
+  background:#191329;
+  border:1px solid #30234a;
+  border-radius:18px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+
+.seat.active{
+  border-color:#8d4dff;
+  box-shadow:0 0 15px rgba(141,77,255,.25);
+}
+
+.seat-avatar{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:#29213c;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:20px;
+  margin-bottom:7px;
+  border:2px solid #41345d;
+}
+
+.seat-name{
+  font-size:11px;
+  max-width:80px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.mic{
+  position:absolute;
+  right:6px;
+  top:6px;
+  font-size:12px;
+}
+
+.vip{
+  position:absolute;
+  left:6px;
+  top:6px;
+  background:#6c36c9;
+  border-radius:6px;
+  padding:2px 5px;
+  font-size:8px;
+  font-weight:bold;
+}
+
+.empty{
+  color:#71677e;
+  font-size:11px;
+}
+
+/* USERS */
+
+.online{
+  margin:5px 15px 15px;
+  background:#171124;
+  border-radius:15px;
+  padding:12px;
+  border:1px solid #2d2144;
+}
+
+.online-head{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.online-head span{
+  color:#70e69a;
+  font-size:12px;
+}
+
+.user-list{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+}
+
+.user{
+  min-width:52px;
+  text-align:center;
+}
+
+.user-avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#30233e;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.user p{
+  font-size:9px;
+  color:#aaa;
+  margin-top:4px;
+}
+
+/* CHAT */
+
+.chat{
+  margin:10px 15px;
+  background:#151021;
+  border:1px solid #2c2141;
+  border-radius:18px;
+  overflow:hidden;
+}
+
+.chat-head{
+  padding:12px;
+  font-size:14px;
+  font-weight:bold;
+  border-bottom:1px solid #2b2140;
+}
+
+.messages{
+  height:170px;
+  overflow-y:auto;
+  padding:10px;
+}
+
+.message{
+  margin-bottom:9px;
+  font-size:12px;
+  line-height:1.4;
+}
+
+.message b{
+  color:#c993ff;
+}
+
+.system{
+  color:#777;
+  font-size:11px;
+}
+
+.chat-input{
+  display:flex;
+  gap:7px;
+  padding:9px;
+  border-top:1px solid #2b2140;
+}
+
+.chat-input input{
+  flex:1;
+  background:#241b35;
+  color:white;
+  border:1px solid #3a2b52;
+  outline:none;
+  padding:10px;
+  border-radius:12px;
+}
+
+.send{
+  background:#7b42e8;
+  color:white;
+  border-radius:12px;
+  padding:0 15px;
+}
+
+/* BOTTOM CONTROLS */
+
+.controls{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:600px;
+  background:rgba(14,10,25,.97);
+  border-top:1px solid #33244d;
+  padding:12px;
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  z-index:20;
+}
+
+.control{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:#292039;
+  color:white;
+  font-size:20px;
+}
+
+.control.active{
+  background:#7a3de1;
+}
+
+.control.danger{
+  background:#d73855;
+}
+
+/* GIFT PANEL */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:30;
+}
+
+.gift-panel{
+  width:100%;
+  max-width:600px;
+  background:#191128;
+  border-radius:25px 25px 0 0;
+  padding:20px;
+  border-top:1px solid #563477;
+}
+
+.gift-head{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:15px;
+}
+
+.close{
+  background:#30233f;
+  color:white;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+}
+
+.gifts{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.gift{
+  background:#251936;
+  border:1px solid #38274d;
+  border-radius:15px;
+  padding:12px 5px;
+  text-align:center;
+  color:white;
+}
+
+.gift-icon{
+  font-size:27px;
+}
+
+.gift-name{
+  font-size:10px;
+  margin-top:5px;
+}
+
+.gift-price{
+  font-size:9px;
+  color:#f0bd55;
+  margin-top:3px;
+}
+
+/* ADMIN PANEL */
+
+.admin-panel{
+  display:none;
+  margin:10px 15px;
+  padding:14px;
+  background:#1c1429;
+  border:1px solid #3c2b56;
+  border-radius:16px;
+}
+
+.admin-panel h3{
+  margin-bottom:10px;
+  font-size:14px;
+}
+
+.admin-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.admin-buttons button{
+  padding:10px;
+  border-radius:10px;
+  background:#2b2040;
+  color:white;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:85px;
+  transform:translateX(-50%);
+  background:#2c2140;
+  border:1px solid #574078;
+  padding:10px 16px;
+  border-radius:12px;
+  font-size:12px;
+  display:none;
+  z-index:50;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:430px){
+  .seats{
+    gap:7px;
+    padding:8px 10px;
+  }
+
+  .seat{
+    min-height:95px;
+  }
+
+  .seat-avatar{
+    width:43px;
+    height:43px;
+  }
+
+  .section-title{
+    padding-left:10px;
+  }
+
+  .announcement,
+  .host-card,
+  .online,
+  .chat{
+    margin-left:10px;
+    margin-right:10px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <div class="room">
 
-  <h1>🎙️ Tannu Friends</h1>
+  <!-- HEADER -->
+  <div class="header">
 
-  <div class="live">● LIVE</div>
+    <button class="back" onclick="goBack()">‹</button>
 
-  <div class="host">
-    HOST: <b>Tannu</b>
-  </div>
-
-  <div class="users">
-
-    <div class="user">
-      <div class="avatar">T</div>
-      <p>Tannu</p>
+    <div class="room-info">
+      <h2 id="roomTitle">Tannu Friends Room</h2>
+      <p>🟢 <span id="onlineCount">18</span> Online · Room ID: <span id="roomId">TV12345</span></p>
     </div>
 
-    <div class="user">
-      <div class="avatar">S</div>
-      <p>Sameer</p>
-    </div>
-
-    <div class="user">
-      <div class="avatar">R</div>
-      <p>Rahul</p>
-    </div>
-
-    <div class="user">
-      <div class="avatar">A</div>
-      <p>Ali</p>
-    </div>
-
-    <div class="user">
-      <div class="avatar">N</div>
-      <p>Neha</p>
-    </div>
-
-    <div class="user">
-      <div class="avatar">+</div>
-      <p>Empty Seat</p>
+    <div class="header-actions">
+      <button class="header-btn" onclick="shareRoom()">↗</button>
+      <button class="header-btn" onclick="showToast('Report option opened')">⚑</button>
     </div>
 
   </div>
 
-  <div id="status">
-    Checking login...
+  <!-- ANNOUNCEMENT -->
+
+  <div class="announcement">
+    <span>📢</span>
+    Welcome to Tannu Voice Chat ❤️ Be respectful and enjoy the room!
   </div>
 
-  <div class="controls">
+  <!-- HOST -->
 
-    <button id="mic">
-      🎙️ Mic OFF
-    </button>
+  <div class="host-card">
 
-    <button id="speaker">
-      🔊 Speaker ON
-    </button>
+    <div class="avatar">T</div>
 
-    <button id="leave">
-      🚪 Leave
-    </button>
+    <div class="host-details">
+      <h3>Tannu Host 👑</h3>
+      <p>Room Host · Level 20 · Online</p>
+    </div>
+
+    <div class="host-badge">HOST</div>
 
   </div>
 
-  <audio
-    id="remoteAudio"
-    autoplay
-    playsinline
-    controls>
-  </audio>
+  <!-- SEATS -->
+
+  <div class="section-title">
+    🎙️ Voice Seats <span style="color:#8d71b5;font-size:11px;">8 Seats</span>
+  </div>
+
+  <div class="seats">
+
+    <div class="seat active">
+      <span class="vip">VIP2</span>
+      <span class="mic">🎤</span>
+      <div class="seat-avatar">T</div>
+      <div class="seat-name">Tannu</div>
+    </div>
+
+    <div class="seat active">
+      <span class="vip">VIP1</span>
+      <span class="mic">🎤</span>
+      <div class="seat-avatar">A</div>
+      <div class="seat-name">Arman</div>
+    </div>
+
+    <div class="seat active">
+      <span class="mic">🔇</span>
+      <div class="seat-avatar">R</div>
+      <div class="seat-name">Rahul</div>
+    </div>
+
+    <div class="seat active">
+      <span class="mic">🎤</span>
+      <div class="seat-avatar">S</div>
+      <div class="seat-name">Sameer</div>
+    </div>
+
+    <div class="seat">
+      <div class="seat-avatar">＋</div>
+      <div class="empty">Empty Seat</div>
+    </div>
+
+    <div class="seat">
+      <div class="seat-avatar">＋</div>
+      <div class="empty">Empty Seat</div>
+    </div>
+
+    <div class="seat">
+      <div class="seat-avatar">＋</div>
+      <div class="empty">Empty Seat</div>
+    </div>
+
+    <div class="seat">
+      <div class="seat-avatar">＋</div>
+      <div class="empty">Empty Seat</div>
+    </div>
+
+  </div>
+
+  <!-- ONLINE USERS -->
+
+  <div class="online">
+
+    <div class="online-head">
+      <b>👥 Online Users</b>
+      <span>● Live</span>
+    </div>
+
+    <div class="user-list">
+
+      <div class="user">
+        <div class="user-avatar">A</div>
+        <p>Arman</p>
+      </div>
+
+      <div class="user">
+        <div class="user-avatar">R</div>
+        <p>Rahul</p>
+      </div>
+
+      <div class="user">
+        <div class="user-avatar">S</div>
+        <p>Sameer</p>
+      </div>
+
+      <div class="user">
+        <div class="user-avatar">M</div>
+        <p>Mohit</p>
+      </div>
+
+      <div class="user">
+        <div class="user-avatar">K</div>
+        <p>Karan</p>
+      </div>
+
+      <div class="user">
+        <div class="user-avatar">N</div>
+        <p>Nisha</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ADMIN -->
+
+  <div class="admin-panel" id="adminPanel">
+
+    <h3>👑 Host Controls</h3>
+
+    <div class="admin-buttons">
+      <button onclick="showToast('User muted')">🔇 Mute User</button>
+      <button onclick="showToast('User kicked')">🚫 Kick User</button>
+      <button onclick="showToast('Announcement sent')">📢 Announcement</button>
+      <button onclick="showToast('Seat locked')">🔒 Lock Seat</button>
+    </div>
+
+  </div>
+
+  <!-- CHAT -->
+
+  <div class="chat">
+
+    <div class="chat-head">
+      💬 Room Chat
+    </div>
+
+    <div class="messages" id="messages">
+
+      <div class="message system">
+        Welcome to the room.
+      </div>
+
+      <div class="message">
+        <b>Arman:</b> Hello everyone 👋
+      </div>
+
+      <div class="message">
+        <b>Rahul:</b> Kya haal hai ❤️
+      </div>
+
+      <div class="message">
+        <b>Sameer:</b> Nice room 🔥
+      </div>
+
+    </div>
+
+    <div class="chat-input">
+
+      <input
+        id="chatInput"
+        type="text"
+        placeholder="Write a message..."
+        onkeydown="if(event.key==='Enter') sendMessage()"
+      >
+
+      <button class="send" onclick="sendMessage()">
+        Send
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
 
 
-<script type="module">
+<!-- BOTTOM CONTROLS -->
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+<div class="controls">
 
-import {
-  getAuth,
-  onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+  <button class="control active" id="micBtn" onclick="toggleMic()">
+    🎤
+  </button>
 
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  onSnapshot
-}
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+  <button class="control" onclick="showToast('Speaker changed')">
+    🔊
+  </button>
 
+  <button class="control" onclick="openGifts()">
+    🎁
+  </button>
 
-/* ================= FIREBASE ================= */
+  <button class="control" onclick="sendLike()">
+    ❤️
+  </button>
 
-const firebaseConfig = {
+  <button class="control" onclick="toggleAdmin()">
+    👑
+  </button>
 
-  apiKey:
-    "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
+  <button class="control danger" onclick="leaveRoom()">
+    📞
+  </button>
 
-  authDomain:
-    "tannu-voice-chat.firebaseapp.com",
-
-  projectId:
-    "tannu-voice-chat",
-
-  storageBucket:
-    "tannu-voice-chat.firebasestorage.app",
-
-  messagingSenderId:
-    "720483733073",
-
-  appId:
-    "1:720483733073:web:c65b96d255d6177b9d7270"
-
-};
+</div>
 
 
-const app =
-  initializeApp(firebaseConfig);
+<!-- GIFT PANEL -->
 
-const auth =
-  getAuth(app);
+<div class="overlay" id="giftOverlay">
 
-const db =
-  getFirestore(app);
+  <div class="gift-panel">
+
+    <div class="gift-head">
+      <div>
+        <h3>🎁 Send Gift</h3>
+        <p style="font-size:11px;color:#999;margin-top:4px;">
+          Your Coins: <b style="color:#f5c45d;">100,000 🪙</b>
+        </p>
+      </div>
+
+      <button class="close" onclick="closeGifts()">×</button>
+    </div>
+
+    <div class="gifts">
+
+      <button class="gift" onclick="sendGift('Rose 🌹',100)">
+        <div class="gift-icon">🌹</div>
+        <div class="gift-name">Rose</div>
+        <div class="gift-price">100 🪙</div>
+      </button>
+
+      <button class="gift" onclick="sendGift('Heart ❤️',500)">
+        <div class="gift-icon">❤️</div>
+        <div class="gift-name">Heart</div>
+        <div class="gift-price">500 🪙</div>
+      </button>
+
+      <button class="gift" onclick="sendGift('Diamond 💎',1000)">
+        <div class="gift-icon">💎</div>
+        <div class="gift-name">Diamond</div>
+        <div class="gift-price">1K 🪙</div>
+      </button>
+
+      <button class="gift" onclick="sendGift('Crown 👑',5000)">
+        <div class="gift-icon">👑</div>
+        <div class="gift-name">Crown</div>
+        <div class="gift-price">5K 🪙</div>
+      </button>
+
+      <button class="gift" onclick="sendGift('Love 💕',10000)">
+        <div class="gift-icon">💕</div>
+        <div class="gift-name">Love</div>
+        <div class="gift-price">10K 🪙</div>
+      </button>
+
+      <button class="gift" onclick="sendGift('Car 🚗',25000)">
+        <div class="gift-icon">🚗</div>
+        <div class="gift-name">Car</div>
+        <div class="gift-price">25K 🪙</div>
+      </button>
+
+      <button class="gift" onclick="sendGift('Rocket 🚀',50000)">
+        <div class="gift-icon">🚀</div>
+        <div class="gift-name">Rocket</div>
+        <div class="gift-price">50K 🪙</div>
+      </button>
+
+      <button class="gift" onclick="sendGift('King 👑',70000)">
+        <div class="gift-icon">🏆</div>
+        <div class="gift-name">King</div>
+        <div class="gift-price">70K 🪙</div>
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
 
-/* ================= ELEMENTS ================= */
+<!-- TOAST -->
 
-const status =
-  document.getElementById("status");
-
-const micButton =
-  document.getElementById("mic");
-
-const speakerButton =
-  document.getElementById("speaker");
-
-const leaveButton =
-  document.getElementById("leave");
-
-const remoteAudio =
-  document.getElementById("remoteAudio");
+<div class="toast" id="toast"></div>
 
 
-/* ================= VARIABLES ================= */
+<script>
 
-let currentUser = null;
+/* ---------------------------
+   ROOM DATA
+---------------------------- */
 
-let localStream = null;
-
-let peer = null;
-
-let micOn = false;
-
-let speakerOn = true;
-
-let isCaller = false;
-
-let remoteDescriptionSet = false;
-
-let pendingRemoteCandidates = [];
-
-let stopRoomListener = null;
-
-let connectionTimer = null;
-
-let leaving = false;
+let micOn = true;
+let likes = 0;
+let coins = 100000;
 
 
-/* ================= ROOM ================= */
+/* ---------------------------
+   ROOM ID
+---------------------------- */
 
-const params =
-  new URLSearchParams(location.search);
+const params = new URLSearchParams(window.location.search);
 
 const roomId =
-  params.get("room") || "test-room";
+  params.get("room") ||
+  "TV12345";
 
-const roomRef =
-  doc(
-    db,
-    "voiceRooms",
-    roomId
+document.getElementById("roomId").textContent =
+  roomId;
+
+
+/* ---------------------------
+   BACK
+---------------------------- */
+
+function goBack(){
+
+  if(document.referrer){
+    history.back();
+  }else{
+    window.location.href="index.html";
+  }
+
+}
+
+
+/* ---------------------------
+   MIC
+---------------------------- */
+
+function toggleMic(){
+
+  micOn = !micOn;
+
+  const btn =
+    document.getElementById("micBtn");
+
+  if(micOn){
+
+    btn.innerHTML="🎤";
+    btn.classList.add("active");
+
+    showToast("Microphone ON");
+
+  }else{
+
+    btn.innerHTML="🔇";
+    btn.classList.remove("active");
+
+    showToast("Microphone OFF");
+
+  }
+
+}
+
+
+/* ---------------------------
+   LIKE
+---------------------------- */
+
+function sendLike(){
+
+  likes++;
+
+  showToast("❤️ Like sent!");
+
+}
+
+
+/* ---------------------------
+   GIFTS
+---------------------------- */
+
+function openGifts(){
+
+  document.getElementById("giftOverlay").style.display =
+    "flex";
+
+}
+
+function closeGifts(){
+
+  document.getElementById("giftOverlay").style.display =
+    "none";
+
+}
+
+function sendGift(name,price){
+
+  if(coins < price){
+
+    showToast("Not enough coins 🪙");
+    return;
+
+  }
+
+  coins -= price;
+
+  closeGifts();
+
+  showToast(
+    "🎁 "+name+" sent! -"+price.toLocaleString()+" coins"
   );
 
+}
 
-/* ================= STATUS ================= */
 
-function showStatus(text) {
+/* ---------------------------
+   CHAT
+---------------------------- */
 
-  status.innerText = text;
+function sendMessage(){
 
-  console.log(
-    "[TANNU]",
-    text
-  );
+  const input =
+    document.getElementById("chatInput");
+
+  const text =
+    input.value.trim();
+
+  if(!text) return;
+
+  const messages =
+    document.getElementById("messages");
+
+  const div =
+    document.createElement("div");
+
+  div.className="message";
+
+  div.innerHTML =
+    "<b>You:</b> "+
+    escapeHTML(text);
+
+  messages.appendChild(div);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+  input.value="";
 
 }
 
 
-/* ================= LOGIN ================= */
+/* ---------------------------
+   SECURITY
+---------------------------- */
 
-onAuthStateChanged(
-  auth,
-  async user => {
+function escapeHTML(text){
 
-    if (!user) {
+  const div =
+    document.createElement("div");
 
-      currentUser = null;
+  div.textContent=text;
 
-      showStatus(
-        "❌ Please login first."
-      );
+  return div.innerHTML;
 
-      return;
-    }
-
-    currentUser = user;
-
-    showStatus(
-      "✅ Login found\n\n" +
-      "Welcome " +
-      (user.displayName || "User") +
-      "\n\n" +
-      "🎙️ Press Mic to join voice."
-    );
-
-  }
-);
+}
 
 
-/* ================= MICROPHONE ================= */
+/* ---------------------------
+   ADMIN
+---------------------------- */
 
-async function startMicrophone() {
+function toggleAdmin(){
 
-  try {
+  const panel =
+    document.getElementById("adminPanel");
 
-    if (!currentUser) {
+  if(panel.style.display==="block"){
 
-      showStatus(
-        "❌ Please login first."
-      );
+    panel.style.display="none";
 
-      return;
-    }
+  }else{
 
-
-    if (
-      !navigator.mediaDevices ||
-      !navigator.mediaDevices.getUserMedia
-    ) {
-
-      throw new Error(
-        "Microphone is not supported by this browser."
-      );
-
-    }
-
-
-    localStream =
-      await navigator.mediaDevices
-        .getUserMedia({
-
-          audio: {
-
-            echoCancellation: true,
-
-            noiseSuppression: true,
-
-            autoGainControl: true
-
-          },
-
-          video: false
-
-        });
-
-
-    micOn = true;
-
-    micButton.innerText =
-      "🎙️ Mic ON";
-
-    micButton.style.background =
-      "#20b765";
-
-
-    showStatus(
-      "🎙️ Microphone ON\n\n" +
-      "Joining voice room..."
-    );
-
-
-    await startVoiceConnection();
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "MIC ERROR:",
-      error
-    );
-
-    showStatus(
-      "❌ Microphone error\n\n" +
-      error.name +
-      "\n" +
-      error.message
-    );
+    panel.style.display="block";
 
   }
 
 }
 
 
-/* ================= WAIT FOR ICE ================= */
+/* ---------------------------
+   SHARE
+---------------------------- */
 
-function waitForIceGatheringComplete() {
+function shareRoom(){
 
-  return new Promise(resolve => {
+  const url =
+    window.location.href;
 
-    if (!peer) {
+  if(navigator.share){
 
-      resolve();
+    navigator.share({
 
-      return;
-
-    }
-
-
-    if (
-      peer.iceGatheringState ===
-      "complete"
-    ) {
-
-      resolve();
-
-      return;
-
-    }
-
-
-    const timeout =
-      setTimeout(
-        () => {
-
-          console.log(
-            "⚠️ ICE gathering timeout"
-          );
-
-          resolve();
-
-        },
-        10000
-      );
-
-
-    const check =
-      () => {
-
-        if (
-          peer.iceGatheringState ===
-          "complete"
-        ) {
-
-          clearTimeout(timeout);
-
-          peer.removeEventListener(
-            "icegatheringstatechange",
-            check
-          );
-
-          resolve();
-
-        }
-
-      };
-
-
-    peer.addEventListener(
-      "icegatheringstatechange",
-      check
-    );
-
-  });
-
-}
-
-
-/* ================= WEBRTC ================= */
-
-async function startVoiceConnection() {
-
-  if (peer) {
-
-    peer.close();
-
-    peer = null;
-
-  }
-
-
-  peer =
-    new RTCPeerConnection({
-
-      iceServers: [
-
-        {
-          urls:
-            "stun:stun.l.google.com:19302"
-        },
-
-        {
-          urls:
-            "stun:stun1.l.google.com:19302"
-        }
-
-      ],
-
-      iceCandidatePoolSize: 10
+      title:"Tannu Voice Chat",
+      text:"Join my Tannu Voice Chat room ❤️",
+      url:url
 
     });
 
+  }else{
 
-  /* ================= LOCAL AUDIO ================= */
+    navigator.clipboard.writeText(url);
 
-  localStream
-    .getTracks()
-    .forEach(track => {
-
-      peer.addTrack(
-        track,
-        localStream
-      );
-
-    });
-
-
-  /* ================= REMOTE AUDIO ================= */
-
-  peer.ontrack =
-    async event => {
-
-      console.log(
-        "🎧 REMOTE TRACK RECEIVED"
-      );
-
-
-      const stream =
-        event.streams[0];
-
-
-      if (!stream) {
-
-        console.log(
-          "❌ No remote stream"
-        );
-
-        return;
-
-      }
-
-
-      remoteAudio.srcObject =
-        stream;
-
-      remoteAudio.muted =
-        !speakerOn;
-
-
-      try {
-
-        await remoteAudio.play();
-
-        console.log(
-          "🔊 REMOTE AUDIO PLAYING"
-        );
-
-        showStatus(
-          "🟢 VOICE CONNECTED\n\n" +
-          "🎧 Remote voice received."
-        );
-
-      }
-
-      catch (error) {
-
-        console.log(
-          "AUDIO PLAY ERROR:",
-          error
-        );
-
-        showStatus(
-          "🟢 Voice connected\n\n" +
-          "🔊 Tap the audio Play button."
-        );
-
-      }
-
-    };
-
-
-  /* ================= CONNECTION ================= */
-
-  peer.onconnectionstatechange =
-    () => {
-
-      const state =
-        peer.connectionState;
-
-      console.log(
-        "🔵 CONNECTION:",
-        state
-      );
-
-
-      if (state === "connected") {
-
-        clearTimeout(
-          connectionTimer
-        );
-
-        showStatus(
-          "🟢 VOICE CONNECTED\n\n" +
-          "Voice connection established."
-        );
-
-      }
-
-
-      else if (
-        state === "connecting"
-      ) {
-
-        showStatus(
-          "🟡 Connecting voice...\n\n" +
-          "Please wait..."
-        );
-
-      }
-
-
-      else if (
-        state === "disconnected"
-      ) {
-
-        showStatus(
-          "🟠 Voice disconnected.\n\n" +
-          "Trying to recover..."
-        );
-
-      }
-
-
-      else if (
-        state === "failed"
-      ) {
-
-        clearTimeout(
-          connectionTimer
-        );
-
-        showStatus(
-          "🔴 VOICE FAILED\n\n" +
-          "Network path could not be established."
-        );
-
-      }
-
-
-      else if (
-        state === "closed"
-      ) {
-
-        showStatus(
-          "⚪ Voice connection closed."
-        );
-
-      }
-
-    };
-
-
-  /* ================= ICE ================= */
-
-  peer.oniceconnectionstatechange =
-    () => {
-
-      console.log(
-        "🧊 ICE:",
-        peer.iceConnectionState
-      );
-
-
-      if (
-        peer.iceConnectionState ===
-        "connected" ||
-        peer.iceConnectionState ===
-        "completed"
-      ) {
-
-        console.log(
-          "✅ ICE CONNECTION ESTABLISHED"
-        );
-
-      }
-
-
-      if (
-        peer.iceConnectionState ===
-        "failed"
-      ) {
-
-        showStatus(
-          "🔴 ICE FAILED\n\n" +
-          "The two phones could not find a network path."
-        );
-
-      }
-
-    };
-
-
-  peer.onicegatheringstatechange =
-    () => {
-
-      console.log(
-        "🧊 ICE GATHERING:",
-        peer.iceGatheringState
-      );
-
-    };
-
-
-  peer.onsignalingstatechange =
-    () => {
-
-      console.log(
-        "📡 SIGNALING:",
-        peer.signalingState
-      );
-
-    };
-
-
-  /* ================= ROLE ================= */
-
-  let roomSnapshot;
-
-  try {
-
-    roomSnapshot =
-      await getDoc(roomRef);
-
-  }
-
-  catch (error) {
-
-    showStatus(
-      "❌ Firebase error\n\n" +
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  const existingData =
-    roomSnapshot.exists()
-      ? roomSnapshot.data()
-      : null;
-
-
-  /*
-    FIRST USER = CALLER
-    SECOND USER = CALLEE
-  */
-
-  if (
-    !existingData ||
-    !existingData.callerUid
-  ) {
-
-    isCaller = true;
-
-
-    await setDoc(
-      roomRef,
-      {
-
-        callerUid:
-          currentUser.uid,
-
-        callerName:
-          currentUser.displayName ||
-          "User",
-
-        createdAt:
-          Date.now(),
-
-        status:
-          "waiting"
-
-      },
-      {
-        merge: true
-      }
-    );
-
-
-    console.log(
-      "👤 ROLE: CALLER"
-    );
-
-    await createOffer();
-
-  }
-
-  else if (
-    existingData.callerUid !==
-    currentUser.uid
-  ) {
-
-    isCaller = false;
-
-
-    await setDoc(
-      roomRef,
-      {
-
-        calleeUid:
-          currentUser.uid,
-
-        calleeName:
-          currentUser.displayName ||
-          "User",
-
-        status:
-          "connecting"
-
-      },
-      {
-        merge: true
-      }
-    );
-
-
-    console.log(
-      "👤 ROLE: CALLEE"
-    );
-
-    await createAnswer(
-      existingData
-    );
-
-  }
-
-  else {
-
-    showStatus(
-      "⚠️ You are already the caller\n\n" +
-      "Open the room from another account/device."
-    );
-
-    return;
-
-  }
-
-
-  /* ================= WATCH ROOM ================= */
-
-  stopRoomListener =
-    onSnapshot(
-      roomRef,
-      async snapshot => {
-
-        if (!snapshot.exists())
-          return;
-
-
-        const data =
-          snapshot.data();
-
-
-        /*
-          CALLER RECEIVES ANSWER
-        */
-
-        if (
-          isCaller &&
-          data.answer &&
-          !remoteDescriptionSet
-        ) {
-
-          try {
-
-            console.log(
-              "📥 ANSWER RECEIVED"
-            );
-
-
-            await peer.setRemoteDescription(
-              new RTCSessionDescription(
-                data.answer
-              )
-            );
-
-
-            remoteDescriptionSet =
-              true;
-
-
-            console.log(
-              "✅ REMOTE ANSWER SET"
-            );
-
-
-            for (
-              const candidate
-              of pendingRemoteCandidates
-            ) {
-
-              try {
-
-                await peer.addIceCandidate(
-                  candidate
-                );
-
-              }
-
-              catch (error) {
-
-                console.log(
-                  "Pending ICE error:",
-                  error
-                );
-
-              }
-
-            }
-
-
-            pendingRemoteCandidates = [];
-
-          }
-
-          catch (error) {
-
-            console.error(
-              "ANSWER ERROR:",
-              error
-            );
-
-            showStatus(
-              "❌ Answer error\n\n" +
-              error.message
-            );
-
-          }
-
-        }
-
-      }
-    );
-
-
-  /* ================= TIMEOUT ================= */
-
-  connectionTimer =
-    setTimeout(
-      () => {
-
-        if (
-          peer &&
-          peer.connectionState !==
-          "connected"
-        ) {
-
-          showStatus(
-            "⚠️ Connection taking too long.\n\n" +
-            "Connection: " +
-            peer.connectionState +
-            "\n" +
-            "ICE: " +
-            peer.iceConnectionState +
-            "\n" +
-            "Signaling: " +
-            peer.signalingState
-          );
-
-        }
-
-      },
-      20000
-    );
-
-}
-
-
-/* ================= CREATE OFFER ================= */
-
-async function createOffer() {
-
-  try {
-
-    showStatus(
-      "📞 Creating voice call...\n\n" +
-      "Preparing connection..."
-    );
-
-
-    const offer =
-      await peer.createOffer({
-
-        offerToReceiveAudio: true
-
-      });
-
-
-    await peer.setLocalDescription(
-      offer
-    );
-
-
-    showStatus(
-      "📡 Preparing network connection...\n\n" +
-      "Please wait..."
-    );
-
-
-    await waitForIceGatheringComplete();
-
-
-    const description =
-      peer.localDescription;
-
-
-    if (!description) {
-
-      throw new Error(
-        "Local offer was not created."
-      );
-
-    }
-
-
-    await setDoc(
-
-      roomRef,
-
-      {
-
-        offer: {
-
-          type:
-            description.type,
-
-          sdp:
-            description.sdp
-
-        },
-
-        status:
-          "waiting"
-
-      },
-
-      {
-        merge: true
-      }
-
-    );
-
-
-    console.log(
-      "✅ COMPLETE OFFER SAVED"
-    );
-
-
-    showStatus(
-      "📞 Voice call ready.\n\n" +
-      "Waiting for second user..."
-    );
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "OFFER ERROR:",
-      error
-    );
-
-    showStatus(
-      "❌ Offer error\n\n" +
-      error.message
-    );
+    showToast("Room link copied 🔗");
 
   }
 
 }
 
 
-/* ================= CREATE ANSWER ================= */
+/* ---------------------------
+   LEAVE
+---------------------------- */
 
-async function createAnswer(data) {
+function leaveRoom(){
 
-  try {
+  const ok =
+    confirm("Leave this voice room?");
 
-    if (!data.offer) {
+  if(ok){
 
-      showStatus(
-        "❌ Voice offer not found.\n\n" +
-        "Ask the first phone to join first."
-      );
-
-      return;
-
-    }
-
-
-    showStatus(
-      "🟡 Joining voice call...\n\n" +
-      "Preparing connection..."
-    );
-
-
-    await peer.setRemoteDescription(
-
-      new RTCSessionDescription(
-        data.offer
-      )
-
-    );
-
-
-    remoteDescriptionSet =
-      true;
-
-
-    console.log(
-      "✅ OFFER RECEIVED"
-    );
-
-
-    for (
-      const candidate
-      of pendingRemoteCandidates
-    ) {
-
-      try {
-
-        await peer.addIceCandidate(
-          candidate
-        );
-
-      }
-
-      catch (error) {
-
-        console.log(
-          "Pending candidate error:",
-          error
-        );
-
-      }
-
-    }
-
-
-    pendingRemoteCandidates = [];
-
-
-    const answer =
-      await peer.createAnswer();
-
-
-    await peer.setLocalDescription(
-      answer
-    );
-
-
-    showStatus(
-      "📡 Preparing answer...\n\n" +
-      "Please wait..."
-    );
-
-
-    await waitForIceGatheringComplete();
-
-
-    const description =
-      peer.localDescription;
-
-
-    if (!description) {
-
-      throw new Error(
-        "Local answer was not created."
-      );
-
-    }
-
-
-    await setDoc(
-
-      roomRef,
-
-      {
-
-        answer: {
-
-          type:
-            description.type,
-
-          sdp:
-            description.sdp
-
-        },
-
-        status:
-          "connected"
-
-      },
-
-      {
-        merge: true
-      }
-
-    );
-
-
-    console.log(
-      "✅ COMPLETE ANSWER SAVED"
-    );
-
-
-    showStatus(
-      "🟡 Answer sent.\n\n" +
-      "Connecting voice..."
-    );
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "ANSWER CREATE ERROR:",
-      error
-    );
-
-    showStatus(
-      "❌ Connection error\n\n" +
-      error.message
-    );
+    window.location.href="index.html";
 
   }
 
 }
 
 
-/* ================= MIC BUTTON ================= */
+/* ---------------------------
+   TOAST
+---------------------------- */
 
-micButton.onclick =
-  async () => {
+let toastTimer;
 
-    if (!localStream) {
+function showToast(text){
 
-      await startMicrophone();
+  const toast =
+    document.getElementById("toast");
 
-      return;
+  toast.textContent=text;
 
-    }
+  toast.style.display="block";
 
+  clearTimeout(toastTimer);
 
-    micOn =
-      !micOn;
+  toastTimer =
+    setTimeout(function(){
 
+      toast.style.display="none";
 
-    localStream
-      .getAudioTracks()
-      .forEach(track => {
-
-        track.enabled =
-          micOn;
-
-      });
-
-
-    if (micOn) {
-
-      micButton.innerText =
-        "🎙️ Mic ON";
-
-      micButton.style.background =
-        "#20b765";
-
-    }
-
-    else {
-
-      micButton.innerText =
-        "🔇 Mic OFF";
-
-      micButton.style.background =
-        "#555";
-
-    }
-
-  };
-
-
-/* ================= SPEAKER ================= */
-
-speakerButton.onclick =
-  async () => {
-
-    speakerOn =
-      !speakerOn;
-
-
-    remoteAudio.muted =
-      !speakerOn;
-
-
-    if (speakerOn) {
-
-      speakerButton.innerText =
-        "🔊 Speaker ON";
-
-      speakerButton.style.background =
-        "#20b765";
-
-
-      try {
-
-        await remoteAudio.play();
-
-      }
-
-      catch (error) {
-
-        console.log(
-          "Speaker play:",
-          error
-        );
-
-      }
-
-    }
-
-    else {
-
-      speakerButton.innerText =
-        "🔇 Speaker OFF";
-
-      speakerButton.style.background =
-        "#555";
-
-    }
-
-  };
-
-
-/* ================= LEAVE ================= */
-
-leaveButton.onclick =
-  async () => {
-
-    await cleanup();
-
-    window.location.href =
-      "index.html";
-
-  };
-
-
-/* ================= CLEANUP ================= */
-
-async function cleanup() {
-
-  if (leaving)
-    return;
-
-  leaving = true;
-
-
-  clearTimeout(
-    connectionTimer
-  );
-
-
-  if (stopRoomListener) {
-
-    stopRoomListener();
-
-    stopRoomListener = null;
-
-  }
-
-
-  if (localStream) {
-
-    localStream
-      .getTracks()
-      .forEach(track => {
-
-        track.stop();
-
-      });
-
-    localStream = null;
-
-  }
-
-
-  if (peer) {
-
-    peer.close();
-
-    peer = null;
-
-  }
-
-
-  remoteAudio.pause();
-
-  remoteAudio.srcObject =
-    null;
+    },2200);
 
 }
 
 
-/* ================= PAGE CLOSE ================= */
+/* ---------------------------
+   DEMO ONLINE COUNT
+---------------------------- */
 
-window.addEventListener(
-  "beforeunload",
-  () => {
+setInterval(function(){
 
-    clearTimeout(
-      connectionTimer
-    );
+  const el =
+    document.getElementById("onlineCount");
 
-    if (localStream) {
+  let count =
+    parseInt(el.textContent);
 
-      localStream
-        .getTracks()
-        .forEach(track =>
-          track.stop()
-        );
+  if(Math.random()>.5){
 
-    }
+    count += 1;
 
-    if (peer) {
+  }else if(count>5){
 
-      peer.close();
-
-    }
+    count -= 1;
 
   }
-);
+
+  el.textContent=count;
+
+},7000);
 
 </script>
 
