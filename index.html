@@ -13,9 +13,7 @@
   font-family:Arial,sans-serif;
 }
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   background:#090912;
@@ -23,19 +21,11 @@ body{
   -webkit-tap-highlight-color:transparent;
 }
 
-button,
-.nav-item,
-.category,
-.card,
-.room,
-.feature,
-.menu{
+button,.nav-item,.category,.card,.room,.feature,.menu{
   -webkit-tap-highlight-color:transparent;
 }
 
-button{
-  font-family:inherit;
-}
+button{font-family:inherit}
 
 .app{
   max-width:480px;
@@ -46,7 +36,7 @@ button{
   overflow:hidden;
 }
 
-/* ================= TOP BAR ================= */
+/* TOP BAR */
 
 .topbar{
   position:sticky;
@@ -113,7 +103,7 @@ button{
   font-weight:bold;
 }
 
-/* ================= SCREENS ================= */
+/* SCREENS */
 
 .screen{
   display:none;
@@ -121,22 +111,14 @@ button{
   animation:fadeIn .18s ease;
 }
 
-.screen.active{
-  display:block;
-}
+.screen.active{display:block}
 
 @keyframes fadeIn{
-  from{
-    opacity:.45;
-    transform:translateY(5px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+  from{opacity:.45;transform:translateY(5px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
-/* ================= SEARCH ================= */
+/* SEARCH */
 
 .search-box{
   display:flex;
@@ -149,9 +131,7 @@ button{
   border-radius:14px;
 }
 
-.search-box span{
-  color:#777;
-}
+.search-box span{color:#777}
 
 .search-box input{
   width:100%;
@@ -162,11 +142,9 @@ button{
   font-size:12px;
 }
 
-.search-box input::placeholder{
-  color:#777;
-}
+.search-box input::placeholder{color:#777}
 
-/* ================= HOME BANNER ================= */
+/* BANNER */
 
 .banner{
   position:relative;
@@ -226,7 +204,7 @@ button{
   cursor:pointer;
 }
 
-/* ================= SECTION ================= */
+/* SECTION */
 
 .section-title{
   display:flex;
@@ -235,9 +213,7 @@ button{
   margin:21px 0 11px;
 }
 
-.section-title h2{
-  font-size:18px;
-}
+.section-title h2{font-size:18px}
 
 .see-all{
   color:#a78bfa;
@@ -245,7 +221,7 @@ button{
   cursor:pointer;
 }
 
-/* ================= CATEGORIES ================= */
+/* CATEGORIES */
 
 .categories{
   display:flex;
@@ -255,9 +231,7 @@ button{
   padding-bottom:2px;
 }
 
-.categories::-webkit-scrollbar{
-  display:none;
-}
+.categories::-webkit-scrollbar{display:none}
 
 .category{
   white-space:nowrap;
@@ -277,7 +251,7 @@ button{
   color:#fff;
 }
 
-/* ================= ROOM ================= */
+/* ROOM */
 
 .room{
   background:#1b1b2a;
@@ -292,9 +266,7 @@ button{
   transition:.15s;
 }
 
-.room:active{
-  transform:scale(.985);
-}
+.room:active{transform:scale(.985)}
 
 .room-left{
   display:flex;
@@ -315,9 +287,7 @@ button{
   font-size:22px;
 }
 
-.room-info{
-  min-width:0;
-}
+.room-info{min-width:0}
 
 .room h3{
   font-size:14px;
@@ -354,7 +324,7 @@ button{
   flex-shrink:0;
 }
 
-/* ================= DAILY FEATURES ================= */
+/* FEATURES */
 
 .feature-grid{
   display:grid;
@@ -372,9 +342,7 @@ button{
   transition:.15s;
 }
 
-.feature:active{
-  transform:scale(.98);
-}
+.feature:active{transform:scale(.98)}
 
 .feature-icon{
   font-size:27px;
@@ -392,7 +360,7 @@ button{
   line-height:1.4;
 }
 
-/* ================= CARDS ================= */
+/* CARDS */
 
 .card{
   background:#1b1b2a;
@@ -413,7 +381,7 @@ button{
   line-height:1.5;
 }
 
-/* ================= EVENT ================= */
+/* EVENT */
 
 .event-home{
   display:flex;
@@ -435,7 +403,7 @@ button{
   font-size:25px;
 }
 
-/* ================= PROFILE ================= */
+/* PROFILE */
 
 .profile{
   text-align:center;
@@ -489,7 +457,7 @@ button{
   cursor:pointer;
 }
 
-/* ================= BOTTOM NAV ================= */
+/* BOTTOM NAV */
 
 .bottom-nav{
   position:fixed;
@@ -523,15 +491,13 @@ button{
   margin-bottom:4px;
 }
 
-.nav-item.active{
-  color:#a78bfa;
-}
+.nav-item.active{color:#a78bfa}
 
 .nav-item.active .icon{
   transform:translateY(-1px);
 }
 
-/* ================= MODAL ================= */
+/* MODAL */
 
 .modal{
   position:fixed;
@@ -544,9 +510,7 @@ button{
   padding:15px;
 }
 
-.modal.show{
-  display:flex;
-}
+.modal.show{display:flex}
 
 .modal-box{
   width:100%;
@@ -559,14 +523,8 @@ button{
 }
 
 @keyframes modalUp{
-  from{
-    transform:translateY(30px);
-    opacity:0;
-  }
-  to{
-    transform:translateY(0);
-    opacity:1;
-  }
+  from{transform:translateY(30px);opacity:0}
+  to{transform:translateY(0);opacity:1}
 }
 
 .modal-title{
@@ -579,6 +537,7 @@ button{
   color:#aaa;
   font-size:13px;
   line-height:1.5;
+  white-space:pre-line;
 }
 
 .modal-close{
@@ -592,7 +551,16 @@ button{
   font-weight:bold;
 }
 
-/* ================= FOOTER ================= */
+/* STATUS */
+
+.backend-status{
+  text-align:center;
+  font-size:9px;
+  color:#555;
+  padding:7px;
+}
+
+/* FOOTER */
 
 .footer{
   text-align:center;
@@ -601,32 +569,16 @@ button{
   padding:20px 0 5px;
 }
 
-/* ================= SMALL ================= */
-
 @media(max-width:360px){
-
-  .banner h1{
-    font-size:22px;
-  }
-
-  .room{
-    padding:11px;
-  }
-
+  .banner h1{font-size:22px}
+  .room{padding:11px}
   .room-icon{
     width:44px;
     height:44px;
     flex-basis:44px;
   }
-
-  .join{
-    padding:7px 10px;
-  }
-
-  .coins{
-    padding:7px 9px;
-  }
-
+  .join{padding:7px 10px}
+  .coins{padding:7px 9px}
 }
 </style>
 </head>
@@ -635,7 +587,7 @@ button{
 
 <div class="app">
 
-<!-- ================= TOP BAR ================= -->
+<!-- TOP BAR -->
 
 <div class="topbar">
 
@@ -646,7 +598,8 @@ button{
 
   <div class="top-actions">
 
-    <button class="icon-btn" onclick="showFeature('🔔 Notifications','Your notifications will appear here.')">
+    <button class="icon-btn"
+      onclick="showFeature('🔔 Notifications','Your notifications will appear here.')">
       🔔
     </button>
 
@@ -659,7 +612,7 @@ button{
 </div>
 
 
-<!-- ================= HOME ================= -->
+<!-- HOME -->
 
 <div id="home" class="screen active">
 
@@ -692,38 +645,39 @@ button{
   </div>
 
 
-  <!-- CATEGORIES -->
-
   <div class="section-title">
     <h2>Explore</h2>
   </div>
 
   <div class="categories">
 
-    <div class="category active" onclick="filterCategory(this,'Popular')">
+    <div class="category active"
+      onclick="filterCategory(this,'Popular')">
       🔥 Popular
     </div>
 
-    <div class="category" onclick="filterCategory(this,'Music')">
+    <div class="category"
+      onclick="filterCategory(this,'Music')">
       🎵 Music
     </div>
 
-    <div class="category" onclick="filterCategory(this,'Fun')">
+    <div class="category"
+      onclick="filterCategory(this,'Fun')">
       😂 Fun
     </div>
 
-    <div class="category" onclick="filterCategory(this,'Friends')">
+    <div class="category"
+      onclick="filterCategory(this,'Friends')">
       👥 Friends
     </div>
 
-    <div class="category" onclick="filterCategory(this,'Games')">
+    <div class="category"
+      onclick="filterCategory(this,'Games')">
       🎮 Games
     </div>
 
   </div>
 
-
-  <!-- POPULAR -->
 
   <div class="section-title">
 
@@ -736,97 +690,99 @@ button{
   </div>
 
 
-  <div class="room searchable-room">
+  <div id="homeRooms">
 
-    <div class="room-left">
+    <div class="room searchable-room">
 
-      <div
-        class="room-icon"
-        style="background:linear-gradient(135deg,#7c3aed,#ec4899);">
-        🎵
+      <div class="room-left">
+
+        <div class="room-icon"
+          style="background:linear-gradient(135deg,#7c3aed,#ec4899);">
+          🎵
+        </div>
+
+        <div class="room-info">
+
+          <h3>Tannu Music Night</h3>
+
+          <p>
+            <span class="live-dot"></span>
+            Live Music • 👤 128
+          </p>
+
+        </div>
+
       </div>
 
-      <div class="room-info">
-
-        <h3>Tannu Music Night</h3>
-
-        <p>
-          <span class="live-dot"></span>
-          Live Music • 👤 128
-        </p>
-
-      </div>
+      <button class="join"
+        onclick="openRoom('Tannu Music Night')">
+        Join
+      </button>
 
     </div>
 
-    <button class="join" onclick="openRoom('Tannu Music Night')">
-      Join
-    </button>
 
-  </div>
+    <div class="room searchable-room">
 
+      <div class="room-left">
 
-  <div class="room searchable-room">
+        <div class="room-icon"
+          style="background:linear-gradient(135deg,#2563eb,#06b6d4);">
+          ❤️
+        </div>
 
-    <div class="room-left">
+        <div class="room-info">
 
-      <div
-        class="room-icon"
-        style="background:linear-gradient(135deg,#2563eb,#06b6d4);">
-        ❤️
-      </div>
+          <h3>Friends Zone</h3>
 
-      <div class="room-info">
+          <p>
+            <span class="live-dot"></span>
+            Chat • 👤 96
+          </p>
 
-        <h3>Friends Zone</h3>
-
-        <p>
-          <span class="live-dot"></span>
-          Chat • 👤 96
-        </p>
+        </div>
 
       </div>
+
+      <button class="join"
+        onclick="openRoom('Friends Zone')">
+        Join
+      </button>
 
     </div>
 
-    <button class="join" onclick="openRoom('Friends Zone')">
-      Join
-    </button>
 
-  </div>
+    <div class="room searchable-room">
 
+      <div class="room-left">
 
-  <div class="room searchable-room">
+        <div class="room-icon"
+          style="background:linear-gradient(135deg,#f97316,#ef4444);">
+          😂
+        </div>
 
-    <div class="room-left">
+        <div class="room-info">
 
-      <div
-        class="room-icon"
-        style="background:linear-gradient(135deg,#f97316,#ef4444);">
-        😂
-      </div>
+          <h3>Fun & Masti</h3>
 
-      <div class="room-info">
+          <p>
+            <span class="live-dot"></span>
+            Entertainment • 👤 74
+          </p>
 
-        <h3>Fun & Masti</h3>
-
-        <p>
-          <span class="live-dot"></span>
-          Entertainment • 👤 74
-        </p>
+        </div>
 
       </div>
+
+      <button class="join"
+        onclick="openRoom('Fun & Masti')">
+        Join
+      </button>
 
     </div>
 
-    <button class="join" onclick="openRoom('Fun & Masti')">
-      Join
-    </button>
-
   </div>
 
-
-  <!-- DAILY -->
 
   <div class="section-title">
     <h2>✨ Daily for You</h2>
@@ -834,61 +790,47 @@ button{
 
   <div class="feature-grid">
 
-    <div
-      class="feature"
+    <div class="feature"
       onclick="showFeature('🎁 Gifts','Send virtual gifts inside voice rooms.')">
 
       <div class="feature-icon">🎁</div>
-
       <h3>Gifts</h3>
-
       <p>Send gifts in rooms</p>
 
     </div>
 
 
-    <div
-      class="feature"
+    <div class="feature"
       onclick="showFeature('👑 VIP','Unlock VIP benefits and special rewards.')">
 
       <div class="feature-icon">👑</div>
-
       <h3>VIP</h3>
-
       <p>Unlock VIP benefits</p>
 
     </div>
 
 
-    <div
-      class="feature"
+    <div class="feature"
       onclick="showFeature('🎡 Free Spin','Your daily free spin rewards will appear here.')">
 
       <div class="feature-icon">🎡</div>
-
       <h3>Free Spin</h3>
-
       <p>Win daily coins</p>
 
     </div>
 
 
-    <div
-      class="feature"
+    <div class="feature"
       onclick="showFeature('🏆 Rewards','Complete activities and collect rewards.')">
 
       <div class="feature-icon">🏆</div>
-
       <h3>Rewards</h3>
-
       <p>Claim daily rewards</p>
 
     </div>
 
   </div>
 
-
-  <!-- EVENT -->
 
   <div class="section-title">
 
@@ -901,8 +843,7 @@ button{
   </div>
 
 
-  <div
-    class="card event-home"
+  <div class="card event-home"
     onclick="go('events')">
 
     <div class="event-icon">
@@ -911,9 +852,11 @@ button{
 
     <div>
 
-      <h3>Daily Welcome Event</h3>
+      <h3 id="todayEventName">
+        Daily Welcome Event
+      </h3>
 
-      <p>
+      <p id="todayEventText">
         Open the event and collect your daily reward.
       </p>
 
@@ -929,7 +872,7 @@ button{
 </div>
 
 
-<!-- ================= ROOMS ================= -->
+<!-- ROOMS -->
 
 <div id="rooms" class="screen">
 
@@ -948,88 +891,94 @@ button{
 
   <br>
 
+  <div id="roomsList">
 
-  <div class="room">
+    <div class="room">
 
-    <div class="room-left">
+      <div class="room-left">
 
-      <div class="room-icon">🎤</div>
+        <div class="room-icon">🎤</div>
 
-      <div class="room-info">
+        <div class="room-info">
 
-        <h3>India Friends</h3>
+          <h3>India Friends</h3>
 
-        <p>
-          <span class="live-dot"></span>
-          156 online
-        </p>
+          <p>
+            <span class="live-dot"></span>
+            156 online
+          </p>
 
-      </div>
-
-    </div>
-
-    <button class="join" onclick="openRoom('India Friends')">
-      Join
-    </button>
-
-  </div>
-
-
-  <div class="room">
-
-    <div class="room-left">
-
-      <div class="room-icon">🎶</div>
-
-      <div class="room-info">
-
-        <h3>Music Lovers</h3>
-
-        <p>
-          <span class="live-dot"></span>
-          103 online
-        </p>
+        </div>
 
       </div>
 
+      <button class="join"
+        onclick="openRoom('India Friends')">
+        Join
+      </button>
+
     </div>
 
-    <button class="join" onclick="openRoom('Music Lovers')">
-      Join
-    </button>
 
-  </div>
+    <div class="room">
 
+      <div class="room-left">
 
-  <div class="room">
+        <div class="room-icon">🎶</div>
 
-    <div class="room-left">
+        <div class="room-info">
 
-      <div class="room-icon">🎮</div>
+          <h3>Music Lovers</h3>
 
-      <div class="room-info">
+          <p>
+            <span class="live-dot"></span>
+            103 online
+          </p>
 
-        <h3>Gaming Room</h3>
-
-        <p>
-          <span class="live-dot"></span>
-          88 online
-        </p>
+        </div>
 
       </div>
 
+      <button class="join"
+        onclick="openRoom('Music Lovers')">
+        Join
+      </button>
+
     </div>
 
-    <button class="join" onclick="openRoom('Gaming Room')">
-      Join
-    </button>
+
+    <div class="room">
+
+      <div class="room-left">
+
+        <div class="room-icon">🎮</div>
+
+        <div class="room-info">
+
+          <h3>Gaming Room</h3>
+
+          <p>
+            <span class="live-dot"></span>
+            88 online
+          </p>
+
+        </div>
+
+      </div>
+
+      <button class="join"
+        onclick="openRoom('Gaming Room')">
+        Join
+      </button>
+
+    </div>
 
   </div>
 
 </div>
 
 
-<!-- ================= EVENTS ================= -->
+<!-- EVENTS -->
 
 <div id="events" class="screen">
 
@@ -1037,30 +986,63 @@ button{
     <h2>🎉 Daily Events</h2>
   </div>
 
-  <div class="card">
+  <div class="card"
+    onclick="claimDailyReward()">
+
     <h3>🎁 Daily Welcome</h3>
-    <p>Open the app every day and collect your reward.</p>
+
+    <p>
+      Open the app every day and collect your reward.
+    </p>
+
+    <button class="join" style="margin-top:12px;">
+      Claim 1,000 Coins
+    </button>
+
   </div>
 
-  <div class="card">
+
+  <div class="card"
+    onclick="freeSpin()">
+
     <h3>🎡 Free Spin</h3>
-    <p>Play your free spin and win coins & rewards.</p>
+
+    <p>
+      Play your free spin and win coins & rewards.
+    </p>
+
+    <button class="join" style="margin-top:12px;">
+      Spin
+    </button>
+
   </div>
 
+
   <div class="card">
+
     <h3>🏆 Daily Reward</h3>
-    <p>Complete your daily activity and receive rewards.</p>
+
+    <p>
+      Complete your daily activity and receive rewards.
+    </p>
+
   </div>
 
+
   <div class="card">
+
     <h3>🔥 Room Activity</h3>
-    <p>Join active rooms and participate with friends.</p>
+
+    <p>
+      Join active rooms and participate with friends.
+    </p>
+
   </div>
 
 </div>
 
 
-<!-- ================= MESSAGES ================= -->
+<!-- MESSAGES -->
 
 <div id="messages" class="screen">
 
@@ -1068,25 +1050,29 @@ button{
     <h2>💬 Messages</h2>
   </div>
 
-  <div class="card">
-    <h3>🎙️ Tannu Team</h3>
-    <p>Welcome to Tannu Voice Chat ❤️</p>
-  </div>
+  <div id="messagesList">
 
-  <div class="card">
-    <h3>🎁 Rewards</h3>
-    <p>Your daily rewards will appear here.</p>
-  </div>
+    <div class="card">
+      <h3>🎙️ Tannu Team</h3>
+      <p>Welcome to Tannu Voice Chat ❤️</p>
+    </div>
 
-  <div class="card">
-    <h3>🔔 System</h3>
-    <p>No new notifications.</p>
+    <div class="card">
+      <h3>🎁 Rewards</h3>
+      <p>Your daily rewards will appear here.</p>
+    </div>
+
+    <div class="card">
+      <h3>🔔 System</h3>
+      <p>No new notifications.</p>
+    </div>
+
   </div>
 
 </div>
 
 
-<!-- ================= PROFILE ================= -->
+<!-- PROFILE -->
 
 <div id="profile" class="screen">
 
@@ -1096,9 +1082,12 @@ button{
       👤
     </div>
 
-    <h2>Tannu User</h2>
+    <h2 id="profileName">
+      Tannu User
+    </h2>
 
-    <p style="color:#999;margin-top:5px;">
+    <p id="profileLevel"
+      style="color:#999;margin-top:5px;">
       Level 1 • New User
     </p>
 
@@ -1126,39 +1115,42 @@ button{
 
 
   <div class="menu"
-       onclick="showFeature('👑 My VIP','Your VIP level and benefits will appear here.')">
+    onclick="showFeature('👑 My VIP','Your VIP level and benefits will appear here.')">
     👑 My VIP
   </div>
 
+
   <div class="menu"
-       onclick="showFeature('🪙 Wallet','Your coins and wallet details will appear here.')">
+    onclick="showWallet()">
     🪙 Wallet
   </div>
 
+
   <div class="menu"
-       onclick="showFeature('🎁 Rewards','Your rewards will appear here.')">
+    onclick="showFeature('🎁 Rewards','Your rewards will appear here.')">
     🎁 Rewards
   </div>
 
+
   <div class="menu"
-       onclick="showFeature('⚙️ Settings','Account settings will be available here.')">
+    onclick="showFeature('⚙️ Settings','Account settings will be available here.')">
     ⚙️ Settings
   </div>
 
+
   <div class="menu"
-       onclick="showFeature('🛟 Support','Tannu Support will be available here.')">
+    onclick="showFeature('🛟 Support','Tannu Support will be available here.')">
     🛟 Support
   </div>
 
 </div>
 
 
-<!-- ================= BOTTOM NAV ================= -->
+<!-- BOTTOM NAV -->
 
 <div class="bottom-nav">
 
-  <div
-    class="nav-item active"
+  <div class="nav-item active"
     data-page="home"
     onclick="go('home')">
 
@@ -1168,8 +1160,7 @@ button{
   </div>
 
 
-  <div
-    class="nav-item"
+  <div class="nav-item"
     data-page="rooms"
     onclick="go('rooms')">
 
@@ -1179,8 +1170,7 @@ button{
   </div>
 
 
-  <div
-    class="nav-item"
+  <div class="nav-item"
     data-page="events"
     onclick="go('events')">
 
@@ -1190,8 +1180,7 @@ button{
   </div>
 
 
-  <div
-    class="nav-item"
+  <div class="nav-item"
     data-page="messages"
     onclick="go('messages')">
 
@@ -1201,8 +1190,7 @@ button{
   </div>
 
 
-  <div
-    class="nav-item"
+  <div class="nav-item"
     data-page="profile"
     onclick="go('profile')">
 
@@ -1216,15 +1204,19 @@ button{
 </div>
 
 
-<!-- ================= MODAL ================= -->
+<!-- MODAL -->
 
-<div id="modal" class="modal" onclick="closeModal(event)">
+<div id="modal"
+  class="modal"
+  onclick="closeModal(event)">
 
   <div class="modal-box">
 
-    <div id="modalTitle" class="modal-title"></div>
+    <div id="modalTitle"
+      class="modal-title"></div>
 
-    <div id="modalText" class="modal-text"></div>
+    <div id="modalText"
+      class="modal-text"></div>
 
     <button
       class="modal-close"
@@ -1237,123 +1229,776 @@ button{
 </div>
 
 
+<div id="backendStatus"
+  class="backend-status">
+  Connecting to Tannu backend...
+</div>
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  increment,
+  serverTimestamp,
+  collection,
+  getDocs
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* ================= FIREBASE CONFIG ================= */
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyAc7BBn6G5zzABm4Bx-3haVwE0aob5HlVc",
+
+  authDomain:
+  "tannu-voice-chat.firebaseapp.com",
+
+  projectId:
+  "tannu-voice-chat",
+
+  storageBucket:
+  "tannu-voice-chat.firebasestorage.app",
+
+  messagingSenderId:
+  "720483733073",
+
+  appId:
+  "1:720483733073:web:c65b96d255d6177b9d7270"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+
+/* ================= TEMP USER ================= */
+
+/*
+ Google Login kal fix karenge.
+
+ Abhi Firestore testing ke liye
+ tumhara existing test user use ho raha hai.
+*/
+
+const USER_ID = "B6Hd5ryWoAJkWmzwJpWa";
+
+const WALLET_ID = "wallet1";
+
+
+/* ================= STATUS ================= */
+
+function backendOnline(){
+
+  const status =
+    document.getElementById("backendStatus");
+
+  if(status){
+    status.innerText =
+      "🔥 Tannu backend connected";
+    status.style.color="#22c55e";
+  }
+
+}
+
+
+/* ================= LOAD USER ================= */
+
+async function loadUser(){
+
+  try{
+
+    const ref =
+      doc(db,"users",USER_ID);
+
+    const snap =
+      await getDoc(ref);
+
+    if(snap.exists()){
+
+      const data=snap.data();
+
+      if(data.name){
+
+        document.getElementById(
+          "profileName"
+        ).innerText=data.name;
+
+      }
+
+      if(data.level){
+
+        document.getElementById(
+          "profileLevel"
+        ).innerText=
+          "Level " + data.level +
+          " • Tannu User";
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "User loading error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* ================= WALLET ================= */
+
+async function loadWallet(){
+
+  try{
+
+    const ref =
+      doc(db,"wallets",WALLET_ID);
+
+    const snap =
+      await getDoc(ref);
+
+    if(snap.exists()){
+
+      const data=snap.data();
+
+      const coins =
+        Number(data.coins || 0);
+
+      document.getElementById(
+        "coinBalance"
+      ).innerText =
+        coins.toLocaleString("en-IN");
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Wallet loading error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* ================= DAILY REWARD ================= */
+
+window.claimDailyReward =
+async function(){
+
+  try{
+
+    const ref =
+      doc(db,"wallets",WALLET_ID);
+
+    await setDoc(
+
+      ref,
+
+      {
+        userId:USER_ID,
+
+        coins:increment(1000),
+
+        lastReward:serverTimestamp()
+
+      },
+
+      {merge:true}
+
+    );
+
+    await loadWallet();
+
+    showFeature(
+      "🎁 Reward Claimed",
+      "1,000 coins added to your wallet!"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showFeature(
+      "❌ Error",
+      "Reward could not be added. Check Firebase."
+    );
+
+  }
+
+};
+
+
+/* ================= FREE SPIN ================= */
+
+window.freeSpin =
+async function(){
+
+  const rewards=[
+    100,
+    500,
+    1000,
+    5000,
+    10000
+  ];
+
+  const reward =
+    rewards[
+      Math.floor(
+        Math.random()*rewards.length
+      )
+    ];
+
+  try{
+
+    const ref =
+      doc(db,"wallets",WALLET_ID);
+
+    await setDoc(
+
+      ref,
+
+      {
+        userId:USER_ID,
+
+        coins:increment(reward),
+
+        lastSpin:serverTimestamp()
+
+      },
+
+      {merge:true}
+
+    );
+
+    await loadWallet();
+
+    showFeature(
+      "🎡 Free Spin",
+      "Congratulations! You won " +
+      reward.toLocaleString("en-IN") +
+      " coins."
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showFeature(
+      "❌ Error",
+      "Spin failed. Check Firebase connection."
+    );
+
+  }
+
+};
+
+
+/* ================= LOAD EVENT ================= */
+
+async function loadEvent(){
+
+  try{
+
+    const ref =
+      doc(db,"events","event1");
+
+    const snap =
+      await getDoc(ref);
+
+    if(snap.exists()){
+
+      const data=snap.data();
+
+      if(data.name){
+
+        document.getElementById(
+          "todayEventName"
+        ).innerText =
+          "🎉 " + data.name;
+
+      }
+
+      if(data.status){
+
+        document.getElementById(
+          "todayEventText"
+        ).innerText =
+          "Status: " + data.status +
+          " • Open event to participate.";
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Event loading error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* ================= LOAD MESSAGES ================= */
+
+async function loadMessages(){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(db,"messages")
+      );
+
+    const list =
+      document.getElementById(
+        "messagesList"
+      );
+
+    if(!list)return;
+
+    let html="";
+
+    snapshot.forEach(
+      function(item){
+
+        const data=item.data();
+
+        html += `
+
+          <div class="card">
+
+            <h3>
+              💬 ${escapeHTML(
+                data.sender || "Tannu Team"
+              )}
+            </h3>
+
+            <p>
+              ${escapeHTML(
+                data.text || ""
+              )}
+            </p>
+
+          </div>
+
+        `;
+
+      }
+    );
+
+    if(html){
+      list.innerHTML=html;
+    }
+
+  }catch(error){
+
+    console.error(
+      "Messages loading error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* ================= LOAD ROOMS ================= */
+
+async function loadRooms(){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(db,"rooms")
+      );
+
+    const list =
+      document.getElementById(
+        "roomsList"
+      );
+
+    if(!list)return;
+
+    let html="";
+
+    snapshot.forEach(
+      function(item){
+
+        const data=item.data();
+
+        const name =
+          data.name || "Voice Room";
+
+        const category =
+          data.category || "Friends";
+
+        const online =
+          Number(data.online || 0);
+
+        html += `
+
+          <div class="room">
+
+            <div class="room-left">
+
+              <div class="room-icon">
+                🎙️
+              </div>
+
+              <div class="room-info">
+
+                <h3>
+                  ${escapeHTML(name)}
+                </h3>
+
+                <p>
+                  <span class="live-dot"></span>
+                  ${escapeHTML(category)}
+                  • 👤 ${online}
+                </p>
+
+              </div>
+
+            </div>
+
+            <button
+              class="join"
+              onclick="openRoom('${escapeJS(name)}')">
+
+              Join
+
+            </button>
+
+          </div>
+
+        `;
+
+      }
+    );
+
+    if(html){
+      list.innerHTML=html;
+    }
+
+  }catch(error){
+
+    console.error(
+      "Rooms loading error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* ================= SECURITY HELPERS ================= */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeJS(value){
+
+  return String(value)
+    .replace(/\\/g,"\\\\")
+    .replace(/'/g,"\\'")
+    .replace(/"/g,'&quot;')
+    .replace(/\n/g," ");
+
+}
+
+
+/* ================= START BACKEND ================= */
+
+async function startBackend(){
+
+  try{
+
+    backendOnline();
+
+    await loadUser();
+
+    await loadWallet();
+
+    await loadEvent();
+
+    await loadMessages();
+
+    await loadRooms();
+
+    console.log(
+      "🔥 Tannu Voice Chat Firebase ready"
+    );
+
+  }catch(error){
+
+    console.error(
+      "Firebase startup error:",
+      error
+    );
+
+    const status =
+      document.getElementById(
+        "backendStatus"
+      );
+
+    if(status){
+
+      status.innerText =
+        "⚠️ Firebase connection issue";
+
+      status.style.color="#ef4444";
+
+    }
+
+  }
+
+}
+
+startBackend();
+
+</script>
+
+
+<!-- NORMAL APP JS -->
+
 <script>
 
-/* ================= NAVIGATION ================= */
+/* NAVIGATION */
 
 function go(page){
 
-  document.querySelectorAll('.screen').forEach(function(screen){
-    screen.classList.remove('active');
-  });
+  document
+    .querySelectorAll(".screen")
+    .forEach(function(screen){
 
-  const selected=document.getElementById(page);
+      screen.classList.remove("active");
+
+    });
+
+
+  const selected =
+    document.getElementById(page);
+
 
   if(selected){
-    selected.classList.add('active');
+
+    selected.classList.add("active");
+
   }
 
-  document.querySelectorAll('.nav-item').forEach(function(item){
-    item.classList.remove('active');
-  });
 
-  const nav=document.querySelector(
-    '.nav-item[data-page="' + page + '"]'
-  );
+  document
+    .querySelectorAll(".nav-item")
+    .forEach(function(item){
+
+      item.classList.remove("active");
+
+    });
+
+
+  const nav =
+    document.querySelector(
+      '.nav-item[data-page="' +
+      page +
+      '"]'
+    );
+
 
   if(nav){
-    nav.classList.add('active');
+
+    nav.classList.add("active");
+
   }
+
 
   window.scrollTo({
     top:0,
-    behavior:'smooth'
+    behavior:"smooth"
   });
 
 }
 
 
-/* ================= ROOM DEMO ================= */
+/* ROOM */
 
 function openRoom(roomName){
 
   showFeature(
-    '🎙️ ' + roomName,
-    'Voice Room UI is ready for the next backend build.\n\n' +
-    '12 mic seats • Join Mic • Mute/Unmute • Room Chat • Gifts'
+
+    "🎙️ " + roomName,
+
+    "Voice Room foundation is connected.\n\n" +
+
+    "12 mic seats • Join Mic • Mute/Unmute\n" +
+
+    "Room Chat • Gifts\n\n" +
+
+    "Real-time voice will be added in the next backend stage."
+
   );
 
 }
 
 
-/* ================= FEATURE ================= */
+/* FEATURE */
 
 function showFeature(title,message){
 
-  document.getElementById('modalTitle').innerText=title;
-  document.getElementById('modalText').innerText=message;
+  document.getElementById(
+    "modalTitle"
+  ).innerText=title;
 
-  document.getElementById('modal').classList.add('show');
+  document.getElementById(
+    "modalText"
+  ).innerText=message;
+
+  document.getElementById(
+    "modal"
+  ).classList.add("show");
 
 }
 
 
 function hideModal(){
 
-  document.getElementById('modal').classList.remove('show');
+  document.getElementById(
+    "modal"
+  ).classList.remove("show");
 
 }
 
 
 function closeModal(event){
 
-  if(event.target.id==='modal'){
+  if(event.target.id==="modal"){
+
     hideModal();
+
   }
 
 }
 
 
-/* ================= CATEGORY ================= */
+/* CATEGORY */
 
 function filterCategory(element,name){
 
-  document.querySelectorAll('.category').forEach(function(item){
-    item.classList.remove('active');
-  });
+  document
+    .querySelectorAll(".category")
+    .forEach(function(item){
 
-  element.classList.add('active');
+      item.classList.remove("active");
+
+    });
+
+
+  element.classList.add("active");
+
 
   showFeature(
-    '🔎 ' + name,
-    name + ' rooms will be loaded from the backend here.'
+
+    "🔎 " + name,
+
+    name +
+    " rooms will be loaded from the backend."
+
   );
 
 }
 
 
-/* ================= SEARCH ================= */
+/* SEARCH */
 
 function searchRooms(value){
 
-  const search=value.toLowerCase().trim();
+  const search =
+    value.toLowerCase().trim();
 
-  document.querySelectorAll('.searchable-room').forEach(function(room){
 
-    const text=room.innerText.toLowerCase();
+  document
+    .querySelectorAll(".searchable-room")
+    .forEach(function(room){
 
-    if(text.includes(search)){
-      room.style.display='flex';
-    }else{
-      room.style.display='none';
-    }
+      const text =
+        room.innerText.toLowerCase();
 
-  });
+
+      if(text.includes(search)){
+
+        room.style.display="flex";
+
+      }else{
+
+        room.style.display="none";
+
+      }
+
+    });
 
 }
 
 
-/* ================= START ================= */
+/* WALLET */
+
+function showWallet(){
+
+  const coins =
+    document.getElementById(
+      "coinBalance"
+    ).innerText;
+
+  showFeature(
+
+    "🪙 My Wallet",
+
+    "Current balance: " +
+    coins +
+    " Coins\n\n" +
+    "Wallet is connected to Firebase."
+
+  );
+
+}
+
+
+/* START */
 
 document.addEventListener(
   "DOMContentLoaded",
