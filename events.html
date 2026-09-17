@@ -66,8 +66,6 @@ body{
   line-height:1.5;
 }
 
-/* DAILY REWARD */
-
 .days{
   display:grid;
   grid-template-columns:repeat(7,1fr);
@@ -112,8 +110,6 @@ button:disabled{
   opacity:.45;
 }
 
-/* SPIN */
-
 .spin{
   text-align:center;
 }
@@ -145,8 +141,6 @@ button:disabled{
   color:#aaa;
   font-size:13px;
 }
-
-/* EVENTS */
 
 .event{
   position:relative;
@@ -190,8 +184,6 @@ button:disabled{
   border:1px solid #5b3478;
 }
 
-/* TOAST */
-
 .toast{
   position:fixed;
   bottom:90px;
@@ -205,8 +197,6 @@ button:disabled{
   z-index:100;
   white-space:nowrap;
 }
-
-/* NAV */
 
 .nav{
   position:fixed;
@@ -237,6 +227,13 @@ button:disabled{
 .nav .active{
   color:#c45cff;
 }
+
+.firebaseStatus{
+  text-align:center;
+  color:#777;
+  font-size:11px;
+  margin-top:10px;
+}
 </style>
 </head>
 
@@ -248,8 +245,6 @@ button:disabled{
 </div>
 
 <div class="container">
-
-  <!-- DAILY REWARDS -->
 
   <div class="title">🎁 Daily Rewards</div>
 
@@ -307,8 +302,6 @@ button:disabled{
   </div>
 
 
-  <!-- FREE SPIN -->
-
   <div class="title">🎡 Free Spin</div>
 
   <div class="card spin">
@@ -335,8 +328,6 @@ button:disabled{
   </div>
 
 
-  <!-- EVENT 1 -->
-
   <div class="title">🔥 Special Events</div>
 
   <div class="card event">
@@ -362,8 +353,6 @@ button:disabled{
   </div>
 
 
-  <!-- EVENT 2 -->
-
   <div class="card event">
 
     <span class="badge">DAILY</span>
@@ -386,8 +375,6 @@ button:disabled{
 
   </div>
 
-
-  <!-- EVENT 3 -->
 
   <div class="card event">
 
@@ -412,8 +399,6 @@ button:disabled{
   </div>
 
 
-  <!-- EVENT 4 -->
-
   <div class="card event">
 
     <span class="badge">COMING SOON</span>
@@ -436,13 +421,13 @@ button:disabled{
 
   </div>
 
+  <div class="firebaseStatus" id="firebaseStatus">
+    Connecting to Tannu backend...
+  </div>
+
 </div>
 
-
 <div class="toast" id="toast"></div>
-
-
-<!-- BOTTOM NAV -->
 
 <div class="nav">
 
@@ -469,12 +454,75 @@ button:disabled{
 </div>
 
 
-<script>
+<script type="module">
 
-/* DAILY REWARD */
+/* =========================
+   FIREBASE
+========================= */
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  updateDoc,
+  setDoc,
+  increment,
+  serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyAc7BBn6G5zzABmB4Mx-3haVwE0aob5HlVc",
+
+  authDomain:
+    "tannu-voice-chat.firebaseapp.com",
+
+  projectId:
+    "tannu-voice-chat",
+
+  storageBucket:
+    "tannu-voice-chat.firebasestorage.app",
+
+  messagingSenderId:
+    "720483733073",
+
+  appId:
+    "1:720483733073:web:c65b96d255d6177b9d7270"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+
+/* TEMP USER */
+
+const USER_ID =
+  "B6Hd5ryWoAJkWmzwJpWa";
+
+const WALLET_ID =
+  "wallet1";
+
+
+document.getElementById("firebaseStatus").innerText =
+  "🔥 Tannu backend connected";
+
+
+/* =========================
+   DAILY REWARD
+========================= */
 
 let claimed =
   localStorage.getItem("tannu_reward_claimed") === "yes";
+
 
 function updateClaim(){
 
@@ -483,61 +531,147 @@ function updateClaim(){
 
   if(claimed){
 
-    btn.innerText = "✓ Reward Already Claimed";
+    btn.innerText =
+      "✓ Reward Already Claimed";
 
-    btn.disabled = true;
+    btn.disabled =
+      true;
 
   }
 
 }
 
-function claimReward(){
+
+async function claimReward(){
 
   if(claimed) return;
 
-  claimed = true;
+  const btn =
+    document.getElementById("claim");
 
-  localStorage.setItem(
-    "tannu_reward_claimed",
-    "yes"
-  );
+  btn.disabled = true;
 
-  updateClaim();
+  try{
 
-  showToast("🎉 You received 1,000 coins!");
+    const walletRef =
+      doc(db,"wallets",WALLET_ID);
+
+    await setDoc(
+      walletRef,
+      {
+        userId: USER_ID,
+        coins: increment(1000),
+        lastReward: serverTimestamp()
+      },
+      { merge:true }
+    );
+
+    claimed = true;
+
+    localStorage.setItem(
+      "tannu_reward_claimed",
+      "yes"
+    );
+
+    updateClaim();
+
+    showToast(
+      "🎉 You received 1,000 coins!"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    btn.disabled = false;
+
+    showToast(
+      "❌ Reward save failed"
+    );
+
+  }
 
 }
 
 
-/* FREE SPIN */
+/* =========================
+   WALLET
+========================= */
+
+async function loadWallet(){
+
+  try{
+
+    const walletRef =
+      doc(db,"wallets",WALLET_ID);
+
+    const walletSnap =
+      await getDoc(walletRef);
+
+    if(walletSnap.exists()){
+
+      console.log(
+        "Wallet:",
+        walletSnap.data()
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Wallet error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   FREE SPIN
+========================= */
 
 let spinCount =
-  Number(localStorage.getItem("tannu_spin_count")) || 0;
+  Number(
+    localStorage.getItem(
+      "tannu_spin_count"
+    )
+  ) || 0;
+
 
 function updateSpin(){
 
-  document.getElementById("spinNumber").innerText =
-    spinCount;
+  document.getElementById(
+    "spinNumber"
+  ).innerText = spinCount;
 
   if(spinCount >= 5){
 
     const btn =
-      document.getElementById("spinButton");
+      document.getElementById(
+        "spinButton"
+      );
 
     btn.innerText =
       "Daily Limit Reached";
 
-    btn.disabled = true;
+    btn.disabled =
+      true;
 
   }
 
 }
 
-function spin(){
+
+async function spin(){
 
   if(spinCount >= 5){
 
-    showToast("You used all 5 spins today.");
+    showToast(
+      "You used all 5 spins today."
+    );
 
     return;
 
@@ -546,57 +680,204 @@ function spin(){
   const wheel =
     document.getElementById("wheel");
 
+  const button =
+    document.getElementById("spinButton");
+
   const rotation =
-    1440 + Math.floor(Math.random() * 360);
+    1440 +
+    Math.floor(
+      Math.random() * 360
+    );
 
   wheel.style.transform =
     "rotate(" + rotation + "deg)";
 
-  document.getElementById("spinButton").disabled =
-    true;
+  button.disabled = true;
 
-  setTimeout(function(){
+
+  setTimeout(async function(){
 
     const rewards = [
-      "100 Coins",
-      "500 Coins",
-      "1,000 Coins",
-      "5,000 Coins",
-      "10,000 Coins"
+
+      {
+        text:"100 Coins",
+        coins:100
+      },
+
+      {
+        text:"500 Coins",
+        coins:500
+      },
+
+      {
+        text:"1,000 Coins",
+        coins:1000
+      },
+
+      {
+        text:"5,000 Coins",
+        coins:5000
+      },
+
+      {
+        text:"10,000 Coins",
+        coins:10000
+      }
+
     ];
 
+
     const reward =
-      rewards[Math.floor(Math.random() * rewards.length)];
+      rewards[
+        Math.floor(
+          Math.random() *
+          rewards.length
+        )
+      ];
 
-    spinCount++;
 
-    localStorage.setItem(
-      "tannu_spin_count",
-      spinCount
-    );
+    try{
 
-    showToast("🎉 You won " + reward);
+      const walletRef =
+        doc(db,"wallets",WALLET_ID);
 
-    document.getElementById("spinButton").disabled =
-      spinCount >= 5;
+      await setDoc(
+        walletRef,
+        {
+          userId: USER_ID,
+          coins: increment(
+            reward.coins
+          ),
+          lastSpin: serverTimestamp()
+        },
+        { merge:true }
+      );
 
-    updateSpin();
+
+      spinCount++;
+
+      localStorage.setItem(
+        "tannu_spin_count",
+        spinCount
+      );
+
+
+      showToast(
+        "🎉 You won " +
+        reward.text
+      );
+
+
+      button.disabled =
+        spinCount >= 5;
+
+      updateSpin();
+
+
+    }catch(error){
+
+      console.error(error);
+
+      button.disabled = false;
+
+      showToast(
+        "❌ Spin reward save failed"
+      );
+
+    }
 
   },2000);
 
 }
 
 
-/* EVENTS */
+/* =========================
+   EVENTS
+========================= */
 
-function joinEvent(name){
+async function joinEvent(name){
 
-  showToast("🔥 " + name + " joined!");
+  try{
+
+    const eventRef =
+      doc(
+        db,
+        "events",
+        "event1"
+      );
+
+    await setDoc(
+      eventRef,
+      {
+        name:"Daily Welcome",
+        status:"active",
+        lastJoinedBy:USER_ID,
+        lastJoinedAt:serverTimestamp()
+      },
+      { merge:true }
+    );
+
+
+    showToast(
+      "🔥 " + name + " joined!"
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "❌ Event connection failed"
+    );
+
+  }
 
 }
 
 
-/* TOAST */
+/* =========================
+   LOAD EVENT
+========================= */
+
+async function loadEvent(){
+
+  try{
+
+    const eventRef =
+      doc(
+        db,
+        "events",
+        "event1"
+      );
+
+    const eventSnap =
+      await getDoc(eventRef);
+
+    if(eventSnap.exists()){
+
+      console.log(
+        "Event data:",
+        eventSnap.data()
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Event error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
 
 function showToast(message){
 
@@ -619,10 +900,17 @@ function showToast(message){
 }
 
 
-/* START */
+/* =========================
+   START
+========================= */
 
 updateClaim();
+
 updateSpin();
+
+loadWallet();
+
+loadEvent();
 
 </script>
 
