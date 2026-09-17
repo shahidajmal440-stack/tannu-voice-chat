@@ -15,7 +15,7 @@
 
     body {
       min-height: 100vh;
-      background: linear-gradient(135deg, #120018, #21002f, #080014);
+      background: linear-gradient(135deg, #100016, #23002f, #07000d);
       color: white;
     }
 
@@ -39,7 +39,6 @@
       display: block;
     }
 
-    /* TOP */
     .top {
       display: flex;
       justify-content: space-between;
@@ -68,10 +67,9 @@
       align-items: center;
       font-size: 23px;
       font-weight: bold;
-      box-shadow: 0 0 20px rgba(255, 60, 172, .4);
+      box-shadow: 0 0 20px rgba(255,60,172,.4);
     }
 
-    /* CARDS */
     .card {
       background: rgba(255,255,255,.07);
       border: 1px solid rgba(255,255,255,.10);
@@ -90,7 +88,6 @@
       font-size: 13px;
     }
 
-    /* WELCOME */
     .welcome {
       padding: 20px;
       border-radius: 22px;
@@ -104,7 +101,6 @@
       margin-bottom: 7px;
     }
 
-    /* SEARCH */
     .search {
       width: 100%;
       padding: 14px 16px;
@@ -117,7 +113,6 @@
       font-size: 15px;
     }
 
-    /* CATEGORY */
     .categories {
       display: flex;
       gap: 8px;
@@ -142,7 +137,6 @@
       border-color: transparent;
     }
 
-    /* ROOM */
     .room-card {
       display: flex;
       align-items: center;
@@ -194,7 +188,6 @@
       font-weight: bold;
     }
 
-    /* LOGIN */
     .login-btn,
     .logout-btn {
       width: 100%;
@@ -208,32 +201,42 @@
       margin-top: 12px;
     }
 
-    /* PROFILE */
-    .profile-hero {
+    /* ================= PROFILE ================= */
+
+    .profile-cover {
+      position: relative;
+      margin: -18px -18px 0;
+      padding: 28px 18px 42px;
       text-align: center;
-      padding: 24px 18px;
-      border-radius: 24px;
+      overflow: hidden;
       background:
-        radial-gradient(circle at top, rgba(255,60,172,.30), transparent 55%),
-        rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-      margin-bottom: 14px;
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,.22), transparent 25%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,.15), transparent 25%),
+        linear-gradient(135deg, #ff3cac, #784ba0, #32105f);
+      border-radius: 0 0 32px 32px;
+    }
+
+    .profile-cover-title {
+      font-size: 12px;
+      opacity: .8;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
     }
 
     .profile-avatar {
-      width: 92px;
-      height: 92px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       margin: auto;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #ff3cac, #784ba0);
-      font-size: 34px;
+      background: linear-gradient(135deg,#ff75c3,#784ba0);
+      font-size: 36px;
       font-weight: bold;
       overflow: hidden;
-      border: 3px solid rgba(255,255,255,.25);
-      box-shadow: 0 0 30px rgba(255,60,172,.35);
+      border: 4px solid white;
+      box-shadow: 0 8px 35px rgba(0,0,0,.35);
     }
 
     .profile-avatar img {
@@ -242,44 +245,142 @@
       object-fit: cover;
     }
 
+    .online-dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      background: #31e981;
+      border-radius: 50%;
+      margin-right: 5px;
+      box-shadow: 0 0 8px #31e981;
+    }
+
     .profile-name {
       margin-top: 13px;
-      font-size: 23px;
+      font-size: 24px;
       font-weight: bold;
     }
 
     .profile-email {
-      color: #aaa;
-      font-size: 13px;
+      color: rgba(255,255,255,.75);
+      font-size: 12px;
       margin-top: 5px;
       word-break: break-all;
     }
 
     .uid {
-      color: #777;
+      color: rgba(255,255,255,.55);
       font-size: 10px;
-      margin-top: 8px;
+      margin-top: 7px;
       word-break: break-all;
     }
 
-    /* LEVEL */
+    .profile-id-badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 6px 11px;
+      border-radius: 20px;
+      background: rgba(0,0,0,.18);
+      font-size: 11px;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      margin-top: -20px;
+      position: relative;
+      z-index: 2;
+      gap: 8px;
+    }
+
+    .profile-stat {
+      padding: 15px 5px;
+      text-align: center;
+      border-radius: 17px;
+      background: rgba(30,10,40,.95);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 8px 25px rgba(0,0,0,.18);
+    }
+
+    .profile-stat strong {
+      display: block;
+      font-size: 19px;
+    }
+
+    .profile-stat span {
+      display: block;
+      margin-top: 4px;
+      color: #999;
+      font-size: 10px;
+    }
+
+    .profile-wallet {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .wallet-box {
+      padding: 17px;
+      border-radius: 19px;
+      min-height: 105px;
+    }
+
+    .wallet-box.coins {
+      background: linear-gradient(135deg,#ffb300,#ff6900);
+    }
+
+    .wallet-box.vip {
+      background: linear-gradient(135deg,#7b2cff,#c000ff);
+    }
+
+    .wallet-icon {
+      font-size: 25px;
+    }
+
+    .wallet-box small {
+      display: block;
+      margin-top: 7px;
+      opacity: .8;
+      font-size: 11px;
+    }
+
+    .wallet-box h3 {
+      margin-top: 4px;
+      font-size: 20px;
+    }
+
+    .recharge-btn {
+      border: none;
+      margin-top: 9px;
+      padding: 7px 11px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.22);
+      color: white;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
     .level-card {
-      background: linear-gradient(135deg, rgba(255,60,172,.18), rgba(120,75,160,.15));
+      margin-top: 12px;
+      background:
+        linear-gradient(135deg,rgba(255,60,172,.17),rgba(120,75,160,.13));
     }
 
     .level-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .level-badge {
-      background: linear-gradient(135deg, #ff3cac, #784ba0);
-      padding: 7px 13px;
+      background: linear-gradient(135deg,#ff3cac,#784ba0);
+      padding: 8px 13px;
       border-radius: 20px;
+      font-size: 12px;
       font-weight: bold;
-      font-size: 13px;
     }
 
     .progress-bg {
@@ -293,7 +394,7 @@
     .progress {
       width: 62%;
       height: 100%;
-      background: linear-gradient(90deg, #ff3cac, #784ba0);
+      background: linear-gradient(90deg,#ff3cac,#784ba0);
       border-radius: 20px;
     }
 
@@ -304,88 +405,16 @@
       text-align: right;
     }
 
-    /* COINS */
-    .coin-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .coin-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .coin-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ffd54a, #ff9d00);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 23px;
-    }
-
-    .coin-number {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .coin-label {
-      color: #999;
-      font-size: 12px;
-      margin-top: 3px;
-    }
-
-    .recharge-btn {
-      border: none;
-      background: #ff3cac;
-      color: white;
-      padding: 9px 12px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    /* STATS */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
-      margin-bottom: 14px;
-    }
-
-    .stat {
-      text-align: center;
-      padding: 15px 5px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 4px;
-    }
-
-    .stat span {
-      color: #999;
-      font-size: 11px;
-    }
-
-    /* PROFILE MENU */
     .menu-title {
-      font-size: 14px;
-      color: #999;
-      margin: 17px 4px 9px;
+      font-size: 12px;
+      color: #888;
+      margin: 19px 4px 8px;
+      letter-spacing: .5px;
     }
 
     .profile-menu {
       overflow: hidden;
-      border-radius: 18px;
+      border-radius: 19px;
       background: rgba(255,255,255,.06);
       border: 1px solid rgba(255,255,255,.08);
     }
@@ -395,7 +424,7 @@
       display: flex;
       align-items: center;
       gap: 13px;
-      padding: 16px;
+      padding: 15px;
       background: transparent;
       color: white;
       border: none;
@@ -408,14 +437,14 @@
     }
 
     .menu-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
       background: rgba(255,255,255,.08);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 19px;
     }
 
     .menu-text {
@@ -430,16 +459,37 @@
     .menu-text span {
       display: block;
       color: #888;
-      font-size: 11px;
+      font-size: 10px;
       margin-top: 3px;
     }
 
     .arrow {
       color: #777;
-      font-size: 18px;
+      font-size: 20px;
     }
 
-    /* BOTTOM NAV */
+    /* ================= EVENTS ================= */
+
+    .event-card {
+      padding: 20px;
+      border-radius: 20px;
+      background: linear-gradient(135deg,rgba(255,60,172,.18),rgba(120,75,160,.15));
+      border: 1px solid rgba(255,255,255,.08);
+      margin-bottom: 13px;
+    }
+
+    .event-card h3 {
+      margin-bottom: 7px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px 10px;
+      color: #777;
+    }
+
+    /* ================= BOTTOM NAV ================= */
+
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -449,8 +499,8 @@
       max-width: 600px;
       height: 72px;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      background: rgba(14, 5, 20, .96);
+      grid-template-columns: repeat(4,1fr);
+      background: rgba(14,5,20,.96);
       border-top: 1px solid rgba(255,255,255,.1);
       backdrop-filter: blur(15px);
       z-index: 100;
@@ -476,32 +526,9 @@
       font-size: 21px;
     }
 
-    .empty {
-      text-align: center;
-      padding: 30px 10px;
-      color: #777;
-    }
-
-    /* EVENT */
-    .event-card {
-      padding: 20px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(255,60,172,.18), rgba(120,75,160,.15));
-      border: 1px solid rgba(255,255,255,.08);
-      margin-bottom: 13px;
-    }
-
-    .event-card h3 {
-      margin-bottom: 7px;
-    }
-
-    @media (max-width: 400px) {
+    @media (max-width:400px) {
       .page {
         padding: 14px;
-      }
-
-      .profile-name {
-        font-size: 21px;
       }
     }
   </style>
@@ -511,7 +538,8 @@
 
 <div class="app">
 
-  <!-- HOME -->
+  <!-- ================= HOME ================= -->
+
   <div id="homePage" class="page active">
 
     <div class="top">
@@ -525,6 +553,7 @@
 
     <div class="welcome">
       <h2 id="welcomeText">Welcome to Tannu ❤️</h2>
+
       <p class="muted">
         Join voice rooms and meet new people.
       </p>
@@ -532,6 +561,7 @@
 
     <div class="card">
       <h3>🔥 Popular Rooms</h3>
+
       <p class="muted">
         Join a live room and start talking.
       </p>
@@ -544,7 +574,8 @@
   </div>
 
 
-  <!-- ROOMS -->
+  <!-- ================= ROOMS ================= -->
+
   <div id="roomsPage" class="page">
 
     <div class="top">
@@ -562,11 +593,27 @@
     >
 
     <div class="categories">
-      <button class="category active">Popular</button>
-      <button class="category">New</button>
-      <button class="category">Friends</button>
-      <button class="category">Music</button>
-      <button class="category">Chat</button>
+
+      <button class="category active">
+        Popular
+      </button>
+
+      <button class="category">
+        New
+      </button>
+
+      <button class="category">
+        Friends
+      </button>
+
+      <button class="category">
+        Music
+      </button>
+
+      <button class="category">
+        Chat
+      </button>
+
     </div>
 
     <div id="roomsList">
@@ -576,7 +623,8 @@
   </div>
 
 
-  <!-- EVENTS -->
+  <!-- ================= EVENTS ================= -->
+
   <div id="eventsPage" class="page">
 
     <div class="top">
@@ -588,6 +636,7 @@
 
     <div class="event-card">
       <h3>🎁 Daily Rewards</h3>
+
       <p class="muted">
         Complete daily activities and earn rewards.
       </p>
@@ -595,6 +644,7 @@
 
     <div class="event-card">
       <h3>🎡 Free Spin</h3>
+
       <p class="muted">
         Free spin system will be added soon.
       </p>
@@ -602,6 +652,7 @@
 
     <div class="event-card">
       <h3>🏆 Special Events</h3>
+
       <p class="muted">
         More exciting events are coming to Tannu Voice Chat.
       </p>
@@ -610,18 +661,15 @@
   </div>
 
 
-  <!-- PROFILE -->
+  <!-- ================= PROFILE ================= -->
+
   <div id="profilePage" class="page">
 
-    <div class="top">
-      <div>
-        <h2>My Profile 👤</h2>
-        <p>Your Tannu Voice Chat profile</p>
-      </div>
-    </div>
+    <div class="profile-cover">
 
-    <!-- PROFILE HERO -->
-    <div class="profile-hero">
+      <div class="profile-cover-title">
+        TANNU VOICE CHAT
+      </div>
 
       <div class="profile-avatar" id="profileBig">
         T
@@ -632,11 +680,16 @@
       </div>
 
       <div class="profile-email" id="profileEmail">
-        Please login to see your profile.
+        Login to your account
       </div>
 
       <div class="uid" id="profileUid">
-        Not logged in
+        ID: Not logged in
+      </div>
+
+      <div class="profile-id-badge">
+        <span class="online-dot"></span>
+        Online
       </div>
 
       <button class="login-btn" id="profileLoginBtn">
@@ -646,18 +699,94 @@
     </div>
 
 
+    <!-- STATS -->
+
+    <div class="profile-stats">
+
+      <div class="profile-stat">
+        <strong>0</strong>
+        <span>Following</span>
+      </div>
+
+      <div class="profile-stat">
+        <strong>0</strong>
+        <span>Followers</span>
+      </div>
+
+      <div class="profile-stat">
+        <strong>0</strong>
+        <span>Visitors</span>
+      </div>
+
+    </div>
+
+
+    <!-- WALLET -->
+
+    <div class="profile-wallet">
+
+      <div class="wallet-box coins">
+
+        <div class="wallet-icon">
+          🪙
+        </div>
+
+        <small>MY COINS</small>
+
+        <h3>
+          100,000
+        </h3>
+
+        <button
+          class="recharge-btn"
+          onclick="showComingSoon('Recharge')">
+          + Recharge
+        </button>
+
+      </div>
+
+
+      <div class="wallet-box vip">
+
+        <div class="wallet-icon">
+          👑
+        </div>
+
+        <small>VIP STATUS</small>
+
+        <h3>
+          VIP 0
+        </h3>
+
+        <button
+          class="recharge-btn"
+          onclick="showComingSoon('VIP Center')">
+          Open VIP
+        </button>
+
+      </div>
+
+    </div>
+
+
     <!-- LEVEL -->
+
     <div class="card level-card">
 
       <div class="level-row">
+
         <div>
-          <strong>Level Progress</strong>
-          <div class="muted">Keep enjoying Tannu Voice Chat</div>
+          <strong>⭐ My Level</strong>
+
+          <div class="muted">
+            Keep enjoying Tannu Voice Chat
+          </div>
         </div>
 
         <div class="level-badge">
-          LV 5
+          LEVEL 5
         </div>
+
       </div>
 
       <div class="progress-bg">
@@ -671,63 +800,17 @@
     </div>
 
 
-    <!-- COINS -->
-    <div class="card coin-card">
-
-      <div class="coin-left">
-
-        <div class="coin-icon">
-          🪙
-        </div>
-
-        <div>
-          <div class="coin-number">
-            100,000
-          </div>
-
-          <div class="coin-label">
-            My Coins
-          </div>
-        </div>
-
-      </div>
-
-      <button class="recharge-btn" onclick="showComingSoon('Recharge')">
-        Recharge
-      </button>
-
-    </div>
-
-
-    <!-- STATS -->
-    <div class="stats">
-
-      <div class="stat">
-        <strong>0</strong>
-        <span>Following</span>
-      </div>
-
-      <div class="stat">
-        <strong>0</strong>
-        <span>Followers</span>
-      </div>
-
-      <div class="stat">
-        <strong>0</strong>
-        <span>Visitors</span>
-      </div>
-
-    </div>
-
-
     <!-- ACCOUNT -->
+
     <div class="menu-title">
       MY ACCOUNT
     </div>
 
     <div class="profile-menu">
 
-      <button class="menu-item" onclick="showComingSoon('My Gifts')">
+      <button
+        class="menu-item"
+        onclick="showComingSoon('My Gifts')">
 
         <div class="menu-icon">
           🎁
@@ -735,17 +818,17 @@
 
         <div class="menu-text">
           <strong>My Gifts</strong>
-          <span>View your received gifts</span>
+          <span>View received gifts</span>
         </div>
 
-        <div class="arrow">
-          ›
-        </div>
+        <div class="arrow">›</div>
 
       </button>
 
 
-      <button class="menu-item" onclick="showComingSoon('VIP Center')">
+      <button
+        class="menu-item"
+        onclick="showComingSoon('VIP Center')">
 
         <div class="menu-icon">
           👑
@@ -756,14 +839,14 @@
           <span>VIP benefits and membership</span>
         </div>
 
-        <div class="arrow">
-          ›
-        </div>
+        <div class="arrow">›</div>
 
       </button>
 
 
-      <button class="menu-item" onclick="showComingSoon('Level & Rewards')">
+      <button
+        class="menu-item"
+        onclick="showComingSoon('Level & Rewards')">
 
         <div class="menu-icon">
           🏆
@@ -771,26 +854,27 @@
 
         <div class="menu-text">
           <strong>Level & Rewards</strong>
-          <span>Check your level rewards</span>
+          <span>Check your rewards</span>
         </div>
 
-        <div class="arrow">
-          ›
-        </div>
+        <div class="arrow">›</div>
 
       </button>
 
     </div>
 
 
-    <!-- SETTINGS -->
+    <!-- MORE -->
+
     <div class="menu-title">
       MORE
     </div>
 
     <div class="profile-menu">
 
-      <button class="menu-item" onclick="showComingSoon('Settings')">
+      <button
+        class="menu-item"
+        onclick="showComingSoon('Settings')">
 
         <div class="menu-icon">
           ⚙️
@@ -801,14 +885,14 @@
           <span>Account and app settings</span>
         </div>
 
-        <div class="arrow">
-          ›
-        </div>
+        <div class="arrow">›</div>
 
       </button>
 
 
-      <button class="menu-item" onclick="showComingSoon('Help & Support')">
+      <button
+        class="menu-item"
+        onclick="showComingSoon('Help & Support')">
 
         <div class="menu-icon">
           🆘
@@ -819,9 +903,7 @@
           <span>Contact Tannu support team</span>
         </div>
 
-        <div class="arrow">
-          ›
-        </div>
+        <div class="arrow">›</div>
 
       </button>
 
@@ -832,7 +914,8 @@
 </div>
 
 
-<!-- BOTTOM NAV -->
+<!-- ================= BOTTOM NAV ================= -->
+
 <div class="bottom-nav">
 
   <button class="nav-btn active" data-page="homePage">
@@ -858,7 +941,8 @@
 </div>
 
 
-<!-- FIREBASE -->
+<!-- ================= FIREBASE ================= -->
+
 <script type="module">
 
   import { initializeApp }
@@ -871,38 +955,51 @@
     signOut,
     onAuthStateChanged
   }
-  from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
   import {
     getFirestore,
     collection,
     getDocs
   }
-  from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+    from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-
-  /* FIREBASE CONFIG */
 
   const firebaseConfig = {
-    apiKey: "AIzaSyAc7BBnG5zzAmB4Mx-3haVwE0aob5HlVc",
-    authDomain: "tannu-voice-chat.firebaseapp.com",
-    projectId: "tannu-voice-chat",
-    storageBucket: "tannu-voice-chat.firebasestorage.app",
-    messagingSenderId: "720483733073",
-    appId: "1:720483733073:web:c65b96d255d6177b9d7270"
+
+    apiKey:
+      "AIzaSyAc7BBnG5zzAmB4Mx-3haVwE0aob5HlVc",
+
+    authDomain:
+      "tannu-voice-chat.firebaseapp.com",
+
+    projectId:
+      "tannu-voice-chat",
+
+    storageBucket:
+      "tannu-voice-chat.firebasestorage.app",
+
+    messagingSenderId:
+      "720483733073",
+
+    appId:
+      "1:720483733073:web:c65b96d255d6177b9d7270"
+
   };
 
 
-  const app = initializeApp(firebaseConfig);
+  const app =
+    initializeApp(firebaseConfig);
 
-  const auth = getAuth(app);
+  const auth =
+    getAuth(app);
 
-  const db = getFirestore(app);
+  const db =
+    getFirestore(app);
 
-  const provider = new GoogleAuthProvider();
+  const provider =
+    new GoogleAuthProvider();
 
-
-  /* ELEMENTS */
 
   const welcomeText =
     document.getElementById("welcomeText");
@@ -923,20 +1020,24 @@
     document.getElementById("profileLoginBtn");
 
 
-  /* GOOGLE LOGIN */
+  /* LOGIN */
 
   async function login() {
 
     try {
 
-      await signInWithPopup(auth, provider);
+      await signInWithPopup(
+        auth,
+        provider
+      );
 
     } catch (error) {
 
       console.error(error);
 
       alert(
-        "Login failed: " + error.message
+        "Login failed: " +
+        error.message
       );
 
     }
@@ -957,7 +1058,8 @@
       console.error(error);
 
       alert(
-        "Logout failed: " + error.message
+        "Logout failed: " +
+        error.message
       );
 
     }
@@ -965,89 +1067,103 @@
   }
 
 
-  /* AUTH STATE */
+  /* AUTH */
 
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(
+    auth,
+    (user) => {
 
-    if (user) {
+      if (user) {
 
-      const name =
-        user.displayName || "Tannu User";
+        const name =
+          user.displayName ||
+          "Tannu User";
 
-      const email =
-        user.email || "";
+        const email =
+          user.email || "";
 
-      const uid =
-        user.uid || "";
-
-      welcomeText.textContent =
-        "Welcome " + name + " ❤️";
-
-      profileName.textContent =
-        name;
-
-      profileEmail.textContent =
-        email;
-
-      profileUid.textContent =
-        "UID: " + uid;
+        const uid =
+          user.uid || "";
 
 
-      /* PROFILE PHOTO */
+        welcomeText.textContent =
+          "Welcome " +
+          name +
+          " ❤️";
 
-      if (user.photoURL) {
 
-        profileBig.innerHTML =
-          `<img src="${user.photoURL}" alt="Profile">`;
+        profileName.textContent =
+          name;
+
+
+        profileEmail.textContent =
+          email;
+
+
+        profileUid.textContent =
+          "ID: " + uid;
+
+
+        if (user.photoURL) {
+
+          profileBig.innerHTML =
+            `<img src="${user.photoURL}" alt="Profile">`;
+
+        } else {
+
+          profileBig.textContent =
+            name
+              .charAt(0)
+              .toUpperCase();
+
+        }
+
+
+        profileLoginBtn.textContent =
+          "Logout";
+
+        profileLoginBtn.className =
+          "logout-btn";
+
+        profileLoginBtn.onclick =
+          logout;
 
       } else {
 
+        welcomeText.textContent =
+          "Welcome to Tannu ❤️";
+
+
+        profileName.textContent =
+          "Guest User";
+
+
+        profileEmail.textContent =
+          "Login to your account";
+
+
+        profileUid.textContent =
+          "ID: Not logged in";
+
+
         profileBig.textContent =
-          name.charAt(0).toUpperCase();
+          "T";
+
+
+        profileLoginBtn.textContent =
+          "Login with Google";
+
+
+        profileLoginBtn.className =
+          "login-btn";
+
+        profileLoginBtn.onclick =
+          login;
 
       }
 
-
-      /* CHANGE BUTTON TO LOGOUT */
-
-      profileLoginBtn.textContent =
-        "Logout";
-
-      profileLoginBtn.className =
-        "logout-btn";
-
-      profileLoginBtn.onclick =
-        logout;
-
-    } else {
-
-      welcomeText.textContent =
-        "Welcome to Tannu ❤️";
-
-      profileName.textContent =
-        "Guest User";
-
-      profileEmail.textContent =
-        "Please login to see your profile.";
-
-      profileUid.textContent =
-        "Not logged in";
-
-      profileBig.textContent =
-        "T";
-
-      profileLoginBtn.textContent =
-        "Login with Google";
-
-      profileLoginBtn.className =
-        "login-btn";
-
-      profileLoginBtn.onclick =
-        login;
-
     }
-
-  });
+  );
 
 
   /* LOAD ROOMS */
@@ -1055,10 +1171,15 @@
   async function loadRooms() {
 
     const homeRooms =
-      document.getElementById("homeRooms");
+      document.getElementById(
+        "homeRooms"
+      );
 
     const roomsList =
-      document.getElementById("roomsList");
+      document.getElementById(
+        "roomsList"
+      );
+
 
     try {
 
@@ -1086,35 +1207,44 @@
       roomsList.innerHTML = "";
 
 
-      snapshot.forEach((docSnap) => {
+      snapshot.forEach(
+        (docSnap) => {
 
-        const room =
-          docSnap.data();
+          const room =
+            docSnap.data();
 
-        const roomId =
-          docSnap.id;
-
-
-        const card =
-          createRoomCard(room, roomId);
+          const roomId =
+            docSnap.id;
 
 
-        homeRooms.appendChild(
-          card.cloneNode(true)
-        );
+          const card =
+            createRoomCard(
+              room,
+              roomId
+            );
 
-        roomsList.appendChild(
-          card
-        );
 
-      });
+          homeRooms.appendChild(
+            card.cloneNode(true)
+          );
+
+
+          roomsList.appendChild(
+            card
+          );
+
+        }
+      );
+
 
     } catch (error) {
 
       console.error(error);
 
+
       homeRooms.innerHTML =
         '<div class="empty">Unable to load rooms.</div>';
+
 
       roomsList.innerHTML =
         '<div class="empty">Unable to load rooms.</div>';
@@ -1124,9 +1254,12 @@
   }
 
 
-  /* CREATE ROOM CARD */
+  /* ROOM CARD */
 
-  function createRoomCard(room, roomId) {
+  function createRoomCard(
+    room,
+    roomId
+  ) {
 
     const div =
       document.createElement("div");
@@ -1134,17 +1267,22 @@
     div.className =
       "room-card";
 
+
     const name =
-      room.name || "Tannu Room";
+      room.name ||
+      "Tannu Room";
 
     const host =
-      room.host || "Host";
+      room.host ||
+      "Host";
 
     const status =
-      room.status || "live";
+      room.status ||
+      "live";
 
     const users =
-      room.users || 0;
+      room.users ||
+      0;
 
 
     div.innerHTML = `
@@ -1163,10 +1301,18 @@
           Host: ${host}
         </p>
 
-        <p class="${status === "live" ? "live" : ""}">
+        <p class="${
+          status === "live"
+            ? "live"
+            : ""
+        }">
+
           ● ${status.toUpperCase()}
+
           &nbsp; • &nbsp;
+
           👥 ${users}
+
         </p>
 
       </div>
@@ -1178,14 +1324,20 @@
     `;
 
 
-    div.querySelector(".join-btn")
-      .addEventListener("click", () => {
+    div
+      .querySelector(".join-btn")
+      .addEventListener(
+        "click",
+        () => {
 
-        window.location.href =
-          "voice-room.html?room=" +
-          encodeURIComponent(roomId);
+          window.location.href =
+            "voice-room.html?room=" +
+            encodeURIComponent(
+              roomId
+            );
 
-      });
+        }
+      );
 
 
     return div;
@@ -1193,94 +1345,127 @@
   }
 
 
-  /* SEARCH ROOMS */
+  /* SEARCH */
 
   document
     .getElementById("roomSearch")
-    .addEventListener("input", function () {
+    .addEventListener(
+      "input",
+      function () {
 
-      const search =
-        this.value.toLowerCase();
-
-      document
-        .querySelectorAll("#roomsList .room-card")
-        .forEach(card => {
-
-          const text =
-            card.textContent.toLowerCase();
-
-          card.style.display =
-            text.includes(search)
-              ? "flex"
-              : "none";
-
-        });
-
-    });
+        const search =
+          this.value.toLowerCase();
 
 
-  /* CATEGORY BUTTONS */
+        document
+          .querySelectorAll(
+            "#roomsList .room-card"
+          )
+          .forEach(
+            card => {
+
+              const text =
+                card.textContent
+                  .toLowerCase();
+
+
+              card.style.display =
+                text.includes(search)
+                  ? "flex"
+                  : "none";
+
+            }
+          );
+
+      }
+    );
+
+
+  /* CATEGORY */
 
   document
     .querySelectorAll(".category")
-    .forEach(button => {
+    .forEach(
+      button => {
 
-      button.addEventListener("click", () => {
+        button.addEventListener(
+          "click",
+          () => {
 
-        document
-          .querySelectorAll(".category")
-          .forEach(btn =>
-            btn.classList.remove("active")
-          );
-
-        button.classList.add("active");
-
-      });
-
-    });
+            document
+              .querySelectorAll(
+                ".category"
+              )
+              .forEach(
+                btn =>
+                  btn.classList
+                    .remove("active")
+              );
 
 
-  /* BOTTOM NAV */
+            button.classList
+              .add("active");
+
+          }
+        );
+
+      }
+    );
+
+
+  /* NAVIGATION */
 
   document
     .querySelectorAll(".nav-btn")
-    .forEach(button => {
+    .forEach(
+      button => {
 
-      button.addEventListener("click", () => {
+        button.addEventListener(
+          "click",
+          () => {
 
-        const pageId =
-          button.dataset.page;
-
-
-        document
-          .querySelectorAll(".page")
-          .forEach(page =>
-            page.classList.remove("active")
-          );
+            const pageId =
+              button.dataset.page;
 
 
-        document
-          .getElementById(pageId)
-          .classList.add("active");
+            document
+              .querySelectorAll(".page")
+              .forEach(
+                page =>
+                  page.classList
+                    .remove("active")
+              );
 
 
-        document
-          .querySelectorAll(".nav-btn")
-          .forEach(btn =>
-            btn.classList.remove("active")
-          );
+            document
+              .getElementById(pageId)
+              .classList
+              .add("active");
 
 
-        button.classList.add("active");
+            document
+              .querySelectorAll(".nav-btn")
+              .forEach(
+                btn =>
+                  btn.classList
+                    .remove("active")
+              );
 
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
 
-      });
+            button.classList
+              .add("active");
 
-    });
+
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+
+          }
+        );
+
+      }
+    );
 
 
   /* START */
