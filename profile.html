@@ -87,6 +87,7 @@ button{
   justify-content:center;
   gap:6px;
   margin-top:10px;
+  flex-wrap:wrap;
 }
 
 .badge{
@@ -97,7 +98,7 @@ button{
   color:#d8b7ff;
 }
 
-/* COINS */
+/* WALLET */
 
 .wallet{
   margin:10px 15px;
@@ -203,6 +204,7 @@ button{
   height:100%;
   background:linear-gradient(90deg,#8144e8,#d16bff);
   border-radius:10px;
+  transition:.4s;
 }
 
 .level-bottom{
@@ -219,60 +221,6 @@ button{
   font-size:15px;
   font-weight:bold;
   padding:12px 15px 7px;
-}
-
-/* MENU */
-
-.menu{
-  margin:0 15px;
-  border-radius:17px;
-  overflow:hidden;
-  background:#171022;
-  border:1px solid #2c2140;
-}
-
-.item{
-  min-height:58px;
-  display:flex;
-  align-items:center;
-  padding:10px 13px;
-  border-bottom:1px solid #282039;
-}
-
-.item:last-child{
-  border:0;
-}
-
-.icon{
-  width:38px;
-  height:38px;
-  border-radius:11px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#281a3c;
-  font-size:18px;
-  margin-right:12px;
-}
-
-.item-info{
-  flex:1;
-}
-
-.item-info b{
-  font-size:13px;
-}
-
-.item-info span{
-  display:block;
-  color:#81768d;
-  font-size:10px;
-  margin-top:3px;
-}
-
-.arrow{
-  color:#71657d;
-  font-size:18px;
 }
 
 /* VIP */
@@ -380,6 +328,8 @@ button{
   background:#7540c2;
 }
 
+/* BUTTON */
+
 .claim{
   width:100%;
   margin-top:12px;
@@ -436,6 +386,61 @@ button{
   font-weight:bold;
 }
 
+/* MENU */
+
+.menu{
+  margin:0 15px;
+  border-radius:17px;
+  overflow:hidden;
+  background:#171022;
+  border:1px solid #2c2140;
+}
+
+.item{
+  min-height:58px;
+  display:flex;
+  align-items:center;
+  padding:10px 13px;
+  border-bottom:1px solid #282039;
+  cursor:pointer;
+}
+
+.item:last-child{
+  border:0;
+}
+
+.icon{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#281a3c;
+  font-size:18px;
+  margin-right:12px;
+}
+
+.item-info{
+  flex:1;
+}
+
+.item-info b{
+  font-size:13px;
+}
+
+.item-info span{
+  display:block;
+  color:#81768d;
+  font-size:10px;
+  margin-top:3px;
+}
+
+.arrow{
+  color:#71657d;
+  font-size:18px;
+}
+
 /* NAV */
 
 .nav{
@@ -484,6 +489,8 @@ button{
 .modal-box{
   width:100%;
   max-width:600px;
+  max-height:85vh;
+  overflow:auto;
   background:#1a1128;
   border-radius:25px 25px 0 0;
   padding:20px;
@@ -540,6 +547,55 @@ button{
   color:white;
 }
 
+/* POPUP CONTENT */
+
+.popup-text{
+  color:#aaa;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.popup-list{
+  margin-top:12px;
+}
+
+.popup-row{
+  display:flex;
+  align-items:center;
+  padding:12px;
+  margin-bottom:7px;
+  background:#251837;
+  border-radius:12px;
+}
+
+.popup-row .big{
+  font-size:23px;
+  width:42px;
+}
+
+.popup-row div:nth-child(2){
+  flex:1;
+}
+
+.popup-row b{
+  font-size:13px;
+}
+
+.popup-row span{
+  display:block;
+  color:#888;
+  font-size:10px;
+  margin-top:3px;
+}
+
+.small-btn{
+  background:#8142dc;
+  color:white;
+  padding:7px 10px;
+  border-radius:8px;
+  font-size:10px;
+}
+
 /* TOAST */
 
 .toast{
@@ -554,6 +610,25 @@ button{
   font-size:12px;
   display:none;
   z-index:100;
+  white-space:nowrap;
+}
+
+@media(max-width:400px){
+  .days{
+    gap:3px;
+  }
+
+  .day{
+    font-size:8px;
+  }
+
+  .spin{
+    gap:8px;
+  }
+
+  .spin-text p{
+    font-size:9px;
+  }
 }
 </style>
 </head>
@@ -562,12 +637,9 @@ button{
 
 <div class="app">
 
-  <!-- HEADER -->
-
   <div class="header">
     <h2>My Profile</h2>
   </div>
-
 
   <!-- PROFILE -->
 
@@ -587,7 +659,6 @@ button{
 
   </div>
 
-
   <!-- WALLET -->
 
   <div class="wallet">
@@ -596,9 +667,7 @@ button{
 
       <div>
         <div class="wallet-title">My Coins</div>
-        <div class="coins" id="coins">
-          100,000 🪙
-        </div>
+        <div class="coins" id="coins">100,000 🪙</div>
       </div>
 
       <button class="recharge" onclick="openRecharge()">
@@ -608,7 +677,6 @@ button{
     </div>
 
   </div>
-
 
   <!-- STATS -->
 
@@ -631,34 +699,32 @@ button{
 
   </div>
 
-
   <!-- LEVEL -->
 
   <div class="level-card">
 
     <div class="level-top">
 
-      <div class="level">
+      <div class="level" id="levelText">
         ⭐ Level 5
       </div>
 
-      <div class="exp">
+      <div class="exp" id="expText">
         6,200 / 10,000 EXP
       </div>
 
     </div>
 
     <div class="progress">
-      <div class="progress-bar"></div>
+      <div class="progress-bar" id="progressBar"></div>
     </div>
 
     <div class="level-bottom">
       <span>Current Level</span>
-      <span>Next: Level 6</span>
+      <span id="nextLevel">Next: Level 6</span>
     </div>
 
   </div>
-
 
   <!-- VIP -->
 
@@ -670,17 +736,16 @@ button{
 
     <div class="vip-top">
 
-      <div class="vip-icon">
-        👑
-      </div>
+      <div class="vip-icon">👑</div>
 
       <div class="vip-text">
-        <h3>VIP 0</h3>
-        <p>Unlock VIP benefits and special rewards</p>
+        <h3 id="vipTitle">VIP 0</h3>
+        <p id="vipDescription">
+          Unlock VIP benefits and special rewards
+        </p>
       </div>
 
-      <button class="vip-button"
-              onclick="showToast('VIP Center opening soon')">
+      <button class="vip-button" onclick="openVIP()">
         VIEW
       </button>
 
@@ -688,8 +753,7 @@ button{
 
   </div>
 
-
-  <!-- DAILY REWARDS -->
+  <!-- DAILY -->
 
   <div class="title">
     🎁 Daily Rewards
@@ -699,7 +763,7 @@ button{
 
     <div class="daily-head">
       <h3>7 Day Rewards</h3>
-      <span>Day 4 / 7</span>
+      <span id="dayStatus">Day 4 / 7</span>
     </div>
 
     <div class="days">
@@ -741,14 +805,13 @@ button{
 
     </div>
 
-    <button class="claim" onclick="claimDaily()">
+    <button class="claim" id="claimButton" onclick="claimDaily()">
       Claim Today's Reward
     </button>
 
   </div>
 
-
-  <!-- FREE SPIN -->
+  <!-- SPIN -->
 
   <div class="title">
     🎡 Free Spin
@@ -762,7 +825,9 @@ button{
 
     <div class="spin-text">
       <b>Free Daily Spin</b>
-      <p>Use your free spin and win coins & rewards</p>
+      <p id="spinText">
+        5 free spins available today
+      </p>
     </div>
 
     <button class="spin-btn" onclick="spinWheel()">
@@ -771,8 +836,7 @@ button{
 
   </div>
 
-
-  <!-- MENU -->
+  <!-- ACCOUNT -->
 
   <div class="title">
     📦 My Account
@@ -780,93 +844,63 @@ button{
 
   <div class="menu">
 
-    <div class="item" onclick="showToast('My Gifts opening soon')">
-
+    <div class="item" onclick="openGifts()">
       <div class="icon">🎁</div>
-
       <div class="item-info">
         <b>My Gifts</b>
         <span>View received gifts</span>
       </div>
-
       <div class="arrow">›</div>
-
     </div>
 
-
-    <div class="item" onclick="showToast('Level & Rewards opening soon')">
-
+    <div class="item" onclick="openLevels()">
       <div class="icon">⭐</div>
-
       <div class="item-info">
         <b>Level & Rewards</b>
         <span>See your level rewards</span>
       </div>
-
       <div class="arrow">›</div>
-
     </div>
 
-
-    <div class="item" onclick="showToast('Visitor list opening soon')">
-
+    <div class="item" onclick="openVisitors()">
       <div class="icon">👀</div>
-
       <div class="item-info">
         <b>Visitors</b>
         <span>People who visited your profile</span>
       </div>
-
       <div class="arrow">›</div>
-
     </div>
 
-
-    <div class="item" onclick="showToast('Family system coming soon')">
-
+    <div class="item" onclick="openFamily()">
       <div class="icon">👨‍👩‍👧</div>
-
       <div class="item-info">
         <b>My Family</b>
         <span>Join and manage your family</span>
       </div>
-
       <div class="arrow">›</div>
-
     </div>
 
-
-    <div class="item" onclick="showToast('Settings opening soon')">
-
+    <div class="item" onclick="openSettings()">
       <div class="icon">⚙️</div>
-
       <div class="item-info">
         <b>Settings</b>
         <span>Account and privacy settings</span>
       </div>
-
       <div class="arrow">›</div>
-
     </div>
 
-
-    <div class="item" onclick="showToast('Help & Support opening soon')">
-
+    <div class="item" onclick="openSupport()">
       <div class="icon">🎧</div>
-
       <div class="item-info">
         <b>Help & Support</b>
         <span>Contact Tannu support team</span>
       </div>
-
       <div class="arrow">›</div>
-
     </div>
 
   </div>
 
 </div>
-
 
 <!-- BOTTOM NAV -->
 
@@ -882,7 +916,7 @@ button{
     Rooms
   </button>
 
-  <button onclick="showToast('Events opening soon')">
+  <button onclick="goEvents()">
     <span>🎉</span>
     Events
   </button>
@@ -894,8 +928,7 @@ button{
 
 </div>
 
-
-<!-- RECHARGE MODAL -->
+<!-- RECHARGE -->
 
 <div class="modal" id="rechargeModal">
 
@@ -910,7 +943,9 @@ button{
         </p>
       </div>
 
-      <button class="close" onclick="closeRecharge()">×</button>
+      <button class="close" onclick="closeModal('rechargeModal')">
+        ×
+      </button>
 
     </div>
 
@@ -954,36 +989,225 @@ button{
 
 </div>
 
+<!-- GENERAL MODAL -->
+
+<div class="modal" id="generalModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h3 id="modalTitle">Tannu Voice Chat</h3>
+
+      <button class="close" onclick="closeModal('generalModal')">
+        ×
+      </button>
+
+    </div>
+
+    <div id="modalContent"></div>
+
+  </div>
+
+</div>
 
 <!-- TOAST -->
 
 <div class="toast" id="toast"></div>
 
-
 <script>
 
-let coins = 100000;
+/* =========================
+   APP DATA
+========================= */
 
-let spinAvailable = true;
+const defaultData = {
+  coins:100000,
+  exp:6200,
+  level:5,
+  dailyClaimed:false,
+  spinCount:0,
+  lastSpinDate:"",
+  lastDailyDate:"",
+  vip:0
+};
 
-let dailyClaimed = false;
+let data = loadData();
 
+function loadData(){
 
-/* -------------------------
-   COINS DISPLAY
--------------------------- */
+  try{
 
-function updateCoins(){
+    const saved = localStorage.getItem("tannuProfileData");
 
-  document.getElementById("coins").textContent =
-    coins.toLocaleString()+" 🪙";
+    if(saved){
+      return {...defaultData,...JSON.parse(saved)};
+    }
+
+  }catch(error){
+    console.log(error);
+  }
+
+  return {...defaultData};
+}
+
+function saveData(){
+
+  localStorage.setItem(
+    "tannuProfileData",
+    JSON.stringify(data)
+  );
 
 }
 
 
-/* -------------------------
+/* =========================
+   DATE
+========================= */
+
+function today(){
+
+  const d = new Date();
+
+  return d.getFullYear()+"-"+
+         String(d.getMonth()+1).padStart(2,"0")+"-"+
+         String(d.getDate()).padStart(2,"0");
+
+}
+
+
+/* =========================
+   RESET DAILY DATA
+========================= */
+
+function checkDailyReset(){
+
+  const current = today();
+
+  if(data.lastSpinDate !== current){
+
+    data.spinCount = 0;
+    data.lastSpinDate = current;
+
+  }
+
+  if(data.lastDailyDate !== current){
+
+    data.dailyClaimed = false;
+
+  }
+
+  saveData();
+
+}
+
+
+/* =========================
+   UPDATE UI
+========================= */
+
+function updateUI(){
+
+  checkDailyReset();
+
+  document.getElementById("coins").textContent =
+    data.coins.toLocaleString()+" 🪙";
+
+  document.getElementById("levelText").textContent =
+    "⭐ Level "+data.level;
+
+  document.getElementById("expText").textContent =
+    data.exp.toLocaleString()+" / 10,000 EXP";
+
+  const percent =
+    Math.min((data.exp/10000)*100,100);
+
+  document.getElementById("progressBar").style.width =
+    percent+"%";
+
+  document.getElementById("nextLevel").textContent =
+    "Next: Level "+(data.level+1);
+
+  document.querySelector(".badges .badge").textContent =
+    "⭐ Level "+data.level;
+
+  document.getElementById("spinText").textContent =
+    Math.max(0,5-data.spinCount)+
+    " free spins available today";
+
+  if(data.dailyClaimed){
+
+    document.getElementById("claimButton").textContent =
+      "✓ Today's Reward Claimed";
+
+    document.getElementById("claimButton").style.opacity =
+      ".55";
+
+  }else{
+
+    document.getElementById("claimButton").textContent =
+      "Claim Today's Reward";
+
+    document.getElementById("claimButton").style.opacity =
+      "1";
+
+  }
+
+  if(data.vip > 0){
+
+    document.getElementById("vipTitle").textContent =
+      "VIP "+data.vip;
+
+    document.getElementById("vipDescription").textContent =
+      "VIP benefits are active";
+
+  }
+
+}
+
+
+/* =========================
+   COINS
+========================= */
+
+function addCoins(amount){
+
+  data.coins += amount;
+
+  saveData();
+  updateUI();
+
+}
+
+
+/* =========================
+   EXP
+========================= */
+
+function addEXP(amount){
+
+  data.exp += amount;
+
+  if(data.exp >= 10000){
+
+    data.exp -= 10000;
+    data.level++;
+
+    showToast(
+      "🎉 Level Up! You are now Level "+data.level
+    );
+
+  }
+
+  saveData();
+  updateUI();
+
+}
+
+
+/* =========================
    RECHARGE
--------------------------- */
+========================= */
 
 function openRecharge(){
 
@@ -992,62 +1216,67 @@ function openRecharge(){
 
 }
 
-function closeRecharge(){
-
-  document.getElementById("rechargeModal")
-    .style.display="none";
-
-}
-
 function buyCoins(amount){
 
-  closeRecharge();
+  closeModal("rechargeModal");
 
   showToast(
-    "Selected "+amount.toLocaleString()+" coins. Payment coming soon."
+    "🪙 "+amount.toLocaleString()+
+    " coins package selected. Payment coming soon."
   );
 
 }
 
 
-/* -------------------------
+/* =========================
    DAILY REWARD
--------------------------- */
+========================= */
 
 function claimDaily(){
 
-  if(dailyClaimed){
+  checkDailyReset();
+
+  if(data.dailyClaimed){
 
     showToast("Today's reward already claimed");
+
     return;
 
   }
 
-  coins += 5000;
+  addCoins(5000);
+  addEXP(100);
 
-  dailyClaimed=true;
+  data.dailyClaimed=true;
+  data.lastDailyDate=today();
 
-  updateCoins();
+  saveData();
+  updateUI();
 
-  showToast("🎁 5,000 coins claimed!");
+  showToast(
+    "🎁 5,000 coins + 100 EXP claimed!"
+  );
 
 }
 
 
-/* -------------------------
+/* =========================
    FREE SPIN
--------------------------- */
+========================= */
 
 function spinWheel(){
 
-  if(!spinAvailable){
+  checkDailyReset();
 
-    showToast("No free spin available");
+  if(data.spinCount >= 5){
+
+    showToast("❌ Today's 5 free spins are finished");
+
     return;
 
   }
 
-  spinAvailable=false;
+  data.spinCount++;
 
   const rewards=[
     100,
@@ -1060,20 +1289,402 @@ function spinWheel(){
   const reward =
     rewards[Math.floor(Math.random()*rewards.length)];
 
-  coins += reward;
+  addCoins(reward);
+  addEXP(25);
 
-  updateCoins();
+  saveData();
+  updateUI();
 
   showToast(
-    "🎉 You won "+reward.toLocaleString()+" coins!"
+    "🎉 You won "+
+    reward.toLocaleString()+
+    " coins + 25 EXP!"
   );
 
 }
 
 
-/* -------------------------
+/* =========================
+   GENERAL MODAL
+========================= */
+
+function openGeneral(title,content){
+
+  document.getElementById("modalTitle").textContent =
+    title;
+
+  document.getElementById("modalContent").innerHTML =
+    content;
+
+  document.getElementById("generalModal")
+    .style.display="flex";
+
+}
+
+function closeModal(id){
+
+  document.getElementById(id)
+    .style.display="none";
+
+}
+
+
+/* =========================
+   VIP
+========================= */
+
+function openVIP(){
+
+  openGeneral(
+    "👑 VIP Center",
+
+    `
+    <div class="popup-text">
+      Choose your VIP level and unlock special benefits.
+    </div>
+
+    <div class="popup-list">
+
+      <div class="popup-row">
+        <div class="big">👑</div>
+        <div>
+          <b>VIP 1</b>
+          <span>Extra rewards • VIP badge • Special frame</span>
+        </div>
+        <button class="small-btn"
+          onclick="selectVIP(1)">
+          VIEW
+        </button>
+      </div>
+
+      <div class="popup-row">
+        <div class="big">💎</div>
+        <div>
+          <b>VIP 2</b>
+          <span>More rewards • Premium frame • VIP effects</span>
+        </div>
+        <button class="small-btn"
+          onclick="selectVIP(2)">
+          VIEW
+        </button>
+      </div>
+
+    </div>
+    `
+  );
+
+}
+
+function selectVIP(level){
+
+  data.vip=level;
+
+  saveData();
+  updateUI();
+
+  closeModal("generalModal");
+
+  showToast(
+    "👑 VIP "+level+" selected. Payment coming soon."
+  );
+
+}
+
+
+/* =========================
+   GIFTS
+========================= */
+
+function openGifts(){
+
+  openGeneral(
+    "🎁 My Gifts",
+
+    `
+    <div class="popup-text">
+      Your received gifts will appear here.
+    </div>
+
+    <div class="popup-list">
+
+      <div class="popup-row">
+        <div class="big">🌹</div>
+        <div>
+          <b>Rose</b>
+          <span>Received in Voice Room</span>
+        </div>
+        <b>100 🪙</b>
+      </div>
+
+      <div class="popup-row">
+        <div class="big">💎</div>
+        <div>
+          <b>Diamond</b>
+          <span>Received from a friend</span>
+        </div>
+        <b>1K 🪙</b>
+      </div>
+
+      <div class="popup-row">
+        <div class="big">👑</div>
+        <div>
+          <b>Crown</b>
+          <span>Special room gift</span>
+        </div>
+        <b>10K 🪙</b>
+      </div>
+
+    </div>
+    `
+  );
+
+}
+
+
+/* =========================
+   LEVELS
+========================= */
+
+function openLevels(){
+
+  openGeneral(
+    "⭐ Level & Rewards",
+
+    `
+    <div class="popup-text">
+      Earn EXP from activities, rooms, events and rewards.
+    </div>
+
+    <div class="popup-list">
+
+      <div class="popup-row">
+        <div class="big">⭐</div>
+        <div>
+          <b>Level 5</b>
+          <span>Current level</span>
+        </div>
+        <b>${data.exp}/10K</b>
+      </div>
+
+      <div class="popup-row">
+        <div class="big">🎁</div>
+        <div>
+          <b>Level 10</b>
+          <span>Special badge + coins</span>
+        </div>
+        <b>LOCKED</b>
+      </div>
+
+      <div class="popup-row">
+        <div class="big">👑</div>
+        <div>
+          <b>Level 20</b>
+          <span>Count title + special rewards</span>
+        </div>
+        <b>LOCKED</b>
+      </div>
+
+    </div>
+    `
+  );
+
+}
+
+
+/* =========================
+   VISITORS
+========================= */
+
+function openVisitors(){
+
+  openGeneral(
+    "👀 Visitors",
+
+    `
+    <div class="popup-text">
+      Recent visitors to your profile.
+    </div>
+
+    <div class="popup-list">
+
+      <div class="popup-row">
+        <div class="big">👤</div>
+        <div>
+          <b>Arman</b>
+          <span>Visited recently</span>
+        </div>
+      </div>
+
+      <div class="popup-row">
+        <div class="big">👤</div>
+        <div>
+          <b>Royal Girl</b>
+          <span>Visited recently</span>
+        </div>
+      </div>
+
+      <div class="popup-row">
+        <div class="big">👤</div>
+        <div>
+          <b>King 786</b>
+          <span>Visited recently</span>
+        </div>
+      </div>
+
+    </div>
+    `
+  );
+
+}
+
+
+/* =========================
+   FAMILY
+========================= */
+
+function openFamily(){
+
+  openGeneral(
+    "👨‍👩‍👧 My Family",
+
+    `
+    <div class="popup-text">
+      Family system is ready for the next development stage.
+    </div>
+
+    <div class="popup-list">
+
+      <div class="popup-row">
+        <div class="big">🏠</div>
+        <div>
+          <b>Family System</b>
+          <span>Create or join a family</span>
+        </div>
+      </div>
+
+      <div class="popup-row">
+        <div class="big">👑</div>
+        <div>
+          <b>Family Leader</b>
+          <span>Manage family members and activities</span>
+        </div>
+      </div>
+
+      <div class="popup-row">
+        <div class="big">🎁</div>
+        <div>
+          <b>Family Rewards</b>
+          <span>Future family events and rewards</span>
+        </div>
+      </div>
+
+    </div>
+    `
+  );
+
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+function openSettings(){
+
+  openGeneral(
+    "⚙️ Settings",
+
+    `
+    <div class="popup-list">
+
+      <div class="popup-row">
+        <div class="big">🔔</div>
+        <div>
+          <b>Notifications</b>
+          <span>Room and event notifications</span>
+        </div>
+        <button class="small-btn"
+          onclick="showToast('Notifications enabled')">
+          ON
+        </button>
+      </div>
+
+      <div class="popup-row">
+        <div class="big">🔒</div>
+        <div>
+          <b>Privacy</b>
+          <span>Profile and visitor privacy</span>
+        </div>
+      </div>
+
+      <div class="popup-row">
+        <div class="big">🌐</div>
+        <div>
+          <b>Language</b>
+          <span>English • Hindi coming later</span>
+        </div>
+      </div>
+
+    </div>
+    `
+  );
+
+}
+
+
+/* =========================
+   SUPPORT
+========================= */
+
+function openSupport(){
+
+  openGeneral(
+    "🎧 Help & Support",
+
+    `
+    <div class="popup-text">
+      Tannu Voice Chat Support
+      <br><br>
+      Need help with your account, rooms, coins or events?
+      Contact the Tannu support team.
+    </div>
+
+    <div class="popup-list">
+
+      <div class="popup-row">
+        <div class="big">💬</div>
+        <div>
+          <b>Customer Support</b>
+          <span>Chat with support team</span>
+        </div>
+        <button class="small-btn"
+          onclick="showToast('Support chat coming soon')">
+          OPEN
+        </button>
+      </div>
+
+      <div class="popup-row">
+        <div class="big">📋</div>
+        <div>
+          <b>Report Problem</b>
+          <span>Report an issue</span>
+        </div>
+        <button class="small-btn"
+          onclick="showToast('Report system coming soon')">
+          REPORT
+        </button>
+      </div>
+
+    </div>
+    `
+  );
+
+}
+
+
+/* =========================
    TOAST
--------------------------- */
+========================= */
 
 let toastTimer;
 
@@ -1092,14 +1703,14 @@ function showToast(text){
 
     toast.style.display="none";
 
-  },2300);
+  },2500);
 
 }
 
 
-/* -------------------------
+/* =========================
    NAVIGATION
--------------------------- */
+========================= */
 
 function goHome(){
 
@@ -1112,6 +1723,19 @@ function goRooms(){
   window.location.href="index.html#rooms";
 
 }
+
+function goEvents(){
+
+  window.location.href="events.html";
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+updateUI();
 
 </script>
 
