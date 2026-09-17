@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-
-<title>Tannu Voice Chat Room</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tannu Voice Chat - Room</title>
 
 <script src="wallet.js"></script>
 
@@ -18,728 +17,554 @@
 
 body{
   min-height:100vh;
+  background:
+    radial-gradient(circle at 20% 0%,#5424a8 0,#170d2b 35%,#080611 75%);
   color:#fff;
-  background:
-    radial-gradient(circle at 50% 18%,#7b2bb1 0%,#260b4b 28%,#090018 62%,#020007 100%);
-  overflow-x:hidden;
 }
 
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 10% 30%,rgba(255,70,210,.18),transparent 25%),
-    radial-gradient(circle at 90% 45%,rgba(95,50,255,.2),transparent 28%),
-    radial-gradient(circle at 50% 90%,rgba(255,40,180,.12),transparent 35%);
+button{
+  border:0;
+  cursor:pointer;
 }
 
-/* ================= TOP ================= */
+.app{
+  max-width:520px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:25px;
+}
 
+/* TOP */
 .top{
+  padding:16px;
   display:flex;
+  align-items:center;
   justify-content:space-between;
-  align-items:center;
-  padding:13px 12px 7px;
 }
-
-.user{
-  display:flex;
-  align-items:center;
-  gap:9px;
-}
-
-.avatar-main{
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:27px;
-  background:linear-gradient(145deg,#40136d,#d22ba8);
-  border:2px solid #ff65d9;
-  box-shadow:0 0 20px rgba(255,50,210,.55);
-}
-
-.name{
-  font-size:17px;
-  font-weight:bold;
-}
-
-.id{
-  color:#aaa;
-  font-size:11px;
-  margin-top:3px;
-}
-
-.tag{
-  display:inline-block;
-  margin-top:5px;
-  padding:5px 9px;
-  border-radius:15px;
-  background:rgba(255,65,205,.15);
-  color:#ff91e5;
-  font-size:10px;
-}
-
-.top-actions{
-  display:flex;
-  gap:7px;
-}
-
-.round{
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.16);
-  background:rgba(70,30,120,.4);
-  color:white;
-  font-size:19px;
-}
-
-/* ================= BRAND ================= */
 
 .brand{
-  text-align:center;
-  padding:4px 0 9px;
-}
-
-.crown{
-  font-size:28px;
-  filter:drop-shadow(0 0 10px #ff3fc8);
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
 .logo{
-  font-size:43px;
-  font-weight:900;
-  font-style:italic;
-  color:#ff76dc;
-  text-shadow:
-    0 0 8px #ff2cc8,
-    0 0 24px #ff2cc8;
-}
-
-.logo-sub{
-  font-size:13px;
-  color:#ffafe9;
-  letter-spacing:.5px;
-}
-
-/* ================= INFO ================= */
-
-.info{
+  width:42px;
+  height:42px;
+  border-radius:14px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  padding:0 12px 10px;
+  justify-content:center;
+  background:linear-gradient(135deg,#ff4fd8,#7c4dff);
+  box-shadow:0 0 22px #b33cff88;
+  font-size:22px;
 }
 
-.coin{
-  padding:8px 13px;
-  border-radius:20px;
-  color:#ffd84d;
-  background:rgba(255,200,30,.09);
-  border:1px solid rgba(255,220,80,.2);
-  font-weight:bold;
+.brand b{
+  font-size:17px;
+}
+
+.brand small{
+  display:block;
+  color:#b9accf;
+  margin-top:3px;
 }
 
 .live{
   padding:8px 12px;
-  border-radius:18px;
-  background:rgba(255,40,180,.13);
-  border:1px solid rgba(255,90,220,.22);
-  color:#ff8ce2;
+  border-radius:20px;
+  background:#ff315f22;
+  border:1px solid #ff4d73;
+  color:#ff7b97;
   font-size:12px;
 }
 
-/* ================= ANNOUNCEMENT ================= */
+/* ROOM HERO */
+.roomHero{
+  margin:0 14px;
+  padding:18px;
+  border-radius:25px;
+  background:linear-gradient(145deg,#32136b,#170d2d);
+  border:1px solid #ffffff18;
+  box-shadow:0 18px 45px #0008;
+}
+
+.roomTitle{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.roomTitle h1{
+  font-size:23px;
+}
+
+.roomTitle p{
+  color:#bdb1d1;
+  font-size:12px;
+  margin-top:5px;
+}
+
+.viewers{
+  text-align:right;
+}
+
+.viewers strong{
+  display:block;
+  font-size:18px;
+}
+
+.viewers span{
+  color:#aaa0bb;
+  font-size:11px;
+}
 
 .announce{
-  margin:4px 12px 12px;
-  padding:11px 13px;
-  border-radius:17px;
-  background:linear-gradient(
-    90deg,
-    rgba(255,35,190,.15),
-    rgba(80,40,180,.17)
-  );
-  border:1px solid rgba(255,90,220,.2);
-  color:#ffd5f5;
-  font-size:12px;
-}
-
-.announce b{
-  color:#ff75d9;
-}
-
-/* ================= ROOM JOURNEY ================= */
-
-.journey{
-  margin:0 12px 14px;
-  padding:15px;
-  border-radius:22px;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(126,42,190,.35),
-      rgba(35,9,65,.92)
-    );
-  border:1px solid rgba(255,93,220,.25);
-  box-shadow:
-    0 12px 35px rgba(0,0,0,.25),
-    inset 0 0 25px rgba(255,50,210,.04);
-}
-
-.journey-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.journey-title{
-  font-size:16px;
-  font-weight:900;
-}
-
-.journey-sub{
-  margin-top:4px;
-  color:#a99ab7;
-  font-size:10px;
-}
-
-.journey-level{
-  padding:7px 10px;
-  border-radius:14px;
-  background:rgba(255,215,80,.1);
-  border:1px solid rgba(255,215,80,.2);
-  color:#ffd85a;
-  font-size:11px;
-  font-weight:bold;
-}
-
-.xp-row{
-  display:flex;
-  justify-content:space-between;
-  margin-top:13px;
-  font-size:10px;
-  color:#c8b8d5;
-}
-
-.xp-row strong{
-  color:#ff8de3;
-}
-
-.xp-bar{
-  height:7px;
-  margin-top:6px;
-  border-radius:20px;
-  background:rgba(255,255,255,.08);
-  overflow:hidden;
-}
-
-.xp-fill{
-  height:100%;
-  width:0%;
-  border-radius:20px;
-  background:linear-gradient(90deg,#ff42d0,#a54cff,#ffd84d);
-  transition:width .4s ease;
-}
-
-.streak{
-  margin-top:12px;
-  padding:9px 11px;
-  border-radius:14px;
-  background:rgba(255,100,40,.08);
-  border:1px solid rgba(255,150,60,.13);
-  display:flex;
-  justify-content:space-between;
-  font-size:11px;
-}
-
-.streak strong{
-  color:#ff9b4a;
-}
-
-/* ================= MISSIONS ================= */
-
-.missions-title{
   margin-top:15px;
-  margin-bottom:9px;
+  padding:11px 13px;
+  border-radius:14px;
+  background:#ffffff0b;
+  color:#ddd4ea;
   font-size:12px;
-  color:#ff9be5;
-  font-weight:bold;
 }
 
-.mission{
-  margin-top:8px;
-  padding:10px;
-  border-radius:15px;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.07);
-}
-
-.mission.completed{
-  border-color:rgba(60,255,180,.3);
-  background:rgba(40,255,170,.05);
-}
-
-.mission-top{
-  display:flex;
-  justify-content:space-between;
-  gap:8px;
-}
-
-.mission-name{
-  font-size:11px;
-  font-weight:bold;
-}
-
-.mission-reward{
-  color:#ffd85a;
-  font-size:10px;
-  white-space:nowrap;
-}
-
-.mission-progress-row{
-  display:flex;
-  justify-content:space-between;
-  margin-top:7px;
-  color:#888;
-  font-size:9px;
-}
-
-.mission-bar{
-  height:5px;
-  margin-top:5px;
-  border-radius:20px;
-  background:rgba(255,255,255,.07);
-  overflow:hidden;
-}
-
-.mission-fill{
-  width:0%;
-  height:100%;
-  border-radius:20px;
-  background:linear-gradient(90deg,#ff4bd3,#ffd84d);
-  transition:width .4s ease;
-}
-
-.mission.completed .mission-fill{
-  background:linear-gradient(90deg,#36f5b0,#7affd2);
-}
-
-.mission-status{
-  margin-top:6px;
-  font-size:9px;
-  color:#888;
-}
-
-.mission.completed .mission-status{
-  color:#65ffc7;
-}
-
-/* ================= SEATS ================= */
-
+/* SEATS */
 .seats{
+  margin:14px;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:16px 7px;
-  padding:4px 10px;
+  gap:10px;
 }
 
 .seat{
-  text-align:center;
-}
-
-.seat-avatar{
-  position:relative;
-  width:70px;
-  height:70px;
-  margin:auto;
-  border-radius:50%;
+  min-height:108px;
+  border-radius:20px;
+  background:#171126;
+  border:1px solid #ffffff10;
   display:flex;
-  justify-content:center;
+  flex-direction:column;
   align-items:center;
-  font-size:28px;
-  background:
-    radial-gradient(circle,#54206e,#170827);
-  border:2px solid #e83cc4;
-  box-shadow:
-    0 0 10px rgba(255,45,215,.45),
-    inset 0 0 12px rgba(255,100,230,.15);
+  justify-content:center;
+  position:relative;
 }
 
-.seat.host .seat-avatar{
-  border-color:#ffd64d;
-  box-shadow:0 0 17px rgba(255,210,50,.55);
+.avatar{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ff63d5,#624cff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  border:2px solid #ffffff30;
 }
 
-.seat.speaker .seat-avatar{
-  border-color:#47ffe0;
-  box-shadow:0 0 15px rgba(40,255,220,.4);
+.seat b{
+  margin-top:6px;
+  font-size:11px;
 }
 
-.seat.muted .seat-avatar{
-  border-color:#ff4e79;
-  opacity:.72;
+.seat small{
+  color:#aaa;
+  margin-top:3px;
+  font-size:9px;
+}
+
+.host{
+  position:absolute;
+  top:7px;
+  left:7px;
+  font-size:9px;
+  padding:3px 6px;
+  border-radius:8px;
+  background:#ffd34d22;
+  color:#ffd76b;
 }
 
 .mic{
   position:absolute;
-  right:-3px;
-  bottom:-2px;
-  width:23px;
-  height:23px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#16e7bd;
-  border:2px solid #170827;
-  font-size:11px;
-}
-
-.mic.off{
-  background:#ff4476;
-}
-
-.seat-name{
-  margin-top:6px;
-  font-size:12px;
-  font-weight:bold;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.role{
-  color:#c994e8;
+  right:7px;
+  top:7px;
   font-size:10px;
-  margin-top:2px;
 }
 
-.join-seat{
-  cursor:pointer;
-}
-
-.lock{
-  font-size:29px;
-  color:#999;
-}
-
-/* ================= QUICK ================= */
-
-.quick{
+/* ACTIONS */
+.actions{
   display:flex;
-  gap:7px;
-  padding:12px;
+  gap:8px;
   overflow-x:auto;
+  padding:0 14px 4px;
 }
 
-.quick::-webkit-scrollbar{
-  display:none;
-}
-
-.quick button{
-  flex-shrink:0;
-  border:1px solid rgba(255,90,220,.2);
-  background:rgba(255,255,255,.06);
-  color:#ddd;
-  border-radius:18px;
-  padding:8px 12px;
+.action{
+  flex:0 0 auto;
+  padding:10px 13px;
+  border-radius:15px;
+  background:#ffffff0b;
+  color:#e9e0f3;
+  border:1px solid #ffffff0d;
   font-size:11px;
 }
 
-/* ================= MAIN PANEL ================= */
-
-.panel{
-  margin:0 11px 110px;
-  border-radius:21px;
-  overflow:hidden;
-  background:rgba(8,2,25,.78);
-  border:1px solid rgba(255,90,220,.18);
-  box-shadow:0 10px 35px rgba(0,0,0,.25);
+/* JOURNEY */
+.journey{
+  margin:14px;
+  padding:17px;
+  border-radius:23px;
+  background:linear-gradient(145deg,#251344,#120d20);
+  border:1px solid #a95cff33;
+  box-shadow:0 12px 35px #0005;
 }
 
-.tabs{
-  display:flex;
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.tab{
-  flex:1;
-  text-align:center;
-  padding:12px 3px;
-  color:#777;
-  font-size:12px;
-}
-
-.tab.active{
-  color:#fff;
-  border-bottom:3px solid #ff50d4;
-}
-
-.messages{
-  min-height:170px;
-  max-height:220px;
-  overflow-y:auto;
-  padding:8px 12px;
-}
-
-.msg{
-  padding:7px 0;
-  font-size:12px;
-  color:#ddd;
-}
-
-.msg b{
-  color:#ff75dc;
-}
-
-.gift-msg{
-  color:#ffd452;
-}
-
-/* ================= WALLET ================= */
-
-.wallet{
-  margin:0 12px 10px;
-  padding:11px 13px;
-  border-radius:17px;
-  background:linear-gradient(
-    100deg,
-    rgba(255,180,20,.08),
-    rgba(255,40,190,.08)
-  );
-  border:1px solid rgba(255,200,50,.2);
+.journeyHead{
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
-.wallet small{
+.journeyHead h2{
+  font-size:18px;
+}
+
+.level{
+  padding:7px 10px;
+  border-radius:12px;
+  background:#ffcf4a18;
+  color:#ffd86b;
+  font-size:11px;
+}
+
+.xpBar{
+  height:8px;
+  border-radius:10px;
+  background:#ffffff0d;
+  margin-top:14px;
+  overflow:hidden;
+}
+
+.xpFill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#ff4edb,#7b5cff);
+  transition:.4s;
+}
+
+.xpText{
+  display:flex;
+  justify-content:space-between;
+  color:#a99dbb;
+  font-size:10px;
+  margin-top:6px;
+}
+
+.streak{
+  margin-top:13px;
+  padding:11px;
+  border-radius:15px;
+  background:#ff8b2410;
+  color:#ffc56e;
+  font-size:12px;
+}
+
+.missions{
+  margin-top:13px;
+  display:grid;
+  gap:8px;
+}
+
+.mission{
+  padding:12px;
+  border-radius:15px;
+  background:#ffffff08;
+  border:1px solid #ffffff08;
+}
+
+.missionTop{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.mission b{
+  font-size:12px;
+}
+
+.reward{
+  color:#ffd15d;
+  font-size:10px;
+}
+
+.progress{
+  height:5px;
+  background:#ffffff0d;
+  border-radius:10px;
+  margin-top:9px;
+  overflow:hidden;
+}
+
+.progress i{
   display:block;
-  color:#999;
-  font-size:9px;
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#ff4edb,#7b5cff);
 }
 
-.wallet strong{
-  color:#ffd84c;
-  font-size:17px;
+.done{
+  color:#64efad!important;
 }
 
-.plus{
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:0;
-  background:#ff43ca;
-  color:#fff;
-  font-size:19px;
-}
-
-/* ================= GIFT MENU ================= */
-
-.gift-menu{
-  position:fixed;
-  left:10px;
-  right:10px;
-  bottom:76px;
-  z-index:80;
+/* EVENT */
+.event{
+  margin:14px;
   padding:15px;
-  display:none;
-  border-radius:23px;
-  background:rgba(12,3,28,.98);
-  border:1px solid rgba(255,70,215,.3);
-  box-shadow:0 0 35px rgba(0,0,0,.65);
+  border-radius:21px;
+  background:linear-gradient(135deg,#49146a,#1b1235);
+  border:1px solid #ff4edb33;
 }
 
-.gift-menu.show{
-  display:block;
+.eventTop{
+  display:flex;
+  justify-content:space-between;
 }
 
-.gift-title{
-  text-align:center;
-  color:#ff8ce3;
+.event h3{
+  font-size:15px;
+}
+
+.event small{
+  color:#bcaec9;
+}
+
+.timer{
+  font-size:20px;
   font-weight:bold;
+  color:#ffd65c;
+  margin-top:8px;
+}
+
+.event button{
+  margin-top:11px;
+  padding:9px 14px;
+  border-radius:13px;
+  background:#ff4edb;
+  color:#fff;
+  font-weight:bold;
+  font-size:11px;
+}
+
+/* CHAT */
+.chatBox{
+  margin:14px;
+  padding:15px;
+  border-radius:21px;
+  background:#0f0b19;
+  border:1px solid #ffffff0d;
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
   margin-bottom:12px;
 }
 
+.tab{
+  padding:7px 11px;
+  border-radius:12px;
+  background:#ffffff08;
+  color:#a99dbb;
+  font-size:10px;
+}
+
+.tab.active{
+  background:#8b4dff33;
+  color:#fff;
+}
+
+.messages{
+  max-height:185px;
+  overflow:auto;
+}
+
+.msg{
+  margin:8px 0;
+  color:#d8cfe2;
+  font-size:12px;
+}
+
+.msg b{
+  color:#c985ff;
+}
+
+.system{
+  color:#ffd46a;
+}
+
+/* WALLET */
+.wallet{
+  margin:14px;
+  padding:16px;
+  border-radius:21px;
+  background:linear-gradient(135deg,#151022,#24133c);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border:1px solid #ffffff10;
+}
+
+.wallet small{
+  color:#a99dbb;
+}
+
+.wallet strong{
+  display:block;
+  font-size:22px;
+  margin-top:4px;
+}
+
+.wallet button{
+  padding:10px 14px;
+  border-radius:13px;
+  background:#7d4dff;
+  color:#fff;
+  font-weight:bold;
+}
+
+/* BOTTOM */
+.bottom{
+  position:sticky;
+  bottom:10px;
+  margin:14px;
+  padding:10px;
+  border-radius:22px;
+  background:#100c18ee;
+  backdrop-filter:blur(15px);
+  border:1px solid #ffffff12;
+  display:flex;
+  justify-content:space-around;
+}
+
+.bottom button{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#ffffff0b;
+  color:#fff;
+  font-size:17px;
+}
+
+.bottom .gift{
+  background:linear-gradient(135deg,#ff4fd8,#754dff);
+}
+
+.bottom .leave{
+  background:#ff315b;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:#000b;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:50;
+}
+
+.modalBox{
+  width:min(520px,100%);
+  background:#171021;
+  border-radius:25px 25px 0 0;
+  padding:22px;
+  border-top:1px solid #ffffff18;
+}
+
+.modalBox h2{
+  font-size:19px;
+}
+
+.modalBox p{
+  color:#aaa0b5;
+  font-size:12px;
+  margin-top:8px;
+  line-height:1.5;
+}
+
+.modalClose{
+  margin-top:18px;
+  width:100%;
+  padding:13px;
+  border-radius:14px;
+  background:#7c4dff;
+  color:#fff;
+  font-weight:bold;
+}
+
+/* GIFT GRID */
 .gifts{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:8px;
+  margin-top:16px;
 }
 
-.gift{
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.05);
-  border-radius:16px;
-  padding:9px 3px;
-  color:white;
+.giftItem{
+  padding:12px 5px;
+  background:#ffffff08;
+  border-radius:15px;
+  text-align:center;
 }
 
-.gift-icon{
-  font-size:25px;
+.giftItem div{
+  font-size:23px;
 }
 
-.gift-name{
-  font-size:10px;
-  margin-top:3px;
-}
-
-.gift-price{
-  color:#ffd64a;
+.giftItem b{
+  display:block;
   font-size:9px;
-  margin-top:3px;
+  margin-top:5px;
 }
 
-/* ================= MODAL ================= */
-
-.modal{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  display:none;
-  align-items:flex-end;
-  background:rgba(0,0,0,.65);
+.giftItem small{
+  color:#ffd45d;
+  font-size:8px;
 }
 
-.modal.show{
-  display:flex;
-}
-
-.modal-box{
-  width:100%;
-  padding:20px;
-  border-radius:25px 25px 0 0;
-  background:linear-gradient(180deg,#25103e,#0c0318);
-  border-top:1px solid #ff4fd4;
-}
-
-.modal-title{
-  font-size:19px;
-  font-weight:bold;
-  color:#ff83df;
-  margin-bottom:15px;
-}
-
-.modal-row{
-  padding:14px 0;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  color:#ddd;
-}
-
-.close{
-  width:100%;
-  margin-top:17px;
-  padding:12px;
-  border:0;
-  border-radius:20px;
-  color:#fff;
-  background:#a32b91;
-}
-
-/* ================= BOTTOM ================= */
-
-.bottom{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  z-index:60;
-  display:flex;
-  gap:6px;
-  align-items:center;
-  padding:9px 8px calc(9px + env(safe-area-inset-bottom));
-  background:linear-gradient(
-    180deg,
-    transparent,
-    rgba(3,0,13,.97) 32%
-  );
-}
-
-.input{
-  flex:1;
-  min-width:0;
-  height:45px;
-  border-radius:24px;
-  border:1px solid rgba(255,255,255,.1);
-  outline:none;
-  padding:0 13px;
-  color:white;
-  background:rgba(255,255,255,.08);
-}
-
-.action{
-  width:43px;
-  height:43px;
-  flex-shrink:0;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.13);
-  background:linear-gradient(145deg,#63209b,#26104d);
-  color:#fff;
-  font-size:19px;
-}
-
-.action.gift{
-  background:linear-gradient(145deg,#ff52d2,#8424d5);
-  box-shadow:0 0 16px rgba(255,50,210,.45);
-}
-
-.action.leave{
-  background:linear-gradient(145deg,#ff426e,#91143c);
-}
-
-/* ================= TOAST ================= */
-
+/* TOAST */
 .toast{
   position:fixed;
   left:50%;
-  bottom:87px;
-  transform:translate(-50%,20px);
+  bottom:90px;
+  transform:translateX(-50%) translateY(20px);
   opacity:0;
-  z-index:200;
-  padding:10px 17px;
-  border-radius:20px;
-  background:#170923;
-  border:1px solid #ff5bd8;
-  white-space:nowrap;
-  font-size:12px;
-  transition:.25s;
+  pointer-events:none;
+  background:#22182d;
+  border:1px solid #ffffff20;
+  padding:11px 15px;
+  border-radius:15px;
+  font-size:11px;
+  transition:.3s;
+  z-index:100;
 }
 
 .toast.show{
   opacity:1;
-  transform:translate(-50%,0);
+  transform:translateX(-50%) translateY(0);
 }
 
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:360px){
-
-  .seat-avatar{
-    width:61px;
-    height:61px;
-  }
-
-  .logo{
-    font-size:36px;
-  }
-
+@media(max-width:380px){
   .seats{
-    gap:13px 4px;
+    gap:7px;
   }
 
-  .seat-name{
-    font-size:10px;
+  .seat{
+    min-height:100px;
   }
 
-  .action{
-    width:39px;
-    height:39px;
+  .avatar{
+    width:43px;
+    height:43px;
   }
 }
 </style>
@@ -747,2062 +572,936 @@ body:before{
 
 <body>
 
-<!-- ================= TOP ================= -->
+<div class="app">
 
-<div class="top">
-
-  <div class="user">
-
-    <div class="avatar-main">👑</div>
-
-    <div>
-
-      <div class="name">
-        Tannu Voice Chat 💗
+  <!-- TOP -->
+  <div class="top">
+    <div class="brand">
+      <div class="logo">🎙️</div>
+      <div>
+        <b>Tannu Voice Chat</b>
+        <small>Indian Classic Voice Room</small>
       </div>
-
-      <div class="id">
-        ID: 7483921 · 👥 <span id="viewers">126</span>
-      </div>
-
-      <div class="tag">
-        🎤 Chat & Friends
-      </div>
-
     </div>
 
+    <div class="live">● LIVE</div>
   </div>
 
-  <div class="top-actions">
-
-    <button class="round"
-      onclick="showToast('126 people online 👥')">
-      👥
-    </button>
-
-    <button class="round"
-      onclick="shareRoom()">
-      ↗
-    </button>
-
-    <button class="round"
-      onclick="leaveRoom()">
-      ⏻
-    </button>
-
-  </div>
-
-</div>
-
-<!-- ================= BRAND ================= -->
-
-<div class="brand">
-
-  <div class="crown">👑</div>
-
-  <div class="logo">
-    Tannu
-  </div>
-
-  <div class="logo-sub">
-    VOICE CHAT ROOM ❤️
-  </div>
-
-</div>
-
-<!-- ================= INFO ================= -->
-
-<div class="info">
-
-  <div class="coin">
-    🪙 <span id="topCoins">0</span>
-  </div>
-
-  <div class="live">
-    👑 ROOM NO.1 · LIVE
-  </div>
-
-</div>
-
-<!-- ================= ANNOUNCEMENT ================= -->
-
-<div class="announce">
-
-  📢 <b>Tannu:</b>
-  Welcome to Tannu Voice Chat Room ❤️
-  Be kind, respect everyone and enjoy your time here.
-
-</div>
-
-<!-- ================= ROOM JOURNEY ================= -->
-
-<div class="journey">
-
-  <div class="journey-head">
-
-    <div>
-
-      <div class="journey-title">
-        🎯 Room Journey
+  <!-- ROOM -->
+  <section class="roomHero">
+    <div class="roomTitle">
+      <div>
+        <h1>🔥 Tannu Friends Room</h1>
+        <p>Room ID: TVC-10001</p>
       </div>
 
-      <div class="journey-sub">
-        Stay active, complete missions & grow your room level
+      <div class="viewers">
+        <strong id="viewerCount">128</strong>
+        <span>viewers</span>
+      </div>
+    </div>
+
+    <div class="announce">
+      📢 Welcome to Tannu Voice Chat — Respect everyone and enjoy the room ❤️
+    </div>
+  </section>
+
+  <!-- SEATS -->
+  <section class="seats">
+
+    <div class="seat">
+      <span class="host">HOST</span>
+      <span class="mic">🎙️</span>
+      <div class="avatar">👑</div>
+      <b>Tannu</b>
+      <small>Room Host</small>
+    </div>
+
+    <div class="seat">
+      <span class="mic">🎙️</span>
+      <div class="avatar">😎</div>
+      <b>Rahul</b>
+      <small>Speaker</small>
+    </div>
+
+    <div class="seat">
+      <span class="mic">🔇</span>
+      <div class="avatar">😊</div>
+      <b>Ali</b>
+      <small>Muted</small>
+    </div>
+
+    <div class="seat">
+      <div class="avatar">👩</div>
+      <b>Priya</b>
+      <small>Speaker</small>
+    </div>
+
+    <div class="seat">
+      <div class="avatar">🧑</div>
+      <b>Guest</b>
+      <small>Listening</small>
+    </div>
+
+    <div class="seat">
+      <div class="avatar">🧔</div>
+      <b>Arman</b>
+      <small>Speaker</small>
+    </div>
+
+    <div class="seat">
+      <div class="avatar">👩‍🦱</div>
+      <b>Sana</b>
+      <small>Listening</small>
+    </div>
+
+    <div class="seat">
+      <div class="avatar">➕</div>
+      <b>Join Seat</b>
+      <small>Available</small>
+    </div>
+
+  </section>
+
+  <!-- QUICK ACTIONS -->
+  <div class="actions">
+    <button class="action" onclick="openModal('Events')">🎉 Events</button>
+    <button class="action" onclick="openModal('Ranking')">🏆 Ranking</button>
+    <button class="action" onclick="openModal('Family')">👨‍👩‍👧 Family</button>
+    <button class="action" onclick="openModal('Support')">🛟 Support</button>
+    <button class="action" onclick="followRoom()">❤️ Follow</button>
+  </div>
+
+  <!-- ROOM JOURNEY -->
+  <section class="journey">
+
+    <div class="journeyHead">
+      <h2>🚀 Room Journey</h2>
+      <div class="level" id="roomLevel">LV 1</div>
+    </div>
+
+    <div class="xpBar">
+      <div class="xpFill" id="xpFill"></div>
+    </div>
+
+    <div class="xpText">
+      <span id="xpNow">0 XP</span>
+      <span id="xpNext">100 XP</span>
+    </div>
+
+    <div class="streak">
+      🔥 <b id="streakText">0 day streak</b> — Keep the room alive!
+    </div>
+
+    <div class="missions">
+
+      <div class="mission">
+        <div class="missionTop">
+          <b>⏱️ Stay in room 30 minutes</b>
+          <span class="reward">+5K 🪙</span>
+        </div>
+        <div class="progress">
+          <i id="missionTime"></i>
+        </div>
       </div>
 
-    </div>
-
-    <div class="journey-level"
-      id="roomLevel">
-      LV.1
-    </div>
-
-  </div>
-
-  <div class="xp-row">
-
-    <span>
-      ⭐ Room XP
-    </span>
-
-    <strong id="roomXPText">
-      0 / 100
-    </strong>
-
-  </div>
-
-  <div class="xp-bar">
-
-    <div
-      class="xp-fill"
-      id="roomXPFill">
-    </div>
-
-  </div>
-
-  <div class="streak">
-
-    <span>
-      🔥 Daily Room Streak
-    </span>
-
-    <strong id="roomStreak">
-      1 Day
-    </strong>
-
-  </div>
-
-  <div class="missions-title">
-    🎯 Today's Missions
-  </div>
-
-  <!-- Mission 1 -->
-
-  <div class="mission"
-    id="missionTimeBox">
-
-    <div class="mission-top">
-
-      <div class="mission-name">
-        ⏱️ Stay in the room
+      <div class="mission">
+        <div class="missionTop">
+          <b>💬 Send 5 messages</b>
+          <span class="reward">+2K 🪙</span>
+        </div>
+        <div class="progress">
+          <i id="missionChat"></i>
+        </div>
       </div>
 
-      <div class="mission-reward">
-        🪙 +5K · ⭐ +100
+      <div class="mission">
+        <div class="missionTop">
+          <b>🎁 Send 1 gift</b>
+          <span class="reward">+3K 🪙</span>
+        </div>
+        <div class="progress">
+          <i id="missionGift"></i>
+        </div>
       </div>
 
     </div>
+  </section>
 
-    <div class="mission-progress-row">
+  <!-- LIVE EVENT -->
+  <section class="event">
 
-      <span id="timeMissionText">
-        0 / 30 min
-      </span>
-
-      <span id="timeMissionStatus">
-        In progress
-      </span>
-
-    </div>
-
-    <div class="mission-bar">
-
-      <div
-        class="mission-fill"
-        id="timeMissionFill">
+    <div class="eventTop">
+      <div>
+        <h3>⚡ Room Rush Event</h3>
+        <small>Complete the room challenge together</small>
       </div>
 
+      <div>👥 <span id="eventPeople">28</span></div>
     </div>
 
-    <div class="mission-status">
-      Spend time in this room to complete the mission.
+    <div class="timer" id="eventTimer">09:59</div>
+
+    <small>
+      Send messages and gifts to increase the room activity.
+    </small>
+
+    <br>
+
+    <button onclick="joinEvent()">JOIN EVENT</button>
+
+  </section>
+
+  <!-- CHAT -->
+  <section class="chatBox">
+
+    <div class="tabs">
+      <button class="tab active">All</button>
+      <button class="tab">Chats</button>
+      <button class="tab">Gifts</button>
+      <button class="tab">System</button>
     </div>
 
-  </div>
+    <div class="messages" id="messages">
 
-  <!-- Mission 2 -->
+      <div class="msg system">⚡ Welcome to the room.</div>
 
-  <div class="mission"
-    id="chatMissionBox">
-
-    <div class="mission-top">
-
-      <div class="mission-name">
-        💬 Send messages
+      <div class="msg">
+        <b>Rahul:</b> Hello everyone ❤️
       </div>
 
-      <div class="mission-reward">
-        🪙 +2K · ⭐ +50
+      <div class="msg">
+        <b>Sana:</b> Nice room 🔥
       </div>
 
-    </div>
-
-    <div class="mission-progress-row">
-
-      <span id="chatMissionText">
-        0 / 5 messages
-      </span>
-
-      <span id="chatMissionStatus">
-        In progress
-      </span>
-
-    </div>
-
-    <div class="mission-bar">
-
-      <div
-        class="mission-fill"
-        id="chatMissionFill">
+      <div class="msg">
+        <b>Arman:</b> Who is playing tonight?
       </div>
 
     </div>
 
-    <div class="mission-status">
-      Talk with the room community.
-    </div>
-
-  </div>
-
-  <!-- Mission 3 -->
-
-  <div class="mission"
-    id="giftMissionBox">
-
-    <div class="mission-top">
-
-      <div class="mission-name">
-        🎁 Send a gift
-      </div>
-
-      <div class="mission-reward">
-        🪙 +3K · ⭐ +75
-      </div>
-
-    </div>
-
-    <div class="mission-progress-row">
-
-      <span id="giftMissionText">
-        0 / 1 gift
-      </span>
-
-      <span id="giftMissionStatus">
-        In progress
-      </span>
-
-    </div>
-
-    <div class="mission-bar">
-
-      <div
-        class="mission-fill"
-        id="giftMissionFill">
-      </div>
-
-    </div>
-
-    <div class="mission-status">
-      Send any gift to complete this mission.
-    </div>
-
-  </div>
-
-</div>
-
-<!-- ================= SEATS ================= -->
-
-<div class="seats">
-
-  <div class="seat host">
-
-    <div class="seat-avatar">
-      👑
-      <span class="mic">🎙</span>
-    </div>
-
-    <div class="seat-name">
-      Tannu 👑
-    </div>
-
-    <div class="role">
-      HOST
-    </div>
-
-  </div>
-
-  <div class="seat speaker">
-
-    <div class="seat-avatar">
-      👩🏻
-      <span class="mic">🎙</span>
-    </div>
-
-    <div class="seat-name">
-      Sana ❤️
-    </div>
-
-    <div class="role">
-      SPEAKER
-    </div>
-
-  </div>
-
-  <div class="seat muted">
-
-    <div class="seat-avatar">
-      👨🏽
-      <span class="mic off">🔇</span>
-    </div>
-
-    <div class="seat-name">
-      Arman
-    </div>
-
-    <div class="role">
-      MUTED
-    </div>
-
-  </div>
-
-  <div class="seat speaker">
-
-    <div class="seat-avatar">
-      👨🏻
-      <span class="mic">🎙</span>
-    </div>
-
-    <div class="seat-name">
-      Rohan
-    </div>
-
-    <div class="role">
-      SPEAKER
-    </div>
-
-  </div>
-
-  <div class="seat speaker">
-
-    <div class="seat-avatar">
-      👨🏽
-      <span class="mic">🎙</span>
-    </div>
-
-    <div class="seat-name">
-      Amit
-    </div>
-
-    <div class="role">
-      SPEAKER
-    </div>
-
-  </div>
-
-  <div class="seat muted">
-
-    <div class="seat-avatar">
-      👩🏻
-      <span class="mic off">🔇</span>
-    </div>
-
-    <div class="seat-name">
-      Priya
-    </div>
-
-    <div class="role">
-      MUTED
-    </div>
-
-  </div>
-
-  <div class="seat speaker">
-
-    <div class="seat-avatar">
-      👨🏽
-      <span class="mic">🎙</span>
-    </div>
-
-    <div class="seat-name">
-      Imran
-    </div>
-
-    <div class="role">
-      SPEAKER
-    </div>
-
-  </div>
-
-  <div class="seat muted">
-
-    <div class="seat-avatar">
-      👨🏻
-      <span class="mic off">🔇</span>
-    </div>
-
-    <div class="seat-name">
-      Rahul
-    </div>
-
-    <div class="role">
-      MUTED
-    </div>
-
-  </div>
-
-  <div class="seat join-seat"
-    onclick="joinSeat(9)">
-
-    <div class="seat-avatar">
-      <span class="lock">🔒</span>
-    </div>
-
-    <div class="seat-name">
-      No.9
-    </div>
-
-    <div class="role">
-      JOIN
-    </div>
-
-  </div>
-
-  <div class="seat join-seat"
-    onclick="joinSeat(10)">
-
-    <div class="seat-avatar">
-      <span class="lock">🔒</span>
-    </div>
-
-    <div class="seat-name">
-      No.10
-    </div>
-
-    <div class="role">
-      JOIN
-    </div>
-
-  </div>
-
-  <div class="seat join-seat"
-    onclick="joinSeat(11)">
-
-    <div class="seat-avatar">
-      <span class="lock">🔒</span>
-    </div>
-
-    <div class="seat-name">
-      No.11
-    </div>
-
-    <div class="role">
-      JOIN
-    </div>
-
-  </div>
-
-  <div class="seat join-seat"
-    onclick="joinSeat(12)">
-
-    <div class="seat-avatar">
-      <span class="lock">🔒</span>
-    </div>
-
-    <div class="seat-name">
-      No.12
-    </div>
-
-    <div class="role">
-      JOIN
-    </div>
-
-  </div>
-
-</div>
-
-<!-- ================= QUICK FEATURES ================= -->
-
-<div class="quick">
-
-  <button onclick="openModal('events')">
-    📅 Events
-  </button>
-
-  <button onclick="openModal('ranking')">
-    🏆 Ranking
-  </button>
-
-  <button onclick="openModal('family')">
-    👨‍👩‍👧 Family
-  </button>
-
-  <button onclick="openModal('support')">
-    🎧 Support
-  </button>
-
-  <button onclick="showToast('Room followed ❤️')">
-    ❤️ Follow
-  </button>
-
-</div>
-
-<!-- ================= MAIN PANEL ================= -->
-
-<div class="panel">
-
-  <div class="tabs">
-
-    <div class="tab active">
-      All
-    </div>
-
-    <div class="tab">
-      Chats
-    </div>
-
-    <div class="tab">
-      Gifts
-    </div>
-
-    <div class="tab">
-      System
-    </div>
-
-  </div>
-
-  <div class="messages"
-    id="messages">
-
-    <div class="msg">
-      👑 <b>Tannu:</b>
-      Welcome everyone ❤️
-    </div>
-
-    <div class="msg">
-      👩🏻 <b>Sana:</b>
-      Hello everyone 👋
-    </div>
-
-    <div class="msg">
-      👨🏽 <b>Arman:</b>
-      Nice room 🔥
-    </div>
-
-    <div class="msg">
-      👨🏻 <b>Rohan:</b>
-      Good evening!
-    </div>
-
-    <div class="msg gift-msg">
-      🎁 Amit sent 🌹 Rose to Tannu
-    </div>
-
-    <div class="msg">
-      🟣 <b>System:</b>
-      New user joined the room
-    </div>
-
-  </div>
+  </section>
 
   <!-- WALLET -->
-
-  <div class="wallet">
+  <section class="wallet">
 
     <div>
+      <small>My Coins</small>
+      <strong id="walletCoins">0</strong>
+    </div>
 
-      <small>
-        MY COINS
-      </small>
+    <button onclick="openGift()">🎁 Gift</button>
 
-      <strong>
-        🪙 <span id="roomCoins">0</span>
-      </strong>
+  </section>
+
+  <!-- BOTTOM -->
+  <div class="bottom">
+
+    <button onclick="sendDemoMessage()">💬</button>
+
+    <button onclick="toggleMic()" id="micBtn">🎙️</button>
+
+    <button onclick="toggleSpeaker()" id="speakerBtn">🔊</button>
+
+    <button class="gift" onclick="openGift()">🎁</button>
+
+    <button onclick="shareRoom()">↗️</button>
+
+    <button class="leave" onclick="leaveRoom()">✕</button>
+
+  </div>
+
+</div>
+
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+
+  <div class="modalBox">
+
+    <h2 id="modalTitle">Tannu Voice Chat</h2>
+
+    <p id="modalText">
+      Welcome to Tannu Voice Chat.
+    </p>
+
+    <button class="modalClose" onclick="closeModal()">CLOSE</button>
+
+  </div>
+
+</div>
+
+
+<!-- GIFT MODAL -->
+<div class="modal" id="giftModal">
+
+  <div class="modalBox">
+
+    <h2>🎁 Send a Gift</h2>
+
+    <p>Select a gift for the room.</p>
+
+    <div class="gifts">
+
+      <button class="giftItem" onclick="sendGift('Rose','🌹',100)">
+        <div>🌹</div>
+        <b>Rose</b>
+        <small>100</small>
+      </button>
+
+      <button class="giftItem" onclick="sendGift('Diamond','💎',1000)">
+        <div>💎</div>
+        <b>Diamond</b>
+        <small>1K</small>
+      </button>
+
+      <button class="giftItem" onclick="sendGift('Crown','👑',10000)">
+        <div>👑</div>
+        <b>Crown</b>
+        <small>10K</small>
+      </button>
+
+      <button class="giftItem" onclick="sendGift('Rocket','🚀',50000)">
+        <div>🚀</div>
+        <b>Rocket</b>
+        <small>50K</small>
+      </button>
+
+      <button class="giftItem" onclick="sendGift('Car','🏎️',100000)">
+        <div>🏎️</div>
+        <b>Car</b>
+        <small>100K</small>
+      </button>
+
+      <button class="giftItem" onclick="sendGift('Love','💖',300000)">
+        <div>💖</div>
+        <b>Love</b>
+        <small>300K</small>
+      </button>
+
+      <button class="giftItem" onclick="sendGift('Castle','🏰',500000)">
+        <div>🏰</div>
+        <b>Castle</b>
+        <small>500K</small>
+      </button>
+
+      <button class="giftItem" onclick="sendGift('Universe','🌌',1000000)">
+        <div>🌌</div>
+        <b>Universe</b>
+        <small>1M</small>
+      </button>
 
     </div>
 
-    <button
-      class="plus"
-      onclick="showToast('Recharge section coming next 💰')">
-      +
-    </button>
+    <button class="modalClose" onclick="closeGift()">CLOSE</button>
 
   </div>
 
 </div>
 
-<!-- ================= GIFT MENU ================= -->
 
-<div class="gift-menu"
-  id="giftMenu">
+<div class="toast" id="toast"></div>
 
-  <div class="gift-title">
-    🎁 SEND GIFT
-  </div>
-
-  <div class="gifts">
-
-    <button class="gift"
-      onclick="sendGift('Rose',100,'🌹')">
-
-      <div class="gift-icon">
-        🌹
-      </div>
-
-      <div class="gift-name">
-        Rose
-      </div>
-
-      <div class="gift-price">
-        100
-      </div>
-
-    </button>
-
-    <button class="gift"
-      onclick="sendGift('Diamond',1000,'💎')">
-
-      <div class="gift-icon">
-        💎
-      </div>
-
-      <div class="gift-name">
-        Diamond
-      </div>
-
-      <div class="gift-price">
-        1K
-      </div>
-
-    </button>
-
-    <button class="gift"
-      onclick="sendGift('Crown',10000,'👑')">
-
-      <div class="gift-icon">
-        👑
-      </div>
-
-      <div class="gift-name">
-        Crown
-      </div>
-
-      <div class="gift-price">
-        10K
-      </div>
-
-    </button>
-
-    <button class="gift"
-      onclick="sendGift('Rocket',50000,'🚀')">
-
-      <div class="gift-icon">
-        🚀
-      </div>
-
-      <div class="gift-name">
-        Rocket
-      </div>
-
-      <div class="gift-price">
-        50K
-      </div>
-
-    </button>
-
-    <button class="gift"
-      onclick="sendGift('Car',100000,'🚗')">
-
-      <div class="gift-icon">
-        🚗
-      </div>
-
-      <div class="gift-name">
-        Car
-      </div>
-
-      <div class="gift-price">
-        100K
-      </div>
-
-    </button>
-
-    <button class="gift"
-      onclick="sendGift('Love',300000,'❤️')">
-
-      <div class="gift-icon">
-        ❤️
-      </div>
-
-      <div class="gift-name">
-        Love
-      </div>
-
-      <div class="gift-price">
-        300K
-      </div>
-
-    </button>
-
-    <button class="gift"
-      onclick="sendGift('Castle',500000,'🏰')">
-
-      <div class="gift-icon">
-        🏰
-      </div>
-
-      <div class="gift-name">
-        Castle
-      </div>
-
-      <div class="gift-price">
-        500K
-      </div>
-
-    </button>
-
-    <button class="gift"
-      onclick="sendGift('Universe',1000000,'🌌')">
-
-      <div class="gift-icon">
-        🌌
-      </div>
-
-      <div class="gift-name">
-        Universe
-      </div>
-
-      <div class="gift-price">
-        1M
-      </div>
-
-    </button>
-
-  </div>
-
-</div>
-
-<!-- ================= MODAL ================= -->
-
-<div class="modal"
-  id="modal">
-
-  <div class="modal-box">
-
-    <div class="modal-title"
-      id="modalTitle">
-      Tannu
-    </div>
-
-    <div id="modalContent"></div>
-
-    <button class="close"
-      onclick="closeModal()">
-      Close
-    </button>
-
-  </div>
-
-</div>
-
-<!-- ================= BOTTOM ================= -->
-
-<div class="bottom">
-
-  <input
-    class="input"
-    id="chatInput"
-    placeholder="Type a message..."
-    onkeydown="if(event.key==='Enter')sendMessage()"
-  >
-
-  <button
-    class="action"
-    id="micBtn"
-    onclick="toggleMic()">
-    🎙
-  </button>
-
-  <button
-    class="action"
-    id="speakerBtn"
-    onclick="toggleSpeaker()">
-    🔊
-  </button>
-
-  <button
-    class="action gift"
-    onclick="toggleGift()">
-    🎁
-  </button>
-
-  <button
-    class="action"
-    onclick="shareRoom()">
-    ↗
-  </button>
-
-  <button
-    class="action leave"
-    onclick="leaveRoom()">
-    🚪
-  </button>
-
-</div>
-
-<div class="toast"
-  id="toast">
-</div>
 
 <script>
 
-/* =========================================
-   TANNU ROOM V6
-   ROOM JOURNEY + MISSIONS
-   ========================================= */
+const ROOM_KEY = "tannuRoomJourneyV2";
 
-
-/* ================= WALLET ================= */
-
-function updateWallet(){
-
-  if(!window.TannuWallet) return;
-
-  const coins=TannuWallet.getCoins();
-
-  const roomCoins=
-    document.getElementById("roomCoins");
-
-  const topCoins=
-    document.getElementById("topCoins");
-
-  if(roomCoins){
-    roomCoins.textContent=
-      TannuWallet.formatCoins(coins);
+let roomData = {
+  date: new Date().toLocaleDateString("en-CA"),
+  xp: 0,
+  streak: 0,
+  lastActiveDate: null,
+  timeSeconds: 0,
+  chatCount: 0,
+  giftCount: 0,
+  rewarded: {
+    time:false,
+    chat:false,
+    gift:false
   }
-
-  if(topCoins){
-    topCoins.textContent=
-      TannuWallet.formatCoins(coins);
-  }
-}
-
-document.addEventListener(
-  "DOMContentLoaded",
-  updateWallet
-);
-
-window.addEventListener(
-  "tannuWalletUpdated",
-  updateWallet
-);
-
-window.addEventListener(
-  "storage",
-  function(e){
-
-    if(
-      e.key==="tannuWallet" ||
-      e.key==="tannuCoins"
-    ){
-
-      updateWallet();
-
-    }
-
-  }
-);
+};
 
 
-/* ================= TOAST ================= */
+/* =========================
+   LOAD ROOM DATA
+========================= */
 
-function showToast(text){
-
-  const t=
-    document.getElementById("toast");
-
-  t.textContent=text;
-
-  t.classList.add("show");
-
-  clearTimeout(window.toastTimer);
-
-  window.toastTimer=
-    setTimeout(()=>{
-
-      t.classList.remove("show");
-
-    },1800);
-}
-
-
-/* =========================================
-   ROOM JOURNEY
-   ========================================= */
-
-const ROOM_DATA_KEY=
-  "tannuRoomJourneyV1";
-
-const today=
-  new Date().toISOString().slice(0,10);
-
-let roomData=
-  loadRoomData();
-
-
-function defaultRoomData(){
-
-  return {
-
-    date:today,
-
-    xp:0,
-
-    streak:1,
-
-    sessionSeconds:0,
-
-    chatCount:0,
-
-    giftCount:0,
-
-    completed:{
-      time:false,
-      chat:false,
-      gift:false
-    },
-
-    rewarded:{
-      time:false,
-      chat:false,
-      gift:false
-    }
-
-  };
-
-}
-
-
-function loadRoomData(){
+function loadRoom(){
 
   try{
 
-    const saved=
-      localStorage.getItem(
-        ROOM_DATA_KEY
-      );
+    const saved = localStorage.getItem(ROOM_KEY);
 
-    if(!saved){
+    if(saved){
 
-      const fresh=
-        defaultRoomData();
-
-      saveRoomData(fresh);
-
-      return fresh;
+      roomData = {
+        ...roomData,
+        ...JSON.parse(saved)
+      };
 
     }
 
-    const data=
-      JSON.parse(saved);
+  }catch(e){
 
-    /*
-      New day:
-      Keep XP/streak but reset
-      daily missions.
-    */
-
-    if(data.date!==today){
-
-      data.date=today;
-
-      data.sessionSeconds=0;
-      data.chatCount=0;
-      data.giftCount=0;
-
-      data.completed={
-        time:false,
-        chat:false,
-        gift:false
-      };
-
-      data.rewarded={
-        time:false,
-        chat:false,
-        gift:false
-      };
-
-      data.streak=
-        Number(data.streak || 1)+1;
-
-      saveRoomData(data);
-
-    }
-
-    return data;
-
-  }catch(error){
-
-    console.error(
-      "Room journey error:",
-      error
-    );
-
-    return defaultRoomData();
+    console.log("Room data error",e);
 
   }
+
+  checkNewDay();
+
+  updateRoomUI();
 
 }
 
 
-function saveRoomData(data){
+/* =========================
+   SAVE
+========================= */
+
+function saveRoom(){
 
   localStorage.setItem(
-    ROOM_DATA_KEY,
-    JSON.stringify(data)
+    ROOM_KEY,
+    JSON.stringify(roomData)
   );
 
 }
 
 
-/* ================= LEVEL ================= */
+/* =========================
+   DAILY RESET
+========================= */
 
-function getRoomLevel(){
+function checkNewDay(){
 
-  return Math.floor(
-    roomData.xp / 100
-  ) + 1;
+  const today =
+    new Date().toLocaleDateString("en-CA");
+
+  if(roomData.date !== today){
+
+    roomData.date = today;
+
+    roomData.timeSeconds = 0;
+    roomData.chatCount = 0;
+    roomData.giftCount = 0;
+
+    roomData.rewarded = {
+      time:false,
+      chat:false,
+      gift:false
+    };
+
+    if(roomData.lastActiveDate){
+      roomData.streak++;
+    }else{
+      roomData.streak = 1;
+    }
+
+    roomData.lastActiveDate = today;
+
+    saveRoom();
+
+  }
 
 }
 
 
-function getRoomLevelXP(){
+/* =========================
+   ROOM LEVEL
+========================= */
+
+function getRoomLevel(){
+
+  return Math.floor(roomData.xp / 100) + 1;
+
+}
+
+function getLevelXP(){
 
   return roomData.xp % 100;
 
 }
 
 
-function updateRoomJourney(){
+/* =========================
+   ADD XP
+========================= */
 
-  const level=
-    getRoomLevel();
+function addXP(amount){
 
-  const levelXP=
-    getRoomLevelXP();
+  roomData.xp += amount;
 
-  const levelEl=
-    document.getElementById(
-      "roomLevel"
-    );
+  saveRoom();
 
-  const xpText=
-    document.getElementById(
-      "roomXPText"
-    );
-
-  const xpFill=
-    document.getElementById(
-      "roomXPFill"
-    );
-
-  const streak=
-    document.getElementById(
-      "roomStreak"
-    );
-
-  if(levelEl){
-
-    levelEl.textContent=
-      "LV."+level;
-
-  }
-
-  if(xpText){
-
-    xpText.textContent=
-      levelXP+" / 100";
-
-  }
-
-  if(xpFill){
-
-    xpFill.style.width=
-      levelXP+"%";
-
-  }
-
-  if(streak){
-
-    streak.textContent=
-      roomData.streak+" Day";
-
-  }
-
-  updateMissionUI();
+  updateRoomUI();
 
 }
 
 
-/* ================= XP ================= */
+/* =========================
+   MISSIONS
+========================= */
 
-function addRoomXP(amount,reason){
+function completeMission(type){
 
-  amount=
-    Number(amount)||0;
+  if(roomData.rewarded[type]) return;
 
-  if(amount<=0) return;
+  roomData.rewarded[type] = true;
 
-  roomData.xp+=
-    Math.floor(amount);
-
-  saveRoomData(
-    roomData
-  );
-
-  updateRoomJourney();
-
-  showToast(
-    "⭐ +"+amount+
-    " Room XP · "+reason
-  );
-
-}
-
-
-/* =========================================
-   MISSION REWARD
-   ========================================= */
-
-function completeMission(
-  type,
-  coins,
-  xp,
-  title
-){
-
-  if(
-    roomData.rewarded[type]
-  ){
-
-    return;
-
-  }
-
-  roomData.completed[type]=true;
-  roomData.rewarded[type]=true;
-
-  saveRoomData(
-    roomData
-  );
-
-  if(
-    window.TannuWallet
-  ){
+  if(type === "time"){
 
     TannuWallet.addCoins(
-      coins,
-      "Room Mission: "+title
+      5000,
+      "Room mission reward"
+    );
+
+    addXP(100);
+
+    addMessage(
+      "⚡ System",
+      "30 minute mission completed! +5K coins"
     );
 
   }
 
-  roomData.xp+=xp;
+  if(type === "chat"){
 
-  saveRoomData(
-    roomData
-  );
+    TannuWallet.addCoins(
+      2000,
+      "Room mission reward"
+    );
 
-  updateWallet();
-  updateRoomJourney();
+    addXP(50);
 
-  addMissionMessage(
-    "🏆 Mission completed: "+
-    title+
-    " · 🪙 +"+
-    formatShortNumber(coins)+
-    " · ⭐ +"+
-    xp+" XP"
-  );
+    addMessage(
+      "⚡ System",
+      "Chat mission completed! +2K coins"
+    );
 
-  showToast(
-    "🏆 "+title+
-    " completed! 🎉"
-  );
+  }
+
+  if(type === "gift"){
+
+    TannuWallet.addCoins(
+      3000,
+      "Room mission reward"
+    );
+
+    addXP(75);
+
+    addMessage(
+      "⚡ System",
+      "Gift mission completed! +3K coins"
+    );
+
+  }
+
+  saveRoom();
+
+  updateRoomUI();
 
 }
 
 
-/* ================= MISSION UI ================= */
+/* =========================
+   ROOM UI
+========================= */
 
-function updateMissionUI(){
+function updateRoomUI(){
 
-  /* ---------- TIME ---------- */
+  const level = getRoomLevel();
+  const xp = getLevelXP();
 
-  const minutes=
-    Math.floor(
-      roomData.sessionSeconds/60
-    );
+  document.getElementById(
+    "roomLevel"
+  ).textContent = "LV " + level;
 
-  const timeProgress=
+  document.getElementById(
+    "xpNow"
+  ).textContent = xp + " XP";
+
+  document.getElementById(
+    "xpNext"
+  ).textContent = "100 XP";
+
+  document.getElementById(
+    "xpFill"
+  ).style.width = xp + "%";
+
+  document.getElementById(
+    "streakText"
+  ).textContent =
+    roomData.streak + " day streak";
+
+  let timePercent =
     Math.min(
-      minutes/30*100,
+      roomData.timeSeconds / 1800 * 100,
       100
     );
 
-  const timeText=
-    document.getElementById(
-      "timeMissionText"
-    );
-
-  const timeFill=
-    document.getElementById(
-      "timeMissionFill"
-    );
-
-  const timeStatus=
-    document.getElementById(
-      "timeMissionStatus"
-    );
-
-  const timeBox=
-    document.getElementById(
-      "missionTimeBox"
-    );
-
-  if(timeText){
-
-    timeText.textContent=
-      Math.min(minutes,30)+
-      " / 30 min";
-
-  }
-
-  if(timeFill){
-
-    timeFill.style.width=
-      timeProgress+"%";
-
-  }
-
-  if(roomData.completed.time){
-
-    if(timeStatus)
-      timeStatus.textContent=
-        "✅ Completed";
-
-    if(timeBox)
-      timeBox.classList.add(
-        "completed"
-      );
-
-  }
-
-
-  /* ---------- CHAT ---------- */
-
-  const chatProgress=
+  let chatPercent =
     Math.min(
-      roomData.chatCount/5*100,
+      roomData.chatCount / 5 * 100,
       100
     );
 
-  const chatText=
-    document.getElementById(
-      "chatMissionText"
-    );
-
-  const chatFill=
-    document.getElementById(
-      "chatMissionFill"
-    );
-
-  const chatStatus=
-    document.getElementById(
-      "chatMissionStatus"
-    );
-
-  const chatBox=
-    document.getElementById(
-      "chatMissionBox"
-    );
-
-  if(chatText){
-
-    chatText.textContent=
-      Math.min(
-        roomData.chatCount,
-        5
-      )+
-      " / 5 messages";
-
-  }
-
-  if(chatFill){
-
-    chatFill.style.width=
-      chatProgress+"%";
-
-  }
-
-  if(roomData.completed.chat){
-
-    if(chatStatus)
-      chatStatus.textContent=
-        "✅ Completed";
-
-    if(chatBox)
-      chatBox.classList.add(
-        "completed"
-      );
-
-  }
-
-
-  /* ---------- GIFT ---------- */
-
-  const giftProgress=
+  let giftPercent =
     Math.min(
-      roomData.giftCount*100,
+      roomData.giftCount / 1 * 100,
       100
     );
 
-  const giftText=
-    document.getElementById(
-      "giftMissionText"
+  document.getElementById(
+    "missionTime"
+  ).style.width = timePercent + "%";
+
+  document.getElementById(
+    "missionChat"
+  ).style.width = chatPercent + "%";
+
+  document.getElementById(
+    "missionGift"
+  ).style.width = giftPercent + "%";
+
+  document.getElementById(
+    "walletCoins"
+  ).textContent =
+    TannuWallet.formatCoins(
+      TannuWallet.getCoins()
     );
-
-  const giftFill=
-    document.getElementById(
-      "giftMissionFill"
-    );
-
-  const giftStatus=
-    document.getElementById(
-      "giftMissionStatus"
-    );
-
-  const giftBox=
-    document.getElementById(
-      "giftMissionBox"
-    );
-
-  if(giftText){
-
-    giftText.textContent=
-      Math.min(
-        roomData.giftCount,
-        1
-      )+
-      " / 1 gift";
-
-  }
-
-  if(giftFill){
-
-    giftFill.style.width=
-      giftProgress+"%";
-
-  }
-
-  if(roomData.completed.gift){
-
-    if(giftStatus)
-      giftStatus.textContent=
-        "✅ Completed";
-
-    if(giftBox)
-      giftBox.classList.add(
-        "completed"
-      );
-
-  }
 
 }
 
 
-/* =========================================
-   ROOM ACTIVE TIME
-   ========================================= */
+/* =========================
+   ROOM TIME
+========================= */
 
-let lastActiveTime=
-  Date.now();
+setInterval(function(){
 
-
-setInterval(()=>{
-
-  /*
-    Only count while this room page
-    is visible to the user.
-  */
-
-  if(
-    document.visibilityState!=="visible"
-  ){
-
-    lastActiveTime=
-      Date.now();
-
+  if(document.visibilityState !== "visible"){
     return;
-
   }
 
-  const now=
-    Date.now();
-
-  const difference=
-    now-lastActiveTime;
-
-  /*
-    Prevent huge jumps after
-    phone/browser suspension.
-  */
+  checkNewDay();
 
   if(
-    difference>=800 &&
-    difference<=10000
+    roomData.timeSeconds < 1800 &&
+    !roomData.rewarded.time
   ){
 
-    roomData.sessionSeconds+=
-      Math.floor(
-        difference/1000
-      );
+    roomData.timeSeconds++;
 
-  }
+    if(roomData.timeSeconds >= 1800){
 
-  lastActiveTime=now;
-
-  if(
-    roomData.sessionSeconds>=
-    30*60
-  ){
-
-    roomData.sessionSeconds=
-      30*60;
-
-    if(
-      !roomData.completed.time
-    ){
-
-      completeMission(
-        "time",
-        5000,
-        100,
-        "30 Minute Room Mission"
-      );
+      completeMission("time");
 
     }
 
+    saveRoom();
+
+    updateRoomUI();
+
   }
-
-  saveRoomData(
-    roomData
-  );
-
-  updateRoomJourney();
 
 },1000);
 
 
-document.addEventListener(
-  "visibilitychange",
-  ()=>{
-
-    lastActiveTime=
-      Date.now();
-
-  }
-);
-
-
-/* =========================================
+/* =========================
    CHAT
-   ========================================= */
+========================= */
 
-function sendMessage(){
-
-  const input=
-    document.getElementById(
-      "chatInput"
-    );
-
-  const text=
-    input.value.trim();
-
-  if(!text) return;
-
-  const msg=
-    document.createElement(
-      "div"
-    );
-
-  msg.className="msg";
-
-  msg.innerHTML=
-    "👤 <b>You:</b> "+
-    escapeHTML(text);
-
-  document
-    .getElementById("messages")
-    .appendChild(msg);
-
-  input.value="";
-
-  const box=
-    document.getElementById(
-      "messages"
-    );
-
-  box.scrollTop=
-    box.scrollHeight;
-
-  /* Mission progress */
+function sendDemoMessage(){
 
   roomData.chatCount++;
 
-  if(
-    roomData.chatCount>=5 &&
-    !roomData.completed.chat
-  ){
-
-    roomData.chatCount=5;
-
-    completeMission(
-      "chat",
-      2000,
-      50,
-      "5 Message Mission"
-    );
-
-  }
-
-  saveRoomData(
-    roomData
+  addMessage(
+    "You",
+    "Hello everyone 👋"
   );
 
-  updateRoomJourney();
+  if(roomData.chatCount >= 5){
 
-}
-
-
-function escapeHTML(text){
-
-  const div=
-    document.createElement(
-      "div"
-    );
-
-  div.textContent=text;
-
-  return div.innerHTML;
-
-}
-
-
-/* =========================================
-   GIFT
-   ========================================= */
-
-function toggleGift(){
-
-  document
-    .getElementById("giftMenu")
-    .classList.toggle("show");
-
-}
-
-
-function sendGift(
-  name,
-  price,
-  icon
-){
-
-  if(!window.TannuWallet){
-
-    showToast(
-      "Wallet not available"
-    );
-
-    return;
+    completeMission("chat");
 
   }
 
-  const success=
+  saveRoom();
+
+  updateRoomUI();
+
+}
+
+
+function addMessage(user,text){
+
+  const box =
+    document.getElementById("messages");
+
+  const div =
+    document.createElement("div");
+
+  div.className = "msg";
+
+  const safeUser =
+    String(user)
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;");
+
+  const safeText =
+    String(text)
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;");
+
+  div.innerHTML =
+    "<b>" +
+    safeUser +
+    ":</b> " +
+    safeText;
+
+  box.appendChild(div);
+
+  box.scrollTop = box.scrollHeight;
+
+}
+
+
+/* =========================
+   GIFTS
+========================= */
+
+function openGift(){
+
+  document.getElementById(
+    "giftModal"
+  ).style.display = "flex";
+
+}
+
+function closeGift(){
+
+  document.getElementById(
+    "giftModal"
+  ).style.display = "none";
+
+}
+
+
+function sendGift(name,emoji,price){
+
+  const success =
     TannuWallet.spendCoins(
       price,
-      "Gift: "+name
+      "Gift: " + name
     );
 
   if(!success){
 
-    showToast(
-      "Not enough coins ❌"
-    );
+    showToast("❌ Not enough coins");
 
     return;
 
   }
 
-  const history=
-    JSON.parse(
-      localStorage.getItem(
-        "tannuGiftHistory"
-      ) || "[]"
-    );
-
-  history.unshift({
-
-    name:name,
-    price:price,
-    icon:icon,
-    time:new Date().toISOString()
-
-  });
-
-  localStorage.setItem(
-    "tannuGiftHistory",
-    JSON.stringify(
-      history.slice(0,100)
-    )
-  );
-
-
-  const msg=
-    document.createElement(
-      "div"
-    );
-
-  msg.className=
-    "msg gift-msg";
-
-  msg.innerHTML=
-    "🎁 <b>You</b> sent "+
-    icon+" "+name+
-    " to Tannu";
-
-  document
-    .getElementById("messages")
-    .appendChild(msg);
-
-
-  /* Mission progress */
-
   roomData.giftCount++;
 
-  if(
-    roomData.giftCount>=1 &&
-    !roomData.completed.gift
-  ){
+  addMessage(
+    "You",
+    emoji + " sent " + name
+  );
 
-    roomData.giftCount=1;
+  if(roomData.giftCount >= 1){
 
-    completeMission(
-      "gift",
-      3000,
-      75,
-      "Gift Support Mission"
-    );
+    completeMission("gift");
 
   }
 
-  saveRoomData(
-    roomData
-  );
+  saveRoom();
 
-  updateWallet();
-  updateRoomJourney();
+  updateRoomUI();
 
-  toggleGift();
+  closeGift();
 
   showToast(
-    icon+" "+name+
-    " sent! 🎉"
+    emoji + " " +
+    name +
+    " sent!"
   );
 
 }
 
 
-/* =========================================
-   MISSION MESSAGE
-   ========================================= */
+/* =========================
+   EVENT
+========================= */
 
-function addMissionMessage(text){
+let eventSeconds = 599;
 
-  const msg=
-    document.createElement(
-      "div"
-    );
+setInterval(function(){
 
-  msg.className=
-    "msg gift-msg";
+  if(eventSeconds > 0){
 
-  msg.textContent=
-    text;
-
-  document
-    .getElementById("messages")
-    .appendChild(msg);
-
-}
-
-
-/* =========================================
-   SHORT NUMBER
-   ========================================= */
-
-function formatShortNumber(number){
-
-  number=
-    Number(number)||0;
-
-  if(number>=10000000){
-
-    return (
-      number/10000000
-    ).toFixed(1)
-    .replace(".0","")
-    +"Cr";
-
-  }
-
-  if(number>=100000){
-
-    return (
-      number/100000
-    ).toFixed(1)
-    .replace(".0","")
-    +"L";
-
-  }
-
-  if(number>=1000){
-
-    return (
-      number/1000
-    ).toFixed(1)
-    .replace(".0","")
-    +"K";
-
-  }
-
-  return String(number);
-
-}
-
-
-/* =========================================
-   MIC
-   ========================================= */
-
-let micOn=true;
-
-function toggleMic(){
-
-  micOn=!micOn;
-
-  document
-    .getElementById("micBtn")
-    .textContent=
-      micOn
-      ? "🎙"
-      : "🔇";
-
-  showToast(
-    micOn
-    ? "Microphone ON 🎙"
-    : "Microphone OFF 🔇"
-  );
-
-}
-
-
-/* =========================================
-   SPEAKER
-   ========================================= */
-
-let speakerOn=true;
-
-function toggleSpeaker(){
-
-  speakerOn=!speakerOn;
-
-  document
-    .getElementById("speakerBtn")
-    .textContent=
-      speakerOn
-      ? "🔊"
-      : "🔇";
-
-  showToast(
-    speakerOn
-    ? "Speaker ON 🔊"
-    : "Speaker OFF 🔇"
-  );
-
-}
-
-
-/* =========================================
-   SEAT
-   ========================================= */
-
-function joinSeat(number){
-
-  showToast(
-    "Seat No."+number+
-    " request sent 🎤"
-  );
-
-}
-
-
-/* =========================================
-   SHARE
-   ========================================= */
-
-function shareRoom(){
-
-  const data={
-
-    title:
-      "Tannu Voice Chat",
-
-    text:
-      "Join my Tannu Voice Chat Room ❤️",
-
-    url:
-      window.location.href
-
-  };
-
-  if(navigator.share){
-
-    navigator.share(data)
-      .catch(()=>{});
+    eventSeconds--;
 
   }else{
 
-    if(
-      navigator.clipboard
-    ){
-
-      navigator.clipboard
-        .writeText(
-          window.location.href
-        )
-        .then(()=>{
-
-          showToast(
-            "Room link copied 🔗"
-          );
-
-        })
-        .catch(()=>{
-
-          showToast(
-            "Share ready 🔗"
-          );
-
-        });
-
-    }else{
-
-      showToast(
-        "Share ready 🔗"
-      );
-
-    }
+    eventSeconds = 599;
 
   }
 
-}
+  const min =
+    String(
+      Math.floor(eventSeconds / 60)
+    ).padStart(2,"0");
+
+  const sec =
+    String(
+      eventSeconds % 60
+    ).padStart(2,"0");
+
+  document.getElementById(
+    "eventTimer"
+  ).textContent =
+    min + ":" + sec;
+
+},1000);
 
 
-/* =========================================
-   MODALS
-   ========================================= */
+function joinEvent(){
 
-function openModal(type){
-
-  const modal=
+  const people =
     document.getElementById(
-      "modal"
+      "eventPeople"
     );
 
-  const title=
-    document.getElementById(
-      "modalTitle"
-    );
+  people.textContent =
+    Number(people.textContent) + 1;
 
-  const content=
-    document.getElementById(
-      "modalContent"
-    );
+  addMessage(
+    "⚡ System",
+    "You joined Room Rush Event!"
+  );
 
+  addXP(10);
 
-  if(type==="events"){
-
-    title.textContent=
-      "📅 Tannu Events";
-
-    content.innerHTML=`
-
-      <div class="modal-row">
-        🔥 Daily Room Event
-      </div>
-
-      <div class="modal-row">
-        🎁 Free Spin
-      </div>
-
-      <div class="modal-row">
-        🏆 Weekly Ranking
-      </div>
-
-      <div class="modal-row">
-        💎 Gift Festival
-      </div>
-
-    `;
-
-  }
-
-
-  if(type==="ranking"){
-
-    title.textContent=
-      "🏆 Room Ranking";
-
-    content.innerHTML=`
-
-      <div class="modal-row">
-        🥇 Tannu — 2.8M
-      </div>
-
-      <div class="modal-row">
-        🥈 Sana — 1.7M
-      </div>
-
-      <div class="modal-row">
-        🥉 Arman — 950K
-      </div>
-
-      <div class="modal-row">
-        4️⃣ Rohan — 620K
-      </div>
-
-    `;
-
-  }
-
-
-  if(type==="family"){
-
-    title.textContent=
-      "👨‍👩‍👧 Tannu Family";
-
-    content.innerHTML=`
-
-      <div class="modal-row">
-        👑 Family Leader — Tannu
-      </div>
-
-      <div class="modal-row">
-        👥 Members — 128
-      </div>
-
-      <div class="modal-row">
-        🔥 Family Level — 12
-      </div>
-
-      <div class="modal-row">
-        💎 Family Rewards — Active
-      </div>
-
-    `;
-
-  }
-
-
-  if(type==="support"){
-
-    title.textContent=
-      "🎧 Tannu Support";
-
-    content.innerHTML=`
-
-      <div class="modal-row">
-        💬 Customer Support
-      </div>
-
-      <div class="modal-row">
-        🚨 Report a User
-      </div>
-
-      <div class="modal-row">
-        🛡 Safety Center
-      </div>
-
-      <div class="modal-row">
-        ❓ Help Center
-      </div>
-
-    `;
-
-  }
-
-
-  modal.classList.add(
-    "show"
+  showToast(
+    "⚡ Event joined +10 XP"
   );
 
 }
 
 
-function closeModal(){
+/* =========================
+   FOLLOW
+========================= */
 
-  document
-    .getElementById("modal")
-    .classList.remove(
-      "show"
-    );
+function followRoom(){
+
+  showToast(
+    "❤️ Room followed"
+  );
 
 }
 
 
-/* =========================================
+/* =========================
+   MIC
+========================= */
+
+function toggleMic(){
+
+  const btn =
+    document.getElementById("micBtn");
+
+  if(btn.textContent === "🎙️"){
+
+    btn.textContent = "🔇";
+
+    showToast("Mic muted");
+
+  }else{
+
+    btn.textContent = "🎙️";
+
+    showToast("Mic on");
+
+  }
+
+}
+
+
+/* =========================
+   SPEAKER
+========================= */
+
+function toggleSpeaker(){
+
+  const btn =
+    document.getElementById(
+      "speakerBtn"
+    );
+
+  if(btn.textContent === "🔊"){
+
+    btn.textContent = "🔇";
+
+    showToast("Speaker off");
+
+  }else{
+
+    btn.textContent = "🔊";
+
+    showToast("Speaker on");
+
+  }
+
+}
+
+
+/* =========================
+   SHARE
+========================= */
+
+function shareRoom(){
+
+  const text =
+    "Join my Tannu Voice Chat room 🔥";
+
+  if(navigator.share){
+
+    navigator.share({
+      title:"Tannu Voice Chat",
+      text:text,
+      url:location.href
+    });
+
+  }else{
+
+    navigator.clipboard.writeText(
+      location.href
+    );
+
+    showToast(
+      "Room link copied"
+    );
+
+  }
+
+}
+
+
+/* =========================
    LEAVE
-   ========================================= */
+========================= */
 
 function leaveRoom(){
 
-  if(
-    confirm(
-      "Leave Tannu Voice Chat Room?"
-    )
-  ){
+  if(confirm(
+    "Leave this voice room?"
+  )){
 
-    window.location.href=
+    location.href =
       "index.html";
 
   }
@@ -2810,8 +1509,128 @@ function leaveRoom(){
 }
 
 
-/* =========================================
-   DEMO ONLINE
-   ========================================= */
+/* =========================
+   MODALS
+========================= */
 
-let viewers=126;
+function openModal(title){
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent = title;
+
+  const text = {
+
+    Events:
+      "🎉 Room events, daily challenges and special rewards will appear here.",
+
+    Ranking:
+      "🏆 Room ranking will show active members, top supporters and room achievements.",
+
+    Family:
+      "👨‍👩‍👧 Family system will let users build teams and grow together.",
+
+    Support:
+      "🛟 Tannu Support is here to help with room and account problems."
+
+  };
+
+  document.getElementById(
+    "modalText"
+  ).textContent =
+    text[title] || "Tannu Voice Chat";
+
+  document.getElementById(
+    "modal"
+  ).style.display = "flex";
+
+}
+
+
+function closeModal(){
+
+  document.getElementById(
+    "modal"
+  ).style.display = "none";
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function showToast(text){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = text;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(function(){
+
+      toast.classList.remove("show");
+
+    },2200);
+
+}
+
+
+/* =========================
+   WALLET SYNC
+========================= */
+
+window.addEventListener(
+  "tannuWalletUpdated",
+  updateRoomUI
+);
+
+window.addEventListener(
+  "storage",
+  updateRoomUI
+);
+
+
+/* =========================
+   VIEWER DEMO
+========================= */
+
+setInterval(function(){
+
+  let current =
+    Number(
+      document.getElementById(
+        "viewerCount"
+      ).textContent
+    );
+
+  const change =
+    Math.random() > .5 ? 1 : -1;
+
+  current += change;
+
+  if(current < 80)
+    current = 80;
+
+  document.getElementById(
+    "viewerCount"
+  ).textContent = current;
+
+},5000);
+
+
+/* START */
+
+loadRoom();
+
+</script>
+
+</body>
+</html>
