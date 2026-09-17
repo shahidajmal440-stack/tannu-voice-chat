@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tannu Voice Chat - Room</title>
 
+<!-- SHARED WALLET -->
+<script src="wallet.js"></script>
+
 <style>
 *{
   box-sizing:border-box;
@@ -17,6 +20,11 @@ body{
   background:#07060c;
   color:white;
   min-height:100vh;
+}
+
+button{
+  border:none;
+  cursor:pointer;
 }
 
 .app{
@@ -76,6 +84,34 @@ body{
   border-radius:12px;
   background:#ffffff0c;
   color:white;
+}
+
+/* WALLET BAR */
+.wallet-bar{
+  margin:13px 13px 0;
+  padding:10px 13px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#8a45ff18,#ff4e9b12);
+  border:1px solid #ffffff12;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.wallet-icon{
+  font-size:18px;
+}
+
+.wallet-label{
+  color:#aaa3b4;
+  font-size:10px;
+}
+
+.wallet-balance{
+  margin-left:auto;
+  color:#f4c75e;
+  font-weight:bold;
+  font-size:12px;
 }
 
 /* LIVE BAR */
@@ -244,6 +280,28 @@ body{
   color:white;
 }
 
+/* ACTIONS */
+.actions{
+  padding:0 13px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-bottom:16px;
+}
+
+.action{
+  padding:11px 5px;
+  border-radius:12px;
+  background:#ffffff08;
+  color:#aaa3b4;
+  border:1px solid #ffffff0b;
+  font-size:10px;
+}
+
+.action:active{
+  transform:scale(.96);
+}
+
 /* CHAT */
 .chat-box{
   margin:0 13px 15px;
@@ -343,28 +401,6 @@ body{
   width:52px;
 }
 
-/* ACTIONS */
-.actions{
-  padding:0 13px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-  margin-bottom:16px;
-}
-
-.action{
-  padding:11px 5px;
-  border-radius:12px;
-  background:#ffffff08;
-  color:#aaa3b4;
-  border:1px solid #ffffff0b;
-  font-size:10px;
-}
-
-.action:active{
-  transform:scale(.96);
-}
-
 /* MODAL */
 .modal{
   position:fixed;
@@ -428,6 +464,10 @@ body{
   padding:11px 5px;
   text-align:center;
   color:white;
+}
+
+.gift:active{
+  transform:scale(.96);
 }
 
 .gift-icon{
@@ -510,6 +550,22 @@ body{
   </header>
 
 
+  <!-- SHARED WALLET BALANCE -->
+  <div class="wallet-bar">
+
+    <div class="wallet-icon">🪙</div>
+
+    <div class="wallet-label">
+      My Coins
+    </div>
+
+    <div id="roomCoins" class="wallet-balance">
+      0
+    </div>
+
+  </div>
+
+
   <!-- LIVE -->
   <div class="live-bar">
 
@@ -535,7 +591,6 @@ body{
   <!-- SEATS -->
   <section id="seats" class="seats">
 
-    <!-- HOST -->
     <div class="seat host-seat">
 
       <div class="avatar">
@@ -552,8 +607,6 @@ body{
 
     </div>
 
-
-    <!-- USER -->
     <div class="seat">
 
       <div class="avatar">
@@ -565,7 +618,6 @@ body{
       <div class="seat-label">Speaker</div>
 
     </div>
-
 
     <div class="seat">
 
@@ -579,7 +631,6 @@ body{
 
     </div>
 
-
     <div class="seat">
 
       <div class="avatar">
@@ -591,7 +642,6 @@ body{
       <div class="seat-label">Muted</div>
 
     </div>
-
 
     <div class="seat">
 
@@ -605,7 +655,6 @@ body{
 
     </div>
 
-
     <div class="seat">
 
       <div class="avatar">
@@ -618,7 +667,6 @@ body{
 
     </div>
 
-
     <div class="seat">
 
       <div class="avatar">
@@ -630,7 +678,6 @@ body{
       <div class="seat-label">Muted</div>
 
     </div>
-
 
     <div class="seat">
 
@@ -864,11 +911,15 @@ body{
         🔇 Mute All Speakers
       </button>
 
-      <button class="host-option" onclick="showToast('Kick feature selected')">
+      <button
+        class="host-option"
+        onclick="showToast('Kick feature selected')">
         🚫 Kick User
       </button>
 
-      <button class="host-option" onclick="showToast('Room lock enabled 🔒')">
+      <button
+        class="host-option"
+        onclick="showToast('Room lock enabled 🔒')">
         🔒 Lock Room
       </button>
 
@@ -903,22 +954,78 @@ if(incomingRoom){
 
 
 /* =========================
-   COINS
+   SHARED WALLET
 ========================= */
 
-let coins =
-  Number(localStorage.getItem("tannuCoins"));
+function getRoomCoins(){
 
-if(!coins){
+  if(window.TannuWallet){
 
-  coins = 100000;
+    return TannuWallet.getCoins();
 
-  localStorage.setItem(
-    "tannuCoins",
-    coins
-  );
+  }
+
+  return Number(
+    localStorage.getItem("tannuCoins")
+  ) || 0;
 
 }
+
+
+function updateRoomWallet(){
+
+  const balance =
+    getRoomCoins();
+
+  const element =
+    document.getElementById("roomCoins");
+
+  if(!element) return;
+
+  if(window.TannuWallet){
+
+    element.textContent =
+      TannuWallet.formatCoins(balance) +
+      " 🪙";
+
+  }else{
+
+    element.textContent =
+      balance.toLocaleString("en-IN") +
+      " 🪙";
+
+  }
+
+}
+
+
+/* First wallet update */
+updateRoomWallet();
+
+
+/* Same-page wallet update */
+window.addEventListener(
+  "tannuWalletUpdated",
+  updateRoomWallet
+);
+
+
+/* Other page/tab wallet update */
+window.addEventListener(
+  "storage",
+  function(event){
+
+    if(
+      event.key === "tannuWallet" ||
+      event.key === "tannuCoins"
+    ){
+
+      updateRoomWallet();
+
+    }
+
+  }
+);
 
 
 /* =========================
@@ -932,7 +1039,8 @@ function showToast(message){
   const toast =
     document.getElementById("toast");
 
-  toast.textContent = message;
+  toast.textContent =
+    message;
 
   toast.classList.add("show");
 
@@ -940,7 +1048,9 @@ function showToast(message){
 
   toastTimer =
     setTimeout(()=>{
+
       toast.classList.remove("show");
+
     },2200);
 
 }
@@ -982,7 +1092,9 @@ function toggleMic(){
     status.classList.remove("off");
     status.textContent = "🎤";
 
-    showToast("Microphone ON 🎤");
+    showToast(
+      "Microphone ON 🎤"
+    );
 
   }else{
 
@@ -992,7 +1104,9 @@ function toggleMic(){
     status.classList.add("off");
     status.textContent = "🔇";
 
-    showToast("Microphone OFF 🔇");
+    showToast(
+      "Microphone OFF 🔇"
+    );
 
   }
 
@@ -1017,14 +1131,18 @@ function toggleSpeaker(){
     btn.classList.add("active");
     btn.textContent = "🔊";
 
-    showToast("Speaker ON 🔊");
+    showToast(
+      "Speaker ON 🔊"
+    );
 
   }else{
 
     btn.classList.remove("active");
     btn.textContent = "🔇";
 
-    showToast("Speaker OFF 🔇");
+    showToast(
+      "Speaker OFF 🔇"
+    );
 
   }
 
@@ -1048,7 +1166,9 @@ function likeRoom(){
   likes.textContent =
     value.toLocaleString();
 
-  showToast("Room liked ❤️");
+  showToast(
+    "Room liked ❤️"
+  );
 
 }
 
@@ -1059,11 +1179,14 @@ function likeRoom(){
 
 function openGift(){
 
+  updateRoomWallet();
+
   document
     .getElementById("giftModal")
     .classList.add("show");
 
 }
+
 
 function closeGift(){
 
@@ -1073,9 +1196,43 @@ function closeGift(){
 
 }
 
-function sendGift(name,price,icon){
 
-  if(coins < price){
+/* =========================
+   SEND GIFT
+========================= */
+
+function sendGift(
+  name,
+  price,
+  icon
+){
+
+  price = Number(price);
+
+  /*
+    IMPORTANT:
+    All coin spending goes through
+    the shared TannuWallet.
+  */
+
+  if(!window.TannuWallet){
+
+    closeGift();
+
+    showToast(
+      "Wallet not loaded. Please reload."
+    );
+
+    return;
+
+  }
+
+
+  const currentCoins =
+    TannuWallet.getCoins();
+
+
+  if(currentCoins < price){
 
     closeGift();
 
@@ -1084,14 +1241,36 @@ function sendGift(name,price,icon){
     );
 
     return;
+
   }
 
-  coins -= price;
 
-  localStorage.setItem(
-    "tannuCoins",
-    coins
-  );
+  /*
+    Deduct coins from shared wallet.
+  */
+  const success =
+    TannuWallet.spendCoins(
+      price,
+      "Gift: " + name
+    );
+
+
+  if(!success){
+
+    closeGift();
+
+    showToast(
+      "Gift could not be sent."
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Save gift history.
+  */
 
   const giftHistory =
     JSON.parse(
@@ -1100,36 +1279,61 @@ function sendGift(name,price,icon){
       ) || "[]"
     );
 
-  giftHistory.push({
+
+  giftHistory.unshift({
 
     gift:name,
+
     icon:icon,
+
     price:price,
+
     room:
       document.getElementById(
         "roomTitle"
       ).textContent,
+
     time:Date.now()
 
   });
 
+
+  /*
+    Keep latest 100 gifts.
+  */
+
+  const limitedHistory =
+    giftHistory.slice(0,100);
+
+
   localStorage.setItem(
     "tannuGiftHistory",
-    JSON.stringify(giftHistory)
+    JSON.stringify(
+      limitedHistory
+    )
   );
+
+
+  updateRoomWallet();
 
   closeGift();
 
+
   addMessage(
     "Shahid",
-    "sent " + icon + " " + name
+    "sent " +
+    icon +
+    " " +
+    name
   );
 
+
   showToast(
-    icon + " " +
+    icon +
+    " " +
     name +
     " sent! -" +
-    price.toLocaleString() +
+    TannuWallet.formatCoins(price) +
     " coins"
   );
 
@@ -1162,7 +1366,10 @@ function sendMessage(){
 }
 
 
-function addMessage(user,text){
+function addMessage(
+  user,
+  text
+){
 
   const messages =
     document.getElementById(
@@ -1170,9 +1377,12 @@ function addMessage(user,text){
     );
 
   const msg =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
-  msg.className = "msg";
+  msg.className =
+    "msg";
 
   msg.innerHTML =
     "<b>" +
@@ -1214,6 +1424,7 @@ function openUsers(){
 
 }
 
+
 function closeUsers(){
 
   document
@@ -1235,6 +1446,7 @@ function openHostControls(){
 
 }
 
+
 function closeHostControls(){
 
   document
@@ -1242,6 +1454,7 @@ function closeHostControls(){
     .classList.remove("show");
 
 }
+
 
 function announce(){
 
@@ -1255,7 +1468,8 @@ function announce(){
   box.textContent =
     "📢 Welcome to Tannu Voice Chat! Be respectful and enjoy the room.";
 
-  box.style.display = "block";
+  box.style.display =
+    "block";
 
   showToast(
     "Announcement posted 📢"
@@ -1263,16 +1477,23 @@ function announce(){
 
 }
 
+
 function muteAll(){
 
   closeHostControls();
 
   document
-    .querySelectorAll(".mic-status")
+    .querySelectorAll(
+      ".mic-status"
+    )
     .forEach(status=>{
 
-      status.classList.add("off");
-      status.textContent = "🔇";
+      status.classList.add(
+        "off"
+      );
+
+      status.textContent =
+        "🔇";
 
     });
 
@@ -1291,7 +1512,8 @@ let seatLocked = false;
 
 function lockSeat(){
 
-  seatLocked = !seatLocked;
+  seatLocked =
+    !seatLocked;
 
   const seats =
     document.querySelectorAll(
@@ -1301,7 +1523,11 @@ function lockSeat(){
   if(seatLocked){
 
     seats.forEach(seat=>{
-      seat.classList.add("locked");
+
+      seat.classList.add(
+        "locked"
+      );
+
     });
 
     showToast(
@@ -1311,7 +1537,11 @@ function lockSeat(){
   }else{
 
     seats.forEach(seat=>{
-      seat.classList.remove("locked");
+
+      seat.classList.remove(
+        "locked"
+      );
+
     });
 
     showToast(
@@ -1361,7 +1591,9 @@ async function shareRoom(){
 
     try{
 
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(
+        url
+      );
 
       showToast(
         "Room link copied 📋"
@@ -1412,7 +1644,9 @@ setInterval(()=>{
     );
 
   let value =
-    Number(viewer.textContent);
+    Number(
+      viewer.textContent
+    );
 
   const change =
     Math.floor(
@@ -1422,7 +1656,9 @@ setInterval(()=>{
   value += change;
 
   if(value < 1){
+
     value = 1;
+
   }
 
   viewer.textContent =
@@ -1435,25 +1671,42 @@ setInterval(()=>{
    MODAL OUTSIDE CLOSE
 ========================= */
 
-document.querySelectorAll(".modal")
-.forEach(modal=>{
+document
+  .querySelectorAll(".modal")
+  .forEach(modal=>{
 
-  modal.addEventListener(
-    "click",
-    function(event){
+    modal.addEventListener(
+      "click",
+      function(event){
 
-      if(event.target === modal){
+        if(
+          event.target === modal
+        ){
 
-        modal.classList.remove(
-          "show"
-        );
+          modal.classList.remove(
+            "show"
+          );
+
+        }
 
       }
+    );
 
-    }
-  );
+  });
 
-});
+
+/* =========================
+   PAGE READY
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    updateRoomWallet();
+
+  }
+);
 
 </script>
 
