@@ -1,363 +1,1119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tannu Voice Chat - Profile</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tannu Voice Chat - Profile</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
 
-    body {
-      min-height: 100vh;
-      background: #0b0b16;
-      color: white;
-      padding-bottom: 80px;
-    }
+body{
+  background:#0d0917;
+  color:white;
+}
 
-    .top {
-      padding: 25px 18px 20px;
-      text-align: center;
-      background: linear-gradient(135deg, #17142d, #24143d);
-    }
+button{
+  border:0;
+  cursor:pointer;
+}
 
-    .avatar {
-      width: 85px;
-      height: 85px;
-      border-radius: 50%;
-      margin: auto;
-      background: linear-gradient(135deg, #ff4fd8, #6c5cff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 35px;
-      font-weight: bold;
-      border: 3px solid #fff;
-      overflow: hidden;
-    }
+.app{
+  max-width:600px;
+  min-height:100vh;
+  margin:auto;
+  background:linear-gradient(180deg,#18102c,#0d0917);
+  padding-bottom:90px;
+}
 
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+/* HEADER */
 
-    .name {
-      margin-top: 12px;
-      font-size: 22px;
-      font-weight: bold;
-    }
+.header{
+  height:65px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-bottom:1px solid #302146;
+  position:sticky;
+  top:0;
+  background:rgba(18,11,31,.96);
+  z-index:10;
+}
 
-    .uid {
-      margin-top: 5px;
-      color: #aaa;
-      font-size: 13px;
-    }
+.header h2{
+  font-size:18px;
+}
 
-    .level {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 6px 14px;
-      border-radius: 20px;
-      background: #33245d;
-      color: #d7c5ff;
-      font-size: 13px;
-    }
+/* PROFILE */
 
-    .wallet {
-      margin: 18px;
-      padding: 18px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #19182b, #252040);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.profile{
+  text-align:center;
+  padding:25px 15px 18px;
+}
 
-    .wallet small {
-      color: #aaa;
-    }
+.avatar{
+  width:88px;
+  height:88px;
+  margin:auto;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:34px;
+  font-weight:bold;
+  background:linear-gradient(135deg,#ff9a00,#ff3b81,#7d42e8);
+  border:3px solid #ffd15c;
+  box-shadow:0 0 25px rgba(168,91,255,.35);
+}
 
-    .coins {
-      font-size: 22px;
-      font-weight: bold;
-      color: #ffd54a;
-      margin-top: 5px;
-    }
+.profile h1{
+  font-size:20px;
+  margin-top:12px;
+}
 
-    .recharge {
-      background: linear-gradient(135deg, #ff4fd8, #7b5cff);
-      border: none;
-      color: white;
-      padding: 11px 16px;
-      border-radius: 12px;
-      font-weight: bold;
-    }
+.profile p{
+  color:#999;
+  font-size:12px;
+  margin-top:5px;
+}
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin: 0 18px 18px;
-    }
+.badges{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin-top:10px;
+}
 
-    .stat {
-      background: #171725;
-      padding: 15px 5px;
-      text-align: center;
-      border-radius: 15px;
-    }
+.badge{
+  padding:5px 9px;
+  border-radius:8px;
+  font-size:9px;
+  background:#342052;
+  color:#d8b7ff;
+}
 
-    .stat strong {
-      display: block;
-      font-size: 18px;
-    }
+/* COINS */
 
-    .stat span {
-      color: #999;
-      font-size: 12px;
-      margin-top: 5px;
-      display: block;
-    }
+.wallet{
+  margin:10px 15px;
+  padding:18px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#291644,#191025);
+  border:1px solid #543477;
+}
 
-    .menu {
-      margin: 0 18px;
-      background: #151522;
-      border-radius: 18px;
-      overflow: hidden;
-    }
+.wallet-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    .item {
-      padding: 17px;
-      border-bottom: 1px solid #292936;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+.wallet-title{
+  font-size:13px;
+  color:#aaa;
+}
 
-    .item:last-child {
-      border-bottom: none;
-    }
+.coins{
+  font-size:24px;
+  font-weight:bold;
+  color:#ffd35a;
+  margin-top:6px;
+}
 
-    .left {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
+.recharge{
+  background:#8b45e8;
+  color:white;
+  padding:10px 15px;
+  border-radius:11px;
+  font-weight:bold;
+}
 
-    .icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
-      background: #29233e;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 19px;
-    }
+/* STATS */
 
-    .arrow {
-      color: #777;
-    }
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  margin:10px 15px;
+  background:#171022;
+  border:1px solid #2d2141;
+  border-radius:17px;
+  overflow:hidden;
+}
 
-    .bottom {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 65px;
-      background: #12121d;
-      border-top: 1px solid #292936;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
+.stat{
+  text-align:center;
+  padding:15px 5px;
+  border-right:1px solid #2d2141;
+}
 
-    .nav {
-      color: #888;
-      text-align: center;
-      font-size: 12px;
-      text-decoration: none;
-    }
+.stat:last-child{
+  border:0;
+}
 
-    .nav span {
-      display: block;
-      font-size: 22px;
-      margin-bottom: 3px;
-    }
+.stat b{
+  font-size:17px;
+}
 
-    .nav.active {
-      color: #ff61dc;
-    }
-  </style>
+.stat span{
+  display:block;
+  color:#8e849c;
+  font-size:10px;
+  margin-top:5px;
+}
+
+/* LEVEL */
+
+.level-card{
+  margin:10px 15px;
+  padding:17px;
+  background:#171022;
+  border:1px solid #33244a;
+  border-radius:17px;
+}
+
+.level-top{
+  display:flex;
+  justify-content:space-between;
+}
+
+.level{
+  font-weight:bold;
+}
+
+.exp{
+  color:#a992c4;
+  font-size:11px;
+}
+
+.progress{
+  height:9px;
+  background:#2b213b;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:12px;
+}
+
+.progress-bar{
+  width:62%;
+  height:100%;
+  background:linear-gradient(90deg,#8144e8,#d16bff);
+  border-radius:10px;
+}
+
+.level-bottom{
+  display:flex;
+  justify-content:space-between;
+  margin-top:7px;
+  color:#81758e;
+  font-size:10px;
+}
+
+/* SECTION */
+
+.title{
+  font-size:15px;
+  font-weight:bold;
+  padding:12px 15px 7px;
+}
+
+/* MENU */
+
+.menu{
+  margin:0 15px;
+  border-radius:17px;
+  overflow:hidden;
+  background:#171022;
+  border:1px solid #2c2140;
+}
+
+.item{
+  min-height:58px;
+  display:flex;
+  align-items:center;
+  padding:10px 13px;
+  border-bottom:1px solid #282039;
+}
+
+.item:last-child{
+  border:0;
+}
+
+.icon{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#281a3c;
+  font-size:18px;
+  margin-right:12px;
+}
+
+.item-info{
+  flex:1;
+}
+
+.item-info b{
+  font-size:13px;
+}
+
+.item-info span{
+  display:block;
+  color:#81768d;
+  font-size:10px;
+  margin-top:3px;
+}
+
+.arrow{
+  color:#71657d;
+  font-size:18px;
+}
+
+/* VIP */
+
+.vip-card{
+  margin:10px 15px;
+  padding:18px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#35205b,#1b112c);
+  border:1px solid #6942a0;
+}
+
+.vip-top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.vip-icon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#ffd44d;
+  color:#392400;
+  font-size:24px;
+}
+
+.vip-text{
+  flex:1;
+}
+
+.vip-text h3{
+  font-size:15px;
+}
+
+.vip-text p{
+  color:#a797b7;
+  font-size:10px;
+  margin-top:4px;
+}
+
+.vip-button{
+  background:#ffd04a;
+  color:#321e00;
+  padding:9px 13px;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:11px;
+}
+
+/* DAILY */
+
+.daily{
+  margin:10px 15px;
+  padding:15px;
+  background:#171022;
+  border:1px solid #2d2141;
+  border-radius:17px;
+}
+
+.daily-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.daily-head h3{
+  font-size:14px;
+}
+
+.daily-head span{
+  font-size:10px;
+  color:#f3c45c;
+}
+
+.days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+  margin-top:12px;
+}
+
+.day{
+  text-align:center;
+  padding:8px 2px;
+  background:#241936;
+  border-radius:9px;
+  font-size:9px;
+}
+
+.day b{
+  display:block;
+  font-size:17px;
+  margin-bottom:4px;
+}
+
+.day.done{
+  border:1px solid #8a48df;
+}
+
+.day.today{
+  background:#7540c2;
+}
+
+.claim{
+  width:100%;
+  margin-top:12px;
+  padding:11px;
+  background:#8b45e8;
+  color:white;
+  border-radius:11px;
+  font-weight:bold;
+}
+
+/* SPIN */
+
+.spin{
+  margin:10px 15px;
+  padding:17px;
+  background:linear-gradient(135deg,#21143a,#171022);
+  border:1px solid #452963;
+  border-radius:17px;
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.spin-wheel{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:conic-gradient(#ffca4d,#9c4de8,#ff4f87,#4fc3ff,#ffca4d);
+  font-size:25px;
+}
+
+.spin-text{
+  flex:1;
+}
+
+.spin-text b{
+  font-size:14px;
+}
+
+.spin-text p{
+  color:#91869c;
+  font-size:10px;
+  margin-top:4px;
+}
+
+.spin-btn{
+  background:#d84f92;
+  color:white;
+  padding:10px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+/* NAV */
+
+.nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:600px;
+  height:70px;
+  background:rgba(15,10,25,.98);
+  border-top:1px solid #302143;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  z-index:20;
+}
+
+.nav button{
+  background:transparent;
+  color:#777080;
+  font-size:11px;
+}
+
+.nav button span{
+  display:block;
+  font-size:21px;
+  margin-bottom:3px;
+}
+
+.nav button.active{
+  color:#b66cff;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:50;
+}
+
+.modal-box{
+  width:100%;
+  max-width:600px;
+  background:#1a1128;
+  border-radius:25px 25px 0 0;
+  padding:20px;
+  border-top:1px solid #604080;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px;
+}
+
+.close{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background:#30213e;
+  color:white;
+  font-size:18px;
+}
+
+.packages{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.package{
+  padding:15px;
+  background:#251837;
+  border:1px solid #3b2851;
+  border-radius:14px;
+  color:white;
+}
+
+.package b{
+  color:#ffd45c;
+  font-size:16px;
+}
+
+.package p{
+  color:#aaa;
+  font-size:10px;
+  margin-top:5px;
+}
+
+.buy{
+  width:100%;
+  margin-top:8px;
+  padding:8px;
+  border-radius:8px;
+  background:#8142dc;
+  color:white;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:85px;
+  transform:translateX(-50%);
+  background:#30213f;
+  border:1px solid #5a4072;
+  padding:11px 17px;
+  border-radius:12px;
+  font-size:12px;
+  display:none;
+  z-index:100;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="top">
-    <div class="avatar" id="avatar">T</div>
+<div class="app">
 
-    <div class="name" id="name">Guest</div>
-    <div class="uid" id="uid">UID: --</div>
+  <!-- HEADER -->
 
-    <div class="level">LEVEL 1 • New User</div>
+  <div class="header">
+    <h2>My Profile</h2>
   </div>
 
-  <div class="wallet">
-    <div>
-      <small>My Coins</small>
-      <div class="coins">🪙 0</div>
+
+  <!-- PROFILE -->
+
+  <div class="profile">
+
+    <div class="avatar">S</div>
+
+    <h1>Shahid</h1>
+
+    <p>UID: TV44012345</p>
+
+    <div class="badges">
+      <div class="badge">⭐ Level 5</div>
+      <div class="badge">🎙️ Host</div>
+      <div class="badge">🇮🇳 India</div>
     </div>
 
-    <button class="recharge">Recharge</button>
   </div>
 
+
+  <!-- WALLET -->
+
+  <div class="wallet">
+
+    <div class="wallet-top">
+
+      <div>
+        <div class="wallet-title">My Coins</div>
+        <div class="coins" id="coins">
+          100,000 🪙
+        </div>
+      </div>
+
+      <button class="recharge" onclick="openRecharge()">
+        + Recharge
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- STATS -->
+
   <div class="stats">
+
     <div class="stat">
-      <strong>0</strong>
+      <b>128</b>
       <span>Following</span>
     </div>
 
     <div class="stat">
-      <strong>0</strong>
+      <b>356</b>
       <span>Followers</span>
     </div>
 
     <div class="stat">
-      <strong>0</strong>
+      <b>89</b>
       <span>Visitors</span>
     </div>
+
+  </div>
+
+
+  <!-- LEVEL -->
+
+  <div class="level-card">
+
+    <div class="level-top">
+
+      <div class="level">
+        ⭐ Level 5
+      </div>
+
+      <div class="exp">
+        6,200 / 10,000 EXP
+      </div>
+
+    </div>
+
+    <div class="progress">
+      <div class="progress-bar"></div>
+    </div>
+
+    <div class="level-bottom">
+      <span>Current Level</span>
+      <span>Next: Level 6</span>
+    </div>
+
+  </div>
+
+
+  <!-- VIP -->
+
+  <div class="title">
+    👑 VIP Center
+  </div>
+
+  <div class="vip-card">
+
+    <div class="vip-top">
+
+      <div class="vip-icon">
+        👑
+      </div>
+
+      <div class="vip-text">
+        <h3>VIP 0</h3>
+        <p>Unlock VIP benefits and special rewards</p>
+      </div>
+
+      <button class="vip-button"
+              onclick="showToast('VIP Center opening soon')">
+        VIEW
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- DAILY REWARDS -->
+
+  <div class="title">
+    🎁 Daily Rewards
+  </div>
+
+  <div class="daily">
+
+    <div class="daily-head">
+      <h3>7 Day Rewards</h3>
+      <span>Day 4 / 7</span>
+    </div>
+
+    <div class="days">
+
+      <div class="day done">
+        <b>🪙</b>
+        1K
+      </div>
+
+      <div class="day done">
+        <b>🪙</b>
+        2K
+      </div>
+
+      <div class="day done">
+        <b>🎁</b>
+        Gift
+      </div>
+
+      <div class="day today">
+        <b>🪙</b>
+        5K
+      </div>
+
+      <div class="day">
+        <b>💎</b>
+        8K
+      </div>
+
+      <div class="day">
+        <b>🎁</b>
+        VIP
+      </div>
+
+      <div class="day">
+        <b>👑</b>
+        Big
+      </div>
+
+    </div>
+
+    <button class="claim" onclick="claimDaily()">
+      Claim Today's Reward
+    </button>
+
+  </div>
+
+
+  <!-- FREE SPIN -->
+
+  <div class="title">
+    🎡 Free Spin
+  </div>
+
+  <div class="spin">
+
+    <div class="spin-wheel">
+      🎡
+    </div>
+
+    <div class="spin-text">
+      <b>Free Daily Spin</b>
+      <p>Use your free spin and win coins & rewards</p>
+    </div>
+
+    <button class="spin-btn" onclick="spinWheel()">
+      SPIN
+    </button>
+
+  </div>
+
+
+  <!-- MENU -->
+
+  <div class="title">
+    📦 My Account
   </div>
 
   <div class="menu">
 
-    <div class="item">
-      <div class="left">
-        <div class="icon">🎁</div>
-        <div>My Gifts</div>
+    <div class="item" onclick="showToast('My Gifts opening soon')">
+
+      <div class="icon">🎁</div>
+
+      <div class="item-info">
+        <b>My Gifts</b>
+        <span>View received gifts</span>
       </div>
+
       <div class="arrow">›</div>
+
     </div>
 
-    <div class="item">
-      <div class="left">
-        <div class="icon">⭐</div>
-        <div>VIP Center</div>
+
+    <div class="item" onclick="showToast('Level & Rewards opening soon')">
+
+      <div class="icon">⭐</div>
+
+      <div class="item-info">
+        <b>Level & Rewards</b>
+        <span>See your level rewards</span>
       </div>
+
       <div class="arrow">›</div>
+
     </div>
 
-    <div class="item">
-      <div class="left">
-        <div class="icon">🏆</div>
-        <div>My Level & Rewards</div>
+
+    <div class="item" onclick="showToast('Visitor list opening soon')">
+
+      <div class="icon">👀</div>
+
+      <div class="item-info">
+        <b>Visitors</b>
+        <span>People who visited your profile</span>
       </div>
+
       <div class="arrow">›</div>
+
     </div>
 
-    <div class="item">
-      <div class="left">
-        <div class="icon">⚙️</div>
-        <div>Settings</div>
+
+    <div class="item" onclick="showToast('Family system coming soon')">
+
+      <div class="icon">👨‍👩‍👧</div>
+
+      <div class="item-info">
+        <b>My Family</b>
+        <span>Join and manage your family</span>
       </div>
+
       <div class="arrow">›</div>
+
     </div>
 
-    <div class="item">
-      <div class="left">
-        <div class="icon">🛟</div>
-        <div>Help & Support</div>
+
+    <div class="item" onclick="showToast('Settings opening soon')">
+
+      <div class="icon">⚙️</div>
+
+      <div class="item-info">
+        <b>Settings</b>
+        <span>Account and privacy settings</span>
       </div>
+
       <div class="arrow">›</div>
+
+    </div>
+
+
+    <div class="item" onclick="showToast('Help & Support opening soon')">
+
+      <div class="icon">🎧</div>
+
+      <div class="item-info">
+        <b>Help & Support</b>
+        <span>Contact Tannu support team</span>
+      </div>
+
+      <div class="arrow">›</div>
+
     </div>
 
   </div>
 
-  <div class="bottom">
-    <a class="nav" href="index.html">
-      <span>🏠</span>
-      Home
-    </a>
+</div>
 
-    <a class="nav" href="rooms.html">
-      <span>🎙️</span>
-      Rooms
-    </a>
 
-    <a class="nav" href="events.html">
-      <span>🎉</span>
-      Events
-    </a>
+<!-- BOTTOM NAV -->
 
-    <a class="nav active" href="profile.html">
-      <span>👤</span>
-      Profile
-    </a>
+<div class="nav">
+
+  <button onclick="goHome()">
+    <span>🏠</span>
+    Home
+  </button>
+
+  <button onclick="goRooms()">
+    <span>🎙️</span>
+    Rooms
+  </button>
+
+  <button onclick="showToast('Events opening soon')">
+    <span>🎉</span>
+    Events
+  </button>
+
+  <button class="active">
+    <span>👤</span>
+    Profile
+  </button>
+
+</div>
+
+
+<!-- RECHARGE MODAL -->
+
+<div class="modal" id="rechargeModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <div>
+        <h3>🪙 Recharge Coins</h3>
+        <p style="font-size:10px;color:#999;margin-top:4px;">
+          Demo packages — payment will be connected later
+        </p>
+      </div>
+
+      <button class="close" onclick="closeRecharge()">×</button>
+
+    </div>
+
+    <div class="packages">
+
+      <div class="package">
+        <b>100K 🪙</b>
+        <p>Starter Package</p>
+        <button class="buy" onclick="buyCoins(100000)">
+          Select
+        </button>
+      </div>
+
+      <div class="package">
+        <b>500K 🪙</b>
+        <p>Popular Package</p>
+        <button class="buy" onclick="buyCoins(500000)">
+          Select
+        </button>
+      </div>
+
+      <div class="package">
+        <b>1M 🪙</b>
+        <p>Premium Package</p>
+        <button class="buy" onclick="buyCoins(1000000)">
+          Select
+        </button>
+      </div>
+
+      <div class="package">
+        <b>3M 🪙</b>
+        <p>First Recharge</p>
+        <button class="buy" onclick="buyCoins(3000000)">
+          Select
+        </button>
+      </div>
+
+    </div>
+
   </div>
 
-  <script type="module">
+</div>
 
-    import { initializeApp }
-      from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
-    import {
-      getAuth,
-      onAuthStateChanged
-    }
-    from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+<!-- TOAST -->
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAc7BBn6G5zzAmB4Mx-3haVwE0aob5HlVc",
-      authDomain: "tannu-voice-chat.firebaseapp.com",
-      projectId: "tannu-voice-chat",
-      storageBucket: "tannu-voice-chat.firebasestorage.app",
-      messagingSenderId: "720483733073",
-      appId: "1:720483733073:web:c65b96d255d6177b9d7270"
-    };
+<div class="toast" id="toast"></div>
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
 
-    onAuthStateChanged(auth, (user) => {
+<script>
 
-      if (user) {
+let coins = 100000;
 
-        document.getElementById("name").textContent =
-          user.displayName || "Tannu User";
+let spinAvailable = true;
 
-        document.getElementById("uid").textContent =
-          "UID: " + user.uid.substring(0, 10) + "...";
+let dailyClaimed = false;
 
-        if (user.photoURL) {
 
-          const avatar = document.getElementById("avatar");
+/* -------------------------
+   COINS DISPLAY
+-------------------------- */
 
-          avatar.innerHTML =
-            `<img src="${user.photoURL}" alt="Profile">`;
+function updateCoins(){
 
-        } else {
+  document.getElementById("coins").textContent =
+    coins.toLocaleString()+" 🪙";
 
-          document.getElementById("avatar").textContent =
-            (user.displayName || "T")[0].toUpperCase();
+}
 
-        }
 
-      } else {
+/* -------------------------
+   RECHARGE
+-------------------------- */
 
-        document.getElementById("name").textContent = "Guest";
-        document.getElementById("uid").textContent = "UID: Guest";
-        document.getElementById("avatar").textContent = "G";
+function openRecharge(){
 
-      }
+  document.getElementById("rechargeModal")
+    .style.display="flex";
 
-    });
+}
 
-  </script>
+function closeRecharge(){
+
+  document.getElementById("rechargeModal")
+    .style.display="none";
+
+}
+
+function buyCoins(amount){
+
+  closeRecharge();
+
+  showToast(
+    "Selected "+amount.toLocaleString()+" coins. Payment coming soon."
+  );
+
+}
+
+
+/* -------------------------
+   DAILY REWARD
+-------------------------- */
+
+function claimDaily(){
+
+  if(dailyClaimed){
+
+    showToast("Today's reward already claimed");
+    return;
+
+  }
+
+  coins += 5000;
+
+  dailyClaimed=true;
+
+  updateCoins();
+
+  showToast("🎁 5,000 coins claimed!");
+
+}
+
+
+/* -------------------------
+   FREE SPIN
+-------------------------- */
+
+function spinWheel(){
+
+  if(!spinAvailable){
+
+    showToast("No free spin available");
+    return;
+
+  }
+
+  spinAvailable=false;
+
+  const rewards=[
+    100,
+    500,
+    1000,
+    5000,
+    10000
+  ];
+
+  const reward =
+    rewards[Math.floor(Math.random()*rewards.length)];
+
+  coins += reward;
+
+  updateCoins();
+
+  showToast(
+    "🎉 You won "+reward.toLocaleString()+" coins!"
+  );
+
+}
+
+
+/* -------------------------
+   TOAST
+-------------------------- */
+
+let toastTimer;
+
+function showToast(text){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent=text;
+
+  toast.style.display="block";
+
+  clearTimeout(toastTimer);
+
+  toastTimer=setTimeout(function(){
+
+    toast.style.display="none";
+
+  },2300);
+
+}
+
+
+/* -------------------------
+   NAVIGATION
+-------------------------- */
+
+function goHome(){
+
+  window.location.href="index.html";
+
+}
+
+function goRooms(){
+
+  window.location.href="index.html#rooms";
+
+}
+
+</script>
 
 </body>
 </html>
