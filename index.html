@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Tannu Voice Chat</title>
 
 <style>
@@ -21,11 +21,14 @@ body{
   -webkit-tap-highlight-color:transparent;
 }
 
-button,.nav-item,.category,.card,.room,.feature,.menu{
-  -webkit-tap-highlight-color:transparent;
+button,input{
+  font-family:inherit;
 }
 
-button{font-family:inherit}
+button{
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
 
 .app{
   max-width:480px;
@@ -36,7 +39,7 @@ button{font-family:inherit}
   overflow:hidden;
 }
 
-/* TOP BAR */
+/* TOP */
 
 .topbar{
   position:sticky;
@@ -87,7 +90,6 @@ button{font-family:inherit}
   display:flex;
   align-items:center;
   justify-content:center;
-  cursor:pointer;
   font-size:16px;
 }
 
@@ -111,7 +113,9 @@ button{font-family:inherit}
   animation:fadeIn .18s ease;
 }
 
-.screen.active{display:block}
+.screen.active{
+  display:block;
+}
 
 @keyframes fadeIn{
   from{opacity:.45;transform:translateY(5px)}
@@ -131,7 +135,9 @@ button{font-family:inherit}
   border-radius:14px;
 }
 
-.search-box span{color:#777}
+.search-box span{
+  color:#777;
+}
 
 .search-box input{
   width:100%;
@@ -142,7 +148,9 @@ button{font-family:inherit}
   font-size:12px;
 }
 
-.search-box input::placeholder{color:#777}
+.search-box input::placeholder{
+  color:#777;
+}
 
 /* BANNER */
 
@@ -201,7 +209,6 @@ button{font-family:inherit}
   color:#6b21a8;
   font-weight:bold;
   font-size:13px;
-  cursor:pointer;
 }
 
 /* SECTION */
@@ -213,12 +220,13 @@ button{font-family:inherit}
   margin:21px 0 11px;
 }
 
-.section-title h2{font-size:18px}
+.section-title h2{
+  font-size:18px;
+}
 
 .see-all{
   color:#a78bfa;
   font-size:12px;
-  cursor:pointer;
 }
 
 /* CATEGORIES */
@@ -231,7 +239,9 @@ button{font-family:inherit}
   padding-bottom:2px;
 }
 
-.categories::-webkit-scrollbar{display:none}
+.categories::-webkit-scrollbar{
+  display:none;
+}
 
 .category{
   white-space:nowrap;
@@ -241,8 +251,6 @@ button{font-family:inherit}
   border-radius:20px;
   font-size:12px;
   color:#ddd;
-  cursor:pointer;
-  transition:.2s;
 }
 
 .category.active{
@@ -251,7 +259,7 @@ button{font-family:inherit}
   color:#fff;
 }
 
-/* ROOM */
+/* ROOMS */
 
 .room{
   background:#1b1b2a;
@@ -266,7 +274,9 @@ button{font-family:inherit}
   transition:.15s;
 }
 
-.room:active{transform:scale(.985)}
+.room:active{
+  transform:scale(.985);
+}
 
 .room-left{
   display:flex;
@@ -287,7 +297,9 @@ button{font-family:inherit}
   font-size:22px;
 }
 
-.room-info{min-width:0}
+.room-info{
+  min-width:0;
+}
 
 .room h3{
   font-size:14px;
@@ -320,7 +332,6 @@ button{font-family:inherit}
   border-radius:18px;
   font-size:12px;
   font-weight:bold;
-  cursor:pointer;
   flex-shrink:0;
 }
 
@@ -338,11 +349,11 @@ button{font-family:inherit}
   border:1px solid #29293d;
   padding:15px;
   border-radius:17px;
-  cursor:pointer;
-  transition:.15s;
 }
 
-.feature:active{transform:scale(.98)}
+.feature:active{
+  transform:scale(.98);
+}
 
 .feature-icon{
   font-size:27px;
@@ -387,8 +398,6 @@ button{font-family:inherit}
   display:flex;
   align-items:center;
   gap:13px;
-  cursor:pointer;
-  background:linear-gradient(135deg,#171d42,#29205c);
 }
 
 .event-icon{
@@ -454,10 +463,9 @@ button{font-family:inherit}
   padding:15px;
   border-radius:14px;
   margin-bottom:9px;
-  cursor:pointer;
 }
 
-/* BOTTOM NAV */
+/* NAV */
 
 .bottom-nav{
   position:fixed;
@@ -481,9 +489,7 @@ button{font-family:inherit}
   text-align:center;
   color:#777;
   font-size:10px;
-  cursor:pointer;
   padding:7px 0;
-  transition:.2s;
 }
 
 .nav-item .icon{
@@ -491,10 +497,8 @@ button{font-family:inherit}
   margin-bottom:4px;
 }
 
-.nav-item.active{color:#a78bfa}
-
-.nav-item.active .icon{
-  transform:translateY(-1px);
+.nav-item.active{
+  color:#a78bfa;
 }
 
 /* MODAL */
@@ -510,7 +514,9 @@ button{font-family:inherit}
   padding:15px;
 }
 
-.modal.show{display:flex}
+.modal.show{
+  display:flex;
+}
 
 .modal-box{
   width:100%;
@@ -519,12 +525,6 @@ button{font-family:inherit}
   border:1px solid #34344c;
   border-radius:22px;
   padding:20px;
-  animation:modalUp .2s ease;
-}
-
-@keyframes modalUp{
-  from{transform:translateY(30px);opacity:0}
-  to{transform:translateY(0);opacity:1}
 }
 
 .modal-title{
@@ -551,22 +551,25 @@ button{font-family:inherit}
   font-weight:bold;
 }
 
-/* STATUS */
-
 .backend-status{
   text-align:center;
   font-size:9px;
-  color:#555;
+  color:#666;
   padding:7px;
 }
-
-/* FOOTER */
 
 .footer{
   text-align:center;
   color:#555;
   font-size:10px;
   padding:20px 0 5px;
+}
+
+.empty{
+  text-align:center;
+  color:#777;
+  padding:25px 10px;
+  font-size:12px;
 }
 
 @media(max-width:360px){
@@ -619,6 +622,7 @@ button{font-family:inherit}
   <div class="search-box">
     <span>🔍</span>
     <input
+      id="roomSearch"
       type="text"
       placeholder="Search rooms, users..."
       oninput="searchRooms(this.value)">
@@ -638,7 +642,8 @@ button{font-family:inherit}
       and enjoy daily events.
     </p>
 
-    <button class="banner-button" onclick="go('rooms')">
+    <button class="banner-button"
+      onclick="go('rooms')">
       Explore Rooms →
     </button>
 
@@ -652,27 +657,27 @@ button{font-family:inherit}
   <div class="categories">
 
     <div class="category active"
-      onclick="filterCategory(this,'Popular')">
+      onclick="filterHomeCategory(this,'Popular')">
       🔥 Popular
     </div>
 
     <div class="category"
-      onclick="filterCategory(this,'Music')">
+      onclick="filterHomeCategory(this,'Music')">
       🎵 Music
     </div>
 
     <div class="category"
-      onclick="filterCategory(this,'Fun')">
+      onclick="filterHomeCategory(this,'Fun')">
       😂 Fun
     </div>
 
     <div class="category"
-      onclick="filterCategory(this,'Friends')">
+      onclick="filterHomeCategory(this,'Friends')">
       👥 Friends
     </div>
 
     <div class="category"
-      onclick="filterCategory(this,'Games')">
+      onclick="filterHomeCategory(this,'Games')">
       🎮 Games
     </div>
 
@@ -683,7 +688,8 @@ button{font-family:inherit}
 
     <h2>🔥 Popular Rooms</h2>
 
-    <span class="see-all" onclick="go('rooms')">
+    <span class="see-all"
+      onclick="go('rooms')">
       See All
     </span>
 
@@ -692,7 +698,8 @@ button{font-family:inherit}
 
   <div id="homeRooms">
 
-    <div class="room searchable-room">
+    <div class="room searchable-room"
+      data-category="Music">
 
       <div class="room-left">
 
@@ -707,7 +714,7 @@ button{font-family:inherit}
 
           <p>
             <span class="live-dot"></span>
-            Live Music • 👤 128
+            Music • 👤 128
           </p>
 
         </div>
@@ -722,7 +729,8 @@ button{font-family:inherit}
     </div>
 
 
-    <div class="room searchable-room">
+    <div class="room searchable-room"
+      data-category="Friends">
 
       <div class="room-left">
 
@@ -737,7 +745,7 @@ button{font-family:inherit}
 
           <p>
             <span class="live-dot"></span>
-            Chat • 👤 96
+            Friends • 👤 96
           </p>
 
         </div>
@@ -752,7 +760,8 @@ button{font-family:inherit}
     </div>
 
 
-    <div class="room searchable-room">
+    <div class="room searchable-room"
+      data-category="Fun">
 
       <div class="room-left">
 
@@ -767,7 +776,7 @@ button{font-family:inherit}
 
           <p>
             <span class="live-dot"></span>
-            Entertainment • 👤 74
+            Fun • 👤 74
           </p>
 
         </div>
@@ -788,45 +797,35 @@ button{font-family:inherit}
     <h2>✨ Daily for You</h2>
   </div>
 
+
   <div class="feature-grid">
 
     <div class="feature"
-      onclick="showFeature('🎁 Gifts','Send virtual gifts inside voice rooms.')">
-
+      onclick="go('events')">
       <div class="feature-icon">🎁</div>
       <h3>Gifts</h3>
       <p>Send gifts in rooms</p>
-
     </div>
-
 
     <div class="feature"
       onclick="showFeature('👑 VIP','Unlock VIP benefits and special rewards.')">
-
       <div class="feature-icon">👑</div>
       <h3>VIP</h3>
       <p>Unlock VIP benefits</p>
-
     </div>
 
-
     <div class="feature"
-      onclick="showFeature('🎡 Free Spin','Your daily free spin rewards will appear here.')">
-
+      onclick="go('events')">
       <div class="feature-icon">🎡</div>
       <h3>Free Spin</h3>
       <p>Win daily coins</p>
-
     </div>
 
-
     <div class="feature"
-      onclick="showFeature('🏆 Rewards','Complete activities and collect rewards.')">
-
+      onclick="go('events')">
       <div class="feature-icon">🏆</div>
       <h3>Rewards</h3>
       <p>Claim daily rewards</p>
-
     </div>
 
   </div>
@@ -836,7 +835,8 @@ button{font-family:inherit}
 
     <h2>🎉 Today's Event</h2>
 
-    <span class="see-all" onclick="go('events')">
+    <span class="see-all"
+      onclick="go('events')">
       View All
     </span>
 
@@ -882,10 +882,30 @@ button{font-family:inherit}
 
   <div class="categories">
 
-    <div class="category active">🔥 Popular</div>
-    <div class="category">🎵 Music</div>
-    <div class="category">😂 Fun</div>
-    <div class="category">🎮 Games</div>
+    <div class="category active"
+      onclick="filterRooms('Popular',this)">
+      🔥 Popular
+    </div>
+
+    <div class="category"
+      onclick="filterRooms('Music',this)">
+      🎵 Music
+    </div>
+
+    <div class="category"
+      onclick="filterRooms('Fun',this)">
+      😂 Fun
+    </div>
+
+    <div class="category"
+      onclick="filterRooms('Games',this)">
+      🎮 Games
+    </div>
+
+    <div class="category"
+      onclick="filterRooms('Friends',this)">
+      👥 Friends
+    </div>
 
   </div>
 
@@ -905,7 +925,7 @@ button{font-family:inherit}
 
           <p>
             <span class="live-dot"></span>
-            156 online
+            Friends • 👤 156
           </p>
 
         </div>
@@ -914,60 +934,6 @@ button{font-family:inherit}
 
       <button class="join"
         onclick="openRoom('India Friends')">
-        Join
-      </button>
-
-    </div>
-
-
-    <div class="room">
-
-      <div class="room-left">
-
-        <div class="room-icon">🎶</div>
-
-        <div class="room-info">
-
-          <h3>Music Lovers</h3>
-
-          <p>
-            <span class="live-dot"></span>
-            103 online
-          </p>
-
-        </div>
-
-      </div>
-
-      <button class="join"
-        onclick="openRoom('Music Lovers')">
-        Join
-      </button>
-
-    </div>
-
-
-    <div class="room">
-
-      <div class="room-left">
-
-        <div class="room-icon">🎮</div>
-
-        <div class="room-info">
-
-          <h3>Gaming Room</h3>
-
-          <p>
-            <span class="live-dot"></span>
-            88 online
-          </p>
-
-        </div>
-
-      </div>
-
-      <button class="join"
-        onclick="openRoom('Gaming Room')">
         Join
       </button>
 
@@ -986,32 +952,40 @@ button{font-family:inherit}
     <h2>🎉 Daily Events</h2>
   </div>
 
-  <div class="card"
-    onclick="claimDailyReward()">
+
+  <div class="card">
 
     <h3>🎁 Daily Welcome</h3>
 
     <p>
-      Open the app every day and collect your reward.
+      Open the app every day and collect
+      your 1,000 coin reward.
     </p>
 
-    <button class="join" style="margin-top:12px;">
+    <button
+      id="rewardButton"
+      class="join"
+      style="margin-top:12px;"
+      onclick="claimDailyReward()">
       Claim 1,000 Coins
     </button>
 
   </div>
 
 
-  <div class="card"
-    onclick="freeSpin()">
+  <div class="card">
 
     <h3>🎡 Free Spin</h3>
 
-    <p>
-      Play your free spin and win coins & rewards.
+    <p id="spinInfo">
+      You can spin up to 5 times every day.
     </p>
 
-    <button class="join" style="margin-top:12px;">
+    <button
+      id="spinButton"
+      class="join"
+      style="margin-top:12px;"
+      onclick="freeSpin()">
       Spin
     </button>
 
@@ -1023,7 +997,8 @@ button{font-family:inherit}
     <h3>🏆 Daily Reward</h3>
 
     <p>
-      Complete your daily activity and receive rewards.
+      Complete activities and collect
+      more rewards as the app grows.
     </p>
 
   </div>
@@ -1034,7 +1009,8 @@ button{font-family:inherit}
     <h3>🔥 Room Activity</h3>
 
     <p>
-      Join active rooms and participate with friends.
+      Join active rooms and participate
+      with friends.
     </p>
 
   </div>
@@ -1055,16 +1031,6 @@ button{font-family:inherit}
     <div class="card">
       <h3>🎙️ Tannu Team</h3>
       <p>Welcome to Tannu Voice Chat ❤️</p>
-    </div>
-
-    <div class="card">
-      <h3>🎁 Rewards</h3>
-      <p>Your daily rewards will appear here.</p>
-    </div>
-
-    <div class="card">
-      <h3>🔔 System</h3>
-      <p>No new notifications.</p>
     </div>
 
   </div>
@@ -1095,17 +1061,17 @@ button{font-family:inherit}
     <div class="stats">
 
       <div class="stat">
-        <b>0</b>
+        <b id="followersCount">0</b>
         <span>Followers</span>
       </div>
 
       <div class="stat">
-        <b>0</b>
+        <b id="followingCount">0</b>
         <span>Following</span>
       </div>
 
       <div class="stat">
-        <b>0</b>
+        <b id="friendsCount">0</b>
         <span>Friends</span>
       </div>
 
@@ -1127,7 +1093,7 @@ button{font-family:inherit}
 
 
   <div class="menu"
-    onclick="showFeature('🎁 Rewards','Your rewards will appear here.')">
+    onclick="go('events')">
     🎁 Rewards
   </div>
 
@@ -1153,50 +1119,36 @@ button{font-family:inherit}
   <div class="nav-item active"
     data-page="home"
     onclick="go('home')">
-
     <div class="icon">🏠</div>
     Home
-
   </div>
-
 
   <div class="nav-item"
     data-page="rooms"
     onclick="go('rooms')">
-
     <div class="icon">🎙️</div>
     Rooms
-
   </div>
-
 
   <div class="nav-item"
     data-page="events"
     onclick="go('events')">
-
     <div class="icon">🎉</div>
     Events
-
   </div>
-
 
   <div class="nav-item"
     data-page="messages"
     onclick="go('messages')">
-
     <div class="icon">💬</div>
     Messages
-
   </div>
-
 
   <div class="nav-item"
     data-page="profile"
     onclick="go('profile')">
-
     <div class="icon">👤</div>
     Profile
-
   </div>
 
 </div>
@@ -1239,7 +1191,7 @@ button{font-family:inherit}
 
 <script type="module">
 
-import { initializeApp }
+import {initializeApp}
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
@@ -1247,7 +1199,6 @@ import {
   doc,
   getDoc,
   setDoc,
-  updateDoc,
   increment,
   serverTimestamp,
   collection,
@@ -1256,9 +1207,9 @@ import {
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-/* ================= FIREBASE CONFIG ================= */
+/* FIREBASE CONFIG */
 
-const firebaseConfig = {
+const firebaseConfig={
 
   apiKey:
   "AIzaSyAc7BBn6G5zzABm4Bx-3haVwE0aob5HlVc",
@@ -1281,136 +1232,210 @@ const firebaseConfig = {
 };
 
 
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
-
-/* ================= TEMP USER ================= */
-
-/*
- Google Login kal fix karenge.
-
- Abhi Firestore testing ke liye
- tumhara existing test user use ho raha hai.
-*/
-
-const USER_ID = "B6Hd5ryWoAJkWmzwJpWa";
-
-const WALLET_ID = "wallet1";
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
 
 
-/* ================= STATUS ================= */
+/* TEMP USER */
+
+const USER_ID="B6Hd5ryWoAJkWmzwJpWa";
+const WALLET_ID="wallet1";
+
+
+/* DATE */
+
+function todayKey(){
+
+  const d=new Date();
+
+  return d.getFullYear()+"-"+
+
+    String(d.getMonth()+1).padStart(2,"0")+"-"+
+
+    String(d.getDate()).padStart(2,"0");
+
+}
+
+
+/* STATUS */
 
 function backendOnline(){
 
-  const status =
+  const status=
     document.getElementById("backendStatus");
 
   if(status){
-    status.innerText =
+
+    status.innerText=
       "🔥 Tannu backend connected";
+
     status.style.color="#22c55e";
+
   }
 
 }
 
 
-/* ================= LOAD USER ================= */
+/* USER */
 
 async function loadUser(){
 
   try{
 
-    const ref =
-      doc(db,"users",USER_ID);
+    const ref=doc(db,"users",USER_ID);
 
-    const snap =
-      await getDoc(ref);
+    const snap=await getDoc(ref);
 
-    if(snap.exists()){
+    if(!snap.exists())return;
 
-      const data=snap.data();
+    const data=snap.data();
 
-      if(data.name){
+    if(data.name){
 
-        document.getElementById(
-          "profileName"
-        ).innerText=data.name;
+      document.getElementById(
+        "profileName"
+      ).innerText=data.name;
 
-      }
+    }
 
-      if(data.level){
+    if(data.level){
 
-        document.getElementById(
-          "profileLevel"
-        ).innerText=
-          "Level " + data.level +
-          " • Tannu User";
+      document.getElementById(
+        "profileLevel"
+      ).innerText=
+        "Level "+data.level+
+        " • Tannu User";
 
-      }
+    }
+
+    if(data.followers!=null){
+
+      document.getElementById(
+        "followersCount"
+      ).innerText=data.followers;
+
+    }
+
+    if(data.following!=null){
+
+      document.getElementById(
+        "followingCount"
+      ).innerText=data.following;
+
+    }
+
+    if(data.friends!=null){
+
+      document.getElementById(
+        "friendsCount"
+      ).innerText=data.friends;
 
     }
 
   }catch(error){
 
-    console.error(
-      "User loading error:",
-      error
-    );
+    console.error("User error:",error);
 
   }
 
 }
 
 
-/* ================= WALLET ================= */
+/* WALLET */
 
 async function loadWallet(){
 
   try{
 
-    const ref =
-      doc(db,"wallets",WALLET_ID);
+    const ref=doc(db,"wallets",WALLET_ID);
 
-    const snap =
-      await getDoc(ref);
+    const snap=await getDoc(ref);
 
     if(snap.exists()){
 
       const data=snap.data();
 
-      const coins =
-        Number(data.coins || 0);
+      const coins=Number(data.coins||0);
 
       document.getElementById(
         "coinBalance"
-      ).innerText =
+      ).innerText=
         coins.toLocaleString("en-IN");
 
     }
 
   }catch(error){
 
-    console.error(
-      "Wallet loading error:",
-      error
-    );
+    console.error("Wallet error:",error);
 
   }
 
 }
 
 
-/* ================= DAILY REWARD ================= */
+/* DAILY REWARD */
 
-window.claimDailyReward =
-async function(){
+async function updateRewardButton(){
 
   try{
 
-    const ref =
-      doc(db,"wallets",WALLET_ID);
+    const ref=doc(db,"wallets",WALLET_ID);
+
+    const snap=await getDoc(ref);
+
+    const button=
+      document.getElementById("rewardButton");
+
+    if(!button)return;
+
+    if(
+      snap.exists() &&
+      snap.data().rewardDate===todayKey()
+    ){
+
+      button.innerText="✅ Reward Claimed Today";
+      button.disabled=true;
+      button.style.opacity=".5";
+
+    }else{
+
+      button.innerText="Claim 1,000 Coins";
+      button.disabled=false;
+      button.style.opacity="1";
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
+
+
+window.claimDailyReward=async function(){
+
+  try{
+
+    const ref=doc(db,"wallets",WALLET_ID);
+
+    const snap=await getDoc(ref);
+
+    if(
+      snap.exists() &&
+      snap.data().rewardDate===todayKey()
+    ){
+
+      showFeature(
+        "🎁 Already Claimed",
+        "Your daily reward has already been claimed today."
+      );
+
+      return;
+
+    }
+
 
     await setDoc(
 
@@ -1418,22 +1443,22 @@ async function(){
 
       {
         userId:USER_ID,
-
         coins:increment(1000),
-
+        rewardDate:todayKey(),
         lastReward:serverTimestamp()
-
       },
 
       {merge:true}
 
     );
 
+
     await loadWallet();
+    await updateRewardButton();
 
     showFeature(
       "🎁 Reward Claimed",
-      "1,000 coins added to your wallet!"
+      "1,000 coins added to your wallet! ❤️"
     );
 
   }catch(error){
@@ -1450,10 +1475,72 @@ async function(){
 };
 
 
-/* ================= FREE SPIN ================= */
+/* FREE SPIN */
 
-window.freeSpin =
-async function(){
+async function updateSpinButton(){
+
+  try{
+
+    const ref=doc(db,"wallets",WALLET_ID);
+
+    const snap=await getDoc(ref);
+
+    let count=0;
+
+    if(snap.exists()){
+
+      const data=snap.data();
+
+      if(data.spinDate===todayKey()){
+
+        count=Number(data.spinCount||0);
+
+      }
+
+    }
+
+    const button=
+      document.getElementById("spinButton");
+
+    const info=
+      document.getElementById("spinInfo");
+
+    if(info){
+
+      info.innerText=
+        "Free spins today: "+
+        count+
+        "/5";
+    }
+
+    if(button){
+
+      if(count>=5){
+
+        button.innerText="✅ 5/5 Spins Used";
+        button.disabled=true;
+        button.style.opacity=".5";
+
+      }else{
+
+        button.innerText="Spin";
+        button.disabled=false;
+        button.style.opacity="1";
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
+
+
+window.freeSpin=async function(){
 
   const rewards=[
     100,
@@ -1463,17 +1550,43 @@ async function(){
     10000
   ];
 
-  const reward =
-    rewards[
-      Math.floor(
-        Math.random()*rewards.length
-      )
-    ];
-
   try{
 
-    const ref =
-      doc(db,"wallets",WALLET_ID);
+    const ref=doc(db,"wallets",WALLET_ID);
+
+    const snap=await getDoc(ref);
+
+    let count=0;
+
+    if(
+      snap.exists() &&
+      snap.data().spinDate===todayKey()
+    ){
+
+      count=Number(snap.data().spinCount||0);
+
+    }
+
+
+    if(count>=5){
+
+      showFeature(
+        "🎡 Spins Finished",
+        "You have used all 5 free spins today. Come back tomorrow!"
+      );
+
+      return;
+
+    }
+
+
+    const reward=
+      rewards[
+        Math.floor(
+          Math.random()*rewards.length
+        )
+      ];
+
 
     await setDoc(
 
@@ -1481,24 +1594,25 @@ async function(){
 
       {
         userId:USER_ID,
-
         coins:increment(reward),
-
+        spinDate:todayKey(),
+        spinCount:count+1,
         lastSpin:serverTimestamp()
-
       },
 
       {merge:true}
 
     );
 
+
     await loadWallet();
+    await updateSpinButton();
 
     showFeature(
       "🎡 Free Spin",
-      "Congratulations! You won " +
-      reward.toLocaleString("en-IN") +
-      " coins."
+      "Congratulations! You won "+
+      reward.toLocaleString("en-IN")+
+      " coins. 🎉"
     );
 
   }catch(error){
@@ -1515,67 +1629,60 @@ async function(){
 };
 
 
-/* ================= LOAD EVENT ================= */
+/* EVENT */
 
 async function loadEvent(){
 
   try{
 
-    const ref =
-      doc(db,"events","event1");
+    const ref=doc(db,"events","event1");
 
-    const snap =
-      await getDoc(ref);
+    const snap=await getDoc(ref);
 
-    if(snap.exists()){
+    if(!snap.exists())return;
 
-      const data=snap.data();
+    const data=snap.data();
 
-      if(data.name){
+    if(data.name){
 
-        document.getElementById(
-          "todayEventName"
-        ).innerText =
-          "🎉 " + data.name;
+      document.getElementById(
+        "todayEventName"
+      ).innerText=
+        "🎉 "+data.name;
 
-      }
+    }
 
-      if(data.status){
+    if(data.status){
 
-        document.getElementById(
-          "todayEventText"
-        ).innerText =
-          "Status: " + data.status +
-          " • Open event to participate.";
-
-      }
+      document.getElementById(
+        "todayEventText"
+      ).innerText=
+        "Status: "+data.status+
+        " • Open event to participate.";
 
     }
 
   }catch(error){
 
-    console.error(
-      "Event loading error:",
-      error
-    );
+    console.error("Event error:",error);
 
   }
 
 }
 
 
-/* ================= LOAD MESSAGES ================= */
+/* MESSAGES */
 
 async function loadMessages(){
 
   try{
 
-    const snapshot =
+    const snapshot=
       await getDocs(
         collection(db,"messages")
       );
 
-    const list =
+    const list=
       document.getElementById(
         "messagesList"
       );
@@ -1584,62 +1691,64 @@ async function loadMessages(){
 
     let html="";
 
-    snapshot.forEach(
-      function(item){
+    snapshot.forEach(function(item){
 
-        const data=item.data();
+      const data=item.data();
 
-        html += `
+      html+=`
 
-          <div class="card">
+        <div class="card">
 
-            <h3>
-              💬 ${escapeHTML(
-                data.sender || "Tannu Team"
-              )}
-            </h3>
+          <h3>
+            💬 ${escapeHTML(
+              data.sender||"Tannu Team"
+            )}
+          </h3>
 
-            <p>
-              ${escapeHTML(
-                data.text || ""
-              )}
-            </p>
+          <p>
+            ${escapeHTML(
+              data.text||""
+            )}
+          </p>
 
-          </div>
+        </div>
 
-        `;
+      `;
 
-      }
-    );
+    });
 
     if(html){
+
       list.innerHTML=html;
+
+    }else{
+
+      list.innerHTML=
+        '<div class="empty">No messages yet.</div>';
+
     }
 
   }catch(error){
 
-    console.error(
-      "Messages loading error:",
-      error
-    );
+    console.error("Messages error:",error);
 
   }
 
 }
 
 
-/* ================= LOAD ROOMS ================= */
+/* ROOMS */
 
 async function loadRooms(){
 
   try{
 
-    const snapshot =
+    const snapshot=
       await getDocs(
         collection(db,"rooms")
       );
 
-    const list =
+    const list=
       document.getElementById(
         "roomsList"
       );
@@ -1648,82 +1757,86 @@ async function loadRooms(){
 
     let html="";
 
-    snapshot.forEach(
-      function(item){
+    snapshot.forEach(function(item){
 
-        const data=item.data();
+      const data=item.data();
 
-        const name =
-          data.name || "Voice Room";
+      const name=
+        data.name||"Voice Room";
 
-        const category =
-          data.category || "Friends";
+      const category=
+        data.category||"Friends";
 
-        const online =
-          Number(data.online || 0);
+      const online=
+        Number(data.online||0);
 
-        html += `
+      html+=`
 
-          <div class="room">
+        <div class="room firebase-room"
+          data-category="${escapeHTML(category)}">
 
-            <div class="room-left">
+          <div class="room-left">
 
-              <div class="room-icon">
-                🎙️
-              </div>
+            <div class="room-icon">
+              🎙️
+            </div>
 
-              <div class="room-info">
+            <div class="room-info">
 
-                <h3>
-                  ${escapeHTML(name)}
-                </h3>
+              <h3>
+                ${escapeHTML(name)}
+              </h3>
 
-                <p>
-                  <span class="live-dot"></span>
-                  ${escapeHTML(category)}
-                  • 👤 ${online}
-                </p>
-
-              </div>
+              <p>
+                <span class="live-dot"></span>
+                ${escapeHTML(category)}
+                • 👤 ${online}
+              </p>
 
             </div>
 
-            <button
-              class="join"
-              onclick="openRoom('${escapeJS(name)}')">
-
-              Join
-
-            </button>
-
           </div>
 
-        `;
+          <button
+            class="join"
+            onclick="openRoom(${JSON.stringify(name)})">
 
-      }
-    );
+            Join
+
+          </button>
+
+        </div>
+
+      `;
+
+    });
 
     if(html){
+
       list.innerHTML=html;
+
+    }else{
+
+      list.innerHTML=
+        '<div class="empty">No live rooms yet.</div>';
+
     }
 
   }catch(error){
 
-    console.error(
-      "Rooms loading error:",
-      error
-    );
+    console.error("Rooms error:",error);
 
   }
 
 }
 
 
-/* ================= SECURITY HELPERS ================= */
+/* ESCAPE */
 
 function escapeHTML(value){
 
   return String(value)
+
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
@@ -1733,18 +1846,7 @@ function escapeHTML(value){
 }
 
 
-function escapeJS(value){
-
-  return String(value)
-    .replace(/\\/g,"\\\\")
-    .replace(/'/g,"\\'")
-    .replace(/"/g,'&quot;')
-    .replace(/\n/g," ");
-
-}
-
-
-/* ================= START BACKEND ================= */
+/* START */
 
 async function startBackend(){
 
@@ -1753,17 +1855,15 @@ async function startBackend(){
     backendOnline();
 
     await loadUser();
-
     await loadWallet();
-
+    await updateRewardButton();
+    await updateSpinButton();
     await loadEvent();
-
     await loadMessages();
-
     await loadRooms();
 
     console.log(
-      "🔥 Tannu Voice Chat Firebase ready"
+      "🔥 Tannu Firebase ready"
     );
 
   }catch(error){
@@ -1773,14 +1873,14 @@ async function startBackend(){
       error
     );
 
-    const status =
+    const status=
       document.getElementById(
         "backendStatus"
       );
 
     if(status){
 
-      status.innerText =
+      status.innerText=
         "⚠️ Firebase connection issue";
 
       status.style.color="#ef4444";
@@ -1796,7 +1896,7 @@ startBackend();
 </script>
 
 
-<!-- NORMAL APP JS -->
+<!-- NORMAL JS -->
 
 <script>
 
@@ -1813,9 +1913,8 @@ function go(page){
     });
 
 
-  const selected =
+  const selected=
     document.getElementById(page);
-
 
   if(selected){
 
@@ -1833,20 +1932,16 @@ function go(page){
     });
 
 
-  const nav =
+  const nav=
     document.querySelector(
-      '.nav-item[data-page="' +
-      page +
-      '"]'
+      '.nav-item[data-page="'+page+'"]'
     );
-
 
   if(nav){
 
     nav.classList.add("active");
 
   }
-
 
   window.scrollTo({
     top:0,
@@ -1862,14 +1957,11 @@ function openRoom(roomName){
 
   showFeature(
 
-    "🎙️ " + roomName,
+    "🎙️ "+roomName,
 
-    "Voice Room foundation is connected.\n\n" +
-
-    "12 mic seats • Join Mic • Mute/Unmute\n" +
-
-    "Room Chat • Gifts\n\n" +
-
+    "Voice Room foundation is connected.\n\n"+
+    "12 mic seats • Join Mic • Mute/Unmute\n"+
+    "Room Chat • Gifts\n\n"+
     "Real-time voice will be added in the next backend stage."
 
   );
@@ -1877,7 +1969,7 @@ function openRoom(roomName){
 }
 
 
-/* FEATURE */
+/* MODAL */
 
 function showFeature(title,message){
 
@@ -1916,30 +2008,91 @@ function closeModal(event){
 }
 
 
-/* CATEGORY */
+/* HOME CATEGORY */
 
-function filterCategory(element,name){
+function filterHomeCategory(element,name){
 
   document
-    .querySelectorAll(".category")
+    .querySelectorAll("#home .category")
     .forEach(function(item){
 
       item.classList.remove("active");
 
     });
 
+  element.classList.add("active");
+
+
+  const rooms=
+    document.querySelectorAll(
+      "#homeRooms .searchable-room"
+    );
+
+
+  rooms.forEach(function(room){
+
+    const category=
+      room.getAttribute("data-category");
+
+    if(
+      name==="Popular" ||
+      category===name
+    ){
+
+      room.style.display="flex";
+
+    }else{
+
+      room.style.display="none";
+
+    }
+
+  });
+
+}
+
+
+/* ROOM CATEGORY */
+
+function filterRooms(name,element){
+
+  document
+    .querySelectorAll("#rooms .category")
+    .forEach(function(item){
+
+      item.classList.remove("active");
+
+    });
 
   element.classList.add("active");
 
 
-  showFeature(
+  const rooms=
+    document.querySelectorAll(
+      "#roomsList .room"
+    );
 
-    "🔎 " + name,
 
-    name +
-    " rooms will be loaded from the backend."
+  rooms.forEach(function(room){
 
-  );
+    const category=
+      room.getAttribute("data-category");
+
+    if(
+      name==="Popular" ||
+      !category ||
+      category===name
+    ){
+
+      room.style.display="flex";
+
+    }else{
+
+      room.style.display="none";
+
+    }
+
+  });
 
 }
 
@@ -1948,17 +2101,18 @@ function filterCategory(element,name){
 
 function searchRooms(value){
 
-  const search =
+  const search=
     value.toLowerCase().trim();
 
 
   document
-    .querySelectorAll(".searchable-room")
+    .querySelectorAll(
+      "#homeRooms .searchable-room"
+    )
     .forEach(function(room){
 
-      const text =
+      const text=
         room.innerText.toLowerCase();
-
 
       if(text.includes(search)){
 
@@ -1979,7 +2133,7 @@ function searchRooms(value){
 
 function showWallet(){
 
-  const coins =
+  const coins=
     document.getElementById(
       "coinBalance"
     ).innerText;
@@ -1988,9 +2142,9 @@ function showWallet(){
 
     "🪙 My Wallet",
 
-    "Current balance: " +
-    coins +
-    " Coins\n\n" +
+    "Current balance: "+
+    coins+
+    " Coins\n\n"+
     "Wallet is connected to Firebase."
 
   );
@@ -1998,7 +2152,7 @@ function showWallet(){
 }
 
 
-/* START */
+/* START HOME */
 
 document.addEventListener(
   "DOMContentLoaded",
