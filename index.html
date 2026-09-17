@@ -162,16 +162,19 @@
 
     .room-info {
       flex: 1;
+      min-width: 0;
     }
 
     .room-info h3 {
       font-size: 16px;
       margin-bottom: 5px;
+      word-break: break-word;
     }
 
     .room-info p {
       color: #aaa;
       font-size: 12px;
+      margin-top: 2px;
     }
 
     .join-btn {
@@ -181,6 +184,7 @@
       padding: 9px 13px;
       border-radius: 12px;
       font-weight: bold;
+      flex-shrink: 0;
     }
 
     .live {
@@ -201,7 +205,104 @@
       margin-top: 12px;
     }
 
-    /* ================= PROFILE ================= */
+    /* CREATE ROOM BUTTON */
+
+    .create-room-btn {
+      border: none;
+      background: linear-gradient(135deg, #ff3cac, #784ba0);
+      color: white;
+      padding: 11px 15px;
+      border-radius: 13px;
+      font-size: 12px;
+      font-weight: bold;
+      box-shadow: 0 0 18px rgba(255,60,172,.25);
+    }
+
+    /* CREATE ROOM */
+
+    .create-box {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,60,172,.18),
+          rgba(120,75,160,.14)
+        );
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 22px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .create-box h3 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .create-input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border-radius: 13px;
+      border: 1px solid #44284f;
+      outline: none;
+      background: #16091f;
+      color: white;
+      font-size: 14px;
+    }
+
+    .create-label {
+      display: block;
+      color: #aaa;
+      font-size: 12px;
+      margin-top: 15px;
+      margin-bottom: 7px;
+    }
+
+    .seat-options {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 8px;
+    }
+
+    .seat-option {
+      border: 1px solid #45284f;
+      background: #170b20;
+      color: #aaa;
+      padding: 12px;
+      border-radius: 13px;
+      font-weight: bold;
+    }
+
+    .seat-option.active {
+      background: linear-gradient(135deg,#ff3cac,#784ba0);
+      border-color: transparent;
+      color: white;
+    }
+
+    .create-submit {
+      width: 100%;
+      border: none;
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 14px;
+      background: linear-gradient(135deg,#ff3cac,#784ba0);
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .cancel-btn {
+      width: 100%;
+      border: 1px solid #4b2d55;
+      margin-top: 9px;
+      padding: 13px;
+      border-radius: 14px;
+      background: transparent;
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    /* PROFILE */
 
     .profile-cover {
       position: relative;
@@ -299,7 +400,6 @@
       border-radius: 17px;
       background: rgba(30,10,40,.95);
       border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 8px 25px rgba(0,0,0,.18);
     }
 
     .profile-stat strong {
@@ -468,7 +568,7 @@
       font-size: 20px;
     }
 
-    /* ================= EVENTS ================= */
+    /* EVENTS */
 
     .event-card {
       padding: 20px;
@@ -488,7 +588,7 @@
       color: #777;
     }
 
-    /* ================= BOTTOM NAV ================= */
+    /* BOTTOM NAV */
 
     .bottom-nav {
       position: fixed;
@@ -530,6 +630,10 @@
       .page {
         padding: 14px;
       }
+
+      .profile-name {
+        font-size: 21px;
+      }
     }
   </style>
 </head>
@@ -538,7 +642,7 @@
 
 <div class="app">
 
-  <!-- ================= HOME ================= -->
+  <!-- HOME -->
 
   <div id="homePage" class="page active">
 
@@ -552,7 +656,9 @@
     </div>
 
     <div class="welcome">
-      <h2 id="welcomeText">Welcome to Tannu ❤️</h2>
+      <h2 id="welcomeText">
+        Welcome to Tannu ❤️
+      </h2>
 
       <p class="muted">
         Join voice rooms and meet new people.
@@ -568,22 +674,138 @@
     </div>
 
     <div id="homeRooms">
-      <div class="empty">Loading rooms...</div>
+      <div class="empty">
+        Loading rooms...
+      </div>
     </div>
 
   </div>
 
 
-  <!-- ================= ROOMS ================= -->
+  <!-- ROOMS -->
 
   <div id="roomsPage" class="page">
 
     <div class="top">
+
       <div>
         <h2>Voice Rooms 🎙️</h2>
         <p>Find your favourite room</p>
       </div>
+
+      <button
+        id="createRoomBtn"
+        class="create-room-btn">
+        + Create
+      </button>
+
     </div>
+
+
+    <!-- CREATE ROOM BOX -->
+
+    <div
+      id="createRoomBox"
+      class="create-box"
+      style="display:none;">
+
+      <h3>
+        ➕ Create Voice Room
+      </h3>
+
+      <p class="muted">
+        Create your own room and invite people.
+      </p>
+
+
+      <label class="create-label">
+        Room Name
+      </label>
+
+      <input
+        id="newRoomName"
+        class="create-input"
+        type="text"
+        maxlength="40"
+        placeholder="Example: Tannu Friends">
+
+
+      <label class="create-label">
+        Category
+      </label>
+
+      <select
+        id="newRoomCategory"
+        class="create-input">
+
+        <option value="Chat">
+          💬 Chat
+        </option>
+
+        <option value="Music">
+          🎵 Music
+        </option>
+
+        <option value="Friends">
+          👥 Friends
+        </option>
+
+        <option value="New">
+          ✨ New
+        </option>
+
+      </select>
+
+
+      <label class="create-label">
+        Voice Seats
+      </label>
+
+      <div class="seat-options">
+
+        <button
+          type="button"
+          class="seat-option active"
+          data-seats="8">
+          8 Seats
+        </button>
+
+        <button
+          type="button"
+          class="seat-option"
+          data-seats="12">
+          12 Seats
+        </button>
+
+        <button
+          type="button"
+          class="seat-option"
+          data-seats="16">
+          16 Seats
+        </button>
+
+      </div>
+
+
+      <button
+        id="submitCreateRoom"
+        class="create-submit">
+
+        🚀 Create Room
+
+      </button>
+
+
+      <button
+        id="cancelCreateRoom"
+        class="cancel-btn">
+
+        Cancel
+
+      </button>
+
+    </div>
+
 
     <input
       id="roomSearch"
@@ -591,6 +813,7 @@
       type="text"
       placeholder="Search rooms..."
     >
+
 
     <div class="categories">
 
@@ -616,23 +839,29 @@
 
     </div>
 
+
     <div id="roomsList">
-      <div class="empty">Loading rooms...</div>
+      <div class="empty">
+        Loading rooms...
+      </div>
     </div>
 
   </div>
 
 
-  <!-- ================= EVENTS ================= -->
+  <!-- EVENTS -->
 
   <div id="eventsPage" class="page">
 
     <div class="top">
+
       <div>
         <h2>Events 🎉</h2>
         <p>Daily events coming soon</p>
       </div>
+
     </div>
+
 
     <div class="event-card">
       <h3>🎁 Daily Rewards</h3>
@@ -642,6 +871,7 @@
       </p>
     </div>
 
+
     <div class="event-card">
       <h3>🎡 Free Spin</h3>
 
@@ -649,6 +879,7 @@
         Free spin system will be added soon.
       </p>
     </div>
+
 
     <div class="event-card">
       <h3>🏆 Special Events</h3>
@@ -661,7 +892,7 @@
   </div>
 
 
-  <!-- ================= PROFILE ================= -->
+  <!-- PROFILE -->
 
   <div id="profilePage" class="page">
 
@@ -671,19 +902,27 @@
         TANNU VOICE CHAT
       </div>
 
-      <div class="profile-avatar" id="profileBig">
+      <div
+        class="profile-avatar"
+        id="profileBig">
         T
       </div>
 
-      <div class="profile-name" id="profileName">
+      <div
+        class="profile-name"
+        id="profileName">
         Guest User
       </div>
 
-      <div class="profile-email" id="profileEmail">
+      <div
+        class="profile-email"
+        id="profileEmail">
         Login to your account
       </div>
 
-      <div class="uid" id="profileUid">
+      <div
+        class="uid"
+        id="profileUid">
         ID: Not logged in
       </div>
 
@@ -692,14 +931,16 @@
         Online
       </div>
 
-      <button class="login-btn" id="profileLoginBtn">
+      <button
+        class="login-btn"
+        id="profileLoginBtn">
+
         Login with Google
+
       </button>
 
     </div>
 
-
-    <!-- STATS -->
 
     <div class="profile-stats">
 
@@ -721,8 +962,6 @@
     </div>
 
 
-    <!-- WALLET -->
-
     <div class="profile-wallet">
 
       <div class="wallet-box coins">
@@ -740,7 +979,9 @@
         <button
           class="recharge-btn"
           onclick="showComingSoon('Recharge')">
+
           + Recharge
+
         </button>
 
       </div>
@@ -761,15 +1002,15 @@
         <button
           class="recharge-btn"
           onclick="showComingSoon('VIP Center')">
+
           Open VIP
+
         </button>
 
       </div>
 
     </div>
 
-
-    <!-- LEVEL -->
 
     <div class="card level-card">
 
@@ -789,9 +1030,11 @@
 
       </div>
 
+
       <div class="progress-bg">
         <div class="progress"></div>
       </div>
+
 
       <div class="exp-text">
         6,200 / 10,000 EXP
@@ -800,11 +1043,10 @@
     </div>
 
 
-    <!-- ACCOUNT -->
-
     <div class="menu-title">
       MY ACCOUNT
     </div>
+
 
     <div class="profile-menu">
 
@@ -821,7 +1063,9 @@
           <span>View received gifts</span>
         </div>
 
-        <div class="arrow">›</div>
+        <div class="arrow">
+          ›
+        </div>
 
       </button>
 
@@ -839,7 +1083,9 @@
           <span>VIP benefits and membership</span>
         </div>
 
-        <div class="arrow">›</div>
+        <div class="arrow">
+          ›
+        </div>
 
       </button>
 
@@ -857,18 +1103,19 @@
           <span>Check your rewards</span>
         </div>
 
-        <div class="arrow">›</div>
+        <div class="arrow">
+          ›
+        </div>
 
       </button>
 
     </div>
 
 
-    <!-- MORE -->
-
     <div class="menu-title">
       MORE
     </div>
+
 
     <div class="profile-menu">
 
@@ -885,7 +1132,9 @@
           <span>Account and app settings</span>
         </div>
 
-        <div class="arrow">›</div>
+        <div class="arrow">
+          ›
+        </div>
 
       </button>
 
@@ -903,7 +1152,9 @@
           <span>Contact Tannu support team</span>
         </div>
 
-        <div class="arrow">›</div>
+        <div class="arrow">
+          ›
+        </div>
 
       </button>
 
@@ -914,39 +1165,73 @@
 </div>
 
 
-<!-- ================= BOTTOM NAV ================= -->
+<!-- BOTTOM NAV -->
 
 <div class="bottom-nav">
 
-  <button class="nav-btn active" data-page="homePage">
-    <span class="nav-icon">🏠</span>
+  <button
+    class="nav-btn active"
+    data-page="homePage">
+
+    <span class="nav-icon">
+      🏠
+    </span>
+
     Home
+
   </button>
 
-  <button class="nav-btn" data-page="roomsPage">
-    <span class="nav-icon">🎙️</span>
+
+  <button
+    class="nav-btn"
+    data-page="roomsPage">
+
+    <span class="nav-icon">
+      🎙️
+    </span>
+
     Rooms
+
   </button>
 
-  <button class="nav-btn" data-page="eventsPage">
-    <span class="nav-icon">🎉</span>
+
+  <button
+    class="nav-btn"
+    data-page="eventsPage">
+
+    <span class="nav-icon">
+      🎉
+    </span>
+
     Events
+
   </button>
 
-  <button class="nav-btn" data-page="profilePage">
-    <span class="nav-icon">👤</span>
+
+  <button
+    class="nav-btn"
+    data-page="profilePage">
+
+    <span class="nav-icon">
+      👤
+    </span>
+
     Profile
+
   </button>
 
 </div>
 
 
-<!-- ================= FIREBASE ================= -->
+<!-- FIREBASE -->
 
 <script type="module">
 
-  import { initializeApp }
-    from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  import {
+    initializeApp
+  }
+  from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
 
   import {
     getAuth,
@@ -955,15 +1240,20 @@
     signOut,
     onAuthStateChanged
   }
-    from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+  from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
 
   import {
     getFirestore,
     collection,
-    getDocs
+    getDocs,
+    addDoc,
+    serverTimestamp
   }
-    from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+  from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
+
+  /* FIREBASE CONFIG */
 
   const firebaseConfig = {
 
@@ -1001,6 +1291,13 @@
     new GoogleAuthProvider();
 
 
+  let currentUser = null;
+
+  let selectedSeats = 8;
+
+
+  /* ELEMENTS */
+
   const welcomeText =
     document.getElementById("welcomeText");
 
@@ -1018,6 +1315,25 @@
 
   const profileLoginBtn =
     document.getElementById("profileLoginBtn");
+
+
+  const createRoomBtn =
+    document.getElementById("createRoomBtn");
+
+  const createRoomBox =
+    document.getElementById("createRoomBox");
+
+  const newRoomName =
+    document.getElementById("newRoomName");
+
+  const newRoomCategory =
+    document.getElementById("newRoomCategory");
+
+  const submitCreateRoom =
+    document.getElementById("submitCreateRoom");
+
+  const cancelCreateRoom =
+    document.getElementById("cancelCreateRoom");
 
 
   /* LOGIN */
@@ -1067,11 +1383,14 @@
   }
 
 
-  /* AUTH */
+  /* AUTH STATE */
 
   onAuthStateChanged(
     auth,
     (user) => {
+
+      currentUser = user;
+
 
       if (user) {
 
@@ -1080,10 +1399,12 @@
           "Tannu User";
 
         const email =
-          user.email || "";
+          user.email ||
+          "";
 
         const uid =
-          user.uid || "";
+          user.uid ||
+          "";
 
 
         welcomeText.textContent =
@@ -1122,13 +1443,17 @@
         profileLoginBtn.textContent =
           "Logout";
 
+
         profileLoginBtn.className =
           "logout-btn";
+
 
         profileLoginBtn.onclick =
           logout;
 
-      } else {
+      }
+
+      else {
 
         welcomeText.textContent =
           "Welcome to Tannu ❤️";
@@ -1157,10 +1482,223 @@
         profileLoginBtn.className =
           "login-btn";
 
+
         profileLoginBtn.onclick =
           login;
 
       }
+
+    }
+  );
+
+
+  /* CREATE ROOM BUTTON */
+
+  createRoomBtn.addEventListener(
+    "click",
+    () => {
+
+      if (!currentUser) {
+
+        alert(
+          "Please login with Google first to create a room."
+        );
+
+        return;
+
+      }
+
+
+      createRoomBox.style.display =
+        "block";
+
+
+      newRoomName.focus();
+
+    }
+  );
+
+
+  /* CANCEL CREATE */
+
+  cancelCreateRoom.addEventListener(
+    "click",
+    () => {
+
+      createRoomBox.style.display =
+        "none";
+
+      newRoomName.value =
+        "";
+
+    }
+  );
+
+
+  /* SEAT BUTTONS */
+
+  document
+    .querySelectorAll(".seat-option")
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            document
+              .querySelectorAll(".seat-option")
+              .forEach(
+                btn =>
+                  btn.classList
+                    .remove("active")
+              );
+
+
+            button.classList
+              .add("active");
+
+
+            selectedSeats =
+              Number(
+                button.dataset.seats
+              );
+
+          }
+        );
+
+      }
+    );
+
+
+  /* CREATE ROOM */
+
+  submitCreateRoom.addEventListener(
+    "click",
+    async () => {
+
+      if (!currentUser) {
+
+        alert(
+          "Please login first."
+        );
+
+        return;
+
+      }
+
+
+      const roomName =
+        newRoomName.value.trim();
+
+
+      const category =
+        newRoomCategory.value;
+
+
+      if (!roomName) {
+
+        alert(
+          "Please enter a room name."
+        );
+
+        newRoomName.focus();
+
+        return;
+
+      }
+
+
+      submitCreateRoom.disabled =
+        true;
+
+      submitCreateRoom.textContent =
+        "Creating...";
+
+
+      try {
+
+        const roomData = {
+
+          name:
+            roomName,
+
+          host:
+            currentUser.displayName ||
+            "Tannu User",
+
+          hostUid:
+            currentUser.uid,
+
+          hostPhoto:
+            currentUser.photoURL ||
+            "",
+
+          category:
+            category,
+
+          seats:
+            selectedSeats,
+
+          status:
+            "live",
+
+          users:
+            1,
+
+          createdAt:
+            serverTimestamp()
+
+        };
+
+
+        const roomRef =
+          await addDoc(
+            collection(db, "rooms"),
+            roomData
+          );
+
+
+        alert(
+          "Room created successfully! 🎉"
+        );
+
+
+        createRoomBox.style.display =
+          "none";
+
+
+        newRoomName.value =
+          "";
+
+
+        await loadRooms();
+
+
+        window.location.href =
+          "voice-room.html?room=" +
+          encodeURIComponent(
+            roomRef.id
+          );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert(
+          "Room creation failed: " +
+          error.message
+        );
+
+      }
+
+
+      submitCreateRoom.disabled =
+        false;
+
+      submitCreateRoom.textContent =
+        "🚀 Create Room";
 
     }
   );
@@ -1202,9 +1740,11 @@
       }
 
 
-      homeRooms.innerHTML = "";
+      homeRooms.innerHTML =
+        "";
 
-      roomsList.innerHTML = "";
+      roomsList.innerHTML =
+        "";
 
 
       snapshot.forEach(
@@ -1217,7 +1757,9 @@
             docSnap.id;
 
 
-          const card =
+          /* HOME CARD */
+
+          const homeCard =
             createRoomCard(
               room,
               roomId
@@ -1225,12 +1767,21 @@
 
 
           homeRooms.appendChild(
-            card.cloneNode(true)
+            homeCard
           );
 
 
+          /* ROOMS CARD */
+
+          const roomCard =
+            createRoomCard(
+              room,
+              roomId
+            );
+
+
           roomsList.appendChild(
-            card
+            roomCard
           );
 
         }
@@ -1254,7 +1805,7 @@
   }
 
 
-  /* ROOM CARD */
+  /* CREATE ROOM CARD */
 
   function createRoomCard(
     room,
@@ -1264,6 +1815,7 @@
     const div =
       document.createElement("div");
 
+
     div.className =
       "room-card";
 
@@ -1272,72 +1824,152 @@
       room.name ||
       "Tannu Room";
 
+
     const host =
       room.host ||
       "Host";
 
+
     const status =
       room.status ||
       "live";
+
 
     const users =
       room.users ||
       0;
 
 
-    div.innerHTML = `
-
-      <div class="room-icon">
-        🎙️
-      </div>
-
-      <div class="room-info">
-
-        <h3>
-          ${name}
-        </h3>
-
-        <p>
-          Host: ${host}
-        </p>
-
-        <p class="${
-          status === "live"
-            ? "live"
-            : ""
-        }">
-
-          ● ${status.toUpperCase()}
-
-          &nbsp; • &nbsp;
-
-          👥 ${users}
-
-        </p>
-
-      </div>
-
-      <button class="join-btn">
-        Join
-      </button>
-
-    `;
+    const seats =
+      room.seats ||
+      8;
 
 
-    div
-      .querySelector(".join-btn")
-      .addEventListener(
-        "click",
-        () => {
+    const category =
+      room.category ||
+      "Chat";
 
-          window.location.href =
-            "voice-room.html?room=" +
-            encodeURIComponent(
-              roomId
-            );
 
-        }
-      );
+    const icon =
+      category === "Music"
+        ? "🎵"
+        : category === "Friends"
+        ? "👥"
+        : category === "New"
+        ? "✨"
+        : "🎙️";
+
+
+    const iconDiv =
+      document.createElement("div");
+
+
+    iconDiv.className =
+      "room-icon";
+
+
+    iconDiv.textContent =
+      icon;
+
+
+    const info =
+      document.createElement("div");
+
+
+    info.className =
+      "room-info";
+
+
+    const title =
+      document.createElement("h3");
+
+
+    title.textContent =
+      name;
+
+
+    const hostText =
+      document.createElement("p");
+
+
+    hostText.textContent =
+      "Host: " + host;
+
+
+    const statusText =
+      document.createElement("p");
+
+
+    statusText.className =
+      status === "live"
+        ? "live"
+        : "";
+
+
+    statusText.textContent =
+      "● " +
+      status.toUpperCase() +
+      " • 👥 " +
+      users +
+      "/" +
+      seats;
+
+
+    const categoryText =
+      document.createElement("p");
+
+
+    categoryText.textContent =
+      "Category: " +
+      category;
+
+
+    info.appendChild(title);
+
+    info.appendChild(hostText);
+
+    info.appendChild(statusText);
+
+    info.appendChild(categoryText);
+
+
+    const joinButton =
+      document.createElement("button");
+
+
+    joinButton.className =
+      "join-btn";
+
+
+    joinButton.textContent =
+      "Join";
+
+
+    joinButton.addEventListener(
+      "click",
+      () => {
+
+        window.location.href =
+          "voice-room.html?room=" +
+          encodeURIComponent(
+            roomId
+          );
+
+      }
+    );
+
+
+    div.appendChild(
+      iconDiv
+    );
+
+    div.appendChild(
+      info
+    );
+
+    div.appendChild(
+      joinButton
+    );
 
 
     return div;
@@ -1345,7 +1977,7 @@
   }
 
 
-  /* SEARCH */
+  /* SEARCH ROOMS */
 
   document
     .getElementById("roomSearch")
@@ -1354,7 +1986,9 @@
       function () {
 
         const search =
-          this.value.toLowerCase();
+          this.value
+            .toLowerCase()
+            .trim();
 
 
         document
@@ -1381,7 +2015,7 @@
     );
 
 
-  /* CATEGORY */
+  /* CATEGORY BUTTONS */
 
   document
     .querySelectorAll(".category")
@@ -1413,7 +2047,7 @@
     );
 
 
-  /* NAVIGATION */
+  /* BOTTOM NAV */
 
   document
     .querySelectorAll(".nav-btn")
