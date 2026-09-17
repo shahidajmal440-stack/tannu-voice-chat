@@ -1,684 +1,1115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tannu Voice Chat</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#7c4dff">
+<title>Tannu Voice Chat</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
 
-    body {
-      background: #f5f5f7;
-      color: #222;
-      min-height: 100vh;
-    }
+body{
+  background:#f3f4f8;
+  color:#222;
+  min-height:100vh;
+}
 
-    .app {
-      max-width: 500px;
-      margin: auto;
-      min-height: 100vh;
-      background: white;
-      padding-bottom: 85px;
-    }
+button{
+  border:0;
+  cursor:pointer;
+}
 
-    .topbar {
-      padding: 18px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(135deg, #ff4d8d, #7c4dff);
-      color: white;
-    }
+.app{
+  max-width:520px;
+  min-height:100vh;
+  margin:auto;
+  background:#fff;
+  padding-bottom:78px;
+  position:relative;
+}
 
-    .logo-area h1 {
-      font-size: 22px;
-    }
+.topbar{
+  padding:16px;
+  color:white;
+  background:linear-gradient(135deg,#ff4d8d,#7c4dff);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
 
-    .logo-area p {
-      font-size: 12px;
-      opacity: .9;
-      margin-top: 3px;
-    }
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
 
-    .coins {
-      background: rgba(255,255,255,.18);
-      padding: 9px 12px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-    }
+.logo-icon{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:rgba(255,255,255,.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+}
 
-    .screen {
-      display: none;
-    }
+.logo h1{
+  font-size:20px;
+}
 
-    .screen.active {
-      display: block;
-    }
+.logo p{
+  font-size:11px;
+  opacity:.85;
+  margin-top:2px;
+}
 
-    .banner {
-      margin: 15px;
-      padding: 20px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #ff6fa5, #8c6cff);
-      color: white;
-      box-shadow: 0 8px 20px rgba(100,70,180,.18);
-    }
+.coins{
+  background:rgba(255,255,255,.18);
+  padding:9px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
 
-    .banner h2 {
-      font-size: 20px;
-      margin-bottom: 7px;
-    }
+.screen{
+  display:none;
+}
 
-    .banner p {
-      font-size: 13px;
-      margin-bottom: 14px;
-      line-height: 1.5;
-    }
+.screen.active{
+  display:block;
+}
 
-    .banner button,
-    .primary-btn {
-      border: none;
-      background: white;
-      color: #7c4dff;
-      padding: 10px 17px;
-      border-radius: 20px;
-      font-weight: bold;
-    }
+.banner{
+  margin:15px;
+  padding:20px;
+  border-radius:20px;
+  color:white;
+  background:linear-gradient(135deg,#ff5d96,#7955ff);
+  box-shadow:0 8px 25px rgba(100,70,180,.18);
+}
 
-    .section {
-      padding: 8px 15px 15px;
-    }
+.banner h2{
+  font-size:21px;
+  margin-bottom:7px;
+}
 
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
+.banner p{
+  font-size:13px;
+  opacity:.92;
+  margin-bottom:15px;
+}
 
-    .section-title h2 {
-      font-size: 19px;
-    }
+.primary-btn{
+  background:#fff;
+  color:#7046e8;
+  padding:10px 17px;
+  border-radius:22px;
+  font-weight:bold;
+}
 
-    .section-title span {
-      font-size: 12px;
-      color: #777;
-    }
+.section{
+  padding:8px 15px 16px;
+}
 
-    .categories {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 5px;
-    }
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
 
-    .categories::-webkit-scrollbar {
-      display: none;
-    }
+.section-title h2{
+  font-size:18px;
+}
 
-    .category {
-      min-width: 75px;
-      text-align: center;
-      padding: 12px 8px;
-      border-radius: 14px;
-      background: #f7f4ff;
-      font-size: 12px;
-    }
+.section-title span{
+  font-size:12px;
+  color:#777;
+}
 
-    .category .icon {
-      font-size: 25px;
-      margin-bottom: 5px;
-    }
+.categories{
+  display:flex;
+  gap:9px;
+  overflow-x:auto;
+}
 
-    .rooms {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+.categories::-webkit-scrollbar{
+  display:none;
+}
 
-    .room {
-      border: 1px solid #eee;
-      border-radius: 16px;
-      overflow: hidden;
-      background: white;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
-      cursor: pointer;
-    }
+.category{
+  min-width:74px;
+  padding:11px 7px;
+  text-align:center;
+  border-radius:15px;
+  background:#f7f4ff;
+  font-size:11px;
+  cursor:pointer;
+}
 
-    .room-cover {
-      height: 95px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 38px;
-      background: linear-gradient(135deg, #ffd6e7, #ddd5ff);
-    }
+.category .icon{
+  font-size:25px;
+  margin-bottom:4px;
+}
 
-    .room-info {
-      padding: 10px;
-    }
+.rooms{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
 
-    .room-name {
-      font-weight: bold;
-      font-size: 14px;
-    }
+.room{
+  border:1px solid #eee;
+  border-radius:17px;
+  overflow:hidden;
+  background:white;
+  box-shadow:0 3px 13px rgba(0,0,0,.06);
+  cursor:pointer;
+}
 
-    .host {
-      font-size: 11px;
-      color: #777;
-      margin-top: 5px;
-    }
+.room-cover{
+  height:105px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:40px;
+  background:linear-gradient(135deg,#ffd8e9,#ddd5ff);
+}
 
-    .online {
-      margin-top: 8px;
-      font-size: 11px;
-      color: #22a447;
-    }
+.room-info{
+  padding:10px;
+}
 
-    .features {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
+.room-name{
+  font-weight:bold;
+  font-size:14px;
+}
 
-    .feature {
-      text-align: center;
-      padding: 12px 4px;
-      background: #fafafa;
-      border-radius: 14px;
-      font-size: 11px;
-      cursor: pointer;
-    }
+.room-host{
+  font-size:11px;
+  color:#777;
+  margin-top:4px;
+}
 
-    .feature div {
-      font-size: 24px;
-      margin-bottom: 5px;
-    }
+.room-users{
+  font-size:11px;
+  color:#7046e8;
+  margin-top:5px;
+}
 
-    .page-title {
-      padding: 20px 15px 10px;
-    }
+.features{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+}
 
-    .page-title h2 {
-      font-size: 23px;
-    }
+.feature{
+  padding:13px 5px;
+  border-radius:15px;
+  text-align:center;
+  background:#fafafa;
+  border:1px solid #eee;
+  cursor:pointer;
+}
 
-    .page-title p {
-      color: #777;
-      font-size: 13px;
-      margin-top: 5px;
-    }
+.feature .icon{
+  font-size:25px;
+}
 
-    .event-card,
-    .message-card,
-    .profile-card {
-      margin: 12px 15px;
-      padding: 17px;
-      border-radius: 16px;
-      background: #fafafa;
-      border: 1px solid #eee;
-    }
+.feature p{
+  font-size:10px;
+  margin-top:5px;
+  font-weight:bold;
+}
 
-    .event-card {
-      background: linear-gradient(135deg, #fff0f6, #f1edff);
-    }
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:520px;
+  height:70px;
+  background:#fff;
+  border-top:1px solid #eee;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:50;
+}
 
-    .event-card h3,
-    .message-card h3 {
-      font-size: 16px;
-      margin-bottom: 7px;
-    }
+.nav-item{
+  width:20%;
+  text-align:center;
+  font-size:10px;
+  color:#888;
+  cursor:pointer;
+}
 
-    .event-card p,
-    .message-card p {
-      color: #666;
-      font-size: 13px;
-      line-height: 1.5;
-    }
+.nav-icon{
+  font-size:22px;
+  margin-bottom:3px;
+}
 
-    .event-btn {
-      margin-top: 12px;
-      border: none;
-      background: #7c4dff;
-      color: white;
-      padding: 9px 15px;
-      border-radius: 18px;
-      font-weight: bold;
-    }
+.nav-item.active{
+  color:#7046e8;
+  font-weight:bold;
+}
 
-    .profile-card {
-      text-align: center;
-      padding: 25px 15px;
-    }
+/* PAGE HEADER */
 
-    .profile-avatar {
-      width: 75px;
-      height: 75px;
-      margin: auto;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 38px;
-      background: linear-gradient(135deg, #ff6fa5, #8c6cff);
-    }
+.page-header{
+  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border-bottom:1px solid #eee;
+}
 
-    .profile-card h3 {
-      margin-top: 12px;
-      font-size: 20px;
-    }
+.back-btn{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#f2f2f5;
+  font-size:20px;
+}
 
-    .profile-card p {
-      color: #777;
-      font-size: 13px;
-      margin-top: 5px;
-    }
+.page-header h2{
+  font-size:20px;
+}
 
-    .profile-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 20px;
-    }
+/* ROOM */
 
-    .stat {
-      padding: 12px 5px;
-      background: #f5f5f7;
-      border-radius: 12px;
-    }
+.room-page{
+  min-height:calc(100vh - 70px);
+  background:#171525;
+  color:white;
+}
 
-    .stat strong {
-      display: block;
-      font-size: 16px;
-    }
+.room-top{
+  padding:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
 
-    .stat span {
-      font-size: 10px;
-      color: #777;
-    }
+.room-title{
+  font-weight:bold;
+}
 
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 500px;
-      height: 68px;
-      background: white;
-      border-top: 1px solid #eee;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 1000;
-      box-shadow: 0 -3px 12px rgba(0,0,0,.06);
-    }
+.room-sub{
+  font-size:11px;
+  opacity:.7;
+  margin-top:3px;
+}
 
-    .nav-item {
-      flex: 1;
-      text-align: center;
-      font-size: 11px;
-      color: #777;
-      cursor: pointer;
-      padding: 8px 0;
-      user-select: none;
-    }
+.room-menu{
+  display:flex;
+  gap:7px;
+}
 
-    .nav-item div {
-      font-size: 22px;
-      margin-bottom: 3px;
-    }
+.room-menu button{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  background:rgba(255,255,255,.12);
+  color:white;
+}
 
-    .nav-item.active {
-      color: #7c4dff;
-      font-weight: bold;
-    }
+.mic-grid{
+  padding:20px 14px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px 8px;
+}
 
-    @media (max-width: 350px) {
-      .rooms {
-        grid-template-columns: 1fr;
-      }
+.mic-seat{
+  text-align:center;
+  cursor:pointer;
+}
 
-      .features {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
+.avatar{
+  width:57px;
+  height:57px;
+  margin:auto;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ff76a8,#7654ff);
+  border:3px solid rgba(255,255,255,.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  position:relative;
+}
+
+.mic-seat.host .avatar{
+  border-color:#ffd34e;
+}
+
+.mic-seat.you .avatar{
+  border-color:#55e6a5;
+}
+
+.mic-status{
+  position:absolute;
+  right:-2px;
+  bottom:-2px;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:#3c3b49;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+}
+
+.mic-status.on{
+  background:#2bdc87;
+}
+
+.seat-name{
+  font-size:10px;
+  margin-top:5px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.empty-seat{
+  opacity:.55;
+}
+
+.room-actions{
+  padding:12px;
+  display:flex;
+  gap:8px;
+  position:sticky;
+  bottom:0;
+  background:#171525;
+}
+
+.room-action{
+  flex:1;
+  padding:12px;
+  border-radius:25px;
+  color:white;
+  background:#29263b;
+  font-weight:bold;
+}
+
+.room-action.join{
+  background:linear-gradient(135deg,#ff4d8d,#7c4dff);
+}
+
+.room-chat{
+  margin:10px 14px;
+  background:#211f31;
+  border-radius:16px;
+  padding:12px;
+  min-height:120px;
+}
+
+.chat-line{
+  font-size:12px;
+  margin-bottom:8px;
+}
+
+.chat-line b{
+  color:#ff80ae;
+}
+
+.chat-input{
+  display:flex;
+  gap:7px;
+  margin-top:12px;
+}
+
+.chat-input input{
+  flex:1;
+  padding:10px;
+  border:0;
+  border-radius:20px;
+  background:#302d43;
+  color:white;
+  outline:none;
+}
+
+.chat-input button{
+  width:42px;
+  border-radius:50%;
+  background:#7c4dff;
+  color:white;
+}
+
+/* CARDS */
+
+.list{
+  padding:15px;
+}
+
+.card{
+  padding:15px;
+  border:1px solid #eee;
+  border-radius:17px;
+  margin-bottom:11px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:white;
+}
+
+.card-icon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  background:#f1edff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+}
+
+.card-info{
+  flex:1;
+}
+
+.card-info h3{
+  font-size:14px;
+}
+
+.card-info p{
+  font-size:11px;
+  color:#777;
+  margin-top:4px;
+}
+
+.small-btn{
+  padding:8px 12px;
+  border-radius:18px;
+  background:#7c4dff;
+  color:white;
+  font-size:11px;
+  font-weight:bold;
+}
+
+/* PROFILE */
+
+.profile-head{
+  text-align:center;
+  padding:25px 15px;
+  background:linear-gradient(135deg,#fff0f6,#eeeaff);
+}
+
+.profile-avatar{
+  width:85px;
+  height:85px;
+  margin:auto;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ff4d8d,#7c4dff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:40px;
+  color:white;
+}
+
+.profile-head h2{
+  margin-top:10px;
+}
+
+.profile-head p{
+  color:#777;
+  font-size:12px;
+  margin-top:4px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  padding:15px;
+  gap:8px;
+}
+
+.stat{
+  text-align:center;
+  padding:13px 5px;
+  border-radius:14px;
+  background:#f8f8fa;
+}
+
+.stat b{
+  display:block;
+  font-size:16px;
+}
+
+.stat span{
+  color:#777;
+  font-size:10px;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:88px;
+  transform:translateX(-50%) translateY(20px);
+  background:#222;
+  color:#fff;
+  padding:11px 17px;
+  border-radius:22px;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:100;
+  max-width:90%;
+  text-align:center;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:200;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:520px;
+  background:white;
+  border-radius:22px 22px 0 0;
+  padding:20px;
+}
+
+.modal-box h2{
+  margin-bottom:15px;
+}
+
+.modal-box input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  margin-bottom:10px;
+  outline:none;
+}
+
+.modal-buttons{
+  display:flex;
+  gap:8px;
+}
+
+.modal-buttons button{
+  flex:1;
+  padding:12px;
+  border-radius:22px;
+}
+
+.cancel{
+  background:#eee;
+}
+
+.confirm{
+  background:#7c4dff;
+  color:white;
+}
+
+@media(max-width:360px){
+  .mic-grid{
+    gap:15px 4px;
+  }
+
+  .avatar{
+    width:50px;
+    height:50px;
+  }
+
+  .features{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <div class="logo-area">
-      <h1>🎙️ Tannu</h1>
+<!-- ================= TOP BAR ================= -->
+
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-icon">🎙️</div>
+    <div>
+      <h1>Tannu</h1>
       <p>Voice Chat Room</p>
     </div>
+  </div>
 
-    <div class="coins">
-      🪙 0 Coins
+  <div class="coins">🪙 <span id="coinBalance">0</span></div>
+</div>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="homeScreen" class="screen active">
+
+  <div class="banner">
+    <h2>Welcome to Tannu ❤️</h2>
+    <p>Meet new friends, enjoy voice rooms and daily events.</p>
+    <button class="primary-btn" onclick="showScreen('events')">
+      View Events
+    </button>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <h2>Categories</h2>
+      <span>Explore</span>
+    </div>
+
+    <div class="categories">
+      <div class="category" onclick="filterRooms('Popular')">
+        <div class="icon">🔥</div>
+        Popular
+      </div>
+
+      <div class="category" onclick="filterRooms('Music')">
+        <div class="icon">🎵</div>
+        Music
+      </div>
+
+      <div class="category" onclick="filterRooms('Fun')">
+        <div class="icon">😂</div>
+        Fun
+      </div>
+
+      <div class="category" onclick="filterRooms('Friends')">
+        <div class="icon">👥</div>
+        Friends
+      </div>
+
+      <div class="category" onclick="filterRooms('Games')">
+        <div class="icon">🎮</div>
+        Games
+      </div>
     </div>
   </div>
 
 
-  <!-- HOME SCREEN -->
-  <div id="homeScreen" class="screen active">
-
-    <div class="banner">
-      <h2>Welcome to Tannu ❤️</h2>
-      <p>Meet new friends, join voice rooms and enjoy live events.</p>
-
-      <button onclick="showScreen('events')">
-        🎉 View Events
-      </button>
+  <div class="section">
+    <div class="section-title">
+      <h2>🔥 Popular Rooms</h2>
+      <span onclick="showScreen('rooms')" style="cursor:pointer">
+        See All
+      </span>
     </div>
 
-    <div class="section">
-      <div class="section-title">
-        <h2>Categories</h2>
-        <span>See All</span>
-      </div>
-
-      <div class="categories">
-
-        <div class="category">
-          <div class="icon">🔥</div>
-          Popular
-        </div>
-
-        <div class="category">
-          <div class="icon">🎵</div>
-          Music
-        </div>
-
-        <div class="category">
-          <div class="icon">😂</div>
-          Fun
-        </div>
-
-        <div class="category">
-          <div class="icon">❤️</div>
-          Friends
-        </div>
-
-        <div class="category">
-          <div class="icon">🎮</div>
-          Games
-        </div>
-
-      </div>
-    </div>
-
-    <div class="section">
-
-      <div class="section-title">
-        <h2>🔥 Popular Rooms</h2>
-        <span>See All</span>
-      </div>
-
-      <div class="rooms">
-
-        <div class="room" onclick="joinRoom('Tannu Music Night')">
-          <div class="room-cover">🎤</div>
-          <div class="room-info">
-            <div class="room-name">Tannu Music Night</div>
-            <div class="host">Host: Tannu</div>
-            <div class="online">🟢 128 people</div>
-          </div>
-        </div>
-
-        <div class="room" onclick="joinRoom('Friends Zone')">
-          <div class="room-cover">❤️</div>
-          <div class="room-info">
-            <div class="room-name">Friends Zone</div>
-            <div class="host">Host: Rahul</div>
-            <div class="online">🟢 96 people</div>
-          </div>
-        </div>
-
-        <div class="room" onclick="joinRoom('Fun & Masti')">
-          <div class="room-cover">😂</div>
-          <div class="room-info">
-            <div class="room-name">Fun & Masti</div>
-            <div class="host">Host: Arjun</div>
-            <div class="online">🟢 74 people</div>
-          </div>
-        </div>
-
-        <div class="room" onclick="joinRoom('Gaming Room')">
-          <div class="room-cover">🎮</div>
-          <div class="room-info">
-            <div class="room-name">Gaming Room</div>
-            <div class="host">Host: Sameer</div>
-            <div class="online">🟢 61 people</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="section">
-
-      <div class="section-title">
-        <h2>✨ Explore</h2>
-      </div>
-
-      <div class="features">
-
-        <div class="feature" onclick="featureMessage('Gifts')">
-          <div>🎁</div>
-          Gifts
-        </div>
-
-        <div class="feature" onclick="featureMessage('VIP')">
-          <div>👑</div>
-          VIP
-        </div>
-
-        <div class="feature" onclick="featureMessage('Free Spin')">
-          <div>🎰</div>
-          Free Spin
-        </div>
-
-        <div class="feature" onclick="featureMessage('Rewards')">
-          <div>🏆</div>
-          Rewards
-        </div>
-
-      </div>
-    </div>
-
+    <div class="rooms" id="homeRooms"></div>
   </div>
 
 
-  <!-- ROOMS SCREEN -->
-  <div id="roomsScreen" class="screen">
-
-    <div class="page-title">
-      <h2>🎙️ Voice Rooms</h2>
-      <p>Join a room and meet new friends.</p>
+  <div class="section">
+    <div class="section-title">
+      <h2>Explore</h2>
     </div>
 
-    <div class="section">
+    <div class="features">
 
-      <div class="rooms">
+      <div class="feature" onclick="openFeature('Gifts')">
+        <div class="icon">🎁</div>
+        <p>Gifts</p>
+      </div>
 
-        <div class="room" onclick="joinRoom('Tannu Music Night')">
-          <div class="room-cover">🎤</div>
-          <div class="room-info">
-            <div class="room-name">Tannu Music Night</div>
-            <div class="host">Host: Tannu</div>
-            <div class="online">🟢 128 people</div>
-          </div>
-        </div>
+      <div class="feature" onclick="openFeature('VIP')">
+        <div class="icon">👑</div>
+        <p>VIP</p>
+      </div>
 
-        <div class="room" onclick="joinRoom('Friends Zone')">
-          <div class="room-cover">❤️</div>
-          <div class="room-info">
-            <div class="room-name">Friends Zone</div>
-            <div class="host">Host: Rahul</div>
-            <div class="online">🟢 96 people</div>
-          </div>
-        </div>
+      <div class="feature" onclick="openSpin()">
+        <div class="icon">🎡</div>
+        <p>Free Spin</p>
+      </div>
 
-        <div class="room" onclick="joinRoom('Fun & Masti')">
-          <div class="room-cover">😂</div>
-          <div class="room-info">
-            <div class="room-name">Fun & Masti</div>
-            <div class="host">Host: Arjun</div>
-            <div class="online">🟢 74 people</div>
-          </div>
-        </div>
-
-        <div class="room" onclick="joinRoom('Gaming Room')">
-          <div class="room-cover">🎮</div>
-          <div class="room-info">
-            <div class="room-name">Gaming Room</div>
-            <div class="host">Host: Sameer</div>
-            <div class="online">🟢 61 people</div>
-          </div>
-        </div>
-
+      <div class="feature" onclick="openFeature('Rewards')">
+        <div class="icon">🏆</div>
+        <p>Rewards</p>
       </div>
 
     </div>
   </div>
 
+</section>
 
-  <!-- EVENTS SCREEN -->
-  <div id="eventsScreen" class="screen">
 
-    <div class="page-title">
-      <h2>🎉 Events</h2>
-      <p>Daily events and activities.</p>
-    </div>
+<!-- ================= ROOMS ================= -->
 
-    <div class="event-card">
-      <h3>🎁 Daily Welcome Event</h3>
-      <p>Join Tannu rooms, meet friends and collect rewards.</p>
-      <button class="event-btn" onclick="featureMessage('Daily Event')">
-        Join Event
+<section id="roomsScreen" class="screen">
+
+  <div class="page-header">
+    <h2>🎙️ Voice Rooms</h2>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <h2>Popular Rooms</h2>
+      <button class="small-btn" onclick="openCreateRoom()">
+        + Create
       </button>
     </div>
 
-    <div class="event-card">
-      <h3>🎰 Free Spin Event</h3>
-      <p>Use your daily free spins and enjoy exciting rewards.</p>
-      <button class="event-btn" onclick="featureMessage('Free Spin Event')">
-        Open Event
+    <div class="rooms" id="allRooms"></div>
+  </div>
+
+</section>
+
+
+<!-- ================= EVENTS ================= -->
+
+<section id="eventsScreen" class="screen">
+
+  <div class="page-header">
+    <h2>🎉 Events</h2>
+  </div>
+
+  <div class="list">
+
+    <div class="card">
+      <div class="card-icon">🎁</div>
+      <div class="card-info">
+        <h3>Daily Welcome Event</h3>
+        <p>Open the app every day and collect rewards.</p>
+      </div>
+      <button class="small-btn" onclick="claimReward(5000)">
+        Claim
       </button>
     </div>
 
-    <div class="event-card">
-      <h3>🏆 Daily Rewards</h3>
-      <p>Complete activities and unlock your daily rewards.</p>
-      <button class="event-btn" onclick="featureMessage('Rewards')">
-        View Rewards
+    <div class="card">
+      <div class="card-icon">🎡</div>
+      <div class="card-info">
+        <h3>Free Spin Event</h3>
+        <p>Use your daily free spins and win coins.</p>
+      </div>
+      <button class="small-btn" onclick="openSpin()">
+        Spin
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🏆</div>
+      <div class="card-info">
+        <h3>Daily Rewards</h3>
+        <p>Complete activities and collect coins.</p>
+      </div>
+      <button class="small-btn" onclick="claimReward(10000)">
+        Claim
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🔥</div>
+      <div class="card-info">
+        <h3>Room Activity Event</h3>
+        <p>Join voice rooms and meet new people.</p>
+      </div>
+      <button class="small-btn" onclick="showScreen('rooms')">
+        Join
       </button>
     </div>
 
   </div>
 
+</section>
 
-  <!-- MESSAGES SCREEN -->
-  <div id="messagesScreen" class="screen">
 
-    <div class="page-title">
-      <h2>💬 Messages</h2>
-      <p>Your conversations will appear here.</p>
+<!-- ================= MESSAGES ================= -->
+
+<section id="messagesScreen" class="screen">
+
+  <div class="page-header">
+    <h2>💬 Messages</h2>
+  </div>
+
+  <div class="list">
+
+    <div class="card">
+      <div class="card-icon">🎙️</div>
+      <div class="card-info">
+        <h3>Tannu Team</h3>
+        <p>Welcome to Tannu Voice Chat ❤️</p>
+      </div>
     </div>
 
-    <div class="message-card">
-      <h3>👋 Welcome to Tannu</h3>
-      <p>Your messages and notifications will appear here.</p>
+    <div class="card">
+      <div class="card-icon">🎁</div>
+      <div class="card-info">
+        <h3>Rewards</h3>
+        <p>Your daily rewards are waiting.</p>
+      </div>
     </div>
 
-    <div class="message-card">
-      <h3>🎉 Tannu Team</h3>
-      <p>Welcome! More messaging features are coming soon.</p>
+    <div class="card">
+      <div class="card-icon">🔔</div>
+      <div class="card-info">
+        <h3>System</h3>
+        <p>New rooms and events are available.</p>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= PROFILE ================= -->
+
+<section id="profileScreen" class="screen">
+
+  <div class="profile-head">
+
+    <div class="profile-avatar">👤</div>
+
+    <h2>Guest User</h2>
+    <p>ID: Tannu10001</p>
+
+  </div>
+
+  <div class="stats">
+
+    <div class="stat">
+      <b id="profileCoins">0</b>
+      <span>Coins</span>
+    </div>
+
+    <div class="stat">
+      <b>0</b>
+      <span>Followers</span>
+    </div>
+
+    <div class="stat">
+      <b>0</b>
+      <span>Following</span>
+    </div>
+
+  </div>
+
+  <div class="list">
+
+    <div class="card" onclick="openFeature('My VIP')">
+      <div class="card-icon">👑</div>
+      <div class="card-info">
+        <h3>My VIP</h3>
+        <p>VIP benefits and levels</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="card" onclick="openFeature('Wallet')">
+      <div class="card-icon">🪙</div>
+      <div class="card-info">
+        <h3>Wallet</h3>
+        <p>Your coins and rewards</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="card" onclick="openFeature('Settings')">
+      <div class="card-icon">⚙️</div>
+      <div class="card-info">
+        <h3>Settings</h3>
+        <p>Account and app settings</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="card" onclick="openFeature('Support')">
+      <div class="card-icon">🎧</div>
+      <div class="card-info">
+        <h3>Customer Support</h3>
+        <p>Need help? Contact support.</p>
+      </div>
+      <span>›</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= ROOM PAGE ================= -->
+
+<section id="roomScreen" class="screen room-page">
+
+  <div class="room-top">
+
+    <div>
+      <div class="room-title" id="currentRoomName">
+        Tannu Music Night
+      </div>
+      <div class="room-sub">
+        <span id="roomOnline">1</span> online • Voice Room
+      </div>
+    </div>
+
+    <div class="room-menu">
+      <button onclick="showToast('Room shared ❤️')">↗</button>
+      <button onclick="leaveRoom()">✕</button>
     </div>
 
   </div>
 
 
-  <!-- PROFILE SCREEN -->
-  <div id="profileScreen" class="screen">
+  <div class="mic-grid" id="micGrid"></div>
 
-    <div class="page-title">
-      <h2>👤 Profile</h2>
-      <p>Your Tannu account.</p>
+
+  <div class="room-chat">
+
+    <div class="chat-line">
+      <b>Tannu:</b> Welcome everyone ❤️
     </div>
 
-    <div class="profile-card">
+    <div class="chat-line">
+      <b>System:</b> Be respectful and enjoy the room.
+    </div>
 
-      <div class="profile-avatar">
-        👤
-      </div>
+    <div id="chatMessages"></div>
 
-      <h3>Tannu User</h3>
-      <p>New Member</p>
+    <div class="chat-input">
+      <input
+        id="chatInput"
+        type="text"
+        placeholder="Say something..."
+        maxlength="100"
+      >
 
-      <div class="profile-stats">
-
-        <div class="stat">
-          <strong>0</strong>
-          <span>Followers</span>
-        </div>
-
-        <div class="stat">
-          <strong>0</strong>
-          <span>Following</span>
-        </div>
-
-        <div class="stat">
-          <strong>0</strong>
-          <span>Gifts</span>
-        </div>
-
-      </div>
-
+      <button onclick="sendChat()">➤</button>
     </div>
 
   </div>
+
+
+  <div class="room-actions">
+
+    <button
+      class="room-action join"
+      id="micButton"
+      onclick="toggleMyMic()"
+    >
+      🎙️ Join Mic
+    </button>
+
+    <button
+      class="room-action"
+      onclick="sendGift()"
+    >
+      🎁 Gift
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ================= BOTTOM NAV ================= -->
+
+<nav class="bottom-nav">
+
+  <div class="nav-item active" data-screen="home" onclick="showScreen('home')">
+    <div class="nav-icon">🏠</div>
+    Home
+  </div>
+
+  <div class="nav-item" data-screen="rooms" onclick="showScreen('rooms')">
+    <div class="nav-icon">🎙️</div>
+    Rooms
+  </div>
+
+  <div class="nav-item" data-screen="events" onclick="showScreen('events')">
+    <div class="nav-icon">🎉</div>
+    Events
+  </div>
+
+  <div class="nav-item" data-screen="messages" onclick="showScreen('messages')">
+    <div class="nav-icon">💬</div>
+    Messages
+  </div>
+
+  <div class="nav-item" data-screen="profile" onclick="showScreen('profile')">
+    <div class="nav-icon">👤</div>
+    Profile
+  </div>
+
+</nav>
 
 </div>
 
 
-<!-- BOTTOM NAVIGATION -->
-<div class="bottom-nav">
+<!-- ================= TOAST ================= -->
 
-  <div class="nav-item active" onclick="showScreen('home', this)">
-    <div>🏠</div>
-    Home
-  </div>
+<div id="toast" class="toast"></div>
 
-  <div class="nav-item" onclick="showScreen('rooms', this)">
-    <div>🎙️</div>
-    Rooms
-  </div>
 
-  <div class="nav-item" onclick="showScreen('events', this)">
-    <div>🎉</div>
-    Events
-  </div>
+<!-- ================= CREATE ROOM MODAL ================= -->
 
-  <div class="nav-item" onclick="showScreen('messages', this)">
-    <div>💬</div>
-    Messages
-  </div>
+<div id="createModal" class="modal">
 
-  <div class="nav-item" onclick="showScreen('profile', this)">
-    <div>👤</div>
-    Profile
+  <div class="modal-box">
+
+    <h2>Create Voice Room</h2>
+
+    <input
+      id="newRoomName"
+      type="text"
+      placeholder="Room name"
+      maxlength="30"
+    >
+
+    <input
+      id="newRoomCategory"
+      type="text"
+      placeholder="Category e.g. Music"
+      maxlength="20"
+    >
+
+    <div class="modal-buttons">
+
+      <button class="cancel" onclick="closeCreateRoom()">
+        Cancel
+      </button>
+
+      <button class="confirm" onclick="createRoom()">
+        Create
+      </button>
+
+    </div>
+
   </div>
 
 </div>
@@ -686,49 +1117,663 @@
 
 <script>
 
-  function showScreen(page, clickedItem) {
+/* ================= DATA ================= */
 
-    document.querySelectorAll(".screen").forEach(function(screen) {
-      screen.classList.remove("active");
-    });
+let coins = 0;
 
-    var selectedScreen = document.getElementById(page + "Screen");
+let currentRoom = null;
 
-    if (selectedScreen) {
-      selectedScreen.classList.add("active");
+let myMic = false;
+
+let micStream = null;
+
+let muted = false;
+
+let freeSpins = 5;
+
+const rooms = [
+
+  {
+    name:"Tannu Music Night",
+    host:"Tannu",
+    icon:"🎵",
+    category:"Music",
+    users:8
+  },
+
+  {
+    name:"Friends Zone",
+    host:"Rahul",
+    icon:"👥",
+    category:"Friends",
+    users:12
+  },
+
+  {
+    name:"Fun & Masti",
+    host:"Aisha",
+    icon:"😂",
+    category:"Fun",
+    users:6
+  },
+
+  {
+    name:"Gaming Room",
+    host:"Arjun",
+    icon:"🎮",
+    category:"Games",
+    users:10
+  }
+
+];
+
+
+/* ================= INIT ================= */
+
+document.addEventListener("DOMContentLoaded",function(){
+
+  renderRooms();
+
+  updateCoins();
+
+  renderMicSeats();
+
+});
+
+
+/* ================= NAVIGATION ================= */
+
+function showScreen(name){
+
+  document.querySelectorAll(".screen").forEach(function(screen){
+    screen.classList.remove("active");
+  });
+
+  const target=document.getElementById(name+"Screen");
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document.querySelectorAll(".nav-item").forEach(function(item){
+    item.classList.remove("active");
+
+    if(item.dataset.screen===name){
+      item.classList.add("active");
+    }
+  });
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* ================= ROOMS ================= */
+
+function renderRooms(){
+
+  const home=document.getElementById("homeRooms");
+
+  const all=document.getElementById("allRooms");
+
+  let html="";
+
+  rooms.forEach(function(room,index){
+
+    html+=`
+
+      <div class="room" onclick="openRoom(${index})">
+
+        <div class="room-cover">
+          ${room.icon}
+        </div>
+
+        <div class="room-info">
+
+          <div class="room-name">
+            ${room.name}
+          </div>
+
+          <div class="room-host">
+            🎙️ ${room.host}
+          </div>
+
+          <div class="room-users">
+            👥 ${room.users}/12
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+  home.innerHTML=html;
+
+  all.innerHTML=html;
+}
+
+
+function filterRooms(category){
+
+  if(category==="Popular"){
+
+    showScreen("rooms");
+
+    return;
+  }
+
+  const filtered=rooms.filter(function(room){
+    return room.category===category;
+  });
+
+  const all=document.getElementById("allRooms");
+
+  if(filtered.length===0){
+
+    all.innerHTML=`
+      <div style="padding:25px;text-align:center;color:#777">
+        No ${category} rooms yet.
+      </div>
+    `;
+
+    showScreen("rooms");
+
+    return;
+  }
+
+  let html="";
+
+  filtered.forEach(function(room){
+
+    const index=rooms.indexOf(room);
+
+    html+=`
+
+      <div class="room" onclick="openRoom(${index})">
+
+        <div class="room-cover">
+          ${room.icon}
+        </div>
+
+        <div class="room-info">
+
+          <div class="room-name">
+            ${room.name}
+          </div>
+
+          <div class="room-host">
+            🎙️ ${room.host}
+          </div>
+
+          <div class="room-users">
+            👥 ${room.users}/12
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+  all.innerHTML=html;
+
+  showScreen("rooms");
+}
+
+
+function openRoom(index){
+
+  currentRoom=rooms[index];
+
+  document.getElementById("currentRoomName").textContent=
+    currentRoom.name;
+
+  myMic=false;
+
+  muted=false;
+
+  document.getElementById("micButton").textContent=
+    "🎙️ Join Mic";
+
+  renderMicSeats();
+
+  showScreen("room");
+
+}
+
+
+/* ================= MIC SEATS ================= */
+
+function renderMicSeats(){
+
+  const grid=document.getElementById("micGrid");
+
+  if(!grid) return;
+
+  let html="";
+
+  for(let i=0;i<12;i++){
+
+    if(i===0){
+
+      html+=`
+
+        <div class="mic-seat host">
+
+          <div class="avatar">
+            👑
+            <span class="mic-status on">🎙️</span>
+          </div>
+
+          <div class="seat-name">Host</div>
+
+        </div>
+
+      `;
+
     }
 
-    document.querySelectorAll(".nav-item").forEach(function(item) {
-      item.classList.remove("active");
-    });
+    else if(i===1 && myMic){
 
-    if (clickedItem) {
-      clickedItem.classList.add("active");
-    } else {
-      document.querySelectorAll(".nav-item").forEach(function(item) {
-        if (item.textContent.includes(
-          page.charAt(0).toUpperCase() + page.slice(1)
-        )) {
-          item.classList.add("active");
-        }
-      });
+      html+=`
+
+        <div class="mic-seat you">
+
+          <div class="avatar">
+
+            👤
+
+            <span
+              class="mic-status ${muted ? "" : "on"}"
+            >
+              ${muted ? "🔇" : "🎙️"}
+            </span>
+
+          </div>
+
+          <div class="seat-name">You</div>
+
+        </div>
+
+      `;
+
     }
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+    else{
+
+      html+=`
+
+        <div class="mic-seat empty-seat"
+             onclick="showToast('This seat is empty. Tap Join Mic to take a seat.')">
+
+          <div class="avatar">
+            +
+          </div>
+
+          <div class="seat-name">
+            Empty
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+  }
+
+  grid.innerHTML=html;
+
+  let online=1;
+
+  if(myMic) online++;
+
+  if(currentRoom){
+    online+=currentRoom.users-1;
+  }
+
+  document.getElementById("roomOnline").textContent=online;
+
+}
+
+
+/* ================= REAL PHONE MIC TEST ================= */
+
+async function startMicrophone(){
+
+  if(!navigator.mediaDevices ||
+     !navigator.mediaDevices.getUserMedia){
+
+    showToast("Microphone is not supported here.");
+
+    return false;
+  }
+
+  try{
+
+    micStream=await navigator.mediaDevices.getUserMedia({
+      audio:true
     });
+
+    showToast("Microphone connected 🎙️");
+
+    return true;
+
+  }catch(error){
+
+    console.log(error);
+
+    showToast(
+      "Microphone permission denied. Allow microphone access."
+    );
+
+    return false;
   }
 
+}
 
-  function joinRoom(roomName) {
-    alert("🎙️ " + roomName + "\n\nRoom system will be connected next.");
+
+function stopMicrophone(){
+
+  if(micStream){
+
+    micStream.getTracks().forEach(function(track){
+      track.stop();
+    });
+
+    micStream=null;
   }
 
+}
 
-  function featureMessage(featureName) {
-    alert("✨ " + featureName + "\n\nThis feature will be connected next.");
+
+/* ================= JOIN / MUTE MIC ================= */
+
+async function toggleMyMic(){
+
+  if(!myMic){
+
+    const success=await startMicrophone();
+
+    if(!success) return;
+
+    myMic=true;
+
+    muted=false;
+
+    document.getElementById("micButton").textContent=
+      "🔇 Mute Mic";
+
+    renderMicSeats();
+
+    showToast("You joined the mic 🎙️");
+
+    return;
   }
+
+  muted=!muted;
+
+  if(micStream){
+
+    micStream.getAudioTracks().forEach(function(track){
+
+      track.enabled=!muted;
+
+    });
+
+  }
+
+  document.getElementById("micButton").textContent=
+    muted ? "🎙️ Unmute Mic" : "🔇 Mute Mic";
+
+  renderMicSeats();
+
+  showToast(
+    muted ? "Mic muted 🔇" : "Mic unmuted 🎙️"
+  );
+
+}
+
+
+/* ================= LEAVE ROOM ================= */
+
+function leaveRoom(){
+
+  stopMicrophone();
+
+  myMic=false;
+
+  muted=false;
+
+  currentRoom=null;
+
+  showScreen("rooms");
+
+}
+
+
+/* ================= CHAT ================= */
+
+function sendChat(){
+
+  const input=document.getElementById("chatInput");
+
+  const text=input.value.trim();
+
+  if(!text) return;
+
+  const box=document.getElementById("chatMessages");
+
+  box.innerHTML+=`
+
+    <div class="chat-line">
+      <b>You:</b> ${escapeHtml(text)}
+    </div>
+
+  `;
+
+  input.value="";
+
+}
+
+
+function escapeHtml(text){
+
+  const div=document.createElement("div");
+
+  div.textContent=text;
+
+  return div.innerHTML;
+
+}
+
+
+/* ================= GIFTS ================= */
+
+function sendGift(){
+
+  if(coins<100){
+
+    showToast("You need coins to send a gift.");
+
+    return;
+
+  }
+
+  coins-=100;
+
+  updateCoins();
+
+  showToast("🎁 Gift sent! -100 coins");
+
+}
+
+
+/* ================= COINS ================= */
+
+function updateCoins(){
+
+  document.getElementById("coinBalance").textContent=
+    coins.toLocaleString();
+
+  document.getElementById("profileCoins").textContent=
+    coins.toLocaleString();
+
+}
+
+
+function claimReward(amount){
+
+  coins+=amount;
+
+  updateCoins();
+
+  showToast(
+    "🎁 You received "+
+    amount.toLocaleString()+
+    " coins!"
+  );
+
+}
+
+
+/* ================= FREE SPIN ================= */
+
+function openSpin(){
+
+  if(freeSpins<=0){
+
+    showToast("Today's free spins are finished.");
+
+    return;
+  }
+
+  freeSpins--;
+
+  const rewards=[
+    100,
+    500,
+    1000,
+    5000,
+    10000,
+    50000
+  ];
+
+  const reward=
+    rewards[Math.floor(Math.random()*rewards.length)];
+
+  coins+=reward;
+
+  updateCoins();
+
+  showToast(
+    "🎡 You won "+
+    reward.toLocaleString()+
+    " coins!"
+  );
+
+}
+
+
+/* ================= FEATURES ================= */
+
+function openFeature(name){
+
+  showToast(
+    name+
+    " section is ready for the next build."
+  );
+
+}
+
+
+/* ================= CREATE ROOM ================= */
+
+function openCreateRoom(){
+
+  document.getElementById("createModal")
+    .classList.add("show");
+
+}
+
+
+function closeCreateRoom(){
+
+  document.getElementById("createModal")
+    .classList.remove("show");
+
+}
+
+
+function createRoom(){
+
+  const name=
+    document.getElementById("newRoomName").value.trim();
+
+  const category=
+    document.getElementById("newRoomCategory").value.trim()
+    || "Fun";
+
+  if(!name){
+
+    showToast("Enter a room name.");
+
+    return;
+  }
+
+  rooms.unshift({
+
+    name:name,
+
+    host:"You",
+
+    icon:"🎙️",
+
+    category:category,
+
+    users:1
+
+  });
+
+  renderRooms();
+
+  closeCreateRoom();
+
+  document.getElementById("newRoomName").value="";
+
+  document.getElementById("newRoomCategory").value="";
+
+  showToast("Room created successfully 🎙️");
+
+}
+
+
+/* ================= TOAST ================= */
+
+function showToast(message){
+
+  const toast=document.getElementById("toast");
+
+  toast.textContent=message;
+
+  toast.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer=setTimeout(function(){
+
+    toast.classList.remove("show");
+
+  },2200);
+
+}
 
 </script>
 
