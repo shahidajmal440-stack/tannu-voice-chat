@@ -397,11 +397,13 @@ button{
   background:#25152f;
   border:2px solid #432753;
   font-size:21px;
+  transition:.2s;
 }
 
 .seat-avatar.speaking{
   border-color:#ff3ca7;
   box-shadow:0 0 15px rgba(255,60,167,.5);
+  transform:scale(1.05);
 }
 
 .mic-seat p{
@@ -425,6 +427,7 @@ button{
   text-align:center;
   color:#b7a5c0;
   font-size:11px;
+  background:none;
 }
 
 .tool span{
@@ -441,6 +444,34 @@ button{
   color:white;
   font-weight:bold;
   background:linear-gradient(90deg,#ff299d,#713cff);
+}
+
+.join-mic.muted{
+  background:#321c3e;
+  border:1px solid #633a72;
+}
+
+.connection{
+  margin-top:12px;
+  padding:9px 12px;
+  border-radius:15px;
+  text-align:center;
+  font-size:10px;
+  background:#1c1224;
+  color:#a996b2;
+}
+
+.connection.connected{
+  color:#65f7b0;
+  border:1px solid rgba(101,247,176,.2);
+}
+
+.connection.connecting{
+  color:#ffd45d;
+}
+
+.connection.error{
+  color:#ff7e9f;
 }
 
 .message{
@@ -696,6 +727,7 @@ button{
   .quick-grid{
     grid-template-columns:repeat(2,1fr);
   }
+
   .mic-grid{
     grid-template-columns:repeat(4,1fr);
     gap:11px 4px;
@@ -777,7 +809,7 @@ button{
       <span class="live">● LIVE</span>
     </div>
     <div class="room-bottom">
-      <span class="seats">👥 126 people</span>
+      <span class="seats">👥 Live Voice</span>
       <button class="join" onclick="openVoiceRoom('Tannu Friends')">Join</button>
     </div>
   </div>
@@ -792,7 +824,7 @@ button{
       <span class="live">● LIVE</span>
     </div>
     <div class="room-bottom">
-      <span class="seats">👥 89 people</span>
+      <span class="seats">👥 Live Voice</span>
       <button class="join" onclick="openVoiceRoom('Desi Vibes')">Join</button>
     </div>
   </div>
@@ -809,7 +841,7 @@ button{
     <span>Live now</span>
   </div>
 
-  <input id="roomSearch" class="search" placeholder="🔍 Search rooms..." oninput="searchRooms()">
+  <input id="roomSearch" class="search" placeholder="🔍 Search rooms..." oninput="searchRooms">
 
   <div class="tabs">
     <button class="active" onclick="filterRooms('all',this)">All</button>
@@ -827,7 +859,7 @@ button{
       <div class="room-info"><h4>Tannu Friends</h4><p>Friends • Fun • Chat</p></div>
       <span class="live">LIVE</span>
     </div>
-    <div class="room-bottom"><span class="seats">🎙️ 8/12 • 👥 126</span><button class="join" onclick="openVoiceRoom('Tannu Friends')">Join</button></div>
+    <div class="room-bottom"><span class="seats">🎙️ Live Voice</span><button class="join" onclick="openVoiceRoom('Tannu Friends')">Join</button></div>
   </div>
 
   <div class="room-card big-room" data-name="Desi Vibes" data-category="music india">
@@ -836,7 +868,7 @@ button{
       <div class="room-info"><h4>Desi Vibes</h4><p>Music • Desi • Masti</p></div>
       <span class="live">LIVE</span>
     </div>
-    <div class="room-bottom"><span class="seats">🎙️ 6/12 • 👥 89</span><button class="join" onclick="openVoiceRoom('Desi Vibes')">Join</button></div>
+    <div class="room-bottom"><span class="seats">🎙️ Live Voice</span><button class="join" onclick="openVoiceRoom('Desi Vibes')">Join</button></div>
   </div>
 
   <div class="room-card big-room" data-name="Gaming Room" data-category="gaming india">
@@ -845,7 +877,7 @@ button{
       <div class="room-info"><h4>Gaming Room</h4><p>Gaming • Talk • Fun</p></div>
       <span class="live">LIVE</span>
     </div>
-    <div class="room-bottom"><span class="seats">🎙️ 10/16 • 👥 74</span><button class="join" onclick="openVoiceRoom('Gaming Room')">Join</button></div>
+    <div class="room-bottom"><span class="seats">🎙️ Live Voice</span><button class="join" onclick="openVoiceRoom('Gaming Room')">Join</button></div>
   </div>
 
   <div class="room-card big-room" data-name="Love Talk" data-category="fun">
@@ -854,7 +886,7 @@ button{
       <div class="room-info"><h4>Love & Talk</h4><p>Talk • Friendship • Chill</p></div>
       <span class="live">LIVE</span>
     </div>
-    <div class="room-bottom"><span class="seats">🎙️ 5/8 • 👥 51</span><button class="join" onclick="openVoiceRoom('Love & Talk')">Join</button></div>
+    <div class="room-bottom"><span class="seats">🎙️ Live Voice</span><button class="join" onclick="openVoiceRoom('Love & Talk')">Join</button></div>
   </div>
 
 </div>
@@ -869,42 +901,92 @@ button{
     <div class="room-header">
       <div>
         <h2 id="voiceTitle">Tannu Friends</h2>
-        <small>🔴 Live • 126 listeners</small>
+        <small id="voiceStatus">Connecting...</small>
       </div>
+
       <div class="room-actions">
-        <button class="round-btn" onclick="toast('Room shared 🔗')">↗</button>
-        <button class="round-btn" onclick="showScreen('rooms')">×</button>
+        <button class="round-btn" onclick="shareRoom()">↗</button>
+        <button class="round-btn" onclick="leaveVoiceRoom()">×</button>
       </div>
     </div>
 
     <div class="host">
       <div class="host-avatar">👑</div>
       <h3>Tannu Host</h3>
-      <small>Room Host • 🎙️ Speaking</small>
+      <small>Room Host • 🎙️ Live</small>
     </div>
 
-    <div class="mic-grid">
+    <div id="micGrid" class="mic-grid">
 
-      <div class="mic-seat"><div class="seat-avatar speaking">🎤</div><p>Riya</p></div>
-      <div class="mic-seat"><div class="seat-avatar">👨</div><p>Arjun</p></div>
-      <div class="mic-seat"><div class="seat-avatar speaking">👩</div><p>Neha</p></div>
-      <div class="mic-seat"><div class="seat-avatar">🧑</div><p>Sameer</p></div>
+      <div class="mic-seat">
+        <div class="seat-avatar speaking">👑</div>
+        <p>Host</p>
+      </div>
 
-      <div class="mic-seat"><div class="seat-avatar">👨</div><p>Rahul</p></div>
-      <div class="mic-seat"><div class="seat-avatar">👩</div><p>Pooja</p></div>
-      <div class="mic-seat"><div class="seat-avatar">🧑</div><p>Guest</p></div>
-      <div class="mic-seat"><div class="seat-avatar">＋</div><p>Empty</p></div>
+      <div class="mic-seat">
+        <div class="seat-avatar">＋</div>
+        <p>Empty</p>
+      </div>
+
+      <div class="mic-seat">
+        <div class="seat-avatar">＋</div>
+        <p>Empty</p>
+      </div>
+
+      <div class="mic-seat">
+        <div class="seat-avatar">＋</div>
+        <p>Empty</p>
+      </div>
+
+      <div class="mic-seat">
+        <div class="seat-avatar">＋</div>
+        <p>Empty</p>
+      </div>
+
+      <div class="mic-seat">
+        <div class="seat-avatar">＋</div>
+        <p>Empty</p>
+      </div>
+
+      <div class="mic-seat">
+        <div class="seat-avatar">＋</div>
+        <p>Empty</p>
+      </div>
+
+      <div class="mic-seat">
+        <div class="seat-avatar">＋</div>
+        <p>Empty</p>
+      </div>
 
     </div>
 
     <div class="bottom-tools">
-      <button class="tool" onclick="toast('Mic control 🎙️')"><span>🎙️</span>Mic</button>
-      <button class="tool" onclick="toast('Chat opened 💬')"><span>💬</span>Chat</button>
-      <button class="tool" onclick="toast('Gift panel 🎁')"><span>🎁</span>Gift</button>
-      <button class="tool" onclick="toast('More options ⋯')"><span>⋯</span>More</button>
+
+      <button id="micTool" class="tool" onclick="toggleMic()">
+        <span>🎙️</span>Mic
+      </button>
+
+      <button class="tool" onclick="toast('Chat coming soon 💬')">
+        <span>💬</span>Chat
+      </button>
+
+      <button class="tool" onclick="toast('Gift panel coming soon 🎁')">
+        <span>🎁</span>Gift
+      </button>
+
+      <button class="tool" onclick="toast('More options coming soon ⋯')">
+        <span>⋯</span>More
+      </button>
+
     </div>
 
-    <button class="join-mic" onclick="toast('Mic request sent 🎙️')">🎤 Request to Join Mic</button>
+    <button id="joinMicButton" class="join-mic" onclick="toggleMic()">
+      🎤 Join Mic
+    </button>
+
+    <div id="connectionBox" class="connection connecting">
+      Connecting to live voice...
+    </div>
 
   </div>
 
@@ -1065,7 +1147,37 @@ button{
 
 <div id="toast" class="toast"></div>
 
-<script>
+<!-- LIVEKIT -->
+<script type="module">
+
+import {
+  Room,
+  RoomEvent,
+  Track,
+  TokenSource
+} from "https://cdn.jsdelivr.net/npm/livekit-client@2.22.3/dist/livekit-client.esm.mjs";
+
+
+/* =========================
+   TANNu LIVEKIT SETTINGS
+========================= */
+
+const TOKEN_SERVER_ID = "tannuvoicechat-mh7ads";
+
+
+/* =========================
+   APP STATE
+========================= */
+
+let liveRoom = null;
+let currentRoomName = "";
+let micEnabled = false;
+let roomConnecting = false;
+
+
+/* =========================
+   NORMAL APP FUNCTIONS
+========================= */
 
 const screens=[
   "home",
@@ -1076,7 +1188,7 @@ const screens=[
   "profile"
 ];
 
-function showScreen(name){
+window.showScreen=function(name){
 
   screens.forEach(s=>{
     const el=document.getElementById(s+"Screen");
@@ -1109,10 +1221,14 @@ function showScreen(name){
     document.getElementById("profileNav").classList.add("active");
   }
 
-  window.scrollTo({top:0,behavior:"smooth"});
-}
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+};
 
-function toast(message){
+
+window.toast=function(message){
 
   const box=document.getElementById("toast");
 
@@ -1124,16 +1240,14 @@ function toast(message){
   window.toastTimer=setTimeout(()=>{
     box.classList.remove("show");
   },1800);
-}
+};
 
-function openVoiceRoom(room){
 
-  document.getElementById("voiceTitle").textContent=room;
+/* =========================
+   ROOM SEARCH
+========================= */
 
-  showScreen("voice");
-}
-
-function searchRooms(){
+window.searchRooms=function(){
 
   const value=document
     .getElementById("roomSearch")
@@ -1151,9 +1265,10 @@ function searchRooms(){
       ?"block":"none";
 
   });
-}
+};
 
-function filterRooms(category,button){
+
+window.filterRooms=function(category,button){
 
   document
     .querySelectorAll(".tabs button")
@@ -1174,7 +1289,654 @@ function filterRooms(category,button){
     });
 
   document.getElementById("roomSearch").value="";
+};
+
+
+/* =========================
+   ROOM OPEN
+========================= */
+
+window.openVoiceRoom=async function(roomName){
+
+  document.getElementById("voiceTitle").textContent=roomName;
+
+  showScreen("voice");
+
+  await connectToLiveRoom(roomName);
+};
+
+
+/* =========================
+   CONNECT TO LIVEKIT
+========================= */
+
+async function connectToLiveRoom(roomName){
+
+  if(roomConnecting){
+    return;
+  }
+
+  roomConnecting=true;
+
+  currentRoomName=roomName;
+
+  setConnection(
+    "connecting",
+    "Connecting to live voice..."
+  );
+
+  try{
+
+    /* Close previous room if any */
+    if(liveRoom){
+
+      try{
+        liveRoom.disconnect();
+      }catch(e){}
+
+      liveRoom=null;
+    }
+
+
+    /*
+      LiveKit Development Token Server
+      Current official API:
+      TokenSource.developmentTokenServer()
+    */
+
+    const tokenSource =
+      TokenSource.developmentTokenServer(
+        TOKEN_SERVER_ID
+      );
+
+
+    /*
+      Get temporary room credentials.
+    */
+
+    const credentials =
+      await tokenSource.fetch({
+        roomName: roomName
+      });
+
+
+    /*
+      Create LiveKit room.
+    */
+
+    liveRoom = new Room({
+      adaptiveStream:true,
+      dynacast:true
+    });
+
+
+    /* =========================
+       LIVEKIT EVENTS
+    ========================= */
+
+    liveRoom.on(
+      RoomEvent.TrackSubscribed,
+      (track,publication,participant)=>{
+
+        if(track.kind===Track.Kind.Audio){
+
+          const audioElement=track.attach();
+
+          audioElement.autoplay=true;
+          audioElement.setAttribute(
+            "data-livekit-audio",
+            participant.identity
+          );
+
+          document.body.appendChild(audioElement);
+
+        }
+
+        renderParticipants();
+      }
+    );
+
+
+    liveRoom.on(
+      RoomEvent.TrackUnsubscribed,
+      (track)=>{
+        try{
+          track.detach();
+        }catch(e){}
+      }
+    );
+
+
+    liveRoom.on(
+      RoomEvent.ParticipantConnected,
+      ()=>{
+        renderParticipants();
+        toast("Someone joined the room 👋");
+      }
+    );
+
+
+    liveRoom.on(
+      RoomEvent.ParticipantDisconnected,
+      (participant)=>{
+
+        removeParticipantAudio(
+          participant.identity
+        );
+
+        renderParticipants();
+
+        toast("Someone left the room 👋");
+      }
+    );
+
+
+    liveRoom.on(
+      RoomEvent.ActiveSpeakersChanged,
+      ()=>{
+        renderParticipants();
+      }
+    );
+
+
+    liveRoom.on(
+      RoomEvent.TrackMuted,
+      ()=>{
+        renderParticipants();
+      }
+    );
+
+
+    liveRoom.on(
+      RoomEvent.TrackUnmuted,
+      ()=>{
+        renderParticipants();
+      }
+    );
+
+
+    liveRoom.on(
+      RoomEvent.Disconnected,
+      ()=>{
+        micEnabled=false;
+        updateMicUI();
+        renderParticipants();
+
+        setConnection(
+          "error",
+          "Disconnected from live room"
+        );
+      }
+    );
+
+
+    /*
+      Connect to LiveKit Cloud.
+    */
+
+    await liveRoom.connect(
+      credentials.serverUrl,
+      credentials.participantToken
+    );
+
+
+    /*
+      Start as listener.
+      Microphone remains OFF until
+      user presses Join Mic.
+    */
+
+    await liveRoom.localParticipant
+      .setMicrophoneEnabled(false);
+
+
+    micEnabled=false;
+
+    roomConnecting=false;
+
+    setConnection(
+      "connected",
+      "🟢 Live voice connected"
+    );
+
+    renderParticipants();
+
+    toast("Room joined 🎙️");
+
+
+  }catch(error){
+
+    console.error(
+      "LiveKit connection error:",
+      error
+    );
+
+    roomConnecting=false;
+
+    micEnabled=false;
+
+    updateMicUI();
+
+    setConnection(
+      "error",
+      "❌ Voice connection failed"
+    );
+
+    toast(
+      "Voice connection failed. Check microphone permission."
+    );
+
+  }
+
 }
+
+
+/* =========================
+   MICROPHONE
+========================= */
+
+window.toggleMic=async function(){
+
+  if(!liveRoom){
+
+    toast("First join a voice room 🎙️");
+
+    return;
+  }
+
+  try{
+
+    const newState=!micEnabled;
+
+    await liveRoom.localParticipant
+      .setMicrophoneEnabled(newState);
+
+    micEnabled=newState;
+
+    updateMicUI();
+
+    renderParticipants();
+
+    if(micEnabled){
+
+      toast("🎙️ Mic ON — you are live");
+
+    }else{
+
+      toast("🔇 Mic OFF");
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Microphone error:",
+      error
+    );
+
+    toast(
+      "Microphone permission is required 🎙️"
+    );
+
+  }
+
+};
+
+
+/* =========================
+   MIC UI
+========================= */
+
+function updateMicUI(){
+
+  const button=
+    document.getElementById("joinMicButton");
+
+  const tool=
+    document.getElementById("micTool");
+
+  if(!button || !tool){
+    return;
+  }
+
+
+  if(micEnabled){
+
+    button.textContent="🔇 Leave Mic";
+
+    button.classList.add("muted");
+
+    tool.innerHTML=
+      "<span>🔇</span>Mute";
+
+  }else{
+
+    button.textContent="🎤 Join Mic";
+
+    button.classList.remove("muted");
+
+    tool.innerHTML=
+      "<span>🎙️</span>Mic";
+
+  }
+
+}
+
+
+/* =========================
+   PARTICIPANT UI
+========================= */
+
+function renderParticipants(){
+
+  const grid=
+    document.getElementById("micGrid");
+
+  if(!grid){
+    return;
+  }
+
+
+  /*
+    Host is kept visually at seat 1.
+  */
+
+  grid.innerHTML="";
+
+
+  const hostSeat=document.createElement("div");
+
+  hostSeat.className="mic-seat";
+
+  hostSeat.innerHTML=`
+    <div class="seat-avatar speaking">👑</div>
+    <p>Host</p>
+  `;
+
+  grid.appendChild(hostSeat);
+
+
+  if(!liveRoom){
+
+    addEmptySeats(grid,7);
+
+    return;
+  }
+
+
+  const participants=
+    Array.from(
+      liveRoom.remoteParticipants.values()
+    );
+
+
+  /*
+    Our own participant.
+  */
+
+  if(micEnabled){
+
+    const localSeat=document.createElement("div");
+
+    localSeat.className="mic-seat";
+
+    const localSpeaking=
+      liveRoom.localParticipant.isSpeaking;
+
+    localSeat.innerHTML=`
+      <div class="seat-avatar ${localSpeaking ? "speaking":""}">
+        🎙️
+      </div>
+      <p>You</p>
+    `;
+
+    grid.appendChild(localSeat);
+  }
+
+
+  /*
+    Remote participants.
+  */
+
+  participants
+    .slice(0,7)
+    .forEach((participant,index)=>{
+
+      const seat=
+        document.createElement("div");
+
+      seat.className="mic-seat";
+
+
+      const speaking=
+        participant.isSpeaking;
+
+
+      let avatar="👤";
+
+      if(index===0) avatar="👨";
+      if(index===1) avatar="👩";
+      if(index===2) avatar="🧑";
+      if(index===3) avatar="👨";
+      if(index===4) avatar="👩";
+      if(index===5) avatar="🧑";
+      if(index===6) avatar="👤";
+
+
+      const displayName=
+        participant.name ||
+        participant.identity ||
+        "Guest";
+
+
+      seat.innerHTML=`
+        <div class="seat-avatar ${speaking ? "speaking":""}">
+          ${avatar}
+        </div>
+        <p>${escapeHtml(displayName)}</p>
+      `;
+
+
+      grid.appendChild(seat);
+
+    });
+
+
+  /*
+    Fill remaining seats.
+  */
+
+  const used=
+    1 +
+    (micEnabled ? 1 : 0) +
+    Math.min(participants.length,7);
+
+  const empty=
+    Math.max(0,8-used);
+
+  addEmptySeats(grid,empty);
+
+}
+
+
+/* =========================
+   EMPTY SEATS
+========================= */
+
+function addEmptySeats(grid,count){
+
+  for(let i=0;i<count;i++){
+
+    const seat=
+      document.createElement("div");
+
+    seat.className="mic-seat";
+
+    seat.innerHTML=`
+      <div class="seat-avatar">＋</div>
+      <p>Empty</p>
+    `;
+
+    grid.appendChild(seat);
+  }
+
+}
+
+
+/* =========================
+   REMOVE AUDIO
+========================= */
+
+function removeParticipantAudio(identity){
+
+  document
+    .querySelectorAll(
+      `[data-livekit-audio="${CSS.escape(identity)}"]`
+    )
+    .forEach(element=>{
+      try{
+        element.remove();
+      }catch(e){}
+    });
+
+}
+
+
+/* =========================
+   LEAVE ROOM
+========================= */
+
+window.leaveVoiceRoom=async function(){
+
+  try{
+
+    if(liveRoom){
+
+      await liveRoom.disconnect();
+
+      liveRoom=null;
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+
+  document
+    .querySelectorAll(
+      "[data-livekit-audio]"
+    )
+    .forEach(element=>{
+      try{
+        element.remove();
+      }catch(e){}
+    });
+
+
+  currentRoomName="";
+  micEnabled=false;
+  roomConnecting=false;
+
+  updateMicUI();
+
+  setConnection(
+    "connecting",
+    "Not connected"
+  );
+
+  showScreen("rooms");
+
+  toast("You left the room 👋");
+
+};
+
+
+/* =========================
+   SHARE
+========================= */
+
+window.shareRoom=async function(){
+
+  const text=
+    `Join me in ${currentRoomName || "Tannu Voice Chat"} 🎙️`;
+
+  try{
+
+    if(navigator.share){
+
+      await navigator.share({
+        title:"Tannu Voice Chat",
+        text:text
+      });
+
+    }else{
+
+      await navigator.clipboard.writeText(text);
+
+      toast("Room invite copied 🔗");
+
+    }
+
+  }catch(error){
+
+    toast("Room sharing cancelled");
+
+  }
+
+};
+
+
+/* =========================
+   CONNECTION STATUS
+========================= */
+
+function setConnection(type,message){
+
+  const box=
+    document.getElementById("connectionBox");
+
+  const status=
+    document.getElementById("voiceStatus");
+
+  if(!box || !status){
+    return;
+  }
+
+  box.className=
+    "connection " + type;
+
+  box.textContent=message;
+
+  status.textContent=message;
+
+}
+
+
+/* =========================
+   HTML SAFETY
+========================= */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================
+   START UI
+========================= */
+
+updateMicUI();
+
+renderParticipants();
 
 </script>
 
