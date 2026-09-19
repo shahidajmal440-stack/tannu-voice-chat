@@ -11,284 +11,596 @@
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:Arial,Helvetica,sans-serif;
+  -webkit-tap-highlight-color:transparent;
 }
 
 body{
-  min-height:100vh;
-  background:#09050f;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#030711;
   color:#fff;
+  overflow-x:hidden;
 }
 
 button{
+  font-family:inherit;
   border:0;
   cursor:pointer;
-  color:white;
 }
 
-.hidden{
-  display:none!important;
-}
-
-/* SPLASH */
-#splash{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  background:
-    radial-gradient(circle at 30% 20%,#5c0b62 0%,transparent 35%),
-    radial-gradient(circle at 80% 80%,#25106d 0%,transparent 40%),
-    #09050f;
-}
-
-.logo{
-  width:125px;
-  height:125px;
-  border-radius:35px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:65px;
-  background:linear-gradient(135deg,#ff2e9b,#8b45ff);
-  box-shadow:0 20px 70px #ff2e9b55;
-}
-
-.splashTitle{
-  font-size:28px;
-  font-weight:800;
-  margin-top:22px;
-}
-
-.splashSub{
-  color:#aaa;
-  margin-top:8px;
-}
-
-/* LOGIN */
-#loginScreen{
-  min-height:100vh;
-  padding:35px 22px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:
-    radial-gradient(circle at 20% 15%,#5a1264 0%,transparent 35%),
-    radial-gradient(circle at 90% 85%,#32127a 0%,transparent 40%),
-    #09050f;
-}
-
-.loginBox{
+.app{
   width:100%;
-  max-width:430px;
-  text-align:center;
-}
-
-.loginLogo{
-  width:110px;
-  height:110px;
+  max-width:520px;
+  min-height:100vh;
   margin:auto;
-  border-radius:32px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:58px;
-  background:linear-gradient(135deg,#ff2fa0,#7442ff);
-  box-shadow:0 15px 55px #a32fff44;
-}
-
-.loginTitle{
-  font-size:31px;
-  margin-top:24px;
-  font-weight:800;
-}
-
-.loginText{
-  color:#a9a3b2;
-  margin:10px 0 30px;
-  line-height:1.5;
-}
-
-.loginBtn,
-.guestBtn{
-  width:100%;
-  padding:17px;
-  border-radius:18px;
-  font-size:16px;
-  font-weight:700;
-  margin-top:12px;
-}
-
-.loginBtn{
-  background:linear-gradient(100deg,#ff299f,#7344ff);
-  box-shadow:0 12px 30px #a62cff33;
-}
-
-.guestBtn{
-  background:#18131f;
-  border:1px solid #302738;
-}
-
-.authStatus{
-  min-height:22px;
-  margin-top:18px;
-  color:#b9afc4;
-  font-size:13px;
-}
-
-.terms{
-  color:#706878;
-  font-size:12px;
-  margin-top:25px;
-}
-
-/* APP */
-#app{
-  min-height:100vh;
-  padding-bottom:85px;
   background:
-    radial-gradient(circle at 90% 0%,#42114e 0%,transparent 30%),
-    #09050f;
+    radial-gradient(circle at 50% 5%,rgba(116,39,255,.20),transparent 25%),
+    radial-gradient(circle at 90% 45%,rgba(255,0,174,.08),transparent 30%),
+    #030711;
+  position:relative;
+  padding-bottom:90px;
 }
 
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:100;
-  padding:16px 16px 12px;
-  background:#09050fee;
-  backdrop-filter:blur(15px);
+/* TOP HEADER */
+
+.header{
+  padding:18px 14px 12px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  background:
+    linear-gradient(180deg,rgba(14,16,45,.96),rgba(3,7,17,.78));
+}
+
+.brand-area{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.avatar{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  border:2px solid #ffd65a;
+  background:
+    radial-gradient(circle at 35% 30%,#ffdca8,#7a315e 45%,#16102e 75%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  box-shadow:0 0 15px rgba(255,196,54,.35);
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
+  line-height:1;
 }
 
-.brandIcon{
-  width:43px;
-  height:43px;
-  border-radius:14px;
+.brand h1{
+  font-size:24px;
+  letter-spacing:1px;
+  color:#ffd34f;
+  text-shadow:0 0 12px rgba(255,194,45,.25);
+}
+
+.brand h2{
+  font-size:11px;
+  letter-spacing:2px;
+  margin-top:3px;
+}
+
+.tagline{
+  font-size:10px;
+  color:#d9d9e8;
+  margin-top:6px;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.coin-box{
+  height:42px;
+  padding:0 9px;
+  border-radius:24px;
+  border:1px solid #d99b35;
+  background:linear-gradient(135deg,#3a2510,#111426);
+  display:flex;
+  align-items:center;
+  gap:7px;
+  box-shadow:0 0 14px rgba(255,181,36,.18);
+}
+
+.coin-icon{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#fff1a1,#ffab00);
+  color:#7a3d00;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:linear-gradient(135deg,#ff299e,#7943ff);
-  font-size:23px;
-}
-
-.brandName{
-  font-weight:800;
+  font-weight:bold;
   font-size:17px;
 }
 
-.status{
-  font-size:10px;
-  color:#8f8797;
-  margin-top:2px;
+.coin-number{
+  font-size:14px;
+  font-weight:bold;
 }
 
-.statusDot{
-  display:inline-block;
-  width:7px;
-  height:7px;
+.plus{
+  width:25px;
+  height:25px;
   border-radius:50%;
-  background:#777;
-  margin-right:4px;
+  background:#ffad20;
+  color:#301600;
+  font-size:18px;
+  font-weight:bold;
 }
 
-.coinBox{
-  padding:9px 12px;
-  border-radius:14px;
-  background:#17111f;
-  border:1px solid #30243a;
-  font-size:13px;
-  font-weight:700;
+.notification{
+  position:relative;
+  font-size:27px;
 }
 
-/* PAGES */
-.page{
-  display:none;
-  padding:15px;
-}
-
-.page.active{
-  display:block;
-}
-
-.sectionTitle{
+.notification-badge{
+  position:absolute;
+  right:-3px;
+  top:-5px;
+  width:19px;
+  height:19px;
+  border-radius:50%;
+  background:#ff315d;
+  border:2px solid #090b18;
+  font-size:10px;
   display:flex;
-  justify-content:space-between;
+  justify-content:center;
   align-items:center;
-  margin:10px 2px 14px;
-}
-
-.sectionTitle h2{
-  font-size:21px;
-}
-
-.sectionTitle span{
-  color:#9d92a8;
-  font-size:12px;
 }
 
 /* HERO */
+
 .hero{
-  padding:23px;
-  border-radius:27px;
-  background:
-    radial-gradient(circle at 85% 20%,#ff299e55,transparent 35%),
-    linear-gradient(135deg,#24102d,#17102a);
-  border:1px solid #38243e;
+  margin:6px 13px 18px;
+  min-height:214px;
+  border-radius:21px;
+  position:relative;
   overflow:hidden;
+  border:1px solid #9b36ff;
+  background:
+    radial-gradient(circle at 80% 45%,rgba(255,35,207,.7),transparent 30%),
+    radial-gradient(circle at 20% 80%,rgba(255,164,0,.3),transparent 35%),
+    linear-gradient(135deg,#22083e,#10105b 48%,#120728);
+  box-shadow:
+    0 0 22px rgba(163,31,255,.28),
+    inset 0 0 30px rgba(255,0,198,.08);
+}
+
+.hero:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(110deg,transparent 35%,rgba(255,255,255,.09),transparent 55%);
+  pointer-events:none;
+}
+
+.hero-logo{
+  position:absolute;
+  left:15px;
+  top:25px;
+  width:105px;
+  height:105px;
+  border-radius:50%;
+  border:2px solid #ffc83d;
+  background:
+    radial-gradient(circle,#26123e,#090914 70%);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0 0 25px rgba(255,187,41,.35);
+}
+
+.mic{
+  font-size:39px;
+  filter:drop-shadow(0 0 7px #ffc331);
+}
+
+.hero-logo strong{
+  color:#ffd34e;
+  font-size:17px;
+}
+
+.hero-logo span{
+  font-size:7px;
+  letter-spacing:2px;
+}
+
+.hero-content{
+  position:relative;
+  margin-left:135px;
+  padding:24px 15px 18px 5px;
+  z-index:2;
+}
+
+.welcome{
+  color:#ffd44d;
+  font-size:19px;
+  font-style:italic;
+  margin-bottom:3px;
+}
+
+.hero-title{
+  font-size:25px;
+  font-weight:800;
+  line-height:1.08;
+}
+
+.hero-sub{
+  font-size:11px;
+  line-height:1.7;
+  color:#f1eafa;
+  margin-top:9px;
+}
+
+.hero-button{
+  margin-top:14px;
+  padding:10px 20px;
+  border-radius:22px;
+  background:linear-gradient(90deg,#ffd32d,#ff9e19);
+  color:#291400;
+  font-weight:800;
+  font-size:15px;
+  box-shadow:0 0 17px rgba(255,183,31,.4);
+}
+
+/* QUICK MENU */
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+  padding:0 12px;
+  margin-bottom:22px;
+}
+
+.quick{
+  min-height:91px;
+  border-radius:17px;
+  border:1px solid #303c75;
+  background:
+    linear-gradient(145deg,#111a37,#080d1d);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  box-shadow:inset 0 0 16px rgba(117,54,255,.08);
   position:relative;
 }
 
-.hero h1{
-  font-size:29px;
-  line-height:1.15;
-  max-width:280px;
+.quick:nth-child(2),
+.quick:nth-child(4){
+  border-color:#8731c7;
 }
 
-.hero p{
-  color:#aaa0b2;
-  margin-top:10px;
-  line-height:1.5;
-  font-size:13px;
-}
-
-.heroBtns{
+.quick-icon{
+  width:42px;
+  height:42px;
   display:flex;
-  gap:10px;
-  margin-top:20px;
+  justify-content:center;
+  align-items:center;
+  font-size:27px;
 }
 
-.primary{
-  padding:12px 18px;
-  border-radius:14px;
-  background:linear-gradient(100deg,#ff299f,#7743ff);
-  font-weight:700;
+.quick span{
+  font-size:10px;
+  font-weight:bold;
+  white-space:nowrap;
 }
 
-.secondary{
-  padding:12px 18px;
-  border-radius:14px;
-  background:#251c2c;
-  border:1px solid #403248;
+.red-dot{
+  position:absolute;
+  right:5px;
+  top:5px;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#ff4166;
 }
 
-/* CATEGORIES */
-.categories{
+/* SECTION */
+
+.section{
+  margin:0 12px 23px;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:11px;
+}
+
+.section-title{
+  font-size:20px;
+  font-weight:800;
+}
+
+.section-title span{
+  color:#ffad28;
+}
+
+.see-all{
+  color:#bca9ff;
+  font-size:12px;
+  font-weight:bold;
+}
+
+/* ROOMS */
+
+.room-scroll{
   display:flex;
   gap:9px;
   overflow-x:auto;
-  padding-bottom:5px;
+  scrollbar-width:none;
+}
+
+.room-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+.room-card{
+  min-width:190px;
+  height:205px;
+  border-radius:18px;
+  overflow:hidden;
+  position:relative;
+  border:1px solid #723dff;
+  background:
+    radial-gradient(circle at 50% 30%,rgba(116,55,255,.5),transparent 38%),
+    linear-gradient(145deg,#172044,#080d1a);
+}
+
+.room-card:nth-child(1){
+  border-color:#ffc72f;
+}
+
+.room-card:nth-child(3){
+  border-color:#ed35c8;
+}
+
+.room-bg{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg,transparent 35%,rgba(3,5,13,.98) 83%);
+}
+
+.hot{
+  position:absolute;
+  left:8px;
+  top:8px;
+  background:#ff4d4d;
+  padding:5px 8px;
+  border-radius:9px;
+  font-size:10px;
+  font-weight:bold;
+  z-index:2;
+}
+
+.new{
+  background:#ffae25;
+  color:#281300;
+}
+
+.room-avatar{
+  position:absolute;
+  top:31px;
+  left:50%;
+  transform:translateX(-50%);
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  border:2px solid #ffc83e;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:37px;
+  background:radial-gradient(circle,#4e2b72,#11152a);
+  box-shadow:0 0 18px rgba(255,190,41,.3);
+}
+
+.room-card:nth-child(2) .room-avatar{
+  border-color:#4dc8ff;
+}
+
+.room-card:nth-child(3) .room-avatar{
+  border-color:#f047df;
+}
+
+.room-card:nth-child(4) .room-avatar{
+  border-color:#9d66ff;
+}
+
+.room-info{
+  position:absolute;
+  bottom:10px;
+  left:10px;
+  right:10px;
+}
+
+.room-name{
+  font-size:15px;
+  font-weight:800;
+  margin-bottom:5px;
+}
+
+.room-users{
+  font-size:11px;
+  color:#ddd;
+  margin-bottom:7px;
+}
+
+.tags{
+  display:flex;
+  gap:5px;
+  margin-bottom:9px;
+}
+
+.tag{
+  border:1px solid #6a78c4;
+  border-radius:9px;
+  padding:3px 7px;
+  font-size:8px;
+  color:#e6e8ff;
+}
+
+.join{
+  width:100%;
+  height:31px;
+  border-radius:17px;
+  color:#fff;
+  font-weight:800;
+  background:linear-gradient(90deg,#6e19ff,#f21aa8);
+  box-shadow:0 0 12px rgba(218,32,255,.25);
+}
+
+/* TRENDING */
+
+.trending-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:7px;
+}
+
+.trend{
+  min-height:130px;
+  border-radius:14px;
+  border:1px solid #35417a;
+  background:linear-gradient(145deg,#151a39,#070b18);
+  padding:9px 5px;
+  text-align:center;
+}
+
+.trend-avatar{
+  width:53px;
+  height:53px;
+  border-radius:50%;
+  margin:0 auto 7px;
+  border:2px solid #bb4aff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:25px;
+  background:radial-gradient(circle,#652a87,#10142b);
+}
+
+.trend:nth-child(2) .trend-avatar{
+  border-color:#35d7ff;
+}
+
+.trend:nth-child(3) .trend-avatar{
+  border-color:#ffd52d;
+}
+
+.trend:nth-child(4) .trend-avatar{
+  border-color:#fa38c6;
+}
+
+.trend:nth-child(5) .trend-avatar{
+  border-color:#5bff8c;
+}
+
+.trend-name{
+  font-size:10px;
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.trend-users{
+  color:#aeb8dc;
+  font-size:9px;
+}
+
+/* EVENTS */
+
+.event-row{
+  display:grid;
+  grid-template-columns:1.55fr 1fr 1fr;
+  gap:8px;
+}
+
+.event-main{
+  min-height:105px;
+  border-radius:17px;
+  border:1px solid #d72bb9;
+  background:
+    radial-gradient(circle at 85% 50%,rgba(255,180,0,.55),transparent 30%),
+    linear-gradient(120deg,#65052f,#5b126e,#15126b);
+  padding:13px;
+  position:relative;
+  overflow:hidden;
+}
+
+.event-main strong{
+  display:block;
+  color:#ffe033;
+  font-size:17px;
+}
+
+.event-main p{
+  font-size:9px;
+  margin-top:5px;
+  line-height:1.5;
+}
+
+.event-btn{
+  margin-top:9px;
+  padding:7px 13px;
+  border-radius:16px;
+  background:#ffd335;
+  color:#351600;
+  font-size:10px;
+  font-weight:800;
+}
+
+.event-small{
+  min-height:105px;
+  border-radius:17px;
+  border:1px solid #31558b;
+  background:linear-gradient(145deg,#101e3b,#080d1c);
+  padding:12px 7px;
+  text-align:center;
+}
+
+.event-icon{
+  font-size:30px;
+  margin-bottom:6px;
+}
+
+.event-small strong{
+  display:block;
+  font-size:10px;
+}
+
+.event-small span{
+  display:block;
+  margin-top:5px;
+  font-size:8px;
+  color:#aeb8d8;
+}
+
+/* CATEGORIES */
+
+.categories{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  scrollbar-width:none;
 }
 
 .categories::-webkit-scrollbar{
@@ -296,458 +608,132 @@ button{
 }
 
 .category{
-  white-space:nowrap;
-  padding:10px 15px;
-  border-radius:30px;
-  background:#17111f;
-  border:1px solid #2e2435;
-  color:#bdb4c5;
-  font-size:13px;
+  flex:0 0 auto;
+  padding:9px 14px;
+  border-radius:15px;
+  border:1px solid #34417b;
+  background:#0b1124;
+  font-size:11px;
+  color:#d9ddff;
 }
 
 .category.active{
+  border-color:#a937ff;
+  background:linear-gradient(90deg,#671dff,#cf22ce);
   color:#fff;
-  background:linear-gradient(100deg,#ff299f,#7542ff);
-  border:0;
-}
-
-/* ROOM CARDS */
-.roomGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.roomCard{
-  background:#15101c;
-  border:1px solid #2d2335;
-  border-radius:20px;
-  padding:13px;
-  position:relative;
-}
-
-.roomAvatar{
-  height:100px;
-  border-radius:16px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:42px;
-  background:linear-gradient(135deg,#32152f,#17113a);
-  margin-bottom:10px;
-}
-
-.live{
-  position:absolute;
-  top:21px;
-  left:21px;
-  background:#ff3150;
-  padding:4px 7px;
-  border-radius:7px;
-  font-size:9px;
-  font-weight:800;
-}
-
-.roomName{
-  font-size:14px;
-  font-weight:700;
-}
-
-.roomMeta{
-  margin-top:6px;
-  color:#958a9e;
-  font-size:11px;
-}
-
-.joinBtn{
-  width:100%;
-  margin-top:11px;
-  padding:9px;
-  border-radius:11px;
-  background:#261b30;
-  font-size:12px;
-  font-weight:700;
-}
-
-/* FEATURE */
-.feature{
-  margin-bottom:18px;
-  padding:17px;
-  border-radius:22px;
-  background:linear-gradient(135deg,#24122d,#151027);
-  border:1px solid #382743;
-}
-
-.featureTop{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.featureIcon{
-  width:50px;
-  height:50px;
-  border-radius:15px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:27px;
-  background:#291733;
-}
-
-.badge{
-  background:#241a2e;
-  color:#ff6cc0;
-  border:1px solid #4b2845;
-  border-radius:20px;
-  padding:6px 9px;
-  font-size:10px;
-}
-
-.feature h3{
-  margin-top:13px;
-}
-
-.feature p{
-  color:#93899b;
-  font-size:12px;
-  margin-top:5px;
-}
-
-/* SEARCH */
-.search{
-  width:100%;
-  padding:14px 16px;
-  border-radius:16px;
-  background:#15101b;
-  border:1px solid #2d2435;
-  color:white;
-  outline:none;
-  margin-bottom:15px;
-}
-
-.search::placeholder{
-  color:#71697a;
-}
-
-/* EVENT */
-.eventCard{
-  padding:17px;
-  border-radius:20px;
-  background:#15101d;
-  border:1px solid #2d2436;
-  margin-bottom:12px;
-}
-
-.eventRow{
-  display:flex;
-  gap:13px;
-  align-items:center;
-}
-
-.eventIcon{
-  width:52px;
-  height:52px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#392052,#21153b);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:25px;
-}
-
-.eventCard h3{
-  font-size:15px;
-}
-
-.eventCard p{
-  color:#8f8597;
-  font-size:12px;
-  margin-top:4px;
-}
-
-/* WALLET */
-.wallet{
-  padding:23px;
-  border-radius:25px;
-  background:
-    radial-gradient(circle at 80% 10%,#ff299e44,transparent 35%),
-    linear-gradient(135deg,#24102d,#171029);
-  border:1px solid #3b2942;
-}
-
-.walletLabel{
-  color:#aaa0b0;
-  font-size:13px;
-}
-
-.walletCoins{
-  font-size:34px;
-  font-weight:800;
-  margin:8px 0 18px;
-}
-
-.walletActions{
-  display:flex;
-  gap:10px;
-}
-
-.walletActions button{
-  flex:1;
-  padding:12px;
-  border-radius:13px;
-  background:#2b1b35;
-}
-
-/* TASK */
-.task{
-  padding:18px;
-  border-radius:20px;
-  background:#15101d;
-  border:1px solid #2d2436;
-  margin-top:14px;
-}
-
-.progress{
-  height:8px;
-  background:#28212f;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:12px;
-}
-
-.progressBar{
-  height:100%;
-  width:65%;
-  background:linear-gradient(90deg,#ff299f,#7d42ff);
-}
-
-/* PROFILE */
-.profileHead{
-  text-align:center;
-  padding:20px;
-}
-
-.profileAvatar{
-  width:85px;
-  height:85px;
-  border-radius:50%;
-  margin:auto;
-  object-fit:cover;
-  border:3px solid #ff42a8;
-  background:#26172e;
-}
-
-.profileEmoji{
-  width:85px;
-  height:85px;
-  border-radius:50%;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:42px;
-  background:#25172e;
-  border:3px solid #ff42a8;
-}
-
-.profileName{
-  font-size:22px;
-  font-weight:800;
-  margin-top:13px;
-}
-
-.profileEmail{
-  color:#817788;
-  font-size:12px;
-  margin-top:5px;
-}
-
-.menuCard{
-  background:#15101d;
-  border:1px solid #2d2436;
-  border-radius:18px;
-  overflow:hidden;
-}
-
-.menuItem{
-  padding:17px;
-  display:flex;
-  justify-content:space-between;
-  border-bottom:1px solid #241d2b;
-  color:#ddd6e2;
-}
-
-.menuItem:last-child{
-  border-bottom:0;
-}
-
-.menuItem small{
-  color:#786f80;
+  box-shadow:0 0 13px rgba(165,42,255,.3);
 }
 
 /* BOTTOM NAV */
-.bottomNav{
+
+.bottom-nav{
   position:fixed;
   bottom:0;
-  left:0;
-  right:0;
-  height:73px;
-  background:#0f0a15ee;
-  border-top:1px solid #261d2e;
-  backdrop-filter:blur(18px);
-  z-index:500;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-}
-
-.navBtn{
-  background:none;
-  color:#716879;
-  font-size:10px;
-  text-align:center;
-}
-
-.navBtn div{
-  font-size:22px;
-  margin-bottom:3px;
-}
-
-.navBtn.active{
-  color:#ff4aae;
-}
-
-/* MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:#0009;
-  z-index:1000;
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-}
-
-.modal.show{
-  display:flex;
-}
-
-.modalBox{
+  left:50%;
+  transform:translateX(-50%);
   width:100%;
-  max-width:500px;
-  background:#17111d;
-  border:1px solid #382b41;
-  border-radius:28px 28px 0 0;
-  padding:23px;
-}
-
-.modalTitle{
-  font-size:20px;
-  font-weight:800;
-  margin-bottom:12px;
-}
-
-.modalText{
-  color:#9d93a5;
-  line-height:1.5;
-  font-size:13px;
-}
-
-.closeModal{
-  width:100%;
-  margin-top:20px;
-  padding:14px;
-  border-radius:15px;
-  background:linear-gradient(100deg,#ff299f,#7743ff);
-  font-weight:800;
-}
-
-/* VOICE ROOM */
-#voiceRoom{
-  position:fixed;
-  inset:0;
-  z-index:800;
-  display:none;
-  flex-direction:column;
+  max-width:520px;
+  height:76px;
   background:
-    radial-gradient(circle at 50% 0%,#47154d 0%,transparent 45%),
-    #0b0710;
-}
-
-.voiceTop{
-  padding:18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.voiceTitle{
-  font-size:17px;
-  font-weight:800;
-}
-
-.voiceSub{
-  font-size:11px;
-  color:#8e8495;
-  margin-top:3px;
-}
-
-.voiceSeats{
-  flex:1;
-  padding:25px 18px;
+    linear-gradient(180deg,rgba(8,12,29,.94),rgba(3,7,17,.99));
+  border-top:1px solid #283158;
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px 12px;
-  align-content:center;
+  grid-template-columns:1fr 1fr 1.3fr 1fr 1fr;
+  z-index:50;
+  backdrop-filter:blur(15px);
 }
 
-.seat{
-  text-align:center;
-}
-
-.seatAvatar{
-  width:58px;
-  height:58px;
-  margin:auto;
-  border-radius:50%;
+.nav-item{
   display:flex;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
-  font-size:27px;
-  background:linear-gradient(135deg,#2d1835,#171333);
-  border:2px solid #37263f;
+  gap:5px;
+  color:#9ba5c7;
+  font-size:10px;
+  font-weight:bold;
 }
 
-.seatName{
-  font-size:9px;
-  color:#aaa0b0;
-  margin-top:6px;
+.nav-icon{
+  font-size:22px;
 }
 
-.voiceBottom{
-  padding:17px;
+.nav-item.active{
+  color:#f04cff;
+}
+
+.mic-button{
+  width:64px;
+  height:64px;
+  margin-top:-28px;
+  border-radius:50%;
+  border:4px solid #11152b;
+  background:
+    linear-gradient(145deg,#a92cff,#f02bd0);
+  box-shadow:
+    0 0 0 2px #d340ff,
+    0 0 25px rgba(227,40,255,.55);
   display:flex;
-  justify-content:space-around;
-  gap:10px;
+  align-items:center;
+  justify-content:center;
+  font-size:31px;
+  color:#fff;
 }
 
-.voiceAction{
-  flex:1;
-  padding:13px 5px;
-  border-radius:15px;
-  background:#211729;
-  border:1px solid #33243a;
-  font-size:11px;
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:91px;
+  transform:translateX(-50%) translateY(20px);
+  background:#151a32;
+  border:1px solid #7943ff;
+  padding:11px 18px;
+  border-radius:20px;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:100;
+  white-space:nowrap;
 }
 
-@media(max-width:360px){
-  .roomGrid{
-    grid-template-columns:1fr;
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:390px){
+  .quick-grid{
+    grid-template-columns:repeat(3,1fr);
   }
 
-  .voiceSeats{
+  .hero-content{
+    margin-left:118px;
+  }
+
+  .hero-logo{
+    width:90px;
+    height:90px;
+  }
+
+  .hero-title{
+    font-size:21px;
+  }
+
+  .trending-grid{
     grid-template-columns:repeat(3,1fr);
+  }
+
+  .event-row{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .event-main{
+    grid-column:1 / -1;
   }
 }
 </style>
@@ -755,2344 +741,404 @@ button{
 
 <body>
 
-<!-- SPLASH -->
-<div id="splash">
-  <div class="logo">🎙️</div>
-  <div class="splashTitle">Tannu Voice Chat</div>
-  <div class="splashSub">Meet • Talk • Enjoy</div>
-</div>
+<div class="app">
 
-<!-- LOGIN -->
-<section id="loginScreen">
+  <!-- HEADER -->
+  <header class="header">
 
-  <div class="loginBox">
+    <div class="brand-area">
+      <div class="avatar">👨🏻</div>
 
-    <div class="loginLogo">🎙️</div>
-
-    <div class="loginTitle">Welcome to Tannu</div>
-
-    <div class="loginText">
-      Meet new people, join voice rooms and enjoy live conversations.
-    </div>
-
-    <button id="googleButton" class="loginBtn" onclick="googleLogin()">
-      🔵 Continue with Google
-    </button>
-
-    <button class="guestBtn" onclick="guestLogin()">
-      👤 Continue as Guest
-    </button>
-
-    <div id="authStatus" class="authStatus"></div>
-
-    <div class="terms">
-      By continuing, you agree to our Terms & Privacy Policy.
-    </div>
-
-  </div>
-
-</section>
-
-<!-- APP -->
-<div id="app" class="hidden">
-
-<header class="topbar">
-
-  <div class="brand">
-
-    <div class="brandIcon">🎙️</div>
-
-    <div>
-      <div class="brandName">Tannu Voice Chat</div>
-
-      <div class="status">
-        <span id="statusDot" class="statusDot"></span>
-        <span id="backendStatus">Connecting...</span>
+      <div class="brand">
+        <h1>👑 TANNU</h1>
+        <h2>VOICE CHAT</h2>
+        <div class="tagline">Talk • Make Friends • Be Together</div>
       </div>
     </div>
 
-  </div>
+    <div class="header-right">
 
-  <div class="coinBox">
-    🪙 <span id="topCoins">0</span>
-  </div>
+      <div class="coin-box">
+        <div class="coin-icon">₹</div>
+        <div class="coin-number">125,430</div>
+        <button class="plus" onclick="showToast('Recharge coming soon 💰')">+</button>
+      </div>
 
-</header>
+      <div class="notification">
+        🔔
+        <div class="notification-badge">3</div>
+      </div>
 
-<!-- HOME -->
-<main id="homePage" class="page active">
+    </div>
+  </header>
 
-<div class="hero">
 
-<h1>
-Meet new people.<br>
-Find your voice.
-</h1>
+  <!-- HERO -->
+  <section class="hero">
 
-<p>
-Join live voice rooms, make friends and enjoy Tannu's Indian voice-chat community.
-</p>
+    <div class="hero-logo">
+      <div class="mic">🎙️</div>
+      <strong>TANNU</strong>
+      <span>VOICE CHAT</span>
+    </div>
 
-<div class="heroBtns">
+    <div class="hero-content">
 
-<button class="primary" onclick="go('rooms')">
-Explore Rooms
-</button>
+      <div class="welcome">Welcome to</div>
 
-<button class="secondary"
-onclick="showInfo('Create Room','Room creation will be connected to the backend in the next development step.')">
-+ Create
-</button>
+      <div class="hero-title">
+        Tannu Voice Chat
+      </div>
 
-</div>
+      <div class="hero-sub">
+        Meet New Friends • Enjoy Voice Rooms<br>
+        Live Broadcast • Daily Events • Rewards
+      </div>
 
-</div>
+      <button class="hero-button" onclick="showToast('Welcome to Tannu Voice Chat ❤️')">
+        Join Now →
+      </button>
 
-<div class="sectionTitle">
-<h2>Categories</h2>
-<span>Explore</span>
-</div>
+    </div>
 
-<div class="categories">
+  </section>
 
-<button class="category active"
-onclick="filterCategory('All',this)">
-🔥 All
-</button>
 
-<button class="category"
-onclick="filterCategory('Friends',this)">
-👥 Friends
-</button>
+  <!-- QUICK FEATURES -->
+  <section class="quick-grid">
 
-<button class="category"
-onclick="filterCategory('Music',this)">
-🎵 Music
-</button>
+    <button class="quick" onclick="showToast('Coins opened 🪙')">
+      <div class="quick-icon">🪙</div>
+      <span>Coins</span>
+    </button>
 
-<button class="category"
-onclick="filterCategory('Gaming',this)">
-🎮 Gaming
-</button>
+    <button class="quick" onclick="showToast('Events opened 🎁')">
+      <div class="red-dot"></div>
+      <div class="quick-icon">🎁</div>
+      <span>Events</span>
+    </button>
 
-<button class="category"
-onclick="filterCategory('Talk',this)">
-💬 Talk
-</button>
+    <button class="quick" onclick="showToast('Games coming soon 🎮')">
+      <div class="quick-icon">🎮</div>
+      <span>Games</span>
+    </button>
 
-</div>
+    <button class="quick" onclick="showToast('Spin & Win 🎡')">
+      <div class="red-dot"></div>
+      <div class="quick-icon">🎡</div>
+      <span>Spin & Win</span>
+    </button>
 
-<div class="sectionTitle">
+    <button class="quick" onclick="showToast('Daily Reward 🎁')">
+      <div class="quick-icon">🎁</div>
+      <span>Daily Reward</span>
+    </button>
 
-<h2>Popular Rooms</h2>
+    <button class="quick" onclick="showToast('VIP Center 👑')">
+      <div class="quick-icon">👑</div>
+      <span>VIP</span>
+    </button>
 
-<span onclick="go('rooms')">
-View all →
-</span>
+  </section>
 
-</div>
 
-<div id="homeRooms" class="roomGrid"></div>
+  <!-- POPULAR ROOMS -->
+  <section class="section">
 
-<div class="sectionTitle">
-<h2>Daily Features</h2>
-</div>
+    <div class="section-head">
+      <div class="section-title">🔥 Popular Rooms</div>
+      <div class="see-all" onclick="showToast('All rooms opened')">See All ›</div>
+    </div>
 
-<div class="feature">
+    <div class="room-scroll">
 
-<div class="featureTop">
+      <div class="room-card">
 
-<div class="featureIcon">
-🎁
-</div>
+        <div class="hot">🔥 Hot</div>
+        <div class="room-bg"></div>
 
-<div class="badge">
-DAILY
-</div>
+        <div class="room-avatar">👩🏻</div>
 
-</div>
+        <div class="room-info">
+          <div class="room-name">Tannu Friends 🔥</div>
+          <div class="room-users">👥 4/12</div>
 
-<h3>Daily Reward</h3>
+          <div class="tags">
+            <div class="tag">Fun</div>
+            <div class="tag">Music</div>
+            <div class="tag">India</div>
+          </div>
 
-<p>
-Claim your daily coins and keep your streak alive.
-</p>
+          <button class="join" onclick="joinRoom('Tannu Friends')">
+            Join
+          </button>
+        </div>
 
-<button class="primary"
-style="margin-top:13px"
-onclick="claimReward()">
-Claim Reward
-</button>
+      </div>
 
-</div>
 
-<div class="feature">
+      <div class="room-card">
 
-<div class="featureTop">
+        <div class="hot">🔥 Hot</div>
+        <div class="room-bg"></div>
 
-<div class="featureIcon">
-🎰
-</div>
+        <div class="room-avatar">😎</div>
 
-<div class="badge">
-FREE
-</div>
+        <div class="room-info">
+          <div class="room-name">Desi Vibes</div>
+          <div class="room-users">👥 8/16</div>
 
-</div>
+          <div class="tags">
+            <div class="tag">Chat</div>
+            <div class="tag">Friends</div>
+            <div class="tag">PK</div>
+          </div>
 
-<h3>Lucky Spin</h3>
+          <button class="join" onclick="joinRoom('Desi Vibes')">
+            Join
+          </button>
+        </div>
 
-<p>
-Use your free daily spins to win coins.
-</p>
+      </div>
 
-<button class="secondary"
-style="margin-top:13px"
-onclick="spin()">
-Spin Now
-</button>
 
-</div>
+      <div class="room-card">
 
-<div class="feature">
+        <div class="hot new">🎁 New</div>
+        <div class="room-bg"></div>
 
-<div class="featureTop">
+        <div class="room-avatar">👩🏽</div>
 
-<div class="featureIcon">
-🤖
-</div>
+        <div class="room-info">
+          <div class="room-name">Chill Zone</div>
+          <div class="room-users">👥 12/16</div>
 
-<div class="badge">
-COMING SOON
-</div>
+          <div class="tags">
+            <div class="tag">Music</div>
+            <div class="tag">Fun</div>
+            <div class="tag">Girls</div>
+          </div>
 
-</div>
+          <button class="join" onclick="joinRoom('Chill Zone')">
+            Join
+          </button>
+        </div>
 
-<h3>Tannu AI Room Assistant</h3>
+      </div>
 
-<p>
-An AI assistant that can make quiet rooms more active.
-</p>
 
-<button class="secondary"
-style="margin-top:13px"
-onclick="showInfo('Tannu AI','The AI room assistant is planned for a future version. This card is only the UI preview.')">
-Preview
-</button>
+      <div class="room-card">
 
-</div>
+        <div class="hot">🔥 Hot</div>
+        <div class="room-bg"></div>
 
-</main>
+        <div class="room-avatar">🧔🏻</div>
 
-<!-- ROOMS -->
-<main id="roomsPage" class="page">
+        <div class="room-info">
+          <div class="room-name">Gaming Room</div>
+          <div class="room-users">👥 6/12</div>
 
-<div class="sectionTitle">
+          <div class="tags">
+            <div class="tag">Game</div>
+            <div class="tag">Fun</div>
+            <div class="tag">Boys</div>
+          </div>
 
-<h2>Voice Rooms</h2>
-<span>Live now</span>
+          <button class="join" onclick="joinRoom('Gaming Room')">
+            Join
+          </button>
+        </div>
 
-</div>
+      </div>
 
-<input
-id="roomSearch"
-class="search"
-placeholder="🔎 Search rooms..."
-oninput="renderRooms()"
->
+    </div>
 
-<div class="categories" style="margin-bottom:16px">
+  </section>
 
-<button class="category active"
-onclick="filterCategory('All',this)">
-All
-</button>
 
-<button class="category"
-onclick="filterCategory('Friends',this)">
-Friends
-</button>
+  <!-- TRENDING -->
+  <section class="section">
 
-<button class="category"
-onclick="filterCategory('Music',this)">
-Music
-</button>
+    <div class="section-head">
+      <div class="section-title">👑 Trending Rooms</div>
+      <div class="see-all">See All ›</div>
+    </div>
 
-<button class="category"
-onclick="filterCategory('Gaming',this)">
-Gaming
-</button>
+    <div class="trending-grid">
 
-<button class="category"
-onclick="filterCategory('Talk',this)">
-Talk
-</button>
+      <div class="trend">
+        <div class="trend-avatar">💑</div>
+        <div class="trend-name">Love & Talk</div>
+        <div class="trend-users">❤️ 8/12</div>
+      </div>
 
-</div>
+      <div class="trend">
+        <div class="trend-avatar">🎵</div>
+        <div class="trend-name">Music Room</div>
+        <div class="trend-users">👥 12/16</div>
+      </div>
 
-<div id="roomsList" class="roomGrid"></div>
+      <div class="trend">
+        <div class="trend-avatar">👨‍👩‍👧</div>
+        <div class="trend-name">Friendship</div>
+        <div class="trend-users">👥 6/12</div>
+      </div>
 
-</main>
+      <div class="trend">
+        <div class="trend-avatar">👩‍❤️‍👩</div>
+        <div class="trend-name">Girls Only</div>
+        <div class="trend-users">👥 10/16</div>
+      </div>
 
-<!-- EVENTS -->
-<main id="eventsPage" class="page">
+      <div class="trend">
+        <div class="trend-avatar">😂</div>
+        <div class="trend-name">Comedy Club</div>
+        <div class="trend-users">🟢 5/12</div>
+      </div>
 
-<div class="sectionTitle">
+    </div>
 
-<h2>Daily Events</h2>
-<span>Join & enjoy</span>
+  </section>
 
-</div>
 
-<div id="eventsList"></div>
+  <!-- SPECIAL EVENTS -->
+  <section class="section">
 
-</main>
+    <div class="section-head">
+      <div class="section-title">⭐ Special Events</div>
+      <div class="see-all">See All ›</div>
+    </div>
 
-<!-- MESSAGES -->
-<main id="messagesPage" class="page">
+    <div class="event-row">
 
-<div class="sectionTitle">
+      <div class="event-main">
+        <strong>FREE SPIN EVERY DAY</strong>
+        <p>Spin & Win Amazing Rewards</p>
 
-<h2>Messages</h2>
-<span>Community</span>
+        <button class="event-btn" onclick="showToast('Spin & Win opened 🎡')">
+          Join Now →
+        </button>
+      </div>
 
-</div>
+      <div class="event-small">
+        <div class="event-icon">🎁</div>
+        <strong>Daily Reward</strong>
+        <span>Get 1000 Coins</span>
+      </div>
 
-<div id="messagesList"></div>
+      <div class="event-small">
+        <div class="event-icon">👥</div>
+        <strong>Invite Friends</strong>
+        <span>Get 5000 Coins</span>
+      </div>
 
-</main>
+    </div>
 
-<!-- WALLET -->
-<main id="walletPage" class="page">
+  </section>
 
-<div class="sectionTitle">
 
-<h2>My Wallet</h2>
-<span>Coins</span>
+  <!-- CATEGORIES -->
+  <section class="section">
 
-</div>
+    <div class="section-head">
+      <div class="section-title">🏠 Room Categories</div>
+    </div>
 
-<div class="wallet">
+    <div class="categories">
 
-<div class="walletLabel">
-Available Coins
-</div>
+      <button class="category active">All</button>
+      <button class="category">🎵 Music</button>
+      <button class="category">🎮 Fun</button>
+      <button class="category">🎮 Gaming</button>
+      <button class="category">👩 Girls</button>
+      <button class="category">👨 Boys</button>
+      <button class="category">🇮🇳 India</button>
+      <button class="category">⚡ PK</button>
 
-<div class="walletCoins">
-🪙 <span id="walletCoins">0</span>
-</div>
+    </div>
 
-<div class="walletActions">
+  </section>
 
-<button onclick="showInfo('Recharge','Payment gateway is not connected yet. ₹100 / 30 lakh coins is part of the planned Tannu Voice Chat economy.')">
-💳 Recharge
-</button>
 
-<button onclick="showInfo('Gifts','Gifts and diamond conversion will be connected in the next backend phase.')">
-🎁 Gifts
-</button>
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
 
-</div>
+    <button class="nav-item active" onclick="navClick('Home')">
+      <div class="nav-icon">⌂</div>
+      Home
+    </button>
 
-</div>
+    <button class="nav-item" onclick="navClick('Rooms')">
+      <div class="nav-icon">🎧</div>
+      Rooms
+    </button>
 
-<div class="task">
+    <button class="nav-item" onclick="navClick('Create Room')">
+      <div class="mic-button">🎙️</div>
+    </button>
 
-<b>🔥 Daily Activity</b>
+    <button class="nav-item" onclick="navClick('Events')">
+      <div class="nav-icon">🎁</div>
+      Events
+    </button>
 
-<p style="color:#8f8596;font-size:12px;margin-top:6px">
-Use Tannu Voice Chat and complete your daily activity.
-</p>
+    <button class="nav-item" onclick="navClick('Profile')">
+      <div class="nav-icon">♙</div>
+      Profile
+    </button>
 
-<div class="progress">
-<div class="progressBar"></div>
-</div>
-
-<p style="color:#9c91a3;font-size:11px;margin-top:8px">
-65% completed
-</p>
-
-</div>
-
-<div class="feature" style="margin-top:14px">
-
-<div class="featureTop">
-
-<div class="featureIcon">
-👑
-</div>
-
-<div class="badge">
-VIP
-</div>
-
-</div>
-
-<h3>VIP 1 & VIP 2</h3>
-
-<p>
-VIP levels, frames, entry effects and special rewards.
-</p>
-
-<button class="secondary"
-style="margin-top:13px"
-onclick="showInfo('VIP','VIP 1 and VIP 2 are planned paid membership levels. Payment and subscription backend will be added later.')">
-View VIP
-</button>
-
-</div>
-
-</main>
-
-<!-- PROFILE -->
-<main id="profilePage" class="page">
-
-<div class="profileHead">
-
-<div id="profileAvatarBox"></div>
-
-<div id="profileName" class="profileName">
-Guest User
-</div>
-
-<div id="profileEmail" class="profileEmail">
-Guest account
-</div>
-
-</div>
-
-<div class="menuCard">
-
-<div class="menuItem">
-<span>⭐ Level</span>
-<small id="profileLevel">1</small>
-</div>
-
-<div class="menuItem">
-<span>🪙 Coins</span>
-<small id="profileCoins">0</small>
-</div>
-
-<div class="menuItem"
-onclick="seatSettings()">
-<span>💺 Room Seats</span>
-<small>8 / 12 / 16</small>
-</div>
-
-<div class="menuItem"
-onclick="showInfo('Support','Tannu Support Team will be connected with the support backend later.')">
-<span>🎧 Support</span>
-<small>Help</small>
-</div>
-
-<div class="menuItem"
-onclick="showInfo('About Tannu','Tannu Voice Chat — Made for Indian classic voice chat communities.')">
-<span>ℹ️ About</span>
-<small>V1</small>
-</div>
-
-<div class="menuItem"
-onclick="logout()">
-
-<span style="color:#ff5572">
-🚪 Logout
-</span>
-
-<small>
-Exit
-</small>
-
-</div>
-
-</div>
-
-</main>
-
-<!-- NAV -->
-<nav class="bottomNav">
-
-<button class="navBtn active"
-data-page="home"
-onclick="go('home')">
-
-<div>🏠</div>
-Home
-
-</button>
-
-<button class="navBtn"
-data-page="rooms"
-onclick="go('rooms')">
-
-<div>🎙️</div>
-Rooms
-
-</button>
-
-<button class="navBtn"
-data-page="events"
-onclick="go('events')">
-
-<div>🎉</div>
-Events
-
-</button>
-
-<button class="navBtn"
-data-page="messages"
-onclick="go('messages')">
-
-<div>💬</div>
-Chat
-
-</button>
-
-<button class="navBtn"
-data-page="profile"
-onclick="go('profile')">
-
-<div>👤</div>
-Me
-
-</button>
-
-</nav>
-
-</div>
-
-<!-- MODAL -->
-<div id="modal"
-class="modal"
-onclick="closeModal(event)">
-
-<div class="modalBox"
-onclick="event.stopPropagation()">
-
-<div id="modalTitle"
-class="modalTitle">
-Tannu
-</div>
-
-<div id="modalText"
-class="modalText">
-Welcome.
-</div>
-
-<button class="closeModal"
-onclick="closeModal()">
-OK
-</button>
-
-</div>
-
-</div>
-
-<!-- VOICE ROOM -->
-<div id="voiceRoom">
-
-<div class="voiceTop">
-
-<div>
-
-<div id="voiceRoomTitle"
-class="voiceTitle">
-India Friends
-</div>
-
-<div class="voiceSub">
-🎙️ Voice room • 12 seats
-</div>
-
-</div>
-
-<button class="secondary"
-onclick="closeRoom()">
-✕
-</button>
-
-</div>
-
-<div id="voiceSeats"
-class="voiceSeats"></div>
-
-<div class="voiceBottom">
-
-<button class="voiceAction"
-onclick="showInfo('Microphone','Real microphone/WebRTC voice connection will be connected in the next development phase.')">
-🎤 Mic
-</button>
-
-<button class="voiceAction"
-onclick="showInfo('Chat','Real-time room chat will be connected to Firestore.')">
-💬 Chat
-</button>
-
-<button class="voiceAction"
-onclick="showInfo('Gift','Gifts and coins will be connected after the wallet backend is secured.')">
-🎁 Gift
-</button>
-
-<button class="voiceAction"
-onclick="closeRoom()">
-🚪 Leave
-</button>
-
-</div>
+  </nav>
 
 </div>
 
 
-<!-- FIREBASE -->
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
-import {
-getAuth,
-GoogleAuthProvider,
-signInWithPopup,
-signInWithRedirect,
-getRedirectResult,
-onAuthStateChanged,
-signOut
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-import {
-getFirestore,
-doc,
-getDoc,
-setDoc,
-collection,
-getDocs,
-serverTimestamp,
-runTransaction
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+<div class="toast" id="toast"></div>
 
 
-const firebaseConfig = {
+<script>
 
-apiKey:"AIzaSyAc7BBn6G5zzABm4Bx-3haVwE0aob5HlVc",
+function showToast(message){
 
-authDomain:"tannu-voice-chat.firebaseapp.com",
+  const toast=document.getElementById("toast");
 
-projectId:"tannu-voice-chat",
+  toast.textContent=message;
+  toast.classList.add("show");
 
-storageBucket:"tannu-voice-chat.firebasestorage.app",
-
-messagingSenderId:"720483733073",
-
-appId:"1:720483733073:web:c65b96d255d6177b9d7270"
-
-};
-
-
-let app=null;
-let auth=null;
-let db=null;
-
-let currentUser=null;
-let currentCategory="All";
-let rooms=[];
-let walletCoins=0;
-
-
-/* DEMO DATA */
-
-const demoRooms=[
-
-{
-id:"demo1",
-name:"India Friends",
-category:"Friends",
-online:128,
-icon:"🇮🇳"
-},
-
-{
-id:"demo2",
-name:"Music Lovers",
-category:"Music",
-online:86,
-icon:"🎵"
-},
-
-{
-id:"demo3",
-name:"Gaming Room",
-category:"Gaming",
-online:64,
-icon:"🎮"
-},
-
-{
-id:"demo4",
-name:"Night Talk",
-category:"Talk",
-online:52,
-icon:"🌙"
-},
-
-{
-id:"demo5",
-name:"Tannu Music Night",
-category:"Music",
-online:94,
-icon:"🎤"
-},
-
-{
-id:"demo6",
-name:"Friends Zone",
-category:"Friends",
-online:37,
-icon:"👥"
-}
-
-];
-
-const demoEvents=[
-
-{
-name:"Daily Welcome",
-text:"Welcome to Tannu Voice Chat.",
-icon:"👋"
-},
-
-{
-name:"Free Spin",
-text:"Use your daily free spin and win coins.",
-icon:"🎰"
-},
-
-{
-name:"Room Activity",
-text:"Join a live room and meet new friends.",
-icon:"🎙️"
-},
-
-{
-name:"Weekend Bonus",
-text:"Special community activities are coming soon.",
-icon:"🎁"
-}
-
-];
-
-const demoMessages=[
-
-{
-name:"Tannu Team",
-text:"Welcome to Tannu Voice Chat ❤️",
-icon:"💜"
-},
-
-{
-name:"System",
-text:"Your daily rewards are waiting.",
-icon:"🔔"
-},
-
-{
-name:"Community",
-text:"Join a room and start talking!",
-icon:"🎙️"
-}
-
-];
-
-rooms=[...demoRooms];
-
-
-/* HELPERS */
-
-function setBackendStatus(text,connected){
-
-const el=document.getElementById("backendStatus");
-const dot=document.getElementById("statusDot");
-
-if(el){
-el.textContent=text;
-}
-
-if(dot){
-dot.style.background=connected
-?"#28e07c"
-:"#ff526b";
-}
-
-}
-
-function setAuthStatus(text){
-
-const el=document.getElementById("authStatus");
-
-if(el){
-el.textContent=text;
-}
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },1800);
 
 }
 
 
-/* APP INITIALIZATION */
+function joinRoom(room){
 
-function showLogin(){
-
-document.getElementById("splash")
-.classList.add("hidden");
-
-document.getElementById("loginScreen")
-.classList.remove("hidden");
-
-document.getElementById("app")
-.classList.add("hidden");
-
-}
-
-function showApp(){
-
-document.getElementById("splash")
-.classList.add("hidden");
-
-document.getElementById("loginScreen")
-.classList.add("hidden");
-
-document.getElementById("app")
-.classList.remove("hidden");
+  showToast("Opening "+room+" 🎙️");
 
 }
 
 
-/*
-IMPORTANT:
-Splash is controlled OUTSIDE Firebase.
-So Firebase failure cannot leave a black screen.
-*/
+function navClick(page){
 
-setTimeout(()=>{
-
-showLogin();
-
-},1500);
-
-
-/* FIREBASE INIT */
-
-try{
-
-app=initializeApp(firebaseConfig);
-
-auth=getAuth(app);
-
-db=getFirestore(app);
-
-setBackendStatus(
-"Firebase Connected",
-true
-);
-
-}catch(error){
-
-console.error(
-"Firebase initialization error:",
-error
-);
-
-setBackendStatus(
-"Demo Mode",
-false
-);
+  showToast(page+" section coming next 🚀");
 
 }
 
 
-/* GOOGLE LOGIN */
+document.querySelectorAll(".category").forEach(button=>{
 
-window.googleLogin=async function(){
+  button.addEventListener("click",()=>{
 
-if(!auth){
+    document.querySelectorAll(".category")
+      .forEach(item=>item.classList.remove("active"));
 
-setAuthStatus(
-"Firebase is unavailable. Guest mode is ready."
-);
+    button.classList.add("active");
 
-showInfo(
-"Firebase Error",
-"Firebase could not be initialized. You can continue as Guest while we fix the connection."
-);
+    showToast(button.textContent.trim()+" rooms");
 
-return;
-
-}
-
-const button=document.getElementById("googleButton");
-
-button.disabled=true;
-
-button.style.opacity="0.7";
-
-setAuthStatus(
-"Connecting to Google..."
-);
-
-const provider=new GoogleAuthProvider();
-
-provider.setCustomParameters({
-prompt:"select_account"
-});
-
-try{
-
-await signInWithPopup(
-auth,
-provider
-);
-
-}catch(error){
-
-console.error(
-"Google Login:",
-error
-);
-
-if(
-error.code==="auth/popup-blocked" ||
-error.code==="auth/operation-not-supported-in-this-environment"
-){
-
-try{
-
-setAuthStatus(
-"Opening Google login..."
-);
-
-await signInWithRedirect(
-auth,
-provider
-);
-
-return;
-
-}catch(redirectError){
-
-showFirebaseError(
-redirectError
-);
-
-}
-
-}else{
-
-showFirebaseError(error);
-
-}
-
-}finally{
-
-button.disabled=false;
-
-button.style.opacity="1";
-
-}
-
-};
-
-
-/* REDIRECT */
-
-if(auth){
-
-getRedirectResult(auth)
-.catch(error=>{
-
-if(error){
-
-console.error(error);
-
-showFirebaseError(error);
-
-}
+  });
 
 });
-
-
-onAuthStateChanged(
-auth,
-async(user)=>{
-
-if(user){
-
-await setupUser(user);
-
-}
-
-}
-);
-
-}
-
-
-/* FIREBASE ERROR */
-
-function showFirebaseError(error){
-
-let message=
-"Google Login failed.";
-
-if(error.code==="auth/api-key-not-valid"){
-
-message=
-"Firebase API key is not accepted. Please check the Firebase Web App configuration and Google Cloud API key.";
-
-}
-
-else if(
-error.code==="auth/unauthorized-domain"
-){
-
-message=
-"This website is not authorized in Firebase Authentication. Add shahidajmal440-stack.github.io to Authentication → Settings → Authorized domains.";
-
-}
-
-else if(
-error.code==="auth/popup-closed-by-user"
-){
-
-message=
-"Google login window was closed.";
-
-}
-
-else if(
-error.code==="auth/network-request-failed"
-){
-
-message=
-"Internet connection problem. Please try again.";
-
-}
-
-else if(error.message){
-
-message=
-"Firebase: "+error.message;
-
-}
-
-setAuthStatus(message);
-
-showInfo(
-"Google Login Error",
-message
-);
-
-}
-
-
-/* USER SETUP */
-
-async function setupUser(user){
-
-currentUser=user;
-
-showApp();
-
-setAuthStatus("");
-
-try{
-
-await loadUserFromFirestore(user);
-
-setBackendStatus(
-"Firebase Connected",
-true
-);
-
-}catch(error){
-
-console.error(
-"User Firestore error:",
-error
-);
-
-setBackendStatus(
-"Demo Wallet",
-false
-);
-
-walletCoins=Number(
-localStorage.getItem(
-"tannu_guest_coins"
-)||0
-);
-
-}
-
-updateProfile();
-
-await loadBackendData();
-
-renderRooms();
-
-updateCoins();
-
-}
-
-
-/* FIRESTORE USER */
-
-async function loadUserFromFirestore(user){
-
-if(!db){
-
-throw new Error(
-"Firestore not initialized"
-);
-
-}
-
-const userRef=
-doc(
-db,
-"users",
-user.uid
-);
-
-const userSnap=
-await getDoc(userRef);
-
-let existingCoins=0;
-let existingLevel=1;
-
-if(userSnap.exists()){
-
-const data=userSnap.data();
-
-existingCoins=
-Number(data.coins||0);
-
-existingLevel=
-Number(data.level||1);
-
-}
-
-await setDoc(
-userRef,
-{
-
-name:
-user.displayName||
-"Tannu User",
-
-email:
-user.email||"",
-
-photo:
-user.photoURL||"",
-
-level:
-existingLevel,
-
-coins:
-existingCoins,
-
-provider:"google",
-
-updatedAt:
-serverTimestamp()
-
-},
-{
-merge:true
-}
-);
-
-
-const walletRef=
-doc(
-db,
-"wallets",
-user.uid
-);
-
-const walletSnap=
-await getDoc(walletRef);
-
-if(walletSnap.exists()){
-
-walletCoins=
-Number(
-walletSnap.data().coins||
-existingCoins||
-0
-);
-
-}else{
-
-walletCoins=
-existingCoins;
-
-await setDoc(
-walletRef,
-{
-
-userId:user.uid,
-
-coins:walletCoins,
-
-updatedAt:
-serverTimestamp()
-
-}
-);
-
-}
-
-}
-
-
-/* BACKEND DATA */
-
-async function loadBackendData(){
-
-if(!db){
-
-renderEvents(
-demoEvents
-);
-
-renderMessages(
-demoMessages
-);
-
-return;
-
-}
-
-
-/* ROOMS */
-
-try{
-
-const roomSnap=
-await getDocs(
-collection(db,"rooms")
-);
-
-if(!roomSnap.empty){
-
-rooms=[];
-
-roomSnap.forEach(item=>{
-
-const data=item.data();
-
-rooms.push({
-
-id:item.id,
-
-name:
-data.name||
-"Voice Room",
-
-category:
-data.category||
-"Friends",
-
-online:
-Number(data.online||0),
-
-icon:
-data.icon||
-"🎙️"
-
-});
-
-});
-
-}
-
-}catch(error){
-
-console.log(
-"Using demo rooms"
-);
-
-rooms=[...demoRooms];
-
-}
-
-
-/* EVENTS */
-
-try{
-
-const eventSnap=
-await getDocs(
-collection(db,"events")
-);
-
-if(!eventSnap.empty){
-
-const list=[];
-
-eventSnap.forEach(item=>{
-
-const data=item.data();
-
-list.push({
-
-name:
-data.name||
-"Event",
-
-text:
-data.description||
-data.status||
-"Join the event.",
-
-icon:
-data.icon||
-"🎉"
-
-});
-
-});
-
-renderEvents(list);
-
-}else{
-
-renderEvents(
-demoEvents
-);
-
-}
-
-}catch(error){
-
-renderEvents(
-demoEvents
-);
-
-}
-
-
-/* MESSAGES */
-
-try{
-
-const messageSnap=
-await getDocs(
-collection(db,"messages")
-);
-
-if(!messageSnap.empty){
-
-const list=[];
-
-messageSnap.forEach(item=>{
-
-const data=item.data();
-
-list.push({
-
-name:
-data.sender||
-"Tannu Team",
-
-text:
-data.text||
-"",
-
-icon:"💬"
-
-});
-
-});
-
-renderMessages(list);
-
-}else{
-
-renderMessages(
-demoMessages
-);
-
-}
-
-}catch(error){
-
-renderMessages(
-demoMessages
-);
-
-}
-
-}
-
-
-/* GUEST */
-
-window.guestLogin=function(){
-
-currentUser={
-
-uid:"guest",
-
-displayName:"Guest User",
-
-email:"",
-
-photoURL:""
-
-};
-
-walletCoins=Number(
-localStorage.getItem(
-"tannu_guest_coins"
-)||0
-);
-
-showApp();
-
-setBackendStatus(
-"Guest / Demo",
-false
-);
-
-updateProfile();
-
-renderRooms();
-
-renderEvents(
-demoEvents
-);
-
-renderMessages(
-demoMessages
-);
-
-updateCoins();
-
-};
-
-
-/* NAV */
-
-window.go=function(page){
-
-document
-.querySelectorAll(".page")
-.forEach(el=>{
-el.classList.remove("active");
-});
-
-const target=
-document.getElementById(
-page+"Page"
-);
-
-if(target){
-
-target.classList.add(
-"active"
-);
-
-}
-
-document
-.querySelectorAll(".navBtn")
-.forEach(btn=>{
-btn.classList.remove(
-"active"
-);
-});
-
-const nav=
-document.querySelector(
-`.navBtn[data-page="${page}"]`
-);
-
-if(nav){
-
-nav.classList.add(
-"active"
-);
-
-}
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-};
-
-
-/* FILTER */
-
-window.filterCategory=
-function(category,button){
-
-currentCategory=
-category;
-
-document
-.querySelectorAll(".category")
-.forEach(btn=>{
-btn.classList.remove(
-"active"
-);
-});
-
-if(button){
-
-button.classList.add(
-"active"
-);
-
-}
-
-renderRooms();
-
-};
-
-
-/* ROOMS */
-
-window.renderRooms=function(){
-
-const search=
-(
-document.getElementById(
-"roomSearch"
-)?.value||""
-)
-.toLowerCase()
-.trim();
-
-const filtered=
-rooms.filter(room=>{
-
-const categoryMatch=
-currentCategory==="All"||
-room.category===currentCategory;
-
-const searchMatch=
-!search||
-room.name
-.toLowerCase()
-.includes(search)||
-room.category
-.toLowerCase()
-.includes(search);
-
-return categoryMatch&&
-searchMatch;
-
-});
-
-
-const html=
-filtered.map(room=>`
-
-<div class="roomCard">
-
-<div class="live">
-LIVE
-</div>
-
-<div class="roomAvatar">
-${room.icon}
-</div>
-
-<div class="roomName">
-${escapeHtml(room.name)}
-</div>
-
-<div class="roomMeta">
-👥 ${room.online} online •
-${escapeHtml(room.category)}
-</div>
-
-<button
-class="joinBtn"
-onclick="openRoom('${escapeJs(room.name)}')"
->
-🎙️ Join Room
-</button>
-
-</div>
-
-`).join("");
-
-
-const home=
-document.getElementById(
-"homeRooms"
-);
-
-const list=
-document.getElementById(
-"roomsList"
-);
-
-
-if(home){
-
-home.innerHTML=
-filtered
-.slice(0,4)
-.map(room=>`
-
-<div class="roomCard">
-
-<div class="live">
-LIVE
-</div>
-
-<div class="roomAvatar">
-${room.icon}
-</div>
-
-<div class="roomName">
-${escapeHtml(room.name)}
-</div>
-
-<div class="roomMeta">
-👥 ${room.online} online
-</div>
-
-<button
-class="joinBtn"
-onclick="openRoom('${escapeJs(room.name)}')"
->
-Join
-</button>
-
-</div>
-
-`)
-.join("");
-
-}
-
-
-if(list){
-
-list.innerHTML=
-html||
-`
-<div style="
-grid-column:1/-1;
-text-align:center;
-color:#807687;
-padding:40px
-">
-No rooms found.
-</div>
-`;
-
-}
-
-};
-
-
-/* EVENTS */
-
-function renderEvents(list){
-
-const box=
-document.getElementById(
-"eventsList"
-);
-
-if(!box)return;
-
-box.innerHTML=
-list.map(event=>`
-
-<div class="eventCard">
-
-<div class="eventRow">
-
-<div class="eventIcon">
-${event.icon}
-</div>
-
-<div style="flex:1">
-
-<h3>
-${escapeHtml(event.name)}
-</h3>
-
-<p>
-${escapeHtml(event.text)}
-</p>
-
-</div>
-
-<button
-class="primary"
-style="padding:9px 12px;font-size:11px"
-onclick="showInfo('${escapeJs(event.name)}','Join this Tannu event. Event actions will be connected to the backend later.')"
->
-Join
-</button>
-
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* MESSAGES */
-
-function renderMessages(list){
-
-const box=
-document.getElementById(
-"messagesList"
-);
-
-if(!box)return;
-
-box.innerHTML=
-list.map(item=>`
-
-<div class="eventCard">
-
-<div class="eventRow">
-
-<div class="eventIcon">
-${item.icon}
-</div>
-
-<div>
-
-<h3>
-${escapeHtml(item.name)}
-</h3>
-
-<p>
-${escapeHtml(item.text)}
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* PROFILE */
-
-function updateProfile(){
-
-if(!currentUser)return;
-
-const name=
-currentUser.displayName||
-"Guest User";
-
-const email=
-currentUser.email||
-"Guest account";
-
-document.getElementById(
-"profileName"
-).textContent=name;
-
-document.getElementById(
-"profileEmail"
-).textContent=email;
-
-document.getElementById(
-"profileCoins"
-).textContent=
-formatCoins(walletCoins);
-
-document.getElementById(
-"profileLevel"
-).textContent="1";
-
-
-const avatar=
-document.getElementById(
-"profileAvatarBox"
-);
-
-if(currentUser.photoURL){
-
-avatar.innerHTML=`
-
-<img
-class="profileAvatar"
-src="${escapeHtml(currentUser.photoURL)}"
-alt="Profile"
->
-`;
-
-}else{
-
-avatar.innerHTML=`
-
-<div class="profileEmoji">
-👤
-</div>
-`;
-
-}
-
-}
-
-
-/* COINS */
-
-function updateCoins(){
-
-document.getElementById(
-"topCoins"
-).textContent=
-formatCoins(walletCoins);
-
-document.getElementById(
-"walletCoins"
-).textContent=
-formatCoins(walletCoins);
-
-document.getElementById(
-"profileCoins"
-).textContent=
-formatCoins(walletCoins);
-
-}
-
-function formatCoins(number){
-
-return Number(
-number||0
-).toLocaleString(
-"en-IN"
-);
-
-}
-
-
-/* ADD COINS */
-
-async function addCoins(amount){
-
-amount=Number(amount);
-
-if(!amount)return;
-
-
-if(
-currentUser&&
-currentUser.uid!=="guest"&&
-db
-){
-
-try{
-
-const walletRef=
-doc(
-db,
-"wallets",
-currentUser.uid
-);
-
-const userRef=
-doc(
-db,
-"users",
-currentUser.uid
-);
-
-await runTransaction(
-db,
-async(transaction)=>{
-
-const walletSnap=
-await transaction.get(
-walletRef
-);
-
-const userSnap=
-await transaction.get(
-userRef
-);
-
-const oldCoins=
-walletSnap.exists()
-?
-Number(
-walletSnap.data().coins||0
-)
-:
-0;
-
-const newCoins=
-oldCoins+amount;
-
-
-if(walletSnap.exists()){
-
-transaction.update(
-walletRef,
-{
-
-coins:newCoins,
-
-updatedAt:
-serverTimestamp()
-
-}
-);
-
-}else{
-
-transaction.set(
-walletRef,
-{
-
-userId:
-currentUser.uid,
-
-coins:newCoins,
-
-updatedAt:
-serverTimestamp()
-
-}
-);
-
-}
-
-
-if(userSnap.exists()){
-
-transaction.update(
-userRef,
-{
-
-coins:newCoins,
-
-updatedAt:
-serverTimestamp()
-
-}
-);
-
-}
-
-}
-);
-
-
-walletCoins+=amount;
-
-updateCoins();
-
-return;
-
-}catch(error){
-
-console.error(
-"Coin update failed:",
-error
-);
-
-setBackendStatus(
-"Demo Wallet",
-false
-);
-
-}
-
-}
-
-
-walletCoins+=amount;
-
-localStorage.setItem(
-"tannu_guest_coins",
-walletCoins
-);
-
-updateCoins();
-
-}
-
-
-/* DAILY REWARD */
-
-window.claimReward=
-async function(){
-
-const today=
-new Date()
-.toISOString()
-.slice(0,10);
-
-const claimed=
-localStorage.getItem(
-"tannu_reward_date"
-);
-
-if(claimed===today){
-
-showInfo(
-"Already Claimed",
-"Today's reward has already been claimed on this device."
-);
-
-return;
-
-}
-
-await addCoins(
-10000
-);
-
-localStorage.setItem(
-"tannu_reward_date",
-today
-);
-
-showInfo(
-"🎁 Reward Claimed",
-"10,000 coins added to your wallet."
-);
-
-};
-
-
-/* SPIN */
-
-window.spin=
-async function(){
-
-const today=
-new Date()
-.toISOString()
-.slice(0,10);
-
-const key=
-"tannu_spins_"+today;
-
-let spins=
-Number(
-localStorage.getItem(key)||0
-);
-
-if(spins>=5){
-
-showInfo(
-"No Spins Left",
-"You have used the maximum 5 free spins for today."
-);
-
-return;
-
-}
-
-spins++;
-
-localStorage.setItem(
-key,
-spins
-);
-
-const rewards=[
-1000,
-2000,
-5000,
-10000,
-25000
-];
-
-const reward=
-rewards[
-Math.floor(
-Math.random()*
-rewards.length
-)
-];
-
-await addCoins(
-reward
-);
-
-showInfo(
-"🎰 Lucky Spin",
-"Congratulations! You won "+
-formatCoins(reward)+
-" coins. Spins used today: "+
-spins+"/5."
-);
-
-};
-
-
-/* ROOM */
-
-window.openRoom=
-function(name){
-
-document.getElementById(
-"voiceRoomTitle"
-).textContent=name;
-
-const room=
-document.getElementById(
-"voiceRoom"
-);
-
-room.style.display="flex";
-
-const seats=
-document.getElementById(
-"voiceSeats"
-);
-
-const people=[
-"👤",
-"😊",
-"😎",
-"🥰",
-"🤩",
-"🧑",
-"👩",
-"🧔",
-"🙂",
-"🔥",
-"🎵",
-"💜"
-];
-
-seats.innerHTML=
-people.map(
-(person,index)=>`
-
-<div class="seat">
-
-<div class="seatAvatar">
-${person}
-</div>
-
-<div class="seatName">
-${
-index===0
-?
-"Host"
-:
-"User "+(index+1)
-}
-</div>
-
-</div>
-
-`
-).join("");
-
-};
-
-
-window.closeRoom=
-function(){
-
-document.getElementById(
-"voiceRoom"
-).style.display="none";
-
-};
-
-
-/* SEATS */
-
-window.seatSettings=
-function(){
-
-showInfo(
-"Room Seat Settings",
-"Choose 8, 12 or 16 seats for your room. This is currently a UI preview; actual room-seat enforcement will be connected to the backend."
-);
-
-};
-
-
-/* MODAL */
-
-window.showInfo=
-function(title,text){
-
-document.getElementById(
-"modalTitle"
-).textContent=title;
-
-document.getElementById(
-"modalText"
-).textContent=text;
-
-document.getElementById(
-"modal"
-).classList.add("show");
-
-};
-
-window.closeModal=
-function(event){
-
-if(
-event&&
-event.target!==
-document.getElementById(
-"modal"
-)
-){
-
-return;
-
-}
-
-document.getElementById(
-"modal"
-).classList.remove(
-"show"
-);
-
-};
-
-
-/* LOGOUT */
-
-window.logout=
-async function(){
-
-try{
-
-if(
-auth&&
-currentUser&&
-currentUser.uid!=="guest"
-){
-
-await signOut(auth);
-
-}
-
-}catch(error){
-
-console.error(error);
-
-}
-
-currentUser=null;
-
-document.getElementById(
-"app"
-).classList.add(
-"hidden"
-);
-
-document.getElementById(
-"loginScreen"
-).classList.remove(
-"hidden"
-);
-
-setBackendStatus(
-"Connecting...",
-false
-);
-
-setAuthStatus(
-"You have been logged out."
-);
-
-};
-
-
-/* ESCAPE */
-
-function escapeHtml(value){
-
-return String(value||"")
-
-.replaceAll(
-"&",
-"&amp;"
-)
-
-.replaceAll(
-"<",
-"&lt;"
-)
-
-.replaceAll(
-">",
-"&gt;"
-)
-
-.replaceAll(
-'"',
-"&quot;"
-)
-
-.replaceAll(
-"'",
-"&#039;"
-);
-
-}
-
-function escapeJs(value){
-
-return String(value||"")
-
-.replaceAll(
-"\\",
-"\\\\"
-)
-
-.replaceAll(
-"'",
-"\\'"
-)
-
-.replaceAll(
-"\n",
-" "
-);
-
-}
-
-
-/* INITIAL RENDER */
-
-renderRooms();
-
-renderEvents(
-demoEvents
-);
-
-renderMessages(
-demoMessages
-);
 
 </script>
 
