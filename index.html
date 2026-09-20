@@ -40,6 +40,11 @@ button{
   cursor:pointer;
 }
 
+button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
 .app{
   min-height:100vh;
   padding-bottom:76px;
@@ -866,6 +871,14 @@ button{
   font-size:8px;
 }
 
+/* AUTH STATUS */
+
+.authStatus{
+  color:#8997bb;
+  font-size:8px;
+  margin-top:4px;
+}
+
 /* ROOM INFO */
 
 .roomInfoHero{
@@ -1057,7 +1070,7 @@ button{
   </div>
 
   <div class="coinBox">
-    🪙 <span id="coinBalance">1.2M</span>
+    🪙 <span id="coinBalance">0</span>
   </div>
 
   <div class="topAvatar">👩</div>
@@ -1100,7 +1113,7 @@ button{
       onclick="showScreen('profile')">
       <div class="quickIcon">🪙</div>
       <b>Coins</b>
-      <span>1.2M balance</span>
+      <span id="quickCoinText">0 balance</span>
     </div>
 
     <div class="quickCard"
@@ -1384,8 +1397,6 @@ button{
   </div>
 
 
-  <!-- HOST -->
-
   <div class="voiceBanner">
 
     <div class="hostAvatar speaking">
@@ -1403,11 +1414,8 @@ button{
   </div>
 
 
-  <!-- 12 TOTAL SEATS -->
   <div id="micGrid" class="mic-grid"></div>
 
-
-  <!-- CHAT -->
 
   <div class="chatBox">
 
@@ -1462,8 +1470,6 @@ button{
 
   </div>
 
-
-  <!-- CONTROLS -->
 
   <div class="voiceControls">
 
@@ -1717,17 +1723,21 @@ button{
       👩🏻
     </div>
 
-    <h2>Tannu User 👑</h2>
+    <h2 id="profileName">Guest User 👑</h2>
 
-    <p>
-      ID: 123456 &nbsp; • &nbsp; VIP 1
+    <p id="profileIdLine">
+      ID: Guest &nbsp; • &nbsp; VIP 1
     </p>
+
+    <div id="authStatus" class="authStatus">
+      Connecting account...
+    </div>
 
 
     <div class="stats">
 
       <div class="stat">
-        <b id="profileCoins">1.2M</b>
+        <b id="profileCoins">0</b>
         <span>Coins</span>
       </div>
 
@@ -1737,7 +1747,7 @@ button{
       </div>
 
       <div class="stat">
-        <b>Lv.20</b>
+        <b id="profileLevel">Lv.1</b>
         <span>Level</span>
       </div>
 
@@ -1747,6 +1757,21 @@ button{
 
 
   <div class="card menu">
+
+    <div class="menuItem"
+      onclick="loginWithGoogle()">
+
+      <div class="menuIcon">🔐</div>
+
+      <div>
+        <b id="googleLoginTitle">Google Login</b>
+        <span id="googleLoginText">Save your account with Google</span>
+      </div>
+
+      <span>›</span>
+
+    </div>
+
 
     <div class="menuItem"
       onclick="showToast('VIP Center 👑')">
@@ -2080,9 +2105,13 @@ button{
 <div id="toast" class="toast"></div>
 
 
-<!-- ================= LIVEKIT ================= -->
+<!-- ================= LIVEKIT + FIREBASE ================= -->
 
 <script type="module">
+
+/* =========================================================
+   LIVEKIT
+========================================================= */
 
 import {
   Room,
@@ -2092,9 +2121,81 @@ import {
 } from "https://cdn.jsdelivr.net/npm/livekit-client@2.22.3/dist/livekit-client.esm.mjs";
 
 
-const TOKEN_SERVER_ID =
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInAnonymously,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+  linkWithRedirect
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyAc7BBnG5zzAmB4Mx-3haVwE0aob5HlVc",
+
+  authDomain:
+    "tannu-voice-chat.firebaseapp.com",
+
+  projectId:
+    "tannu-voice-chat",
+
+  storageBucket:
+    "tannu-voice-chat.firebasestorage.app",
+
+  messagingSenderId:
+    "720483733073",
+
+  appId:
+    "1:720483733073:web:c65b96d255d6177b9d7270"
+
+};
+
+
+const firebaseApp=
+  initializeApp(firebaseConfig);
+
+const auth=
+  getAuth(firebaseApp);
+
+const db=
+  getFirestore(firebaseApp);
+
+
+/* =========================================================
+   LIVEKIT CONFIG
+========================================================= */
+
+const TOKEN_SERVER_ID=
   "tannuvoicechat-mh7ads";
 
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
 
 let liveRoom=null;
 let currentRoomName="";
@@ -2104,16 +2205,23 @@ let roomConnecting=false;
 let selectedGift=null;
 
 
-/* =========================
+/* FIREBASE USER */
+
+let currentUser=null;
+let userProfile=null;
+
+
+/* =========================================================
    SCREEN
-========================= */
+========================================================= */
 
 window.showScreen=function(name,navButton){
 
   document.querySelectorAll(".screen")
     .forEach(s=>s.classList.remove("active"));
 
-  const target=document.getElementById(name);
+  const target=
+    document.getElementById(name);
 
   if(target){
     target.classList.add("active");
@@ -2146,9 +2254,665 @@ window.showScreen=function(name,navButton){
 };
 
 
-/* =========================
+/* =========================================================
+   FIREBASE AUTH
+========================================================= */
+
+/*
+  This starts the Firebase account.
+
+  New users first become Guest users automatically.
+  Later they can connect Google from Profile.
+*/
+
+async function startFirebaseAuth(){
+
+  try{
+
+    /*
+      First check whether the page is returning
+      from Google redirect login.
+    */
+
+    try{
+
+      await getRedirectResult(auth);
+
+    }catch(error){
+
+      console.error(
+        "Google redirect result:",
+        error
+      );
+
+      handleFirebaseError(error);
+    }
+
+
+    /*
+      Watch authentication state.
+    */
+
+    onAuthStateChanged(
+      auth,
+      async(user)=>{
+
+        try{
+
+          if(user){
+
+            currentUser=user;
+
+            await ensureUserProfile(user);
+
+            await loadUserProfile(user);
+
+            updateAuthUI(user);
+
+            return;
+          }
+
+
+          /*
+            No account:
+            create automatic Guest account.
+          */
+
+          await signInAnonymously(auth);
+
+        }catch(error){
+
+          console.error(
+            "Auth state error:",
+            error
+          );
+
+          updateAuthUI(null);
+
+          showToast(
+            "Account setup failed"
+          );
+        }
+
+      }
+    );
+
+  }catch(error){
+
+    console.error(
+      "Firebase auth start error:",
+      error
+    );
+
+    showToast(
+      "Firebase account error"
+    );
+  }
+}
+
+
+/* =========================================================
+   ENSURE FIRESTORE USER PROFILE
+========================================================= */
+
+async function ensureUserProfile(user){
+
+  if(!user){
+    return;
+  }
+
+
+  const userRef=
+    doc(
+      db,
+      "users",
+      user.uid
+    );
+
+
+  const snapshot=
+    await getDoc(userRef);
+
+
+  /*
+    IMPORTANT:
+    Existing auto-ID users document will NOT
+    be deleted or changed.
+
+    This creates/uses only:
+      users/{Firebase Auth UID}
+  */
+
+  if(!snapshot.exists()){
+
+    const fallbackName=
+      user.displayName ||
+      (
+        user.isAnonymous
+          ?"Guest User"
+          :"Tannu User"
+      );
+
+
+    await setDoc(
+      userRef,
+      {
+        name:fallbackName,
+
+        coins:0,
+
+        level:1,
+
+        photoURL:
+          user.photoURL || "",
+
+        authType:
+          user.isAnonymous
+            ?"anonymous"
+            :"google",
+
+        createdAt:
+          serverTimestamp(),
+
+        updatedAt:
+          serverTimestamp()
+      }
+    );
+
+    return;
+  }
+
+
+  /*
+    Existing UID profile:
+    update account information only.
+
+    Coins and level are NOT overwritten.
+  */
+
+  const updateData={
+
+    authType:
+      user.isAnonymous
+        ?"anonymous"
+        :"google",
+
+    updatedAt:
+      serverTimestamp()
+
+  };
+
+
+  if(user.displayName){
+
+    updateData.name=
+      user.displayName;
+  }
+
+
+  if(user.photoURL){
+
+    updateData.photoURL=
+      user.photoURL;
+  }
+
+
+  await setDoc(
+    userRef,
+    updateData,
+    {
+      merge:true
+    }
+  );
+}
+
+
+/* =========================================================
+   LOAD USER PROFILE
+========================================================= */
+
+async function loadUserProfile(user){
+
+  if(!user){
+    return;
+  }
+
+
+  try{
+
+    const userRef=
+      doc(
+        db,
+        "users",
+        user.uid
+      );
+
+
+    const snapshot=
+      await getDoc(userRef);
+
+
+    if(!snapshot.exists()){
+
+      userProfile={
+        name:
+          user.displayName ||
+          (
+            user.isAnonymous
+              ?"Guest User"
+              :"Tannu User"
+          ),
+
+        coins:0,
+
+        level:1
+      };
+
+    }else{
+
+      const data=
+        snapshot.data();
+
+
+      userProfile={
+
+        ...data,
+
+        name:
+          data.name ||
+          user.displayName ||
+          (
+            user.isAnonymous
+              ?"Guest User"
+              :"Tannu User"
+          ),
+
+        coins:
+          Number(data.coins ?? 0),
+
+        level:
+          Number(data.level ?? 1)
+
+      };
+    }
+
+
+    updateProfileUI();
+
+  }catch(error){
+
+    console.error(
+      "Load profile error:",
+      error
+    );
+
+    showToast(
+      "Profile could not load"
+    );
+  }
+}
+
+
+/* =========================================================
+   UPDATE PROFILE UI
+========================================================= */
+
+function updateProfileUI(){
+
+  const coins=
+    Number(
+      userProfile?.coins ?? 0
+    );
+
+
+  const level=
+    Number(
+      userProfile?.level ?? 1
+    );
+
+
+  const name=
+    userProfile?.name ||
+    "Guest User";
+
+
+  const coinBalance=
+    document.getElementById(
+      "coinBalance"
+    );
+
+  if(coinBalance){
+
+    coinBalance.textContent=
+      formatCoins(coins);
+  }
+
+
+  const profileCoins=
+    document.getElementById(
+      "profileCoins"
+    );
+
+  if(profileCoins){
+
+    profileCoins.textContent=
+      formatCoins(coins);
+  }
+
+
+  const quickCoinText=
+    document.getElementById(
+      "quickCoinText"
+    );
+
+  if(quickCoinText){
+
+    quickCoinText.textContent=
+      formatCoins(coins)+
+      " balance";
+  }
+
+
+  const profileName=
+    document.getElementById(
+      "profileName"
+    );
+
+  if(profileName){
+
+    profileName.textContent=
+      name+" 👑";
+  }
+
+
+  const profileLevel=
+    document.getElementById(
+      "profileLevel"
+    );
+
+  if(profileLevel){
+
+    profileLevel.textContent=
+      "Lv."+level;
+  }
+
+
+  const profileIdLine=
+    document.getElementById(
+      "profileIdLine"
+    );
+
+  if(profileIdLine && currentUser){
+
+    /*
+      We display a short ID only.
+      The complete Firebase UID is not displayed.
+    */
+
+    const shortId=
+      currentUser.uid
+        .substring(0,8);
+
+
+    profileIdLine.innerHTML=
+      "ID: "+
+      escapeHtml(shortId)+
+      " &nbsp; • &nbsp; VIP 1";
+  }
+}
+
+
+/* =========================================================
+   AUTH UI
+========================================================= */
+
+function updateAuthUI(user){
+
+  const status=
+    document.getElementById(
+      "authStatus"
+    );
+
+  const title=
+    document.getElementById(
+      "googleLoginTitle"
+    );
+
+  const text=
+    document.getElementById(
+      "googleLoginText"
+    );
+
+
+  if(!user){
+
+    if(status){
+      status.textContent=
+        "Account not connected";
+    }
+
+    if(title){
+      title.textContent=
+        "Google Login";
+    }
+
+    if(text){
+      text.textContent=
+        "Save your account with Google";
+    }
+
+    return;
+  }
+
+
+  if(user.isAnonymous){
+
+    if(status){
+
+      status.textContent=
+        "Guest account • Temporary account";
+    }
+
+    if(title){
+
+      title.textContent=
+        "Connect Google";
+    }
+
+    if(text){
+
+      text.textContent=
+        "Save this Guest account with Google";
+    }
+
+  }else{
+
+    if(status){
+
+      status.textContent=
+        "Google account connected ✓";
+    }
+
+    if(title){
+
+      title.textContent=
+        "Google Account";
+    }
+
+    if(text){
+
+      text.textContent=
+        user.email ||
+        "Google account connected";
+    }
+  }
+}
+
+
+/* =========================================================
+   GOOGLE LOGIN
+========================================================= */
+
+window.loginWithGoogle=
+  async function(){
+
+  try{
+
+    const provider=
+      new GoogleAuthProvider();
+
+
+    /*
+      If currently Guest, link Google to the
+      same Firebase account.
+
+      This is important because it preserves
+      the same UID and profile.
+    */
+
+    if(
+      auth.currentUser &&
+      auth.currentUser.isAnonymous
+    ){
+
+      showToast(
+        "Opening Google login..."
+      );
+
+
+      await linkWithRedirect(
+        auth.currentUser,
+        provider
+      );
+
+      return;
+    }
+
+
+    /*
+      If already signed in normally,
+      no need to login again.
+    */
+
+    if(
+      auth.currentUser &&
+      !auth.currentUser.isAnonymous
+    ){
+
+      showToast(
+        "Google already connected ✓"
+      );
+
+      return;
+    }
+
+
+    /*
+      No current user:
+      normal Google redirect.
+    */
+
+    await signInWithRedirect(
+      auth,
+      provider
+    );
+
+  }catch(error){
+
+    console.error(
+      "Google login error:",
+      error
+    );
+
+    handleFirebaseError(error);
+  }
+};
+
+
+/* =========================================================
+   FIREBASE ERROR HANDLER
+========================================================= */
+
+function handleFirebaseError(error){
+
+  if(!error){
+    return;
+  }
+
+
+  const code=
+    error.code || "";
+
+
+  if(
+    code==="auth/unauthorized-domain"
+  ){
+
+    showToast(
+      "GitHub domain not authorized"
+    );
+
+    return;
+  }
+
+
+  if(
+    code==="auth/credential-already-in-use"
+  ){
+
+    showToast(
+      "This Google account is already linked elsewhere"
+    );
+
+    return;
+  }
+
+
+  if(
+    code==="auth/provider-already-linked"
+  ){
+
+    showToast(
+      "Google is already connected ✓"
+    );
+
+    return;
+  }
+
+
+  if(
+    code==="auth/operation-not-allowed"
+  ){
+
+    showToast(
+      "Google/Guest login is disabled"
+    );
+
+    return;
+  }
+
+
+  if(
+    code==="auth/network-request-failed"
+  ){
+
+    showToast(
+      "Check your internet connection"
+    );
+
+    return;
+  }
+
+
+  showToast(
+    "Authentication error"
+  );
+}
+
+
+/* =========================================================
    SEARCH
-========================= */
+========================================================= */
 
 window.searchRooms=function(){
 
@@ -2178,9 +2942,9 @@ window.searchRooms=function(){
 };
 
 
-/* =========================
+/* =========================================================
    FILTER
-========================= */
+========================================================= */
 
 window.filterRooms=function(category,button){
 
@@ -2194,6 +2958,7 @@ window.filterRooms=function(category,button){
     .forEach(card=>{
 
       if(category==="all"){
+
         card.style.display="flex";
         return;
       }
@@ -2203,26 +2968,31 @@ window.filterRooms=function(category,button){
           .toLowerCase()
           .split(" ");
 
+
       card.style.display=
         cats.includes(category)
           ?"flex"
           :"none";
     });
 
+
   const search=
     document.getElementById("roomSearch");
 
+
   if(search){
+
     search.value="";
   }
 };
 
 
-/* =========================
+/* =========================================================
    OPEN ROOM
-========================= */
+========================================================= */
 
-window.openVoiceRoom=async function(roomName){
+window.openVoiceRoom=
+  async function(roomName){
 
   document.getElementById("voiceTitle")
     .textContent=roomName;
@@ -2236,9 +3006,9 @@ window.openVoiceRoom=async function(roomName){
 };
 
 
-/* =========================
+/* =========================================================
    LIVEKIT CONNECT
-========================= */
+========================================================= */
 
 async function connectToLiveRoom(roomName){
 
@@ -2247,7 +3017,10 @@ async function connectToLiveRoom(roomName){
   roomConnecting=true;
   currentRoomName=roomName;
 
-  setConnection("Connecting voice...","");
+  setConnection(
+    "Connecting voice...",
+    ""
+  );
 
 
   try{
@@ -2270,7 +3043,7 @@ async function connectToLiveRoom(roomName){
 
     const credentials=
       await tokenSource.fetch({
-        roomName:roomName
+        roomName
       });
 
 
@@ -2285,9 +3058,12 @@ async function connectToLiveRoom(roomName){
       RoomEvent.TrackSubscribed,
       (track,publication,participant)=>{
 
-        if(track.kind===Track.Kind.Audio){
+        if(
+          track.kind===Track.Kind.Audio
+        ){
 
-          const audio=track.attach();
+          const audio=
+            track.attach();
 
           audio.autoplay=true;
 
@@ -2307,8 +3083,12 @@ async function connectToLiveRoom(roomName){
       track=>{
 
         try{
+
           track.detach()
-            .forEach(el=>el.remove());
+            .forEach(
+              el=>el.remove()
+            );
+
         }catch(e){}
 
         renderParticipants();
@@ -2324,8 +3104,10 @@ async function connectToLiveRoom(roomName){
 
         showToast(
           "👋 "+
-          (participant.name ||
-           participant.identity)+
+          (
+            participant.name ||
+            participant.identity
+          )+
           " joined"
         );
       }
@@ -2342,7 +3124,9 @@ async function connectToLiveRoom(roomName){
 
         renderParticipants();
 
-        showToast("👋 Participant left");
+        showToast(
+          "👋 Participant left"
+        );
       }
     );
 
@@ -2403,8 +3187,8 @@ async function connectToLiveRoom(roomName){
 
     updateMicUI();
     renderParticipants();
-
     updateUserCount();
+
 
     showToast(
       "🎙️ Joined "+roomName
@@ -2430,29 +3214,70 @@ async function connectToLiveRoom(roomName){
 }
 
 
-/* =========================
-   MIC
-========================= */
+/* =========================================================
+   CONNECTION STATUS
+========================================================= */
 
-window.toggleMic=async function(){
+function setConnection(text,state){
+
+  const box=
+    document.getElementById(
+      "connectionBox"
+    );
+
+  if(!box)return;
+
+
+  box.textContent=text;
+
+
+  if(state==="error"){
+
+    box.style.color="#ff6b8a";
+
+  }else if(state==="connected"){
+
+    box.style.color="#00f39a";
+
+  }else{
+
+    box.style.color="#9ba8ca";
+  }
+}
+
+
+/* =========================================================
+   MIC
+========================================================= */
+
+window.toggleMic=
+  async function(){
 
   if(!liveRoom){
 
-    showToast("Please join a room first");
+    showToast(
+      "Please join a room first"
+    );
+
     return;
   }
 
 
   try{
 
-    const newState=!micEnabled;
+    const newState=
+      !micEnabled;
 
 
     await liveRoom.localParticipant
-      .setMicrophoneEnabled(newState);
+      .setMicrophoneEnabled(
+        newState
+      );
 
 
-    micEnabled=newState;
+    micEnabled=
+      newState;
+
 
     updateMicUI();
     renderParticipants();
@@ -2476,42 +3301,55 @@ window.toggleMic=async function(){
 };
 
 
-/* =========================
+/* =========================================================
    MIC UI
-========================= */
+========================================================= */
 
 function updateMicUI(){
 
   const tool=
-    document.getElementById("micTool");
+    document.getElementById(
+      "micTool"
+    );
 
   const join=
-    document.getElementById("joinMicButton");
+    document.getElementById(
+      "joinMicButton"
+    );
+
+
+  if(!tool || !join){
+    return;
+  }
 
 
   if(micEnabled){
 
     tool.textContent="🔇";
 
-    join.textContent="🔇 Leave Mic";
+    join.textContent=
+      "🔇 Leave Mic";
 
   }else{
 
     tool.textContent="🎙️";
 
-    join.textContent="🎙️ Join Mic";
+    join.textContent=
+      "🎙️ Join Mic";
   }
 }
 
 
-/* =========================
+/* =========================================================
    PARTICIPANTS
-========================= */
+========================================================= */
 
 function renderParticipants(){
 
   const grid=
-    document.getElementById("micGrid");
+    document.getElementById(
+      "micGrid"
+    );
 
   if(!grid)return;
 
@@ -2519,19 +3357,20 @@ function renderParticipants(){
   grid.innerHTML="";
 
 
-  /* HOST */
-
   const host=
     document.createElement("div");
 
+
   host.className=
     "mic-seat host-seat";
+
 
   host.innerHTML=`
     <div class="seat-avatar speaking">👑</div>
     <div class="mic-status">🔊</div>
     <p>Tannu</p>
   `;
+
 
   grid.appendChild(host);
 
@@ -2541,8 +3380,13 @@ function renderParticipants(){
 
   if(!liveRoom){
 
-    addEmptySeats(grid,capacity);
+    addEmptySeats(
+      grid,
+      capacity
+    );
+
     updateUserCount();
+
     return;
   }
 
@@ -2552,8 +3396,6 @@ function renderParticipants(){
       liveRoom.remoteParticipants.values()
     );
 
-
-  /* LOCAL */
 
   if(micEnabled){
 
@@ -2567,23 +3409,36 @@ function renderParticipants(){
 
 
   const remoteLimit=
-    capacity-(micEnabled?1:0);
+    capacity-
+    (
+      micEnabled
+        ?1
+        :0
+    );
 
 
   const visible=
     participants.slice(
       0,
-      Math.max(0,remoteLimit)
+      Math.max(
+        0,
+        remoteLimit
+      )
     );
 
 
-  visible.forEach(p=>{
+  visible.forEach(
+    p=>{
 
-    grid.appendChild(
-      createParticipantSeat(p,false)
-    );
+      grid.appendChild(
+        createParticipantSeat(
+          p,
+          false
+        )
+      );
 
-  });
+    }
+  );
 
 
   const used=
@@ -2593,7 +3448,10 @@ function renderParticipants(){
 
   addEmptySeats(
     grid,
-    Math.max(0,capacity-used)
+    Math.max(
+      0,
+      capacity-used
+    )
   );
 
 
@@ -2601,9 +3459,9 @@ function renderParticipants(){
 }
 
 
-/* =========================
+/* =========================================================
    PARTICIPANT SEAT
-========================= */
+========================================================= */
 
 function createParticipantSeat(
   participant,
@@ -2613,7 +3471,9 @@ function createParticipantSeat(
   const seat=
     document.createElement("div");
 
-  seat.className="mic-seat";
+
+  seat.className=
+    "mic-seat";
 
 
   const speaking=
@@ -2623,7 +3483,11 @@ function createParticipantSeat(
   const name=
     participant.name ||
     participant.identity ||
-    (local?"You":"Guest");
+    (
+      local
+        ?"You"
+        :"Guest"
+    );
 
 
   const initial=
@@ -2646,7 +3510,11 @@ function createParticipantSeat(
     </div>
 
     <p>
-      ${escapeHtml(local?"You":name)}
+      ${escapeHtml(
+        local
+          ?"You"
+          :name
+      )}
     </p>
   `;
 
@@ -2655,38 +3523,53 @@ function createParticipantSeat(
 }
 
 
-/* =========================
+/* =========================================================
    EMPTY SEATS
-========================= */
+========================================================= */
 
-function addEmptySeats(grid,count){
+function addEmptySeats(
+  grid,
+  count
+){
 
-  for(let i=0;i<count;i++){
+  for(
+    let i=0;
+    i<count;
+    i++
+  ){
 
     const seat=
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
+
 
     seat.className=
       "mic-seat empty-seat";
+
 
     seat.innerHTML=`
       <div class="seat-avatar">＋</div>
       <p>${i+1}</p>
     `;
 
+
     grid.appendChild(seat);
   }
 }
 
 
-/* =========================
+/* =========================================================
    USER COUNT
-========================= */
+========================================================= */
 
 function updateUserCount(){
 
   const el=
-    document.getElementById("userCount");
+    document.getElementById(
+      "userCount"
+    );
+
 
   if(!el)return;
 
@@ -2694,6 +3577,7 @@ function updateUserCount(){
   if(!liveRoom){
 
     el.textContent="1";
+
     return;
   }
 
@@ -2701,20 +3585,25 @@ function updateUserCount(){
   const remote=
     liveRoom.remoteParticipants.size;
 
+
   const total=
     1+remote;
 
 
   el.textContent=
-    Math.min(total,12);
+    Math.min(
+      total,
+      12
+    );
 }
 
 
-/* =========================
+/* =========================================================
    LEAVE
-========================= */
+========================================================= */
 
-window.leaveVoiceRoom=function(){
+window.leaveVoiceRoom=
+  function(){
 
   if(liveRoom){
 
@@ -2728,45 +3617,63 @@ window.leaveVoiceRoom=function(){
 
   document.querySelectorAll(
     "audio[data-identity]"
-  ).forEach(a=>a.remove());
+  ).forEach(
+    a=>a.remove()
+  );
 
 
   micEnabled=false;
   currentRoomName="";
 
+
   updateMicUI();
+
 
   showScreen("rooms");
 
-  showToast("👋 Left the room");
+
+  showToast(
+    "👋 Left the room"
+  );
 };
 
 
-/* =========================
+/* =========================================================
    AUDIO CLEANUP
-========================= */
+========================================================= */
 
-function removeParticipantAudio(identity){
+function removeParticipantAudio(
+  identity
+){
 
   document.querySelectorAll(
     "audio[data-identity]"
-  ).forEach(audio=>{
+  ).forEach(
+    audio=>{
 
-    if(audio.dataset.identity===identity){
-      audio.remove();
+      if(
+        audio.dataset.identity===
+        identity
+      ){
+
+        audio.remove();
+      }
     }
-  });
+  );
 }
 
 
-/* =========================
+/* =========================================================
    CHAT
-========================= */
+========================================================= */
 
 window.sendChat=function(){
 
   const input=
-    document.getElementById("chatInput");
+    document.getElementById(
+      "chatInput"
+    );
+
 
   const value=
     input.value.trim();
@@ -2776,13 +3683,20 @@ window.sendChat=function(){
 
 
   const messages=
-    document.getElementById("chatMessages");
+    document.getElementById(
+      "chatMessages"
+    );
 
 
   const line=
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
-  line.className="chatLine";
+
+  line.className=
+    "chatLine";
+
 
   line.innerHTML=`
     <span class="chatName">You:</span>
@@ -2794,41 +3708,56 @@ window.sendChat=function(){
 
   messages.appendChild(line);
 
+
   input.value="";
+
 
   messages.scrollTop=
     messages.scrollHeight;
 };
 
 
-/* =========================
+/* =========================================================
    GIFTS
-========================= */
+========================================================= */
 
 window.openGifts=function(){
 
   document
-    .getElementById("giftModal")
-    .classList.add("show");
+    .getElementById(
+      "giftModal"
+    )
+    .classList.add(
+      "show"
+    );
 };
 
 
 window.closeGifts=function(){
 
   document
-    .getElementById("giftModal")
-    .classList.remove("show");
+    .getElementById(
+      "giftModal"
+    )
+    .classList.remove(
+      "show"
+    );
+
 
   selectedGift=null;
 
+
   document
-    .getElementById("sendGiftButton")
+    .getElementById(
+      "sendGiftButton"
+    )
     .textContent=
-    "🎁 Select a gift";
+      "🎁 Select a gift";
 };
 
 
-window.selectGift=function(name,price){
+window.selectGift=
+  function(name,price){
 
   selectedGift={
     name:name,
@@ -2837,24 +3766,43 @@ window.selectGift=function(name,price){
 
 
   document
-    .getElementById("sendGiftButton")
+    .getElementById(
+      "sendGiftButton"
+    )
     .textContent=
-    "🎁 Send "+name+
-    " • 🪙 "+formatCoins(price);
+      "🎁 Send "+
+      name+
+      " • 🪙 "+
+      formatCoins(price);
 };
 
 
-window.sendSelectedGift=function(){
+window.sendSelectedGift=
+  function(){
 
   if(!selectedGift){
 
-    showToast("🎁 Select a gift first");
+    showToast(
+      "🎁 Select a gift first"
+    );
+
     return;
   }
 
 
+  /*
+    IMPORTANT:
+    Coin deduction is intentionally
+    NOT done directly in the browser.
+
+    Secure gift transactions will be
+    connected through backend/Cloud
+    Functions in the next stage.
+  */
+
   showToast(
-    "🎁 "+selectedGift.name+
+    "🎁 "+
+    selectedGift.name+
     " selected"
   );
 
@@ -2863,55 +3811,92 @@ window.sendSelectedGift=function(){
 };
 
 
-/* =========================
+/* =========================================================
    COINS
-========================= */
+========================================================= */
 
 function formatCoins(num){
 
+  num=
+    Number(num)||0;
+
+
   if(num>=1000000){
-    return (num/1000000)
-      .toFixed(num%1000000?1:0)+"M";
+
+    return (
+      num/1000000
+    )
+      .toFixed(
+        num%1000000
+          ?1
+          :0
+      )+
+      "M";
   }
 
+
   if(num>=1000){
-    return (num/1000)
-      .toFixed(num%1000?1:0)+"K";
+
+    return (
+      num/1000
+    )
+      .toFixed(
+        num%1000
+          ?1
+          :0
+      )+
+      "K";
   }
+
 
   return String(num);
 }
 
 
-/* =========================
+/* =========================================================
    ROOM INFO
-========================= */
+========================================================= */
 
-window.showRoomInfo=function(){
+window.showRoomInfo=
+  function(){
 
-  document.getElementById("infoRoomName")
+  document
+    .getElementById(
+      "infoRoomName"
+    )
     .textContent=
-    currentRoomName ||
-    "Tannu Friends";
+      currentRoomName ||
+      "Tannu Friends";
 
-  showScreen("roomInfo");
+
+  showScreen(
+    "roomInfo"
+  );
 };
 
 
-/* =========================
+/* =========================================================
    SHARE
-========================= */
+========================================================= */
 
-window.shareRoom=async function(){
+window.shareRoom=
+  async function(){
 
   try{
 
     if(navigator.share){
 
       await navigator.share({
-        title:"Tannu Voice Chat",
-        text:"Join me on Tannu Voice Chat ❤️",
-        url:location.href
+
+        title:
+          "Tannu Voice Chat",
+
+        text:
+          "Join me on Tannu Voice Chat ❤️",
+
+        url:
+          location.href
+
       });
 
     }else{
@@ -2920,71 +3905,117 @@ window.shareRoom=async function(){
         location.href
       );
 
-      showToast("🔗 Link copied");
+      showToast(
+        "🔗 Link copied"
+      );
     }
 
   }catch(e){}
 };
 
 
-/* =========================
+/* =========================================================
    REWARD
-========================= */
+========================================================= */
 
-window.claimReward=function(button){
+window.claimReward=
+  function(button){
 
-  button.textContent="Claimed ✓";
+  /*
+    Temporary UI only.
+
+    Real coin reward will be added
+    securely from backend later.
+  */
+
+  button.textContent=
+    "Claimed ✓";
 
   button.disabled=true;
 
-  showToast("🎁 Daily reward claimed!");
+
+  showToast(
+    "🎁 Daily reward claimed!"
+  );
 };
 
 
-/* =========================
+/* =========================================================
    TOAST
-========================= */
+========================================================= */
 
-window.showToast=function(message){
+window.showToast=
+  function(message){
 
   const toast=
-    document.getElementById("toast");
+    document.getElementById(
+      "toast"
+    );
 
-  toast.textContent=message;
-  toast.style.display="block";
+
+  toast.textContent=
+    message;
 
 
-  clearTimeout(window.toastTimer);
+  toast.style.display=
+    "block";
+
+
+  clearTimeout(
+    window.toastTimer
+  );
 
 
   window.toastTimer=
-    setTimeout(()=>{
-      toast.style.display="none";
-    },2200);
+    setTimeout(
+      ()=>{
+        toast.style.display=
+          "none";
+      },
+      2200
+    );
 };
 
 
-/* =========================
+/* =========================================================
    SAFE HTML
-========================= */
+========================================================= */
 
 function escapeHtml(value){
 
   return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
 
 
-/* =========================
+/* =========================================================
    INITIAL
-========================= */
+========================================================= */
 
 updateMicUI();
+
 renderParticipants();
+
+startFirebaseAuth();
 
 </script>
 
