@@ -1104,9 +1104,62 @@ button:disabled{
     width:58%;
   }
 }
+
+/* ================= TANNu PROFILE REFERENCE STYLE ================= */
+.profile-ref{background:#f5f8f9;color:#20252b;min-height:calc(100vh - 70px);padding:14px 14px 90px}
+.profile-ref *{box-sizing:border-box}
+.profile-head{display:flex;align-items:center;gap:14px;padding:8px 4px 14px}
+.profile-avatar-ref{width:94px;height:94px;border-radius:50%;border:4px solid #fff;box-shadow:0 2px 8px #0002;background:linear-gradient(145deg,#20242b,#090a0d);display:flex;align-items:center;justify-content:center;font-size:50px;flex:none;overflow:hidden}
+.profile-head-main{flex:1;min-width:0}
+.profile-name-ref{font-size:25px;font-weight:800;color:#7de4e8;letter-spacing:.3px;line-height:1.1}
+.profile-name-ref span{color:#f5b72b}
+.profile-id-ref{font-size:13px;color:#8b9198;margin-top:7px}
+.profile-arrow-ref{font-size:42px;color:#222;font-weight:300}
+.profile-stats-ref{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;margin:2px 0 16px}
+.profile-stats-ref b{display:block;font-size:27px;line-height:1.1;color:#1f2328}
+.profile-stats-ref span{display:block;font-size:14px;color:#9aa0a5;margin-top:5px}
+.profile-banner-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.profile-banner{height:78px;border-radius:16px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;color:#fff;font-weight:800;font-size:19px;box-shadow:0 3px 8px #0002}
+.profile-banner.svip{background:linear-gradient(135deg,#7d3c18,#f4b83d 48%,#32150b)}
+.profile-banner.wallet{background:linear-gradient(135deg,#0a4771,#1c8bc0 55%,#052844)}
+.profile-banner .bannerIcon{font-size:42px}
+.profile-menu-ref{background:#fff;border-radius:22px;padding:8px 8px 14px;box-shadow:0 2px 8px #00000008}
+.profile-menu-ref .menu-row{min-height:82px;display:flex;align-items:center;gap:14px;padding:8px 14px;border-bottom:1px solid #f1f2f3}
+.profile-menu-ref .menu-row:last-child{border-bottom:0}
+.ref-icon{width:34px;text-align:center;font-size:27px;flex:none}
+.ref-label{font-size:18px;color:#30343a;flex:1}
+.ref-badge{font-size:14px;color:#9a6b20;background:#fff3d4;border-radius:16px;padding:6px 11px;white-space:nowrap}
+.ref-arrow{font-size:31px;color:#c8cdd1;font-weight:300}
+.profile-detail{background:#fff;color:#25282d;min-height:calc(100vh - 70px);padding-bottom:90px}
+.detail-cover{height:300px;background:linear-gradient(135deg,#101216,#292d33 55%,#0b0c0e);position:relative;overflow:hidden}
+.detail-cover:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 28% 35%,#ffffff12,transparent 28%),linear-gradient(120deg,transparent 45%,#ffffff05 46%,transparent 65%)}
+.detail-topbar{position:absolute;top:14px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:center;color:#fff;font-size:28px;z-index:2}
+.online-pill{position:absolute;right:-5px;top:62px;background:#10d7a6;color:#fff;border-radius:20px;padding:11px 17px;font-size:13px;font-weight:700}
+.detail-avatar{position:absolute;left:28px;bottom:4px;width:126px;height:126px;border:4px solid #fff;border-radius:50%;background:linear-gradient(145deg,#20242b,#08090b);display:flex;align-items:center;justify-content:center;font-size:66px;z-index:3;box-shadow:0 3px 10px #0004}
+.detail-badges{position:absolute;left:160px;right:5px;bottom:20px;display:flex;gap:7px;overflow:hidden;z-index:2}
+.detail-badge{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:25px;background:linear-gradient(145deg,#fff2a6,#b57a13);border:2px solid #fff;box-shadow:0 2px 5px #0005;flex:none}
+.detail-info{padding:20px 22px 14px}
+.detail-name{font-size:25px;color:#5fd6da;font-weight:800}
+.detail-name span{color:#f2b63a}
+.detail-id{font-size:14px;color:#8b9197;margin-top:10px}
+.detail-line{font-size:16px;color:#737a80;margin-top:12px}
+.detail-chip{display:inline-block;border-radius:12px;padding:4px 9px;font-size:12px;font-weight:700;margin-right:5px;background:#e8f7f6;color:#35a9a9}
+.detail-tabs{display:flex;gap:30px;padding:18px 24px 0;border-top:7px solid #f1f3f4;border-bottom:1px solid #eceeef;font-size:19px;font-weight:700}
+.detail-tabs span{padding-bottom:14px}.detail-tabs .active{border-bottom:4px solid #16cda8}
+.detail-section{padding:22px 24px}.detail-section h3{font-size:22px;margin:0 0 18px}.personality-card{height:108px;border:2px solid #8e49a9;background:#eadcf0;border-radius:14px;display:flex;align-items:center;padding:0 14px;color:#73338c;font-size:18px}.personality-card .pemoji{font-size:48px;margin-right:15px}.albums-box{height:160px;background:#f6f6f6;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#a0a4a8;font-size:18px}
+@media(max-width:420px){.profile-avatar-ref{width:82px;height:82px;font-size:43px}.profile-name-ref{font-size:22px}.profile-stats-ref b{font-size:24px}.profile-banner{height:70px;font-size:16px}.profile-banner .bannerIcon{font-size:34px}.detail-cover{height:285px}.detail-avatar{width:112px;height:112px;font-size:58px}.detail-badges{left:145px}.detail-name{font-size:22px}}
+
+</style>
+
+<style id="tannu-final-profile-ui">
+/* Final UI freeze polish */
+.profile-main-card,.profile-detail-card{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.profile-menu-item,.profile-tab{transition:transform .18s ease,background .18s ease,opacity .18s ease}
+.profile-menu-item:active,.profile-tab:active{transform:scale(.98)}
 </style>
 </head>
 
+<!-- Tannu Voice Chat FINAL UI FREEZE -->
 <body>
 
 <div class="app">
@@ -1912,150 +1965,63 @@ button:disabled{
 
 
 <!-- ================= PROFILE ================= -->
-
 <section id="profile" class="screen">
+  <div class="profile-ref">
+    <div class="profile-head">
+      <div class="profile-avatar-ref">👨🏻</div>
+      <div class="profile-head-main">
+        <div class="profile-name-ref"><span id="profileName">Tannu User</span> ⚡ <span>♂ 23</span></div>
+        <div class="profile-id-ref" id="profileIdLine">ID: Guest</div>
+      </div>
+      <div class="profile-arrow-ref" onclick="showScreen('profileDetail')">›</div>
+    </div>
 
-  <div class="titleRow">
-    <h2>Profile</h2>
-    <button class="smallBtn"
-      onclick="showToast('Settings coming soon ⚙️')">
-      ⚙️
-    </button>
+    <div class="profile-stats-ref">
+      <div><b>545</b><span>Friend</span></div>
+      <div><b>761</b><span>Following</span></div>
+      <div><b>1K</b><span>Followers</span></div>
+      <div><b>3.1K</b><span>Visitors</span></div>
+    </div>
+
+    <div class="profile-banner-grid">
+      <div class="profile-banner svip" onclick="showToast('SVIP Center 👑')"><span>SVIP</span><span class="bannerIcon">👑</span></div>
+      <div class="profile-banner wallet" onclick="showToast('Wallet & recharge 💰')"><span>Wallet</span><span class="bannerIcon">💼</span></div>
+    </div>
+
+    <div class="profile-menu-ref">
+      <div class="menu-row" onclick="showToast('Invite Friends')"><div class="ref-icon">👥</div><div class="ref-label">Invite Friends</div><div class="ref-badge">🎁 Get Gold Coins</div><div class="ref-arrow">›</div></div>
+      <div class="menu-row" onclick="showToast('Aristocracy 👑')"><div class="ref-icon">👑</div><div class="ref-label">Aristocracy</div><div class="ref-arrow">›</div></div>
+      <div class="menu-row" onclick="showToast('Family')"><div class="ref-icon">🛡️</div><div class="ref-label">Family</div><div class="ref-badge">🏆 R.....⚡</div><div class="ref-arrow">›</div></div>
+      <div class="menu-row" onclick="showToast('CP Space')"><div class="ref-icon">💗</div><div class="ref-label">CP Space</div><div class="ref-arrow">›</div></div>
+      <div class="menu-row" onclick="showToast('Store')"><div class="ref-icon">🛍️</div><div class="ref-label">Store</div><div class="ref-arrow">›</div></div>
+      <div class="menu-row" onclick="showToast('Dress')"><div class="ref-icon">👕</div><div class="ref-label">Dress</div><div class="ref-arrow">›</div></div>
+      <div class="menu-row" onclick="showToast('Bag')"><div class="ref-icon">👜</div><div class="ref-label">Bag</div><div class="ref-arrow">›</div></div>
+      <div class="menu-row" onclick="showToast('Medal')"><div class="ref-icon">🏅</div><div class="ref-label">Medal</div><div class="ref-arrow">›</div></div>
+      <div class="menu-row" onclick="showToast('Level')"><div class="ref-icon">🎖️</div><div class="ref-label">Level</div><div class="ref-badge" id="profileLevel">Lv.1</div><div class="ref-arrow">›</div></div>
+    </div>
   </div>
+</section>
 
-
-  <div class="card profileTop">
-
-    <div class="profileAvatar">
-      👩🏻
+<!-- ================= PROFILE DETAIL ================= -->
+<section id="profileDetail" class="screen">
+  <div class="profile-detail">
+    <div class="detail-cover">
+      <div class="detail-topbar"><span onclick="showScreen('profile')">‹</span><span onclick="showToast('Edit profile ✏️')">↗</span></div>
+      <div class="online-pill">● Online</div>
+      <div class="detail-avatar">👨🏻</div>
+      <div class="detail-badges"><div class="detail-badge">👑</div><div class="detail-badge">💎</div><div class="detail-badge">🏆</div><div class="detail-badge">🎖️</div><div class="detail-badge">⚜️</div><div class="detail-badge">💰</div></div>
     </div>
-
-    <h2 id="profileName">Guest User 👑</h2>
-
-    <p id="profileIdLine">
-      ID: Guest &nbsp; • &nbsp; VIP 1
-    </p>
-
-    <div id="authStatus" class="authStatus">
-      Connecting account...
+    <div class="detail-info">
+      <div class="detail-name">Tannu User ⚡ <span>♂ 23</span></div>
+      <div class="detail-id">ID:100029138 &nbsp;▢ &nbsp; | &nbsp; 1070 Followers</div>
+      <div class="detail-line"><span class="detail-chip">🏅 Lv.48</span><span class="detail-chip">💎 SVIP2</span><span class="detail-chip">🏆 R.....⚡</span></div>
+      <div class="detail-line">📍 🇮🇳 India</div>
+      <div class="detail-line">✎ &nbsp; My turn coming soon........</div>
     </div>
-
-
-    <div class="stats">
-
-      <div class="stat">
-        <b id="profileCoins">0</b>
-        <span>Coins</span>
-      </div>
-
-      <div class="stat">
-        <b>128</b>
-        <span>Friends</span>
-      </div>
-
-      <div class="stat">
-        <b id="profileLevel">Lv.1</b>
-        <span>Level</span>
-      </div>
-
-    </div>
-
+    <div class="detail-tabs"><span class="active">Profile</span><span>Intimacy</span></div>
+    <div class="detail-section"><h3>MBTI Personality</h3><div class="personality-card"><div class="pemoji">🧑🏻</div><b>ENTP</b>&nbsp; - Debater <span style="margin-left:auto">›</span></div></div>
+    <div class="detail-section"><h3>Albums</h3><div class="albums-box">◯ &nbsp; No Photo Yet</div></div>
   </div>
-
-
-  <div class="card menu">
-
-    <div class="menuItem"
-      onclick="loginWithGoogle()">
-
-      <div class="menuIcon">🔐</div>
-
-      <div>
-        <b id="googleLoginTitle">Google Login</b>
-        <span id="googleLoginText">Save your account with Google</span>
-      </div>
-
-      <span>›</span>
-
-    </div>
-
-
-    <div class="menuItem"
-      onclick="showToast('VIP Center 👑')">
-
-      <div class="menuIcon">👑</div>
-
-      <div>
-        <b>VIP Center</b>
-        <span>Unlock exclusive benefits</span>
-      </div>
-
-      <span>›</span>
-
-    </div>
-
-
-    <div class="menuItem"
-      onclick="showToast('Wallet & recharge 💰')">
-
-      <div class="menuIcon">💰</div>
-
-      <div>
-        <b>My Wallet</b>
-        <span>Coins & recharge</span>
-      </div>
-
-      <span>›</span>
-
-    </div>
-
-
-    <div class="menuItem"
-      onclick="showToast('Friends 👥')">
-
-      <div class="menuIcon">👥</div>
-
-      <div>
-        <b>My Friends</b>
-        <span>128 friends</span>
-      </div>
-
-      <span>›</span>
-
-    </div>
-
-
-    <div class="menuItem"
-      onclick="showToast('Settings ⚙️')">
-
-      <div class="menuIcon">⚙️</div>
-
-      <div>
-        <b>Settings</b>
-        <span>Account & privacy</span>
-      </div>
-
-      <span>›</span>
-
-    </div>
-
-
-    <div class="menuItem"
-      onclick="showToast('Customer Support 💬')">
-
-      <div class="menuIcon">💬</div>
-
-      <div>
-        <b>Customer Support</b>
-        <span>We are here to help</span>
-      </div>
-
-      <span>›</span>
-
-    </div>
-
-  </div>
-
 </section>
 
 
@@ -4585,6 +4551,101 @@ renderParticipants();
 
 startFirebaseAuth();
 
+</script>
+
+
+<style id="tannu-product-layer">
+.product-overlay{position:fixed;inset:0;z-index:500;background:rgba(2,5,18,.72);backdrop-filter:blur(8px);display:none;align-items:flex-end}
+.product-overlay.show{display:flex}
+.product-sheet{width:100%;max-height:88vh;overflow:auto;background:linear-gradient(180deg,#111b46,#070d25);border:1px solid #344985;border-radius:25px 25px 0 0;padding:14px 14px 28px;box-shadow:0 -15px 45px #0008}
+.product-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;position:sticky;top:0;background:#111b46ee;padding:5px 0 10px;z-index:2}
+.product-head h2{font-size:18px;flex:1}.product-close{width:36px;height:36px;border-radius:50%;background:#202d5b;font-size:20px}
+.product-hero{padding:16px;border:1px solid #2d4380;border-radius:18px;background:linear-gradient(135deg,#17285a,#101735);margin-bottom:11px}
+.product-hero b{font-size:20px}.product-hero p{font-size:10px;color:#aeb9d8;margin-top:5px;line-height:1.6}
+.product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.product-card{padding:14px;border:1px solid #293e79;border-radius:16px;background:#0d183b;min-height:82px}.product-card b{font-size:12px;display:block;margin-bottom:5px}.product-card span{font-size:9px;color:#99a7cc}.product-action{width:100%;height:44px;border-radius:22px;background:linear-gradient(135deg,#ff31c8,#763cff);font-weight:800;margin-top:12px}.product-list{border:1px solid #293e79;border-radius:17px;overflow:hidden}.product-row{display:flex;align-items:center;gap:10px;padding:13px;border-bottom:1px solid #1e2d59}.product-row:last-child{border-bottom:0}.product-row .ico{width:38px;height:38px;border-radius:12px;background:#172653;display:flex;align-items:center;justify-content:center;font-size:20px}.product-row .txt{flex:1}.product-row b{display:block;font-size:11px}.product-row small{color:#8f9dc2;font-size:8px}.product-row button{background:#1c2d61;border:1px solid #38518e;border-radius:15px;padding:7px 10px;font-size:9px}.level-bar{height:10px;background:#182653;border-radius:10px;overflow:hidden;margin-top:9px}.level-fill{height:100%;width:48%;background:linear-gradient(90deg,#ff31c8,#8b43ff);border-radius:10px}
+</style>
+<div id="tannu-product-layer" class="product-overlay" onclick="if(event.target===this)closeProductPanel()">
+  <div class="product-sheet"><div class="product-head"><button class="product-close" onclick="closeProductPanel()">‹</button><h2 id="productTitle">Tannu</h2><button class="product-close" onclick="closeProductPanel()">×</button></div><div id="productBody"></div></div>
+</div>
+
+<script id="tannu-product-layer-js">
+(function(){
+  const body=()=>document.getElementById('productBody');
+  const title=()=>document.getElementById('productTitle');
+  const open=(t,html)=>{title().textContent=t;body().innerHTML=html;document.getElementById('tannu-product-layer').classList.add('show');};
+  window.closeProductPanel=()=>document.getElementById('tannu-product-layer').classList.remove('show');
+  const row=(i,n,d,fn)=>`<div class="product-row"><div class="ico">${i}</div><div class="txt"><b>${n}</b><small>${d}</small></div><button onclick="${fn}">Open</button></div>`;
+  const views={
+    'Invite Friends':()=>open('Invite Friends',`<div class="product-hero"><b>🎁 Invite & Earn</b><p>Invite friends to Tannu Voice Chat. Referral rewards will be credited after the required activity is verified.</p><button class="product-action" onclick="showToast('📤 Share invite link');closeProductPanel()">Share Invite Link</button></div><div class="product-grid"><div class="product-card"><b>0 Friends Invited</b><span>Your referral count</span></div><div class="product-card"><b>🎁 Rewards</b><span>Pending verification</span></div></div>`),
+    'Aristocracy':()=>open('Aristocracy',`<div class="product-hero"><b>👑 Aristocracy</b><p>Royal identity levels, entry effects and profile privileges.</p></div><div class="product-list">${row('🥉','Count','Level 20','showToast("Count level")')}${row('🥈','Special Count','Level 30','showToast("Special Count level")')}${row('🥇','Marquis','Level 40','showToast("Marquis level")')}${row('👑','King','Level 50','showToast("King level")')}</div>`),
+    'Family':()=>open('Family',`<div class="product-hero"><b>🛡️ Family</b><p>Create or join a family, view members and family activity.</p><button class="product-action" onclick="showToast('Family creation will connect to Firebase');closeProductPanel()">Create / Join Family</button></div><div class="product-list">${row('🏆','My Family','No family joined yet','showToast("No family joined yet")')}${row('👥','Members','Family member list','showToast("Members screen")')}${row('📊','Family Rank','Coming with backend','showToast("Family ranking")')}</div>`),
+    'CP Space':()=>open('CP Space',`<div class="product-hero"><b>💗 CP Space</b><p>Your couple space for CP level, intimacy, moments and shared rewards.</p></div><div class="product-grid"><div class="product-card"><b>CP Level</b><span>Level 1</span></div><div class="product-card"><b>Intimacy</b><span>0 points</span></div><div class="product-card"><b>Moments</b><span>No moments yet</span></div><div class="product-card"><b>Gifts</b><span>Shared gifts</span></div></div>`),
+    'Store':()=>open('Store',`<div class="product-hero"><b>🛍️ Tannu Store</b><p>Frames, entry effects, chat bubbles and profile decorations.</p></div><div class="product-grid"><div class="product-card"><b>✨ Frames</b><span>Profile frames</span><button class="product-action" onclick="showToast('Frames store')">View</button></div><div class="product-card"><b>🚪 Entry Effects</b><span>Room entrance effects</span><button class="product-action" onclick="showToast('Entry effects store')">View</button></div><div class="product-card"><b>💬 Chat Effects</b><span>Special chat styles</span><button class="product-action" onclick="showToast('Chat effects store')">View</button></div><div class="product-card"><b>👑 VIP Items</b><span>VIP decorations</span><button class="product-action" onclick="showToast('VIP items store')">View</button></div></div>`),
+    'Dress':()=>open('Dress',`<div class="product-hero"><b>👕 Dress & Appearance</b><p>Manage equipped avatar decorations and profile appearance.</p></div><div class="product-list">${row('🖼️','Profile Frame','Default frame equipped','showToast("Frame manager")')}${row('✨','Entry Effect','No effect equipped','showToast("Entry effect manager")')}${row('💬','Chat Bubble','Default bubble','showToast("Chat bubble manager")')}${row('🎭','Avatar Style','Default avatar','showToast("Avatar style manager")')}</div>`),
+    'Bag':()=>open('Bag',`<div class="product-hero"><b>👜 My Bag</b><p>All items you own will appear here when the inventory backend is connected.</p></div><div class="product-grid"><div class="product-card"><b>🎁 Gifts</b><span>0 owned</span></div><div class="product-card"><b>🖼️ Frames</b><span>0 owned</span></div><div class="product-card"><b>✨ Effects</b><span>0 owned</span></div><div class="product-card"><b>🎟️ Tickets</b><span>0 owned</span></div></div>`),
+    'Medal':()=>open('Medals',`<div class="product-hero"><b>🏅 Achievements</b><p>Earn medals through rooms, events, games and community activity.</p></div><div class="product-grid"><div class="product-card"><b>🎙️ Voice Host</b><span>Locked</span></div><div class="product-card"><b>🎁 Gift Master</b><span>Locked</span></div><div class="product-card"><b>🔥 Daily Active</b><span>Locked</span></div><div class="product-card"><b>🏆 Event Star</b><span>Locked</span></div></div>`),
+    'Level':()=>open('Level & EXP',`<div class="product-hero"><b>🎖️ Level ${typeof engageState!=='undefined'?engageState.level:1}</b><p>Keep using rooms, games and events to earn EXP.</p><div class="level-bar"><div class="level-fill"></div></div><p>Next level progress</p></div><div class="product-list">${row('⭐','Daily Activity','Earn EXP from active use','showToast("Daily EXP")')}${row('🎙️','Voice Rooms','Room participation EXP','showToast("Room EXP")')}${row('🎮','Games','Game activity EXP','showToast("Game EXP")')}${row('🎉','Events','Event mission EXP','showToast("Event EXP")')}</div>`),
+    'SVIP Center':()=>open('SVIP Center',`<div class="product-hero"><b>💎 SVIP</b><p>Premium membership benefits, frames, entry effects and EXP bonuses.</p><button class="product-action" onclick="showToast('Recharge flow will connect to secure payment backend');closeProductPanel()">View Recharge Plans</button></div><div class="product-grid"><div class="product-card"><b>SVIP 1</b><span>Membership benefits</span></div><div class="product-card"><b>SVIP 2</b><span>Higher premium benefits</span></div></div>`),
+    'Wallet & recharge':()=>open('Wallet',`<div class="product-hero"><b>💰 ${typeof formatCoins==='function'?formatCoins((typeof userProfile!=='undefined'?userProfile?.coins:0)||0):'0'} Coins</b><p>Your secure wallet. Recharge and transaction history will be connected to the backend.</p><button class="product-action" onclick="showToast('Recharge will use secure backend');closeProductPanel()">Recharge</button></div><div class="product-list">${row('💳','Recharge','Buy coin packages','showToast("Recharge packages")')}${row('📜','Transactions','View wallet history','showToast("Transaction history")')}${row('🎁','Gift History','Sent and received gifts','showToast("Gift history")')}</div>`)
+  };
+  function bind(){
+    document.querySelectorAll('#profile .menu-row').forEach(el=>{const n=el.querySelector('.ref-label')?.textContent?.trim();if(n&&views[n]){el.onclick=views[n];el.style.cursor='pointer'}});
+    const sv=document.querySelector('#profile .profile-banner.svip'); if(sv)sv.onclick=views['SVIP Center'];
+    const wa=document.querySelector('#profile .profile-banner.wallet'); if(wa)wa.onclick=views['Wallet & recharge'];
+    document.querySelectorAll('#profile .profile-stats-ref > div').forEach((el,i)=>el.onclick=()=>{
+      const names=['Friends','Following','Followers','Visitors'];
+      open(names[i],`<div class="product-hero"><b>${names[i]}</b><p>Your ${names[i].toLowerCase()} list will appear here from Firebase.</p></div><div class="product-list"><div class="product-row"><div class="ico">👤</div><div class="txt"><b>Demo profile</b><small>Tap actions will be connected to user profiles</small></div><button onclick="showToast('Profile opening')">View</button></div></div>`);
+    });
+    const tabs=document.querySelectorAll('#profileDetail .detail-tabs span');tabs.forEach((t,i)=>t.onclick=()=>{tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active'); if(i===1)showToast('💗 Intimacy details');});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
+})();
+</script>
+
+
+<style id="tannu-interaction-fix">
+#profile .profile-menu-ref,.profile-stats-ref,.profile-banner-grid{position:relative;z-index:50}
+#profile .menu-row,.profile-stats-ref>div,.profile-banner{cursor:pointer;touch-action:manipulation;pointer-events:auto}
+#tannu-product-layer{z-index:99999!important}
+</style>
+<script id="tannu-interaction-fix-js">
+(function(){
+  const labels=['Invite Friends','Aristocracy','Family','CP Space','Store','Dress','Bag','Medal','Level'];
+  function ready(){
+    const profile=document.getElementById('profile');
+    if(!profile) return;
+    const openPanel=(name)=>{
+      if(typeof window.__tannuOpenProduct==='function'){window.__tannuOpenProduct(name);return true;}
+      const panel=document.getElementById('tannu-product-layer');
+      const title=document.getElementById('productTitle'), body=document.getElementById('productBody');
+      if(!panel||!title||!body) return false;
+      title.textContent=name;
+      body.innerHTML='<div class="product-hero"><b>'+name+'</b><p>This section is ready. Firebase data will be connected in the backend phase.</p></div>';
+      panel.classList.add('show'); return true;
+    };
+    window.__tannuOpenProduct=openPanel;
+    const rows=profile.querySelectorAll('.menu-row');
+    rows.forEach((row,i)=>{
+      row.dataset.tannuAction=labels[i]||row.querySelector('.ref-label')?.textContent?.trim()||'Profile';
+      row.onclick=function(e){e.preventDefault();e.stopPropagation();openPanel(this.dataset.tannuAction);};
+      row.ontouchend=function(e){e.preventDefault();e.stopPropagation();openPanel(this.dataset.tannuAction);};
+    });
+    const stats=['Friends','Following','Followers','Visitors'];
+    profile.querySelectorAll('.profile-stats-ref>div').forEach((el,i)=>{
+      const fn=function(e){e.preventDefault();e.stopPropagation();openPanel(stats[i]);};
+      el.onclick=fn; el.ontouchend=fn;
+    });
+    const sv=profile.querySelector('.profile-banner.svip');
+    const wa=profile.querySelector('.profile-banner.wallet');
+    if(sv){const f=e=>{e.preventDefault();e.stopPropagation();openPanel('SVIP Center')};sv.onclick=f;sv.ontouchend=f;}
+    if(wa){const f=e=>{e.preventDefault();e.stopPropagation();openPanel('Wallet & recharge')};wa.onclick=f;wa.ontouchend=f;}
+    document.addEventListener('click',function(e){
+      const row=e.target.closest&&e.target.closest('#profile .menu-row');
+      if(row){e.preventDefault();e.stopPropagation();openPanel(row.dataset.tannuAction||row.querySelector('.ref-label')?.textContent?.trim()||'Profile');}
+    },true);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ready); else ready();
+})();
 </script>
 
 </body>
