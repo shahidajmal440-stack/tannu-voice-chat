@@ -4610,6 +4610,177 @@ startFirebaseAuth();
 </style>
 <script id="tannu-interaction-fix-js">
 (function(){
+
+  const labels = [
+    "Invite Friends",
+    "Aristocracy",
+    "Family",
+    "CP Space",
+    "Store",
+    "Dress",
+    "Bag",
+    "Medal",
+    "Level"
+  ];
+
+  function openPanel(name){
+
+    if(typeof window.__tannuOpenProduct === "function"){
+      window.__tannuOpenProduct(name);
+      return;
+    }
+
+    const panel = document.getElementById("tannu-product-layer");
+    const title = document.getElementById("productTitle");
+    const body = document.getElementById("productBody");
+
+    if(!panel || !title || !body){
+      if(typeof showToast === "function"){
+        showToast(name);
+      }
+      return;
+    }
+
+    title.textContent = name;
+
+    body.innerHTML =
+      '<div class="product-hero">' +
+        '<b>' + name + '</b>' +
+        '<p>This section is ready. Firebase data will be connected in the backend phase.</p>' +
+      '</div>';
+
+    panel.classList.add("show");
+  }
+
+  function bindProfile(){
+
+    const profile = document.getElementById("profile");
+
+    if(!profile) return;
+
+    /* PROFILE MENU */
+
+    profile.querySelectorAll(".menu-row").forEach(function(row,index){
+
+      const label =
+        row.querySelector(".ref-label");
+
+      const name =
+        (label ? label.textContent.trim() : "") ||
+        labels[index] ||
+        "Profile";
+
+      row.dataset.tannuAction = name;
+
+      row.addEventListener("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        openPanel(name);
+      },false);
+
+    });
+
+
+    /* PROFILE STATS */
+
+    const stats = [
+      "Friends",
+      "Following",
+      "Followers",
+      "Visitors"
+    ];
+
+    profile
+      .querySelectorAll(".profile-stats-ref > div")
+      .forEach(function(item,index){
+
+        item.addEventListener("click",function(e){
+
+          e.preventDefault();
+          e.stopPropagation();
+
+          openPanel(
+            stats[index] || "Profile"
+          );
+
+        },false);
+
+      });
+
+
+    /* SVIP */
+
+    const svip =
+      profile.querySelector(
+        ".profile-banner.svip"
+      );
+
+    if(svip){
+
+      svip.addEventListener(
+        "click",
+        function(e){
+
+          e.preventDefault();
+          e.stopPropagation();
+
+          openPanel("SVIP Center");
+
+        },
+        false
+      );
+
+    }
+
+
+    /* WALLET */
+
+    const wallet =
+      profile.querySelector(
+        ".profile-banner.wallet"
+      );
+
+    if(wallet){
+
+      wallet.addEventListener(
+        "click",
+        function(e){
+
+          e.preventDefault();
+          e.stopPropagation();
+
+          openPanel("Wallet & recharge");
+
+        },
+        false
+      );
+
+    }
+
+  }
+
+
+  /* Wait until complete page is ready */
+
+  if(
+    document.readyState === "loading"
+  ){
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      bindProfile,
+      {once:true}
+    );
+
+  }else{
+
+    bindProfile();
+
+  }
+
+})();
+</script>
+(function(){
   const labels=['Invite Friends','Aristocracy','Family','CP Space','Store','Dress','Bag','Medal','Level'];
   function ready(){
     const profile=document.getElementById('profile');
