@@ -4427,7 +4427,48 @@ window.startFruitGame=function(){
 function spawnFruit(){
   if(!fruitRunning)return;
   const ar=document.getElementById("fruitArena");
-  if(
+  if(!ar)return;
+
+  const fruit=document.createElement("button");
+  fruit.type="button";
+  fruit.className="fruit-item";
+  fruit.textContent=fruits[Math.floor(Math.random()*fruits.length)];
+  fruit.style.position="absolute";
+  fruit.style.left=(5+Math.random()*85)+"%";
+  fruit.style.top=(5+Math.random()*75)+"%";
+  fruit.style.fontSize=(28+Math.random()*18)+"px";
+  fruit.style.background="transparent";
+  fruit.style.border="0";
+  fruit.style.padding="4px";
+  fruit.style.zIndex="10";
+  fruit.addEventListener("click",function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if(!fruitRunning)return;
+    fruitScore++;
+    const sc=document.getElementById("fruitScore");
+    if(sc)sc.textContent=fruitScore;
+    fruit.remove();
+  });
+  ar.appendChild(fruit);
+  setTimeout(()=>{if(fruit.parentNode)fruit.remove();},900);
+}
+
+function finishFruitGame(){
+  fruitRunning=false;
+  clearInterval(fruitTimer);
+  const bt=document.getElementById("fruitStartBtn");
+  if(bt){bt.disabled=false;bt.textContent="Start Game";}
+  if(fruitScore>0){
+    const reward=fruitScore*100;
+    addDemoCoins(reward,"Fruit Game");
+    markGamePlayed();
+    saveEngagement();
+    showToast("🍎 +"+formatCoins(reward)+" coins");
+  }else{
+    showToast("🍎 Game finished");
+  }
+}
 
 window.spinWheelNow=function(){
   if(engageState.spins>=5){
@@ -4516,7 +4557,7 @@ startFirebaseAuth();
 </script>
 
 
-<style id="tannu-product-layer">
+<style id="tannu-product-layer-style">
 .product-overlay{position:fixed;inset:0;z-index:500;background:rgba(2,5,18,.72);backdrop-filter:blur(8px);display:none;align-items:flex-end}
 .product-overlay.show{display:flex}
 .product-sheet{width:100%;max-height:88vh;overflow:auto;background:linear-gradient(180deg,#111b46,#070d25);border:1px solid #344985;border-radius:25px 25px 0 0;padding:14px 14px 28px;box-shadow:0 -15px 45px #0008}
@@ -4565,221 +4606,11 @@ startFirebaseAuth();
 </script>
 
 
-<style id="tannu-interaction-fix">
-#profile .profile-menu-ref,.profile-stats-ref,.profile-banner-grid{position:relative;z-index:50}
-#profile .menu-row,.profile-stats-ref>div,.profile-banner{cursor:pointer;touch-action:manipulation;pointer-events:auto}
-#tannu-product-layer{z-index:99999!important}
+<style id="tannu-touch-fix">
+/* Mobile touch safety: keep controls tappable without changing the visual design. */
+button,a,input,select,textarea,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-banner,.profile-stats-ref>div,.navBtn,.tab,.giftCard,.mic-seat{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+button,a,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-banner,.profile-stats-ref>div,.navBtn,.tab,.giftCard,.mic-seat{pointer-events:auto;}
 </style>
-<script id="tannu-interaction-fix-js">
-(function(){
-
-  const labels = [
-    "Invite Friends",
-    "Aristocracy",
-    "Family",
-    "CP Space",
-    "Store",
-    "Dress",
-    "Bag",
-    "Medal",
-    "Level"
-  ];
-
-  function openPanel(name){
-
-    if(typeof window.__tannuOpenProduct === "function"){
-      window.__tannuOpenProduct(name);
-      return;
-    }
-
-    const panel = document.getElementById("tannu-product-layer");
-    const title = document.getElementById("productTitle");
-    const body = document.getElementById("productBody");
-
-    if(!panel || !title || !body){
-      if(typeof showToast === "function"){
-        showToast(name);
-      }
-      return;
-    }
-
-    title.textContent = name;
-
-    body.innerHTML =
-      '<div class="product-hero">' +
-        '<b>' + name + '</b>' +
-        '<p>This section is ready. Firebase data will be connected in the backend phase.</p>' +
-      '</div>';
-
-    panel.classList.add("show");
-  }
-
-  function bindProfile(){
-
-    const profile = document.getElementById("profile");
-
-    if(!profile) return;
-
-    /* PROFILE MENU */
-
-    profile.querySelectorAll(".menu-row").forEach(function(row,index){
-
-      const label =
-        row.querySelector(".ref-label");
-
-      const name =
-        (label ? label.textContent.trim() : "") ||
-        labels[index] ||
-        "Profile";
-
-      row.dataset.tannuAction = name;
-
-      row.addEventListener("click",function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        openPanel(name);
-      },false);
-
-    });
-
-
-    /* PROFILE STATS */
-
-    const stats = [
-      "Friends",
-      "Following",
-      "Followers",
-      "Visitors"
-    ];
-
-    profile
-      .querySelectorAll(".profile-stats-ref > div")
-      .forEach(function(item,index){
-
-        item.addEventListener("click",function(e){
-
-          e.preventDefault();
-          e.stopPropagation();
-
-          openPanel(
-            stats[index] || "Profile"
-          );
-
-        },false);
-
-      });
-
-
-    /* SVIP */
-
-    const svip =
-      profile.querySelector(
-        ".profile-banner.svip"
-      );
-
-    if(svip){
-
-      svip.addEventListener(
-        "click",
-        function(e){
-
-          e.preventDefault();
-          e.stopPropagation();
-
-          openPanel("SVIP Center");
-
-        },
-        false
-      );
-
-    }
-
-
-    /* WALLET */
-
-    const wallet =
-      profile.querySelector(
-        ".profile-banner.wallet"
-      );
-
-    if(wallet){
-
-      wallet.addEventListener(
-        "click",
-        function(e){
-
-          e.preventDefault();
-          e.stopPropagation();
-
-          openPanel("Wallet & recharge");
-
-        },
-        false
-      );
-
-    }
-
-  }
-
-
-  /* Wait until complete page is ready */
-
-  if(
-    document.readyState === "loading"
-  ){
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      bindProfile,
-      {once:true}
-    );
-
-  }else{
-
-    bindProfile();
-
-  }
-
-})();
-</script>
-(function(){
-  const labels=['Invite Friends','Aristocracy','Family','CP Space','Store','Dress','Bag','Medal','Level'];
-  function ready(){
-    const profile=document.getElementById('profile');
-    if(!profile) return;
-    const openPanel=(name)=>{
-      if(typeof window.__tannuOpenProduct==='function'){window.__tannuOpenProduct(name);return true;}
-      const panel=document.getElementById('tannu-product-layer');
-      const title=document.getElementById('productTitle'), body=document.getElementById('productBody');
-      if(!panel||!title||!body) return false;
-      title.textContent=name;
-      body.innerHTML='<div class="product-hero"><b>'+name+'</b><p>This section is ready. Firebase data will be connected in the backend phase.</p></div>';
-      panel.classList.add('show'); return true;
-    };
-    window.__tannuOpenProduct=openPanel;
-    const rows=profile.querySelectorAll('.menu-row');
-    rows.forEach((row,i)=>{
-      row.dataset.tannuAction=labels[i]||row.querySelector('.ref-label')?.textContent?.trim()||'Profile';
-      row.onclick=function(e){e.preventDefault();e.stopPropagation();openPanel(this.dataset.tannuAction);};
-      row.ontouchend=function(e){e.preventDefault();e.stopPropagation();openPanel(this.dataset.tannuAction);};
-    });
-    const stats=['Friends','Following','Followers','Visitors'];
-    profile.querySelectorAll('.profile-stats-ref>div').forEach((el,i)=>{
-      const fn=function(e){e.preventDefault();e.stopPropagation();openPanel(stats[i]);};
-      el.onclick=fn; el.ontouchend=fn;
-    });
-    const sv=profile.querySelector('.profile-banner.svip');
-    const wa=profile.querySelector('.profile-banner.wallet');
-    if(sv){const f=e=>{e.preventDefault();e.stopPropagation();openPanel('SVIP Center')};sv.onclick=f;sv.ontouchend=f;}
-    if(wa){const f=e=>{e.preventDefault();e.stopPropagation();openPanel('Wallet & recharge')};wa.onclick=f;wa.ontouchend=f;}
-    document.addEventListener('click',function(e){
-      const row=e.target.closest&&e.target.closest('#profile .menu-row');
-      if(row){e.preventDefault();e.stopPropagation();openPanel(row.dataset.tannuAction||row.querySelector('.ref-label')?.textContent?.trim()||'Profile');}
-    },true);
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ready); else ready();
-})();
-</script>
 
 </body>
 </html>
