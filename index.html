@@ -3089,6 +3089,23 @@ window.loginWithGoogle=
 
 
 /* =========================================================
+   GUEST LOGIN BRIDGE
+========================================================= */
+window.tannuGuestLogin = async function(){
+  try{
+    if(auth.currentUser){
+      if(typeof hideLoginGate === "function") hideLoginGate();
+      return;
+    }
+    await signInAnonymously(auth);
+  }catch(error){
+    console.error("Guest login error:", error);
+    handleFirebaseError(error);
+  }
+};
+
+
+/* =========================================================
    FIREBASE ERROR HANDLER
 ========================================================= */
 
@@ -4738,15 +4755,11 @@ button,a,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-b
   window.continueAsGuest=async function(){
     try{
       setLoginGateStatus('Creating your Guest account...');
-      if(typeof auth!=='undefined' && auth.currentUser){
-        setLoginGateStatus('Guest account ready ✓');
+      if(typeof window.tannuGuestLogin!=='function'){
+        setLoginGateStatus('Guest login is still loading. Please tap again.');
         return;
       }
-      if(typeof signInAnonymously!=='function'){
-        setLoginGateStatus('Guest login is not available yet.');
-        return;
-      }
-      await signInAnonymously(auth);
+      await window.tannuGuestLogin();
     }catch(e){
       console.error('Guest login error',e);
       setLoginGateStatus('Guest login failed. Check Firebase settings.');
