@@ -2553,14 +2553,39 @@ async function startFirebaseAuth(){
 
           if(user){
 
+            /*
+              IMPORTANT:
+              Firebase Auth login must not be blocked by
+              Firestore profile permissions. Hide the login
+              gate immediately after Auth confirms the user.
+            */
             currentUser=user;
 
-            await ensureUserProfile(user);
-
-            await loadUserProfile(user);
-
             updateAuthUI(user);
-            if(typeof hideLoginGate==="function") hideLoginGate();
+
+            if(typeof hideLoginGate==="function"){
+              hideLoginGate();
+            }
+
+            /*
+              Load/create the Firestore profile separately.
+              If Firestore rules are not ready yet, the user
+              can still enter the app instead of being stuck
+              on "Creating your Guest account...".
+            */
+            try{
+              await ensureUserProfile(user);
+              await loadUserProfile(user);
+            }catch(profileError){
+              console.error("Profile setup/load error:",profileError);
+              userProfile={
+                name:user.displayName ||
+                  (user.isAnonymous ? "Guest User" : "Tannu User"),
+                coins:0,
+                level:1
+              };
+              updateProfileUI();
+            }
 
             return;
           }
@@ -3160,6 +3185,9 @@ function handleFirebaseError(error){
     code==="auth/operation-not-allowed"
   ){
 
+    if(typeof setLoginGateStatus==="function"){
+      setLoginGateStatus("Firebase login provider is disabled.");
+    }
     showToast(
       "Google/Guest login is disabled"
     );
@@ -3180,6 +3208,11 @@ function handleFirebaseError(error){
   }
 
 
+  if(typeof setLoginGateStatus==="function"){
+    setLoginGateStatus(
+      "Login error: "+(code || "unknown error")
+    );
+  }
   showToast(
     "Authentication error"
   );
@@ -4760,6 +4793,9 @@ button,a,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-b
         return;
       }
       await window.tannuGuestLogin();
+      if(window.firebaseAuthLoginError){
+        setLoginGateStatus(window.firebaseAuthLoginError);
+      }
     }catch(e){
       console.error('Guest login error',e);
       setLoginGateStatus('Guest login failed. Check Firebase settings.');
