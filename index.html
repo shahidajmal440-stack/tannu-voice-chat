@@ -1157,10 +1157,8 @@ button:disabled{
 .profile-menu-item,.profile-tab{transition:transform .18s ease,background .18s ease,opacity .18s ease}
 .profile-menu-item:active,.profile-tab:active{transform:scale(.98)}
 </style>
-
-<style id="tannu-mobile-touch-safety">
-button,a,input,select,textarea,.menu-row,.profile-banner,.profile-stats-ref>div,.tab,.gameCard,.eventCard,.roomCard,.mic-seat{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
-button,a,.menu-row,.profile-banner,.profile-stats-ref>div,.tab,.gameCard,.eventCard,.roomCard,.mic-seat{pointer-events:auto;}
+<style id="tannu-touch-safety">
+button,a,input,select,textarea,.menu-row,.roomItem,.profile-banner,.profile-stats-ref>div,.tab,.navBtn,.control,.gradientBtn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;pointer-events:auto}
 </style>
 </head>
 
@@ -4433,39 +4431,38 @@ function spawnFruit(){
   if(!fruitRunning)return;
   const ar=document.getElementById("fruitArena");
   if(!ar)return;
-
-  const fruits=["🍎","🍊","🍉","🍓","🍇","🍍","🥝","🍒"];
   const fruit=document.createElement("button");
+  const fruits=["🍎","🍊","🍉","🍇","🍓","🍌","🥝"];
   fruit.type="button";
-  fruit.className="fruitItem";
+  fruit.className="fruit-item";
   fruit.textContent=fruits[Math.floor(Math.random()*fruits.length)];
   fruit.style.left=(5+Math.random()*82)+"%";
-  fruit.style.top=(5+Math.random()*75)+"%";
-  fruit.onclick=function(e){
-    e.preventDefault();
+  fruit.style.top=(5+Math.random()*72)+"%";
+  fruit.onclick=function(){
     if(!fruitRunning)return;
-    const score=document.getElementById("fruitScore");
-    if(score){score.textContent=String((parseInt(score.textContent,10)||0)+1);}
+    fruitScore++;
+    const sc=document.getElementById("fruitScore");
+    if(sc)sc.textContent=String(fruitScore);
     fruit.remove();
+    markGamePlayed();
+    if(fruitScore%5===0) addDemoCoins(100,"Fruit Tap");
   };
   ar.appendChild(fruit);
   setTimeout(()=>{if(fruit.isConnected)fruit.remove();},900);
 }
 
 function finishFruitGame(){
+  if(!fruitRunning)return;
   fruitRunning=false;
   clearInterval(fruitTimer);
-  const scoreEl=document.getElementById("fruitScore");
-  const score=parseInt(scoreEl?.textContent||"0",10)||0;
-  const reward=Math.min(10000,score*200);
-  const btn=document.getElementById("fruitStartBtn");
-  if(btn){btn.disabled=false;btn.textContent="Start Game";}
-  if(reward>0){
-    addDemoCoins(reward,"Fruit Tap");
-    markGamePlayed();
-    saveEngagement();
-  }
-  showToast("🍎 Fruit Tap complete • +"+formatCoins(reward)+" coins");
+  fruitTimer=null;
+  const bt=document.getElementById("fruitStartBtn");
+  if(bt){bt.disabled=false;bt.textContent="Start Game";}
+  const reward=Math.min(5000,Math.max(100,fruitScore*100));
+  addDemoCoins(reward,"Fruit Tap");
+  markGamePlayed();
+  saveEngagement();
+  showToast("🍎 Game complete! +"+formatCoins(reward)+" coins");
 }
 
 window.spinWheelNow=function(){
@@ -4781,6 +4778,3 @@ startFirebaseAuth();
 
 })();
 </script>
-
-</body>
-</html>
