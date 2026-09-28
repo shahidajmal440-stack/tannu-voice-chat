@@ -2425,6 +2425,13 @@ const firebaseApp=
 const auth=
   getAuth(firebaseApp);
 
+
+// Bridge Guest Login to Firebase module scope.
+// The login-gate script is outside this module.
+window.tannuGuestLogin=async function(){
+  await signInAnonymously(auth);
+};
+
 const db=
   getFirestore(firebaseApp);
 
@@ -4738,15 +4745,13 @@ button,a,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-b
   window.continueAsGuest=async function(){
     try{
       setLoginGateStatus('Creating your Guest account...');
-      if(typeof auth!=='undefined' && auth.currentUser){
-        setLoginGateStatus('Guest account ready ✓');
+
+      if(window.tannuGuestLogin){
+        await window.tannuGuestLogin();
         return;
       }
-      if(typeof signInAnonymously!=='function'){
-        setLoginGateStatus('Guest login is not available yet.');
-        return;
-      }
-      await signInAnonymously(auth);
+
+      setLoginGateStatus('Firebase is still loading. Please try again.');
     }catch(e){
       console.error('Guest login error',e);
       setLoginGateStatus('Guest login failed. Check Firebase settings.');
