@@ -1172,7 +1172,7 @@ button:disabled{
     <p class="login-sub">Voice Chat</p>
     <p class="login-welcome">Meet new friends, join live voice rooms and enjoy your community.</p>
 
-    <button class="login-google" onclick="loginWithGoogle()">
+    <button type="button" id="tannuGoogleLoginBtn" class="login-google">
       <span>G</span> Continue with Google
     </button>
 
@@ -2430,6 +2430,24 @@ const auth=
 // The login-gate script is outside this module.
 window.tannuGuestLogin=async function(){
   await signInAnonymously(auth);
+};
+
+// Bridge Google Login to Firebase module scope.
+// The login-gate UI script is outside this module.
+window.tannuGoogleLogin=async function(){
+  const provider=new GoogleAuthProvider();
+
+  if(auth.currentUser && auth.currentUser.isAnonymous){
+    await linkWithRedirect(auth.currentUser,provider);
+    return;
+  }
+
+  if(auth.currentUser && !auth.currentUser.isAnonymous){
+    if(typeof showToast==='function') showToast('Google already connected ✓');
+    return;
+  }
+
+  await signInWithRedirect(auth,provider);
 };
 
 const db=
@@ -4758,6 +4776,42 @@ button,a,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-b
       if(typeof handleFirebaseError==='function') handleFirebaseError(e);
     }
   };
+
+  // Google login button: handle pointer/touch directly, then fall back to click.
+  window.loginWithGoogle=async function(){
+    try{
+      setLoginGateStatus('Opening Google login...');
+      if(window.tannuGoogleLogin){
+        await window.tannuGoogleLogin();
+        return;
+      }
+      setLoginGateStatus('Firebase is still loading. Please try again.');
+    }catch(e){
+      console.error('Google login error',e);
+      setLoginGateStatus('Google login failed. Please try again.');
+      if(typeof handleFirebaseError==='function') handleFirebaseError(e);
+    }
+  };
+
+  const googleBtn=document.getElementById('tannuGoogleLoginBtn');
+  if(googleBtn){
+    let googleBusy=false;
+    const runGoogleLogin=async function(e){
+      if(e){
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if(googleBusy) return;
+      googleBusy=true;
+      try{
+        await window.loginWithGoogle();
+      }finally{
+        setTimeout(()=>{googleBusy=false;},700);
+      }
+    };
+    googleBtn.addEventListener('pointerup',runGoogleLogin,{passive:false});
+    googleBtn.addEventListener('click',runGoogleLogin,{passive:false});
+  }
 
   window.hideLoginGate=function(){
     if(gate) gate.classList.add('hidden');
