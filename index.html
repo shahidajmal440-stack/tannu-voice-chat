@@ -2676,6 +2676,8 @@ async function ensureUserProfile(user){
     await setDoc(
       userRef,
       {
+        uid:user.uid,
+
         name:fallbackName,
 
         coins:0,
