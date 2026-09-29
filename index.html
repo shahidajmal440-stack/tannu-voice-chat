@@ -1181,6 +1181,46 @@ button:disabled{
 .coinRoundResult{position:relative;z-index:2;min-height:23px;padding:2px 12px;text-align:center;color:#ffd34e;font-weight:900;font-size:11px}.coinRoundHistory{position:relative;z-index:2;margin:0 12px 12px;padding:8px;border:1px solid #4d2b1c;border-radius:12px;text-align:left;font-size:8px;line-height:1.7;color:#bba993;background:#090b16cc;max-height:72px;overflow:auto}.coinRoundHistory b{color:#ffd34e}
 @media(max-width:390px){.wheelStage{height:330px}.foodWheel{width:240px;height:240px}.foodNode{width:61px;height:61px;font-size:24px}.wheelCenter{width:76px;height:76px}.coinBet{min-width:54px}}
 </style>
+
+<style id="tannu-voice-room-mobile-fix">
+/* Tannu Voice Room mobile layout polish */
+.voiceScreen{height:calc(100dvh - 72px);min-height:0;overflow:hidden;padding-bottom:0;display:flex!important;flex-direction:column}
+.voiceScreen .voiceHeader{flex:0 0 58px;height:58px}
+.voiceScreen .roomStatus{flex:0 0 34px;height:34px}
+.voiceScreen .voiceBanner{flex:0 0 116px;height:116px;margin:0 9px 6px}
+.voiceScreen .hostAvatar{width:62px;height:62px;font-size:35px}
+.voiceScreen .mic-grid{flex:0 0 auto;grid-template-columns:repeat(4,1fr);gap:5px;padding:0 9px 6px}
+.voiceScreen .mic-seat{height:67px;min-height:67px;border-radius:14px}
+.voiceScreen .seat-avatar{width:37px;height:37px;font-size:19px}
+.voiceScreen .mic-seat p{font-size:7px;margin-top:2px}
+.voiceScreen .chatBox{flex:1;min-height:72px;overflow:hidden;margin:2px 9px 5px;padding:7px}
+.voiceScreen #chatMessages{height:42px;overflow-y:auto}
+.voiceScreen .chatLine{margin-bottom:4px;font-size:8px}
+.voiceScreen .chatInputRow{margin-top:5px;height:32px}
+.voiceScreen .chatInput{padding:7px 10px;font-size:9px}
+.voiceScreen .sendBtn{font-size:9px;padding:0 12px}
+.voiceScreen .voiceControls{flex:0 0 50px;height:50px;margin:0;padding:4px 8px;gap:8px}
+.voiceScreen .control{width:40px;height:40px;font-size:15px}
+.voiceScreen .control.main{width:44px;height:44px}
+.voiceScreen #joinMicButton{height:36px;padding:0 18px;margin:0 auto 4px!important;font-size:10px}
+.voiceScreen .room-bottom-actions{flex:0 0 55px;height:55px;padding:5px 8px 7px;gap:5px}
+.voiceScreen .room-bottom-actions button{min-height:43px;height:43px;font-size:17px;border-radius:12px}
+.voiceScreen .room-bottom-actions button span{font-size:7px}
+@media(max-width:390px){
+ .voiceScreen .voiceBanner{flex-basis:105px;height:105px}
+ .voiceScreen .hostAvatar{width:56px;height:56px;font-size:31px}
+ .voiceScreen .mic-seat{height:62px;min-height:62px}
+ .voiceScreen .seat-avatar{width:34px;height:34px}
+ .voiceScreen .chatBox{min-height:66px}
+ .voiceScreen .voiceControls{height:47px;flex-basis:47px}
+ .voiceScreen .control{width:37px;height:37px}
+ .voiceScreen .control.main{width:41px;height:41px}
+}
+</style>
+
+<style id="tannu-voice-nav-hide">
+body.voice-room-open .bottomNav{display:none!important}
+</style>
 </head>
 
 <!-- Tannu Voice Chat FINAL UI FREEZE -->
@@ -1585,7 +1625,6 @@ button:disabled{
     <span id="connectionBox">
       Connecting voice...
     </span>
-    <button id="voiceRetryButton" class="smallBtn" style="display:none;margin-left:auto;" onclick="connectToLiveRoom(currentRoomName)">Retry</button>
   </div>
 
 
@@ -1666,7 +1705,7 @@ button:disabled{
   <div class="voiceControls">
 
     <button class="control"
-      onclick="requestMic()">
+      onclick="showToast('Mic request sent 🎙️')">
       🙋
     </button>
 
@@ -1703,10 +1742,10 @@ button:disabled{
     🎙️ Join Mic
   </button>
   <div class="room-bottom-actions">
-    <button onclick="showRoomMembers()">👥<span>Members</span></button>
+    <button onclick="showToast('Room members')">👥<span>Members</span></button>
     <button onclick="showToast('Room family')">🛡️<span>Family</span></button>
     <button onclick="openGifts()">🎁<span>Gifts</span></button>
-    <button onclick="showRoomSettings()">⚙️<span>Settings</span></button>
+    <button onclick="showToast('Room settings')">⚙️<span>Settings</span></button>
   </div>
 
 
@@ -3458,6 +3497,8 @@ window.filterRooms=function(category,button){
 window.openVoiceRoom=
   async function(roomName){
 
+  document.body.classList.add("voice-room-open");
+
   document.getElementById("voiceTitle")
     .textContent=roomName;
 
@@ -3630,23 +3671,10 @@ async function connectToLiveRoom(roomName){
     );
 
 
-    liveRoom.on(
-      RoomEvent.ConnectionStateChanged,
-      state=>{
-        if(state === "reconnecting") setConnection("🟡 Reconnecting voice...","");
-        else if(state === "connected") setConnection("🟢 Connected • Live voice","connected");
-        else if(state === "disconnected") setConnection("❌ Voice disconnected","error");
-      }
-    );
-
-
     await liveRoom.connect(
       credentials.serverUrl,
       credentials.participantToken
     );
-
-    // The room was opened from a user tap. Ask the browser to unlock audio playback.
-    try{ await liveRoom.startAudio(); }catch(e){ console.warn('Audio start:',e); }
 
 
     await liveRoom.localParticipant
@@ -3660,8 +3688,6 @@ async function connectToLiveRoom(roomName){
       "🟢 Connected • Live voice",
       "connected"
     );
-    const retry=document.getElementById("voiceRetryButton");
-    if(retry){ retry.style.display="none"; }
 
 
     updateMicUI();
@@ -3685,9 +3711,6 @@ async function connectToLiveRoom(roomName){
     showToast(
       "Voice connection failed"
     );
-
-    const retry=document.getElementById("voiceRetryButton");
-    if(retry){ retry.style.display="block"; }
 
   }finally{
 
@@ -3726,47 +3749,6 @@ function setConnection(text,state){
     box.style.color="#9ba8ca";
   }
 }
-
-
-/* =========================================================
-   MIC REQUEST
-========================================================= */
-
-window.requestMic=async function(){
-
-  if(!liveRoom){
-    showToast("Please join a room first");
-    return;
-  }
-
-  try{
-    const uid=(currentUser && currentUser.uid)
-      ? currentUser.uid
-      : (liveRoom.localParticipant.identity || ("guest_"+Date.now()));
-
-    const roomKey=(currentRoomName || "tannu-room")
-      .replaceAll("/","_")
-      .slice(0,100);
-
-    const requestId=uid+"_"+Date.now();
-
-    await setDoc(
-      doc(db,"rooms",roomKey,"micRequests",requestId),
-      {
-        uid:uid,
-        name:(currentUser && (currentUser.displayName || currentUser.email)) || liveRoom.localParticipant.name || "Guest",
-        roomName:currentRoomName || "Tannu Friends",
-        status:"pending",
-        createdAt:serverTimestamp()
-      }
-    );
-
-    showToast("🎙️ Mic request sent to the host");
-  }catch(error){
-    console.error("Mic request error:",error);
-    showToast("Mic request could not be sent");
-  }
-};
 
 
 /* =========================================================
@@ -4128,6 +4110,8 @@ function updateUserCount(){
 window.leaveVoiceRoom=
   function(){
 
+  document.body.classList.remove("voice-room-open");
+
   if(liveRoom){
 
     try{
@@ -4238,15 +4222,6 @@ window.sendChat=function(){
   messages.scrollTop=
     messages.scrollHeight;
 };
-
-
-// Mobile-friendly chat: pressing Enter sends the message.
-const tannuChatInput=document.getElementById("chatInput");
-if(tannuChatInput){
-  tannuChatInput.addEventListener("keydown",function(e){
-    if(e.key === "Enter"){ e.preventDefault(); window.sendChat(); }
-  });
-}
 
 
 /* =========================================================
@@ -4383,23 +4358,6 @@ function formatCoins(num){
 
   return String(num);
 }
-
-
-/* =========================================================
-   ROOM MEMBERS / SETTINGS
-========================================================= */
-
-window.showRoomMembers=function(){
-  if(!liveRoom){ showToast("Please join a room first"); return; }
-  const total=1+liveRoom.remoteParticipants.size;
-  const names=[liveRoom.localParticipant.name || "You"];
-  liveRoom.remoteParticipants.forEach(p=>names.push(p.name || p.identity || "Guest"));
-  showToast("👥 "+total+" people • "+names.slice(0,3).join(", ")+(names.length>3?"…":""));
-};
-
-window.showRoomSettings=function(){
-  showToast("⚙️ Room settings will use host/backend permissions in the next security step");
-};
 
 
 /* =========================================================
@@ -5227,6 +5185,7 @@ button,a,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-b
   setInterval(tickOpenRound,1000);
   window.addEventListener('load',ui);ui();
 })();
+
 </script>
 </body>
 </html>
