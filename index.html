@@ -2377,6 +2377,7 @@ import {
   getAuth,
   onAuthStateChanged,
   signInAnonymously,
+  signOut,
   GoogleAuthProvider,
   signInWithRedirect,
   getRedirectResult,
@@ -2437,14 +2438,28 @@ window.tannuGuestLogin=async function(){
 window.tannuGoogleLogin=async function(){
   const provider=new GoogleAuthProvider();
 
-  if(auth.currentUser && auth.currentUser.isAnonymous){
-    await linkWithRedirect(auth.currentUser,provider);
-    return;
-  }
-
   if(auth.currentUser && !auth.currentUser.isAnonymous){
     if(typeof showToast==='function') showToast('Google already connected ✓');
     return;
+  }
+
+  // If a Guest account exists, try to preserve it by linking Google.
+  // If Firebase reports that this Google account already belongs to
+  // another UID, fall back to normal Google sign-in instead of trapping
+  // the user on the login screen.
+  if(auth.currentUser && auth.currentUser.isAnonymous){
+    try{
+      await linkWithRedirect(auth.currentUser,provider);
+      return;
+    }catch(error){
+      const code=error && error.code ? error.code : '';
+      if(code==='auth/credential-already-in-use' || code==='auth/provider-already-linked'){
+        await signOut(auth);
+        await signInWithRedirect(auth,provider);
+        return;
+      }
+      throw error;
+    }
   }
 
   await signInWithRedirect(auth,provider);
@@ -2542,6 +2557,37 @@ window.showScreen=function(name,navButton){
   Later they can connect Google from Profile.
 */
 
+async async function finishTannuAuth(user){
+
+  if(!user) return;
+
+  currentUser=user;
+
+  // Auth success must never be blocked by Firestore/profile sync.
+  // Move the user into Tannu immediately.
+  try{ updateAuthUI(user); }catch(e){ console.warn("updateAuthUI:",e); }
+  try{ if(typeof hideLoginGate==="function") hideLoginGate(); }catch(e){}
+  try{ if(typeof setLoginGateStatus==="function") setLoginGateStatus(""); }catch(e){}
+
+  // Profile sync is secondary. A Firestore error must not send the
+  // successfully authenticated user back to the login screen.
+  try{
+    await ensureUserProfile(user);
+    await loadUserProfile(user);
+    try{ updateAuthUI(user); }catch(e){}
+  }catch(error){
+    console.error("Profile sync error (login still successful):",error);
+    userProfile=userProfile || {
+      uid:user.uid,
+      name:user.displayName || (user.isAnonymous ? "Guest User" : "Tannu User"),
+      coins:0,
+      level:1,
+      photoURL:user.photoURL || "",
+      authType:user.isAnonymous ? "guest" : "google"
+    };
+  }
+}
+
 async function startFirebaseAuth(){
 
   try{
@@ -2553,7 +2599,10 @@ async function startFirebaseAuth(){
 
     try{
 
-      await getRedirectResult(auth);
+      const redirectResult = await getRedirectResult(auth);
+      if(redirectResult && redirectResult.user){
+        await finishTannuAuth(redirectResult.user);
+      }
 
     }catch(error){
 
@@ -2577,16 +2626,7 @@ async function startFirebaseAuth(){
         try{
 
           if(user){
-
-            currentUser=user;
-
-            await ensureUserProfile(user);
-
-            await loadUserProfile(user);
-
-            updateAuthUI(user);
-            if(typeof hideLoginGate==="function") hideLoginGate();
-
+            await finishTannuAuth(user);
             return;
           }
 
@@ -2606,11 +2646,11 @@ async function startFirebaseAuth(){
             error
           );
 
-          updateAuthUI(null);
-
-          showToast(
-            "Account setup failed"
-          );
+          // Do not turn a successful Firebase Auth session into a
+          // login failure because a profile/Firestore operation failed.
+          console.error("Auth/profile handling error:",error);
+          try{ if(typeof hideLoginGate==="function" && auth.currentUser) hideLoginGate(); }catch(e){}
+          try{ if(typeof setLoginGateStatus==="function") setLoginGateStatus("Signed in ✓"); }catch(e){}
         }
 
       }
@@ -2676,8 +2716,6 @@ async function ensureUserProfile(user){
     await setDoc(
       userRef,
       {
-        uid:user.uid,
-
         name:fallbackName,
 
         coins:0,
