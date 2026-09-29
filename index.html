@@ -1181,76 +1181,6 @@ button:disabled{
 .coinRoundResult{position:relative;z-index:2;min-height:23px;padding:2px 12px;text-align:center;color:#ffd34e;font-weight:900;font-size:11px}.coinRoundHistory{position:relative;z-index:2;margin:0 12px 12px;padding:8px;border:1px solid #4d2b1c;border-radius:12px;text-align:left;font-size:8px;line-height:1.7;color:#bba993;background:#090b16cc;max-height:72px;overflow:auto}.coinRoundHistory b{color:#ffd34e}
 @media(max-width:390px){.wheelStage{height:330px}.foodWheel{width:240px;height:240px}.foodNode{width:61px;height:61px;font-size:24px}.wheelCenter{width:76px;height:76px}.coinBet{min-width:54px}}
 </style>
-
-<style id="tannu-room-v3-style">
-/* Tannu Voice Room V3 — visual overhaul, existing LiveKit/Firebase IDs preserved */
-.voiceScreen{
-  min-height:calc(100vh - 0px); padding:8px 0 14px; overflow-x:hidden; overflow-y:auto;
-  background:
-    radial-gradient(circle at 50% 22%,rgba(100,60,255,.35),transparent 27%),
-    radial-gradient(circle at 15% 72%,rgba(255,45,200,.18),transparent 24%),
-    radial-gradient(circle at 88% 58%,rgba(0,220,190,.14),transparent 25%),
-    linear-gradient(180deg,#060b2a 0%,#09133a 38%,#06132d 72%,#030817 100%);
-  position:relative;
-}
-.voiceScreen:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;background:radial-gradient(circle at 12% 20%,#fff 0 1px,transparent 2px),radial-gradient(circle at 76% 12%,#fff 0 1px,transparent 2px),radial-gradient(circle at 58% 34%,#b8a9ff 0 1px,transparent 2px);background-size:97px 83px,137px 121px,173px 149px;}
-.tannuRoomTop,.roomTag,.roomSceneBrand,.roomHostMini,.tannuRoomStatus,.mic-grid,.roomActivityRow,.tannuChatBox,.roomJoinBanner,.tannuBottomBar{position:relative;z-index:1;}
-.tannuRoomTop{display:flex;align-items:center;gap:7px;padding:5px 9px 3px;min-height:58px;}
-.roomIconBtn{width:38px;height:38px;flex:0 0 38px;border-radius:50%;border:1px solid #33458d;background:rgba(20,31,75,.86);color:#fff;font-size:18px;box-shadow:0 5px 20px #0005;}
-.roomIdentity{display:flex;align-items:center;gap:8px;flex:1;min-width:0;}
-.roomLogo{width:43px;height:43px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#7b35ff,#ff3fc8);border:2px solid #b98cff;box-shadow:0 0 18px #a83cff88;font-size:22px;}
-.roomIdentity b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.roomIdentity small{display:block;margin-top:2px;color:#aeb9df;font-size:8px;}
-.onlineDot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#21eaa6;box-shadow:0 0 7px #21eaa6;}
-.roomCoins{display:flex;align-items:center;gap:3px;padding:7px 7px 7px 10px;border:1px solid #4051a5;border-radius:22px;background:#111c4bdd;font-size:10px;white-space:nowrap;}
-.roomCoins button{width:24px;height:24px;border-radius:50%;padding:0;background:linear-gradient(135deg,#6e52ff,#bd42ff);font-size:17px;}
-.roomTag{width:max-content;max-width:calc(100% - 24px);margin:1px 12px 0;padding:5px 11px;border:1px solid #673bd1;border-radius:15px;background:#35136c99;color:#e8dcff;font-size:8px;}
-.roomSceneBrand{padding:5px 14px 0;height:42px;}
-.tannuScript{font-family:cursive;font-size:22px;color:#e57cff;text-shadow:0 0 12px #d63cff;line-height:22px;}
-.tannuScript span{color:#ff62d8;}
-.roomSceneBrand small{font-size:7px;color:#9da9d4;letter-spacing:.4px;}
-.roomHostMini{display:flex;align-items:center;justify-content:center;gap:9px;margin:1px auto 4px;}
-.roomHostMini .hostAvatar{width:68px;height:68px;font-size:35px;border-color:#f1b9ff;box-shadow:0 0 0 4px #9d44ff44,0 0 24px #d33dff99;}
-.roomHostMini>div:nth-child(2) b{display:block;font-size:12px;}
-.roomHostMini>div:nth-child(2) span{display:block;color:#ffd85e;font-size:8px;margin-top:2px;}
-.roomHostMini>button{width:32px;height:32px;border-radius:50%;background:#131f4d;border:1px solid #4353a0;}
-.tannuRoomStatus{justify-content:center;padding:2px 0 5px;font-size:8px;}
-.mic-grid{grid-template-columns:repeat(4,1fr);gap:7px 5px;padding:0 10px;}
-.mic-seat{height:84px!important;background:rgba(9,20,53,.56)!important;border:1px solid #41549d!important;border-radius:24px!important;backdrop-filter:blur(7px);box-shadow:inset 0 0 20px #263e8b22,0 6px 18px #0003;}
-.mic-seat .seat-avatar{width:53px;height:53px;border-radius:50%;font-size:26px;border:2px solid #7667ff;background:linear-gradient(135deg,#ff4fce,#364dd2);box-shadow:0 0 14px #7d5dff66;}
-.mic-seat p{font-size:8px;margin-top:3px;color:#f0f2ff;}
-.host-seat{border-color:#d8a846!important;box-shadow:inset 0 0 25px #d9a93b18,0 0 14px #d8a84633!important;}
-.empty-seat .seat-avatar{background:#102047!important;border:1px dashed #6274b9!important;color:#8797c9!important;}
-.mic-status{font-size:10px;right:5px;top:5px;}
-.roomActivityRow{display:flex;gap:7px;padding:7px 10px 2px;overflow-x:auto;}
-.roomActivityRow button{flex:1;min-width:92px;height:42px;border-radius:14px;border:1px solid #3c4ca0;background:linear-gradient(135deg,#131e50dd,#24104fdd);color:#fff;font-size:15px;}
-.roomActivityRow span{font-size:8px;color:#cbd2f0;margin-left:3px;}
-.tannuChatBox{margin:7px 10px 0!important;padding:8px!important;border-radius:20px!important;background:rgba(5,12,35,.67)!important;border:1px solid #39498f!important;backdrop-filter:blur(10px);max-height:245px;overflow:hidden;}
-.chatTabs{display:flex;align-items:center;gap:22px;border-bottom:1px solid #293b77;padding:1px 5px 7px;margin-bottom:7px;}
-.chatTabs button{background:none;border:0;color:#8795c3;font-size:11px;padding:3px 2px;}
-.chatTabs button.active{color:#fff;border-bottom:2px solid #c64cff;}
-.chatTabs>span{margin-left:auto;color:#aeb8da;font-size:9px;}
-.tannuChatBox #chatMessages{max-height:120px;overflow:auto;}
-.tannuChatBox .chatLine{display:grid;grid-template-columns:auto auto;column-gap:6px;row-gap:1px;margin-bottom:7px;font-size:9px;}
-.tannuChatBox .chatName{color:#ff72dc;}
-.chatTime{color:#69779f;font-size:7px;}
-.tannuChatBox .chatText{grid-column:1/-1;color:#e0e4f4;padding-left:1px;}
-.tannuChatBox .chatInputRow{margin-top:7px;}
-.tannuChatBox .chatInput{height:37px;padding:8px 12px;border-radius:20px;background:#0e1941;border-color:#40519a;font-size:9px;}
-.tannuChatBox .sendBtn{width:40px;height:37px;padding:0;border-radius:50%;font-size:16px;}
-.roomJoinBanner{padding:8px 10px 2px;}
-.roomJoinBanner #joinMicButton{width:100%;height:46px;border-radius:23px;background:linear-gradient(90deg,#7c3dff,#f13bd0);border:1px solid #b875ff;box-shadow:0 0 22px #9d40ff55;font-weight:800;font-size:11px;}
-.roomJoinBanner #joinMicButton span{font-size:22px;vertical-align:-2px;margin-left:6px;}
-.tannuBottomBar{display:flex;align-items:center;gap:5px;padding:8px 8px 4px;margin-top:4px;background:rgba(3,8,27,.92);border-top:1px solid #24356f;}
-.tannuBottomBar .control{width:auto;min-width:52px;height:55px;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:18px;box-shadow:none;}
-.tannuBottomBar .control small,.leaveRoomBtn small{display:block;font-size:7px;color:#aeb8d8;margin-top:2px;}
-.tannuBottomBar .control.main{display:none;}
-.leaveRoomBtn{height:48px;min-width:60px;border-radius:14px;background:linear-gradient(135deg,#d92f61,#ff4c70);border:1px solid #ff7590;font-size:16px;}
-.leaveRoomBtn small{color:#fff;}
-@media(max-width:390px){.roomCoins{padding-left:7px;font-size:9px}.roomIconBtn{width:34px;height:34px;flex-basis:34px}.roomLogo{width:39px;height:39px}.mic-seat{height:78px!important}.mic-seat .seat-avatar{width:48px;height:48px}.roomActivityRow button{min-width:82px}.tannuBottomBar .control{min-width:46px}.leaveRoomBtn{min-width:55px;}}
-/* Hide the app's global bottom navigation while inside the immersive room. */
-.voiceScreen.active~.bottomNav,.voiceScreen.active + .bottomNav{display:none!important;}
-</style>
 </head>
 
 <!-- Tannu Voice Chat FINAL UI FREEZE -->
@@ -1622,80 +1552,163 @@ button:disabled{
 
 
 <!-- ================= VOICE ROOM ================= -->
+
 <section id="voice" class="screen voiceScreen">
-  <div class="tannuRoomTop">
-    <button class="roomIconBtn" onclick="leaveVoiceRoom()" aria-label="Back">‹</button>
-    <div class="roomIdentity">
-      <div class="roomLogo">👑</div>
-      <div>
-        <b id="voiceTitle">Tannu Friends</b>
-        <small>ID: 123456 • <i class="onlineDot"></i> <span id="userCount">1</span> Online</small>
-      </div>
+
+  <div class="voiceHeader">
+
+    <button class="back"
+      onclick="leaveVoiceRoom()">‹</button>
+
+    <div class="hostInfo">
+      <b id="voiceTitle">Tannu Friends</b>
+      <small>
+        ID: 123456 &nbsp; • &nbsp; 👥 <span id="userCount">1</span>/12
+      </small>
     </div>
-    <div class="roomCoins">🪙 <span id="roomCoinBalance">0</span> <button onclick="showToast('Recharge will be added securely later')">+</button></div>
-    <button class="roomIconBtn" onclick="showRoomInfo()">👥</button>
-    <button class="roomIconBtn" onclick="shareRoom()">↗</button>
-    <button class="roomIconBtn" onclick="showToast('Room menu')">⋮</button>
+
+    <button class="voiceAction"
+      onclick="showRoomInfo()">
+      ⓘ
+    </button>
+
+    <button class="voiceAction"
+      onclick="shareRoom()">
+      ⋮
+    </button>
+
   </div>
 
-  <div class="roomTag">💜 Good Vibes Only • Be Respectful</div>
 
-  <div class="roomSceneBrand">
-    <div class="tannuScript">Tannu<span>♥</span></div>
-    <small>Talk • Make Friends • Be Yourself</small>
-  </div>
-
-  <div class="roomHostMini">
-    <div class="hostAvatar speaking">👩🏻</div>
-    <div>
-      <b>Tannu</b>
-      <span>👑 HOST</span>
-    </div>
-    <button onclick="toggleMic()" aria-label="Host mic">🎙️</button>
-  </div>
-
-  <div class="roomStatus tannuRoomStatus">
+  <div class="roomStatus">
     <span class="greenDot"></span>
-    <span id="connectionBox">Connecting voice...</span>
+    <span id="connectionBox">
+      Connecting voice...
+    </span>
   </div>
+
+
+  <div class="voiceBanner">
+
+    <div class="hostAvatar speaking">
+      👩🏻
+    </div>
+
+    <div class="hostName">
+      Tannu
+    </div>
+
+    <div class="hostLabel">
+      👑 HOST
+    </div>
+
+  </div>
+
 
   <div id="micGrid" class="mic-grid"></div>
 
-  <div class="roomActivityRow">
-    <button onclick="showToast('Mini Games')">🎮 <span>Mini Games</span></button>
-    <button onclick="showToast('Treasure rewards')">💎 <span>Treasure</span></button>
-    <button onclick="openGifts()">🎁 <span>Gifts</span></button>
-  </div>
 
-  <div class="chatBox tannuChatBox">
-    <div class="chatTabs">
-      <button class="active">All</button>
-      <button>Chats</button>
-      <span>👥 <span id="chatOnlineCount">1</span></span>
-    </div>
+  <div class="chatBox">
+
     <div id="chatMessages">
-      <div class="chatLine"><span class="chatName">Riya</span><span class="chatTime">09:41 PM</span><span class="chatText">Welcome everyone 💜</span></div>
-      <div class="chatLine"><span class="chatName">Arman</span><span class="chatTime">09:42 PM</span><span class="chatText">Nice voice 👌</span></div>
-      <div class="chatLine"><span class="chatName">Sana</span><span class="chatTime">09:43 PM</span><span class="chatText">So beautiful room 😍</span></div>
+
+      <div class="chatLine">
+        <span class="chatName">Riya:</span>
+        <span class="chatText">
+          Welcome everyone ❤️
+        </span>
+      </div>
+
+      <div class="chatLine">
+        <span class="chatName">Arman:</span>
+        <span class="chatText">
+          Nice voice 👋
+        </span>
+      </div>
+
+      <div class="chatLine">
+        <span class="chatName">Sana:</span>
+        <span class="chatText">
+          So beautiful room 😍
+        </span>
+      </div>
+
+      <div class="chatLine">
+        <span class="chatName">Priya:</span>
+        <span class="chatText">
+          Tannu is the best ❤️
+        </span>
+      </div>
+
     </div>
+
+
     <div class="chatInputRow">
-      <input id="chatInput" class="chatInput" placeholder="Say Hi..." maxlength="80">
-      <button class="sendBtn" onclick="sendChat()">➤</button>
+
+      <input
+        id="chatInput"
+        class="chatInput"
+        placeholder="Say something..."
+        maxlength="80"
+      >
+
+      <button class="sendBtn"
+        onclick="sendChat()">
+        Send
+      </button>
+
     </div>
+
   </div>
 
-  <div class="roomJoinBanner">
-    <button id="joinMicButton" onclick="toggleMic()">🎙️ Join Voice Chat <span>»</span></button>
+
+  <div class="voiceControls">
+
+    <button class="control"
+      onclick="showToast('Mic request sent 🎙️')">
+      🙋
+    </button>
+
+    <button class="control"
+      onclick="toggleMic()">
+      🎙️
+    </button>
+
+    <button
+      id="micTool"
+      class="control main"
+      onclick="toggleMic()">
+      🎙️
+    </button>
+
+    <button class="control"
+      onclick="openGifts()">
+      🎁
+    </button>
+
+    <button class="control"
+      onclick="shareRoom()">
+      ↗
+    </button>
+
   </div>
 
-  <div class="voiceControls tannuBottomBar">
-    <button class="control" onclick="toggleMic()"><span id="micTool">🎙️</span><small>Mic</small></button>
-    <button class="control" onclick="showToast('Room members')">👥<small>Members</small></button>
-    <button class="control" onclick="openGifts()">🎁<small>Gifts</small></button>
-    <button class="control" onclick="showToast('Mini Games')">🎮<small>Games</small></button>
-    <button class="control" onclick="showToast('Room settings')">•••<small>More</small></button>
-    <button class="leaveRoomBtn" onclick="leaveVoiceRoom()">🚪<small>Leave</small></button>
+
+  <button
+    id="joinMicButton"
+    class="gradientBtn"
+    style="display:block;margin:0 auto;"
+    onclick="toggleMic()">
+    🎙️ Join Mic
+  </button>
+  <div class="room-bottom-actions">
+    <button onclick="showToast('Room members')">👥<span>Members</span></button>
+    <button onclick="showToast('Room family')">🛡️<span>Family</span></button>
+    <button onclick="openGifts()">🎁<span>Gifts</span></button>
+    <button onclick="showToast('Room settings')">⚙️<span>Settings</span></button>
   </div>
+
+
 </section>
 
 
@@ -3794,15 +3807,7 @@ function updateMicUI(){
    PARTICIPANTS
 ========================================================= */
 
-function syncRoomCoinDisplay(){
-  const a=document.getElementById("coinBalance");
-  const b=document.getElementById("roomCoinBalance");
-  if(a&&b)b.textContent=a.textContent||"0";
-}
-
 function renderParticipants(){
-
-  syncRoomCoinDisplay();
 
   const grid=
     document.getElementById(
@@ -4022,8 +4027,6 @@ function addEmptySeats(
 ========================================================= */
 
 function updateUserCount(){
-  const chatCount=document.getElementById("chatOnlineCount");
-
 
   const el=
     document.getElementById(
@@ -4055,10 +4058,6 @@ function updateUserCount(){
       total,
       12
     );
-  if(chatCount){
-    const uc=document.getElementById("userCount");
-    chatCount.textContent=uc?uc.textContent:"1";
-  }
 }
 
 
@@ -4929,6 +4928,70 @@ button,a,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-b
 .room-bottom-actions button{flex:1;border:1px solid #ffffff10;background:#121d2c;border-radius:14px;color:#dce5f4;min-height:48px;font-size:19px}
 .room-bottom-actions button span{display:block;font-size:8px;margin-top:2px;color:#8998ae}
 .profile-menu-ref .menu-row{cursor:pointer}
+
+/* ===== Tannu Voice Room mobile final layout override ===== */
+html,body{min-height:100%;}
+body.voice-open{overflow:hidden;}
+.voiceScreen.active{
+  position:fixed!important;
+  inset:0!important;
+  z-index:500!important;
+  width:100vw!important;
+  height:100dvh!important;
+  min-height:100dvh!important;
+  max-height:100dvh!important;
+  box-sizing:border-box!important;
+  padding:0 0 env(safe-area-inset-bottom)!important;
+  margin:0!important;
+  overflow:hidden!important;
+  display:flex!important;
+  flex-direction:column!important;
+  background:
+    radial-gradient(circle at 50% 16%,#5c207566,transparent 30%),
+    linear-gradient(180deg,#100d38 0%,#07102d 55%,#050b20 100%)!important;
+}
+.voiceScreen.active .voiceHeader{flex:0 0 58px;height:58px;min-height:58px;padding:6px 10px;box-sizing:border-box;}
+.voiceScreen.active .roomStatus{flex:0 0 27px;padding:4px 12px;font-size:9px;box-sizing:border-box;}
+.voiceScreen.active .voiceBanner{flex:0 0 86px;padding:4px 0 5px;box-sizing:border-box;}
+.voiceScreen.active .voiceBanner .hostAvatar{width:48px;height:48px;font-size:24px;}
+.voiceScreen.active .hostName{font-size:12px;margin-top:3px;}
+.voiceScreen.active .hostLabel{font-size:8px;margin-top:2px;}
+.voiceScreen.active #micGrid{
+  flex:0 0 auto;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:6px!important;
+  padding:2px 9px 5px!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+}
+.voiceScreen.active .mic-seat{height:68px;min-height:68px;border-radius:14px;}
+.voiceScreen.active .seat-avatar{width:38px;height:38px;font-size:19px;}
+.voiceScreen.active .mic-seat p{font-size:8px;margin-top:3px;}
+.voiceScreen.active .chatBox{
+  flex:1 1 auto!important;
+  min-height:110px!important;
+  max-height:none!important;
+  margin:4px 9px 5px!important;
+  padding:8px!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+.voiceScreen.active #chatMessages{max-height:calc(100% - 45px);overflow:auto;}
+.voiceScreen.active .chatInput{min-height:38px;font-size:11px;}
+.voiceScreen.active .sendBtn{min-width:54px;min-height:38px;}
+.voiceScreen.active .voiceControls{flex:0 0 52px;margin:3px 8px!important;gap:8px;}
+.voiceScreen.active .voiceControls .control{width:43px;height:43px;}
+.voiceScreen.active .voiceControls .control.main{width:50px;height:50px;}
+.voiceScreen.active #joinMicButton{flex:0 0 40px;height:40px!important;min-height:40px;margin:0 auto 4px!important;padding:0 22px!important;}
+.voiceScreen.active .room-bottom-actions{flex:0 0 48px;margin:0 8px 5px!important;display:grid!important;grid-template-columns:repeat(4,1fr);gap:6px;}
+.voiceScreen.active .room-bottom-actions button{min-height:44px;border-radius:14px;font-size:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;background:#111f46;border:1px solid #2b4077;color:#fff;}
+.voiceScreen.active .room-bottom-actions span{font-size:7px;color:#aeb9d7;}
+.voiceScreen.active~.bottomNav,.app:has(.voiceScreen.active) .bottomNav{display:none!important;}
+@media (min-width:600px){
+  .voiceScreen.active{max-width:520px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;box-shadow:0 0 60px #0008;}
+}
+
 </style>
 
 <script id="tannu-v2-upgrade-js">
@@ -5142,6 +5205,23 @@ button,a,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-b
   setInterval(tickOpenRound,1000);
   window.addEventListener('load',ui);ui();
 
+</script>
+
+<script>
+/* Voice screen body-state helper: keeps the room fullscreen and removes the global nav while inside it. */
+(function(){
+  const syncVoiceState=()=>{
+    const v=document.getElementById('voice');
+    const active=!!(v && v.classList.contains('active'));
+    document.body.classList.toggle('voice-open',active);
+  };
+  const boot=()=>{
+    const v=document.getElementById('voice');
+    if(v){ new MutationObserver(syncVoiceState).observe(v,{attributes:true,attributeFilter:['class']}); }
+    syncVoiceState();
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+})();
 </script>
 </body>
 </html>
