@@ -2528,6 +2528,12 @@ import {
   doc,
   getDoc,
   setDoc,
+  addDoc,
+  collection,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
@@ -2631,6 +2637,7 @@ let selectedGift=null;
 
 let currentUser=null;
 let userProfile=null;
+let roomChatUnsubscribe=null;
 
 
 /* =========================================================
@@ -3465,6 +3472,7 @@ window.openVoiceRoom=
 
   showScreen("voice");
 
+  startRoomChat(roomName);
   await connectToLiveRoom(roomName);
 };
 
@@ -4068,6 +4076,8 @@ function updateUserCount(){
 window.leaveVoiceRoom=
   function(){
 
+  stopRoomChat();
+
   if(liveRoom){
 
     try{
@@ -4127,57 +4137,129 @@ function removeParticipantAudio(
 
 
 /* =========================================================
-   CHAT
+   REALTIME ROOM CHAT
 ========================================================= */
 
-window.sendChat=function(){
+function roomChatId(roomName){
+  return String(roomName || "Tannu Friends")
+    .trim()
+    .replace(/\//g,"_")
+    .slice(0,120) || "Tannu-Friends";
+}
 
-  const input=
-    document.getElementById(
-      "chatInput"
-    );
+function formatChatTime(value){
+  try{
+    const d=value && typeof value.toDate==="function"
+      ? value.toDate()
+      : (value instanceof Date ? value : new Date());
+    return d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+  }catch(e){
+    return "";
+  }
+}
 
+function renderRoomMessages(snapshot){
+  const messages=document.getElementById("chatMessages");
+  if(!messages)return;
 
-  const value=
-    input.value.trim();
+  messages.innerHTML="";
+  snapshot.forEach(item=>{
+    const data=item.data() || {};
+    const line=document.createElement("div");
+    line.className="chatLine";
 
+    const name=document.createElement("span");
+    name.className="chatName";
+    name.textContent=(data.name || "Guest")+":";
 
+    const text=document.createElement("span");
+    text.className="chatText";
+    text.textContent=" "+(data.text || "");
+
+    const time=document.createElement("small");
+    time.className="chatTime";
+    time.textContent=formatChatTime(data.createdAt);
+
+    line.append(name,text,time);
+    messages.appendChild(line);
+  });
+
+  messages.scrollTop=messages.scrollHeight;
+}
+
+function startRoomChat(roomName){
+  stopRoomChat();
+
+  const messages=document.getElementById("chatMessages");
+  if(messages)messages.innerHTML="<div class=\"chatEmpty\">Live room chat • messages sync between devices</div>";
+
+  try{
+    const ref=collection(db,"rooms",roomChatId(roomName),"messages");
+    const q=query(ref,orderBy("createdAt","asc"),limit(100));
+
+    roomChatUnsubscribe=onSnapshot(q,(snapshot)=>{
+      renderRoomMessages(snapshot);
+    },(error)=>{
+      console.error("Room chat listener error",error);
+      if(messages)messages.innerHTML="<div class=\"chatEmpty\">Chat connection error. Try again.</div>";
+    });
+  }catch(error){
+    console.error("Room chat start error",error);
+  }
+}
+
+function stopRoomChat(){
+  if(roomChatUnsubscribe){
+    try{roomChatUnsubscribe();}catch(e){}
+    roomChatUnsubscribe=null;
+  }
+}
+
+window.sendChat=async function(){
+  const input=document.getElementById("chatInput");
+  const value=(input?.value || "").trim();
   if(!value)return;
 
+  const user=auth.currentUser || currentUser;
+  if(!user){
+    showToast("Please login first");
+    return;
+  }
 
-  const messages=
-    document.getElementById(
-      "chatMessages"
+  const name=(userProfile && userProfile.name) ||
+    user.displayName ||
+    (user.isAnonymous ? "Guest" : "Tannu User");
+
+  try{
+    await addDoc(
+      collection(db,"rooms",roomChatId(currentRoomName),"messages"),
+      {
+        uid:user.uid,
+        name:String(name).slice(0,40),
+        text:value.slice(0,300),
+        createdAt:serverTimestamp()
+      }
     );
 
-
-  const line=
-    document.createElement(
-      "div"
-    );
-
-
-  line.className=
-    "chatLine";
-
-
-  line.innerHTML=`
-    <span class="chatName">You:</span>
-    <span class="chatText">
-      ${escapeHtml(value)}
-    </span>
-  `;
-
-
-  messages.appendChild(line);
-
-
-  input.value="";
-
-
-  messages.scrollTop=
-    messages.scrollHeight;
+    input.value="";
+    input.focus();
+  }catch(error){
+    console.error("sendChat error",error);
+    showToast("Message send failed");
+  }
 };
+
+(function bindChatEnter(){
+  const input=document.getElementById("chatInput");
+  if(input){
+    input.addEventListener("keydown",e=>{
+      if(e.key==="Enter"){
+        e.preventDefault();
+        window.sendChat();
+      }
+    });
+  }
+})();
 
 
 /* =========================================================
@@ -5223,5 +5305,21 @@ body.voice-open{overflow:hidden;}
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
 </script>
+
+<style id="tannu-room-final-polish">
+.voiceScreen{background:radial-gradient(circle at 50% -10%,#243d78 0,#111936 32%,#070b18 75%),linear-gradient(180deg,#101735,#060a15)!important;}
+.voiceScreen .voiceHeader{background:linear-gradient(180deg,#070d20f2,#0a1022e8)!important;backdrop-filter:blur(10px);}
+.voiceScreen .voiceBanner{background:radial-gradient(circle at 50% 15%,#3b2b67,#172440 55%,#101827)!important;box-shadow:0 10px 30px #0005;}
+.voiceScreen .mic-grid{gap:8px!important;}
+.voiceScreen .chatBox{box-shadow:0 12px 35px #0006;}
+.chatTime{margin-left:8px;color:#68769b;font-size:8px;white-space:nowrap;}
+.chatEmpty{padding:12px;color:#7784a5;font-size:11px;text-align:center;}
+@media (max-width:520px){
+  .voiceScreen .voiceBanner{padding:10px!important;}
+  .voiceScreen .seat-avatar{width:54px!important;height:54px!important;}
+  .voiceScreen .mic-seat{min-height:82px!important;}
+  .voiceScreen .chatBox{margin-left:10px!important;margin-right:10px!important;}
+}
+</style>
 </body>
 </html>
