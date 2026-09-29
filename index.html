@@ -2399,7 +2399,7 @@ import {
 const firebaseConfig = {
 
   apiKey:
-    "AIzaSyAc7BBnG5zzAmB4Mx-3haVwE0aob5HlVc",
+    "AIzaSyAoRDImBFyGGf9T6gGFAL6fCTKajaCf2Nw",
 
   authDomain:
     "tannu-voice-chat.firebaseapp.com",
@@ -4772,9 +4772,7 @@ button,a,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-b
       setLoginGateStatus('Firebase is still loading. Please try again.');
     }catch(e){
       console.error('Guest login error',e);
-      const code=e && e.code ? e.code : 'unknown-error';
-      const msg=e && e.message ? e.message : String(e || 'Unknown error');
-      setLoginGateStatus('Guest error: ' + code + ' — ' + msg);
+      setLoginGateStatus('Guest login failed. Check Firebase settings.');
       if(typeof handleFirebaseError==='function') handleFirebaseError(e);
     }
   };
@@ -4790,9 +4788,7 @@ button,a,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-b
       setLoginGateStatus('Firebase is still loading. Please try again.');
     }catch(e){
       console.error('Google login error',e);
-      const code=e && e.code ? e.code : 'unknown-error';
-      const msg=e && e.message ? e.message : String(e || 'Unknown error');
-      setLoginGateStatus('Google error: ' + code + ' — ' + msg);
+      setLoginGateStatus('Google login failed. Please try again.');
       if(typeof handleFirebaseError==='function') handleFirebaseError(e);
     }
   };
