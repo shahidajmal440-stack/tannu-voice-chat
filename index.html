@@ -2453,7 +2453,8 @@ import {
 ========================================================= */
 
 import {
-  initializeApp
+  initializeApp,
+  getApp
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
 import {
@@ -2503,11 +2504,11 @@ const firebaseConfig = {
 };
 
 
-const firebaseApp=
-  initializeApp(firebaseConfig);
-
-const auth=
-  getAuth(firebaseApp);
+// Reuse the SAME Firebase app/auth instance used by the independent auth bootstrap.
+// This prevents Google/Guest from authenticating one Firebase app while the main
+// Tannu code listens to a different auth instance.
+const firebaseApp = getApp("tannuAuthBootstrap");
+const auth = getAuth(firebaseApp);
 
 
 // Bridge Guest Login to Firebase module scope.
@@ -2799,6 +2800,7 @@ async function ensureUserProfile(user){
     await setDoc(
       userRef,
       {
+        uid:user.uid,
         name:fallbackName,
 
         coins:0,
