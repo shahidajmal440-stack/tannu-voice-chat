@@ -1170,14 +1170,14 @@ button:disabled{
 @keyframes wheelPulse{50%{transform:scale(1.05);opacity:.7}}
 .foodWheel{position:relative;width:265px;height:265px;border-radius:50%;border:9px solid #e8b64e;background:conic-gradient(from -22.5deg,#7b160f 0 45deg,#52110c 45deg 90deg,#7b160f 90deg 135deg,#4d100d 135deg 180deg,#76170f 180deg 225deg,#4c100d 225deg 270deg,#78150e 270deg 315deg,#4f100c 315deg 360deg);box-shadow:0 0 0 3px #6e3a12,0 0 28px #ffb31f66;transition:transform 3.1s cubic-bezier(.12,.8,.16,1)}
 .foodWheel:after{content:"";position:absolute;inset:11px;border-radius:50%;border:1px dashed #ffd46b77;pointer-events:none}
-.foodNode{touch-action:manipulation;-webkit-tap-highlight-color:transparent;pointer-events:auto;position:absolute;width:67px;height:67px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,#fff8df,#d8a544 22%,#5a210f 72%);border:3px solid #ffe18b;box-shadow:0 3px 14px #0009;transform:translate(-50%,-50%);font-size:27px;cursor:pointer;user-select:none;transition:.18s}
+.foodNode{position:absolute;width:67px;height:67px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,#fff8df,#d8a544 22%,#5a210f 72%);border:3px solid #ffe18b;box-shadow:0 3px 14px #0009;transform:translate(-50%,-50%);font-size:27px;cursor:pointer;user-select:none;transition:.18s}
 .foodNode b{font-size:9px;color:#ffe58e;text-shadow:0 1px 2px #000;margin-top:1px}.foodNode.selected{border-color:#fff;box-shadow:0 0 0 4px #ffcf4b55,0 0 22px #ffca4d99;transform:translate(-50%,-50%) scale(1.08)}
-.food1{left:50%;top:7%}.food2{left:82%;top:28%}.food3{left:82%;top:72%}.food4{left:50%;top:93%}.food5{left:18%;top:72%}.food6{left:18%;top:28%}.food7{left:15%;top:24%}.food8{left:50%;top:50%}
+.food1{left:50%;top:7%}.food2{left:82%;top:28%}.food3{left:82%;top:72%}.food4{left:50%;top:93%}.food5{left:18%;top:72%}.food6{left:18%;top:28%}.food7{left:50%;top:50%}.food8{left:50%;top:50%}
 .wheelPointer{position:absolute;top:11px;left:50%;transform:translateX(-50%);z-index:5;width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:25px solid #fff0a8;filter:drop-shadow(0 3px 3px #000)}
 .wheelCenter{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;z-index:4;background:radial-gradient(circle at 35% 25%,#fff0b0,#d49328 25%,#54100b 70%);border:4px solid #ffe08a;box-shadow:0 0 18px #ffb52c88,inset 0 0 15px #0008;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff1bd;text-align:center}.wheelCenter span{font-size:10px;font-weight:900}.wheelCenter b{font-size:18px;color:#fff}
 .coinRoundInstruction{position:relative;z-index:2;text-align:center;padding:0 12px 8px;color:#dfcdb5;font-size:9px;min-height:18px}.coinRoundInstruction strong{color:#ffd24f}
-.coinBetRow{position:relative;z-index:2;display:flex;justify-content:center;gap:7px;padding:8px 10px 10px;background:linear-gradient(180deg,#13070b,#260b0c);border-top:1px solid #5e2b13}.coinBet{touch-action:manipulation;-webkit-tap-highlight-color:transparent;pointer-events:auto;min-width:58px;padding:10px 7px;border-radius:13px;border:1px solid #7d5524;background:linear-gradient(145deg,#16233f,#091126);color:#e8d8b8;font-size:10px;font-weight:900;box-shadow:inset 0 1px 0 #ffffff16}.coinBet.selected{border-color:#ffd34e;color:#ffd34e;box-shadow:0 0 12px #ffbf2c44,inset 0 0 10px #ffbf2c18}
-.coinRoundBtn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;pointer-events:auto;position:relative;z-index:2;width:calc(100% - 28px);margin:2px 14px 12px;padding:13px;border:1px solid #ffe07b;border-radius:16px;background:linear-gradient(135deg,#e88b1b,#9d2515 55%,#5d0f1b);color:#fff7d4;font-weight:1000;font-size:12px;box-shadow:0 6px 18px #0008}.coinRoundBtn:disabled{opacity:.45}
+.coinBetRow{position:relative;z-index:2;display:flex;justify-content:center;gap:7px;padding:8px 10px 10px;background:linear-gradient(180deg,#13070b,#260b0c);border-top:1px solid #5e2b13}.coinBet{min-width:58px;padding:10px 7px;border-radius:13px;border:1px solid #7d5524;background:linear-gradient(145deg,#16233f,#091126);color:#e8d8b8;font-size:10px;font-weight:900;box-shadow:inset 0 1px 0 #ffffff16}.coinBet.selected{border-color:#ffd34e;color:#ffd34e;box-shadow:0 0 12px #ffbf2c44,inset 0 0 10px #ffbf2c18}
+.coinRoundBtn{position:relative;z-index:2;width:calc(100% - 28px);margin:2px 14px 12px;padding:13px;border:1px solid #ffe07b;border-radius:16px;background:linear-gradient(135deg,#e88b1b,#9d2515 55%,#5d0f1b);color:#fff7d4;font-weight:1000;font-size:12px;box-shadow:0 6px 18px #0008}.coinRoundBtn:disabled{opacity:.45}
 .coinRoundResult{position:relative;z-index:2;min-height:23px;padding:2px 12px;text-align:center;color:#ffd34e;font-weight:900;font-size:11px}.coinRoundHistory{position:relative;z-index:2;margin:0 12px 12px;padding:8px;border:1px solid #4d2b1c;border-radius:12px;text-align:left;font-size:8px;line-height:1.7;color:#bba993;background:#090b16cc;max-height:72px;overflow:auto}.coinRoundHistory b{color:#ffd34e}
 @media(max-width:390px){.wheelStage{height:330px}.foodWheel{width:240px;height:240px}.foodNode{width:61px;height:61px;font-size:24px}.wheelCenter{width:76px;height:76px}.coinBet{min-width:54px}}
 </style>
@@ -1585,6 +1585,7 @@ button:disabled{
     <span id="connectionBox">
       Connecting voice...
     </span>
+    <button id="voiceRetryButton" class="smallBtn" style="display:none;margin-left:auto;" onclick="connectToLiveRoom(currentRoomName)">Retry</button>
   </div>
 
 
@@ -1665,7 +1666,7 @@ button:disabled{
   <div class="voiceControls">
 
     <button class="control"
-      onclick="showToast('Mic request sent 🎙️')">
+      onclick="requestMic()">
       🙋
     </button>
 
@@ -1702,10 +1703,10 @@ button:disabled{
     🎙️ Join Mic
   </button>
   <div class="room-bottom-actions">
-    <button onclick="showToast('Room members')">👥<span>Members</span></button>
+    <button onclick="showRoomMembers()">👥<span>Members</span></button>
     <button onclick="showToast('Room family')">🛡️<span>Family</span></button>
     <button onclick="openGifts()">🎁<span>Gifts</span></button>
-    <button onclick="showToast('Room settings')">⚙️<span>Settings</span></button>
+    <button onclick="showRoomSettings()">⚙️<span>Settings</span></button>
   </div>
 
 
@@ -3629,10 +3630,23 @@ async function connectToLiveRoom(roomName){
     );
 
 
+    liveRoom.on(
+      RoomEvent.ConnectionStateChanged,
+      state=>{
+        if(state === "reconnecting") setConnection("🟡 Reconnecting voice...","");
+        else if(state === "connected") setConnection("🟢 Connected • Live voice","connected");
+        else if(state === "disconnected") setConnection("❌ Voice disconnected","error");
+      }
+    );
+
+
     await liveRoom.connect(
       credentials.serverUrl,
       credentials.participantToken
     );
+
+    // The room was opened from a user tap. Ask the browser to unlock audio playback.
+    try{ await liveRoom.startAudio(); }catch(e){ console.warn('Audio start:',e); }
 
 
     await liveRoom.localParticipant
@@ -3646,6 +3660,8 @@ async function connectToLiveRoom(roomName){
       "🟢 Connected • Live voice",
       "connected"
     );
+    const retry=document.getElementById("voiceRetryButton");
+    if(retry){ retry.style.display="none"; }
 
 
     updateMicUI();
@@ -3669,6 +3685,9 @@ async function connectToLiveRoom(roomName){
     showToast(
       "Voice connection failed"
     );
+
+    const retry=document.getElementById("voiceRetryButton");
+    if(retry){ retry.style.display="block"; }
 
   }finally{
 
@@ -3707,6 +3726,47 @@ function setConnection(text,state){
     box.style.color="#9ba8ca";
   }
 }
+
+
+/* =========================================================
+   MIC REQUEST
+========================================================= */
+
+window.requestMic=async function(){
+
+  if(!liveRoom){
+    showToast("Please join a room first");
+    return;
+  }
+
+  try{
+    const uid=(currentUser && currentUser.uid)
+      ? currentUser.uid
+      : (liveRoom.localParticipant.identity || ("guest_"+Date.now()));
+
+    const roomKey=(currentRoomName || "tannu-room")
+      .replaceAll("/","_")
+      .slice(0,100);
+
+    const requestId=uid+"_"+Date.now();
+
+    await setDoc(
+      doc(db,"rooms",roomKey,"micRequests",requestId),
+      {
+        uid:uid,
+        name:(currentUser && (currentUser.displayName || currentUser.email)) || liveRoom.localParticipant.name || "Guest",
+        roomName:currentRoomName || "Tannu Friends",
+        status:"pending",
+        createdAt:serverTimestamp()
+      }
+    );
+
+    showToast("🎙️ Mic request sent to the host");
+  }catch(error){
+    console.error("Mic request error:",error);
+    showToast("Mic request could not be sent");
+  }
+};
 
 
 /* =========================================================
@@ -4180,6 +4240,15 @@ window.sendChat=function(){
 };
 
 
+// Mobile-friendly chat: pressing Enter sends the message.
+const tannuChatInput=document.getElementById("chatInput");
+if(tannuChatInput){
+  tannuChatInput.addEventListener("keydown",function(e){
+    if(e.key === "Enter"){ e.preventDefault(); window.sendChat(); }
+  });
+}
+
+
 /* =========================================================
    GIFTS
 ========================================================= */
@@ -4314,6 +4383,23 @@ function formatCoins(num){
 
   return String(num);
 }
+
+
+/* =========================================================
+   ROOM MEMBERS / SETTINGS
+========================================================= */
+
+window.showRoomMembers=function(){
+  if(!liveRoom){ showToast("Please join a room first"); return; }
+  const total=1+liveRoom.remoteParticipants.size;
+  const names=[liveRoom.localParticipant.name || "You"];
+  liveRoom.remoteParticipants.forEach(p=>names.push(p.name || p.identity || "Guest"));
+  showToast("👥 "+total+" people • "+names.slice(0,3).join(", ")+(names.length>3?"…":""));
+};
+
+window.showRoomSettings=function(){
+  showToast("⚙️ Room settings will use host/backend permissions in the next security step");
+};
 
 
 /* =========================================================
@@ -5093,258 +5179,53 @@ button,a,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-b
 
 <script>
 (function(){
-  /* =========================================================
-     Tannu Greedy Wheel v3
-     Virtual coins only. Shared with Tannu's demo coin balance.
-     This block is intentionally self-contained so one game error
-     cannot break the rest of the Tannu app.
-  ========================================================= */
-  const KEY='tannu_greedy_wheel_v3';
-  const OLD_KEY='tannu_greedy_wheel_v2';
+  const KEY='tannu_greedy_wheel_v2';
   const foods=[
-    {name:'Mango',emoji:'🥭',mult:5},
-    {name:'Apple',emoji:'🍎',mult:8},
-    {name:'Carrot',emoji:'🥕',mult:5},
-    {name:'Pizza',emoji:'🍕',mult:10},
-    {name:'Strawberry',emoji:'🍓',mult:15},
-    {name:'Fish',emoji:'🐟',mult:25},
-    {name:'Steak',emoji:'🥩',mult:45}
+    {name:'Mango',emoji:'🥭',mult:5},{name:'Apple',emoji:'🍎',mult:8},{name:'Carrot',emoji:'🥕',mult:5},{name:'Pizza',emoji:'🍕',mult:10},
+    {name:'Strawberry',emoji:'🍓',mult:15},{name:'Fish',emoji:'🐟',mult:25},{name:'Steak',emoji:'🥩',mult:45}
   ];
-
-  let st={
-    round:1,
-    bet:10000,
-    food:null,
-    locked:false,
-    seconds:20,
-    history:[],
-    spinning:false
-  };
-  let roundTimer=null;
-  let resultTimer=null;
-
-  function safeSave(){
-    try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){}
-  }
-
-  function loadState(){
-    try{
-      const saved=JSON.parse(localStorage.getItem(KEY)||'null');
-      if(saved && typeof saved==='object'){
-        st={...st,...saved};
-      }else{
-        const old=JSON.parse(localStorage.getItem(OLD_KEY)||'null');
-        if(old && typeof old==='object'){
-          st={...st,round:Number(old.round)||1,bet:Number(old.bet)||10000,history:Array.isArray(old.history)?old.history:[]};
-        }
-      }
-    }catch(e){}
-
-    /* Keep the game balance equal to Tannu's virtual coin balance. */
-    try{
-      if(typeof engageState!=='undefined'){
-        if(Number(engageState.coins||0)<=0){
-          /* Give a one-time virtual welcome balance so the game is playable. */
-          engageState.coins=10000;
-          if(typeof saveEngagement==='function')saveEngagement();
-        }
-      }
-    }catch(e){}
-  }
-
-  function balance(){
-    try{return Math.max(0,Number(engageState.coins||0));}
-    catch(e){return 0;}
-  }
-  function fmt(n){return Number(n||0).toLocaleString('en-IN');}
-  function el(id){return document.getElementById(id);}
-
+  let st={round:1,balance:10000,food:null,bet:10000,locked:false,history:[],seconds:20};
+  try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(x&&typeof x==='object')st={...st,...x}}catch(e){}
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+  const fmt=n=>Number(n||0).toLocaleString('en-IN');
   function ui(){
-    const b=el('coinRoundBalance');
-    if(b)b.textContent=fmt(balance());
-
-    const r=el('coinRoundNo');
-    if(r)r.textContent=st.round;
-
-    const t=el('coinRoundTimer');
-    if(t)t.textContent=st.locked?'LOCKED':Math.max(0,st.seconds)+'s';
-
-    const btn=el('coinRoundPlay');
-    if(btn){
-      btn.textContent=st.locked?'ROUND LOCKED':'PLAY '+fmt(st.bet)+' COINS';
-      btn.disabled=st.locked;
-    }
-
-    document.querySelectorAll('.foodNode').forEach((x,i)=>{
-      x.classList.toggle('selected',i===st.food);
-      x.disabled=st.locked;
-      x.setAttribute('aria-pressed',i===st.food?'true':'false');
-    });
-
-    document.querySelectorAll('.coinBet').forEach(x=>{
-      x.classList.toggle('selected',x.dataset.amount===String(st.bet));
-      x.disabled=st.locked;
-    });
-
-    const sf=el('selectedFoodText');
-    if(sf)sf.textContent=st.food===null?'FOOD':foods[st.food].name.toUpperCase();
-
-    const h=el('coinRoundHistory');
-    if(h){
-      h.innerHTML=st.history.length
-        ?st.history.slice(-8).reverse().map(x=>
-          '<div>R'+x.r+' • '+x.emoji+' '+x.food+' x'+x.mult+' • '+fmt(x.bet)+' → '+
-          (x.win?'<b>WIN +'+fmt(x.reward)+'</b>':'LOSS -'+fmt(x.bet))+'</div>'
-        ).join('')
-        :'<div>No rounds yet.</div>';
-    }
-
-    try{if(typeof updateCoinUI==='function')updateCoinUI();}catch(e){}
+    const b=document.getElementById('coinRoundBalance');if(b)b.textContent=fmt(st.balance);
+    const r=document.getElementById('coinRoundNo');if(r)r.textContent=st.round;
+    const t=document.getElementById('coinRoundTimer');if(t)t.textContent=st.locked?'LOCKED':st.seconds+'s';
+    const btn=document.getElementById('coinRoundPlay');if(btn){btn.textContent=st.locked?'ROUND LOCKED':'PLAY '+fmt(st.bet)+' COINS';btn.disabled=st.locked;}
+    document.querySelectorAll('.foodNode').forEach((x,i)=>x.classList.toggle('selected',i===st.food));
+    document.querySelectorAll('.coinBet').forEach(x=>x.classList.toggle('selected',x.dataset.amount===String(st.bet)));
+    const sf=document.getElementById('selectedFoodText');if(sf)sf.textContent=st.food===null?'FOOD':foods[st.food].name.toUpperCase();
+    const h=document.getElementById('coinRoundHistory');if(h)h.innerHTML=st.history.length?st.history.slice(-5).reverse().map(x=>'<div>R'+x.r+' • '+x.emoji+' '+x.food+' x'+x.mult+' • '+fmt(x.bet)+' → '+(x.win?'<b>WIN +'+fmt(x.reward)+'</b>':'LOSS -'+fmt(x.bet))+'</div>').join(''):'No rounds yet.';
   }
-
-  function message(html){
-    const box=el('coinRoundResult');
-    if(box)box.innerHTML=html;
-  }
-
-  window.selectFood=function(i){
-    if(st.locked || st.spinning)return;
-    i=Number(i);
-    if(!Number.isInteger(i) || !foods[i])return;
-    st.food=i;
-    const f=foods[i];
-    message(f.emoji+' <strong>'+f.name+'</strong> selected • multiplier x'+f.mult);
-    safeSave();
-    ui();
-  };
-
-  window.selectCoinBet=function(n,button){
-    if(st.locked || st.spinning)return;
-    n=Number(n);
-    if(!Number.isFinite(n) || n<=0)return;
-    st.bet=n;
-    document.querySelectorAll('.coinBet').forEach(x=>x.classList.remove('selected'));
-    if(button)button.classList.add('selected');
-    message('🪙 Entry selected: <strong>'+fmt(n)+' coins</strong>');
-    safeSave();
-    ui();
-  };
-
+  window.selectFood=function(i){if(st.locked)return;st.food=i;const f=foods[i];document.getElementById('coinRoundResult').innerHTML=f.emoji+' <strong>'+f.name+'</strong> selected • multiplier x'+f.mult;ui()};
+  window.selectCoinBet=function(n,el){if(st.locked)return;st.bet=n;document.querySelectorAll('.coinBet').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');document.getElementById('coinRoundPlay').textContent='PLAY '+fmt(n)+' COINS';};
   window.placeCoinRoundBet=function(){
-    if(st.locked || st.spinning)return;
-
-    if(st.food===null){
-      message('⚠️ Pehle wheel se <strong>food select</strong> karo.');
-      return;
-    }
-    if(balance()<st.bet){
-      message('⚠️ Tumhare paas <strong>'+fmt(balance())+' coins</strong> hain. '+fmt(st.bet)+' coins ke liye enough balance nahi hai.');
-      return;
-    }
-
-    /* Deduct only virtual Tannu demo coins. */
-    engageState.coins=Math.max(0,Number(engageState.coins||0)-st.bet);
-    if(typeof saveEngagement==='function')saveEngagement();
-    if(typeof updateCoinUI==='function')updateCoinUI();
-
-    st.locked=true;
-    st.spinning=true;
-    st.seconds=3;
-    safeSave();
-    ui();
-    message('🔒 <strong>Entry locked</strong> • Wheel spinning...');
-
-    const wheel=el('foodWheel');
-    const resultIndex=Math.floor(Math.random()*foods.length);
-    if(wheel){
-      const sector=360/foods.length;
-      const target=1440+(sector*resultIndex)+(sector/2);
-      wheel.style.transform='rotate('+target+'deg)';
-    }
-
-    clearTimeout(resultTimer);
-    resultTimer=setTimeout(()=>finishRound(resultIndex),3000);
+    if(st.locked)return;
+    if(st.food===null){document.getElementById('coinRoundResult').textContent='⚠️ Pehle wheel se food select karo.';return}
+    if(st.balance<st.bet){document.getElementById('coinRoundResult').textContent='⚠️ Is entry ke liye enough virtual coins nahi hain.';return}
+    st.balance-=st.bet;st.locked=true;st.seconds=3;save();ui();
+    document.getElementById('coinRoundResult').textContent='🔒 Entry locked • Result coming...';
+    const wheel=document.getElementById('foodWheel');
+    if(wheel)wheel.style.transform='rotate('+(720+Math.floor(Math.random()*720))+'deg)';
+    const timer=setInterval(()=>{st.seconds--;ui();if(st.seconds<=0){clearInterval(timer);finishRound()}},1000);
   };
-
-  function finishRound(resultIndex){
-    const result=foods[resultIndex];
-    const picked=st.food;
-    const win=(picked===resultIndex);
-    const reward=win?st.bet*result.mult:0;
-
-    if(win){
-      engageState.coins=Number(engageState.coins||0)+reward;
-      if(typeof addExp==='function')addExp(Math.max(1,Math.floor(reward/10000)),'Greedy Wheel Win');
-    }
-    if(typeof saveEngagement==='function')saveEngagement();
-    if(typeof updateCoinUI==='function')updateCoinUI();
-
-    st.history.push({
-      r:st.round,
-      food:result.name,
-      emoji:result.emoji,
-      mult:result.mult,
-      bet:st.bet,
-      win,
-      reward
-    });
-    if(st.history.length>12)st.history.shift();
-
-    if(win){
-      message('🎉 <strong>'+result.emoji+' '+result.name+' x'+result.mult+'</strong> — WIN +'+fmt(reward)+' coins');
-    }else{
-      message('🎯 Result: <strong>'+result.emoji+' '+result.name+' x'+result.mult+'</strong> — LOSS -'+fmt(st.bet)+' coins');
-    }
-
-    st.round++;
-    st.locked=false;
-    st.spinning=false;
-    st.food=null;
-    st.bet=10000;
-    st.seconds=20;
-    safeSave();
-    ui();
-
-    /* Keep the result visible briefly, then show the next-round prompt. */
-    setTimeout(()=>{
-      if(!st.locked && el('coinRoundResult')){
-        message('🔄 <strong>Round '+st.round+' started</strong> • Select food + coins, then PLAY.');
-      }
-    },1200);
-
-    setTimeout(()=>{
-      const wheel=el('foodWheel');
-      if(wheel)wheel.style.transform='rotate(0deg)';
-    },2500);
+  function finishRound(){
+    const result=Math.floor(Math.random()*foods.length),f=foods[result],win=result===st.food;
+    const reward=win?st.bet*f.mult:0;if(win)st.balance+=reward;
+    st.history.push({r:st.round,food:f.name,emoji:f.emoji,mult:f.mult,bet:st.bet,win,reward});if(st.history.length>12)st.history.shift();
+    const picked=foods[st.food];
+    document.getElementById('coinRoundResult').innerHTML=win?'🎉 <strong>'+f.emoji+' '+f.name+' x'+f.mult+'</strong> — WIN +'+fmt(reward)+' coins':'Result: '+f.emoji+' '+f.name+' x'+f.mult+' — LOSS -'+fmt(st.bet)+' coins';
+    st.round++;st.locked=false;st.food=null;st.bet=10000;st.seconds=20;save();ui();
+    const wheel=document.getElementById('foodWheel');if(wheel)wheel.style.transform='rotate(0deg)';
   }
-
-  function openRoundTick(){
-    if(st.locked || st.spinning)return;
-    st.seconds=Math.max(0,Number(st.seconds||20)-1);
-    if(st.seconds===0){
-      st.round++;
-      st.food=null;
-      st.bet=10000;
-      st.seconds=20;
-      message('🔄 <strong>New round started</strong> • Select food + coins, then PLAY.');
-      safeSave();
-    }
+  function tickOpenRound(){
+    if(st.locked)return;
+    st.seconds--;if(st.seconds<=0){st.seconds=20;st.round++;st.food=null;st.bet=10000;document.getElementById('coinRoundResult').textContent='Round closed — next round started.';save();ui();return}
     ui();
   }
-
-  function bindTouchSafety(){
-    document.querySelectorAll('.foodNode,.coinBet,#coinRoundPlay').forEach(btn=>{
-      btn.style.touchAction='manipulation';
-      btn.style.pointerEvents='auto';
-      btn.setAttribute('type','button');
-    });
-  }
-
-  loadState();
-  bindTouchSafety();
-  ui();
-  clearInterval(roundTimer);
-  roundTimer=setInterval(openRoundTick,1000);
+  setInterval(tickOpenRound,1000);
+  window.addEventListener('load',ui);ui();
 })();
 </script>
 </body>
