@@ -1157,6 +1157,12 @@ button:disabled{
 .profile-menu-item,.profile-tab{transition:transform .18s ease,background .18s ease,opacity .18s ease}
 .profile-menu-item:active,.profile-tab:active{transform:scale(.98)}
 </style>
+
+<style id="tannu-coin-round-css">
+.coinRoundCard{grid-column:1/-1;border:1px solid #7d55ff;background:linear-gradient(145deg,#121d46,#1a1040);padding:15px;border-radius:18px}
+.coinRoundCard h3{font-size:17px;margin:0 0 5px}.coinRoundCard p{font-size:9px;color:#aab6d7;line-height:1.45}
+.coinRoundMeta{display:flex;justify-content:space-between;gap:8px;margin:10px 0;font-size:10px}.coinRoundChoices{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.coinChoice{padding:12px 6px;border-radius:14px;border:1px solid #354474;background:#0b1536;color:#fff;font-weight:800}.coinChoice.selected{border-color:#ffc94a;background:#3a285d}.coinBetRow{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.coinBet{padding:8px 12px;border-radius:12px;border:1px solid #394a78;background:#0b1536;color:#fff;font-size:10px}.coinBet.selected{border-color:#ffc94a;color:#ffc94a}.coinRoundBtn{width:100%;padding:11px;border:0;border-radius:14px;background:linear-gradient(135deg,#ff31c8,#703dff);color:#fff;font-weight:900}.coinRoundHistory{margin-top:10px;text-align:left;font-size:9px;color:#aab6d7;max-height:105px;overflow:auto}.coinResult{min-height:22px;margin:8px 0;color:#ffc94a;font-weight:800}
+</style>
 </head>
 
 <!-- Tannu Voice Chat FINAL UI FREEZE -->
@@ -1730,6 +1736,26 @@ button:disabled{
   </div>
 
   <div class="gameGrid">
+
+    <div class="coinRoundCard">
+      <h3>🎯 Coin Round</h3>
+      <p>Virtual coins only — choose a side, place your demo-coin entry, lock the round and see the result.</p>
+      <div class="coinRoundMeta"><span>Round <b id="coinRoundNo">1</b></span><span>Balance 🪙 <b id="coinRoundBalance">0</b></span><span id="coinRoundTimer">15s</span></div>
+      <div class="coinRoundChoices">
+        <button class="coinChoice" onclick="selectCoinSide(0)">🔴 Red</button>
+        <button class="coinChoice" onclick="selectCoinSide(1)">🟢 Green</button>
+        <button class="coinChoice" onclick="selectCoinSide(2)">🔵 Blue</button>
+      </div>
+      <div class="coinBetRow">
+        <button class="coinBet selected" onclick="selectCoinBet(100,this)">100</button>
+        <button class="coinBet" onclick="selectCoinBet(500,this)">500</button>
+        <button class="coinBet" onclick="selectCoinBet(1000,this)">1K</button>
+        <button class="coinBet" onclick="selectCoinBet(5000,this)">5K</button>
+      </div>
+      <div id="coinRoundResult" class="coinResult">Choose a side and enter the round.</div>
+      <button id="coinRoundPlay" class="coinRoundBtn" onclick="placeCoinRoundBet()">BET 100 COINS</button>
+      <div id="coinRoundHistory" class="coinRoundHistory">No rounds yet.</div>
+    </div>
 
     <div class="card gameCard">
       <div class="gameIcon">🍎</div>
@@ -5013,5 +5039,42 @@ button,a,.menu-row,.menuItem,.roomCard,.quickCard,.eventCard,.message,.profile-b
 })();
 </script>
 
+
+<script>
+(function(){
+  const KEY='tannu_coin_round_v1';
+  let st={round:1,balance:10000,side:null,bet:100,locked:false,history:[]};
+  try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(x&&typeof x==='object')st={...st,...x}}catch(e){}
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+  const fmt=n=>Number(n||0).toLocaleString('en-IN');
+  const ui=()=>{
+    const b=document.getElementById('coinRoundBalance'); if(b)b.textContent=fmt(st.balance);
+    const r=document.getElementById('coinRoundNo'); if(r)r.textContent=st.round;
+    const btn=document.getElementById('coinRoundPlay'); if(btn)btn.textContent=st.locked?'ROUND LOCKED':'BET '+fmt(st.bet)+' COINS';
+    document.querySelectorAll('.coinChoice').forEach((x,i)=>x.classList.toggle('selected',i===st.side));
+    document.querySelectorAll('.coinBet').forEach(x=>x.classList.toggle('selected',x.textContent.replace('K','000').replace(',','')==String(st.bet)));
+    const h=document.getElementById('coinRoundHistory'); if(h)h.innerHTML=st.history.length?st.history.slice(-6).reverse().map(x=>'<div>Round '+x.r+' • '+x.side+' • '+fmt(x.bet)+' → '+x.result+' '+(x.win?'WIN +'+fmt(x.bet):'LOSS -'+fmt(x.bet))+'</div>').join(''):'No rounds yet.';
+  };
+  window.selectCoinSide=i=>{if(st.locked)return;st.side=i;document.getElementById('coinRoundResult').textContent=['Red','Green','Blue'][i]+' selected. Choose your entry.';ui()};
+  window.selectCoinBet=(n,el)=>{if(st.locked)return;st.bet=n;document.querySelectorAll('.coinBet').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');document.getElementById('coinRoundPlay').textContent='BET '+fmt(n)+' COINS'};
+  window.placeCoinRoundBet=()=>{
+    if(st.locked)return;
+    if(st.side===null){document.getElementById('coinRoundResult').textContent='⚠️ Select Red, Green or Blue first.';return}
+    if(st.balance<st.bet){document.getElementById('coinRoundResult').textContent='⚠️ Not enough demo coins.';return}
+    st.balance-=st.bet; st.locked=true; ui();
+    const t=document.getElementById('coinRoundTimer'); let sec=3; t.textContent='Result in '+sec+'s';
+    const timer=setInterval(()=>{sec--;t.textContent=sec>0?'Result in '+sec+'s':'Result';if(sec<=0){clearInterval(timer);finish() }},1000);
+  };
+  function finish(){
+    const result=Math.floor(Math.random()*3); const names=['Red','Green','Blue']; const win=result===st.side;
+    if(win)st.balance+=st.bet*2;
+    st.history.push({r:st.round,side:names[st.side],bet:st.bet,result:names[result],win}); if(st.history.length>12)st.history.shift();
+    document.getElementById('coinRoundResult').textContent=win?'🎉 '+names[result]+' — YOU WIN +'+fmt(st.bet)+' coins':'Result: '+names[result]+' — LOSS -'+fmt(st.bet)+' coins';
+    st.round++;st.locked=false;st.side=null;st.bet=100;save();ui();
+  }
+  window.addEventListener('load',ui);
+  ui();
+})();
+</script>
 </body>
 </html>
