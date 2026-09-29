@@ -2349,6 +2349,89 @@ button:disabled{
 <div id="toast" class="toast"></div>
 
 
+<!-- ================= TANNU AUTH BOOTSTRAP ================= -->
+<script type="module" id="tannu-auth-bootstrap">
+/*
+  Independent Firebase Auth bootstrap.
+  This is intentionally separate from LiveKit so a LiveKit/CDN
+  loading problem cannot disable the login buttons.
+*/
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInAnonymously,
+  signInWithRedirect,
+  getRedirectResult,
+  GoogleAuthProvider,
+  linkWithRedirect,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+const tannuAuthConfig = {
+  apiKey: "AIzaSyAoRDImBFyGGf9T6gGFAL6fCTKajaCf2Nw",
+  authDomain: "tannu-voice-chat.firebaseapp.com",
+  projectId: "tannu-voice-chat",
+  storageBucket: "tannu-voice-chat.firebasestorage.app",
+  messagingSenderId: "720483733073",
+  appId: "1:720483733073:web:c65b96d255d6177b9d7270"
+};
+
+const tannuAuthApp = initializeApp(tannuAuthConfig, "tannuAuthBootstrap");
+const tannuAuth = getAuth(tannuAuthApp);
+
+window.tannuAuthReady = true;
+window.tannuGuestLogin = async function(){
+  await signInAnonymously(tannuAuth);
+};
+
+window.tannuGoogleLogin = async function(){
+  const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: "select_account" });
+
+  const user = tannuAuth.currentUser;
+  if(user && !user.isAnonymous){
+    if(typeof showToast === "function") showToast("Google already connected ✓");
+    if(typeof hideLoginGate === "function") hideLoginGate();
+    return;
+  }
+
+  if(user && user.isAnonymous){
+    try{
+      await linkWithRedirect(user, provider);
+      return;
+    }catch(e){
+      const code = e && e.code ? e.code : "";
+      if(code !== "auth/credential-already-in-use" && code !== "auth/provider-already-linked") throw e;
+      await signOut(tannuAuth);
+    }
+  }
+
+  await signInWithRedirect(tannuAuth, provider);
+};
+
+onAuthStateChanged(tannuAuth, function(user){
+  if(user){
+    window.tannuBootstrapUser = user;
+    if(typeof hideLoginGate === "function") hideLoginGate();
+    if(typeof updateAuthUI === "function"){
+      try{ updateAuthUI(user); }catch(e){ console.error("Tannu auth UI:", e); }
+    }
+    if(typeof setLoginGateStatus === "function") setLoginGateStatus("Signed in ✓");
+  }
+});
+
+getRedirectResult(tannuAuth).then(function(result){
+  if(result && result.user){
+    window.tannuBootstrapUser = result.user;
+    if(typeof hideLoginGate === "function") hideLoginGate();
+  }
+}).catch(function(error){
+  console.error("Tannu Google redirect:", error);
+  if(typeof setLoginGateStatus === "function") setLoginGateStatus("Google login failed. Please try again.");
+});
+</script>
+
 <!-- ================= LIVEKIT + FIREBASE ================= -->
 
 <script type="module">
