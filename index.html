@@ -1191,7 +1191,7 @@ button:disabled{
 <div id="tannuLoginGate" class="login-gate">
   <div class="login-glow"></div>
   <div class="login-card">
-    <div class="login-logo tannuBrandLogo"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4acb"/><stop offset="1" stop-color="#743cff"/></linearGradient></defs><rect x="3" y="3" width="58" height="58" rx="18" fill="url(#tg1)"/><path d="M18 22h28M32 22v20c0 7-5 10-10 10" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M40 34c2-2 4-2 6 0s4 2 6 0" fill="none" stroke="#ffd45a" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+    <div class="login-logo tannuLoginLogo"><svg viewBox="0 0 48 48" aria-hidden="true" width="38" height="38"><defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a33cff"/><stop offset="1" stop-color="#ff2fc2"/></linearGradient></defs><rect x="1" y="1" width="46" height="46" rx="14" fill="url(#tg)"/><path d="M14 14h20v5h-7v15h-6V19h-7z" fill="#fff"/><path d="M32 27c3-1 4-3 4-6" fill="none" stroke="#ffc94a" stroke-width="2.5" stroke-linecap="round"/><path d="M35 31c4-2 6-5 6-10" fill="none" stroke="#ffc94a" stroke-width="2" stroke-linecap="round" opacity=".9"/></svg></div>
     <h1>Tannu</h1>
     <p class="login-sub">Voice Chat</p>
     <p class="login-welcome">Meet new friends, join live voice rooms and enjoy your community.</p>
@@ -1215,18 +1215,18 @@ button:disabled{
 <header class="topbar">
 
   <div class="logo">
-    <div class="logoIcon tannuBrandLogo"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4acb"/><stop offset="1" stop-color="#743cff"/></linearGradient></defs><rect x="3" y="3" width="58" height="58" rx="18" fill="url(#tg1)"/><path d="M18 22h28M32 22v20c0 7-5 10-10 10" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M40 34c2-2 4-2 6 0s4 2 6 0" fill="none" stroke="#ffd45a" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+    <div class="logoIcon tannuLogo"><svg viewBox="0 0 48 48" aria-hidden="true" width="38" height="38"><defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a33cff"/><stop offset="1" stop-color="#ff2fc2"/></linearGradient></defs><rect x="1" y="1" width="46" height="46" rx="14" fill="url(#tg)"/><path d="M14 14h20v5h-7v15h-6V19h-7z" fill="#fff"/><path d="M32 27c3-1 4-3 4-6" fill="none" stroke="#ffc94a" stroke-width="2.5" stroke-linecap="round"/><path d="M35 31c4-2 6-5 6-10" fill="none" stroke="#ffc94a" stroke-width="2" stroke-linecap="round" opacity=".9"/></svg></div>
     <div class="logoText">
       Tannu
       <small>Voice Chat</small>
     </div>
   </div>
 
-  <button class="coinBox" type="button" onclick="openWalletPanel()">
+  <div class="coinBox" onclick="openWalletPanel()" role="button" tabindex="0">
     🪙 <span id="coinBalance">0</span>
-  </button>
+  </div>
 
-  <button class="topAvatar" type="button" onclick="showScreen('profile')">👩</button>
+  <div class="topAvatar" onclick="showScreen('profile')" role="button" tabindex="0">👩</div>
 
 </header>
 
@@ -1567,14 +1567,10 @@ button:disabled{
       </small>
     </div>
 
-    <button class="voiceAction"
-      onclick="showRoomInfo()">
-      ⓘ
-    </button>
+    <button class="voiceAction" onclick="openWealthPanel()">💎</button>
 
-    <button class="voiceAction"
-      onclick="openWealthPanel()">
-      🏆
+    <button class="voiceAction" onclick="showRoomInfo()">
+      ⓘ
     </button>
 
     <button class="voiceAction"
@@ -4955,86 +4951,6 @@ startFirebaseAuth();
     'SVIP Center':()=>open('SVIP Center',`<div class="product-hero"><b>💎 SVIP</b><p>Premium membership benefits, frames, entry effects and EXP bonuses.</p><button class="product-action" onclick="showToast('Recharge flow will connect to secure payment backend');closeProductPanel()">View Recharge Plans</button></div><div class="product-grid"><div class="product-card"><b>SVIP 1</b><span>Membership benefits</span></div><div class="product-card"><b>SVIP 2</b><span>Higher premium benefits</span></div></div>`),
     'Wallet & recharge':()=>open('Wallet',`<div class="product-hero"><b>💰 ${typeof formatCoins==='function'?formatCoins((typeof userProfile!=='undefined'?userProfile?.coins:0)||0):'0'} Coins</b><p>Your secure wallet. Recharge and transaction history will be connected to the backend.</p><button class="product-action" onclick="showToast('Recharge will use secure backend');closeProductPanel()">Recharge</button></div><div class="product-list">${row('💳','Recharge','Buy coin packages','showToast("Recharge packages")')}${row('📜','Transactions','View wallet history','showToast("Transaction history")')}${row('🎁','Gift History','Sent and received gifts','showToast("Gift history")')}</div>`)
   };
-  // ===== TANNU FRONTEND SYSTEM PANELS =====
-  // These are frontend-ready views. Secure persistence/transactions are intentionally
-  // left for the backend phase so the browser never pretends to be the source of truth.
-  window.tannuOpenPanel=function(t,html){
-    title().textContent=t;
-    body().innerHTML=html;
-    document.getElementById('tannu-product-layer').classList.add('show');
-  };
-
-  window.openWalletPanel=function(){
-    const coins=(typeof userProfile!=='undefined' && userProfile?.coins)||0;
-    tannuOpenPanel('Tannu Wallet',`
-      <div class="system-hero wallet-hero"><div class="system-icon">🪙</div><div><b>${typeof formatCoins==='function'?formatCoins(coins):'0'} Coins</b><p>Balance, recharge and transaction history.</p></div></div>
-      <div class="system-grid"><div class="system-stat"><b>0</b><span>Today earned</span></div><div class="system-stat"><b>0</b><span>Sent gifts</span></div><div class="system-stat"><b>0</b><span>Received</span></div></div>
-      <div class="product-list">${row('💳','Recharge','Secure payment will be connected in backend','showToast("Recharge backend stage")')}${row('📜','Transactions','Wallet ledger and history','showToast("Transaction history")')}${row('🎁','Gift History','Sent and received gifts','showToast("Gift history")')}</div>`);
-  };
-
-  window.openFamilyPanel=function(){
-    tannuOpenPanel('Tannu Family',`
-      <div class="system-hero"><div class="system-icon">🛡️</div><div><b>Build your Family</b><p>Family members, family rank, tasks and rewards.</p></div></div>
-      <div class="system-grid"><div class="system-stat"><b>0</b><span>Members</span></div><div class="system-stat"><b>Lv.1</b><span>Family level</span></div><div class="system-stat"><b>0</b><span>Family CP</span></div></div>
-      <button class="product-action wide" onclick="showToast('Family create/join will connect to Firebase');">🛡️ Create / Join Family</button>`);
-  };
-
-  window.openWealthPanel=function(){
-    tannuOpenPanel('Room Wealth',`
-      <div class="wealth-switch"><button class="active">Daily</button><button>Weekly</button></div>
-      <div class="wealth-hero"><div class="wealth-crown">👑</div><b>Room Wealth Ranking</b><span>Live leaderboard • backend-ready</span></div>
-      <div class="wealth-list"><div class="wealth-row top"><b>1</b><span>👑</span><div><b>Tannu Host</b><small>Level 48 • SVIP2</small></div><strong>0</strong></div><div class="wealth-row"><b>2</b><span>💎</span><div><b>Riya</b><small>Level 31</small></div><strong>0</strong></div><div class="wealth-row"><b>3</b><span>🌸</span><div><b>Arman</b><small>Level 27</small></div><strong>0</strong></div></div>`);
-  };
-
-  window.openRoomMembersPanel=function(){
-    tannuOpenPanel('Room Members',`<div class="system-hero"><div class="system-icon">👥</div><div><b>12 Seat Voice Room</b><p>Members, mic status, levels and moderation actions.</p></div></div><div class="product-list">${row('👑','Tannu','Host • Level 48','showToast("Host profile")')}${row('🎙️','Mic 2','Empty seat','showToast("Empty seat")')}${row('🔒','Mic 3','Locked seat','showToast("Seat locked")')}${row('👤','More members','Realtime member list will sync from backend','showToast("Realtime members")')}</div>`);
-  };
-
-  window.openRoomSettingsPanel=function(){
-    tannuOpenPanel('Room Settings',`
-      <div class="system-hero"><div class="system-icon">⚙️</div><div><b>Tannu Friends</b><p>Room identity and controls. Secure host permissions come in backend.</p></div></div>
-      <div class="settings-list">
-        <div class="setting-row"><div><b>🖼️ Room Cover</b><small>Choose the room visual</small></div><button onclick="showToast('Room cover picker')">Edit</button></div>
-        <div class="setting-row"><div><b>✏️ Room Name</b><small>Tannu Friends</small></div><button onclick="showToast('Room name editor')">Edit</button></div>
-        <div class="setting-row"><div><b>📢 Announcement</b><small>Welcome message for members</small></div><button onclick="showToast('Announcement editor')">Edit</button></div>
-        <div class="setting-row"><div><b>🎨 Theme</b><small>Premium Tannu room backgrounds</small></div><button onclick="openThemePicker()">Open</button></div>
-        <div class="setting-row"><div><b>🔒 Room Lock</b><small>Private/locked room</small></div><button onclick="showToast('Lock control will be secured by backend')">Toggle</button></div>
-        <div class="setting-row"><div><b>🎙️ Mic Mode</b><small>12-seat layout</small></div><button onclick="showToast('Mic mode selector')">Edit</button></div>
-      </div>`);
-  };
-
-  window.openThemePicker=function(){
-    tannuOpenPanel('Tannu Room Themes',`
-      <div class="theme-grid">
-        <button class="theme-tile theme-night" onclick="applyTannuTheme('night')"><span>🌙</span><b>Moonlight</b></button>
-        <button class="theme-tile theme-neon" onclick="applyTannuTheme('neon')"><span>💜</span><b>Tannu Neon</b></button>
-        <button class="theme-tile theme-sunset" onclick="applyTannuTheme('sunset')"><span>🌅</span><b>Sunset</b></button>
-        <button class="theme-tile theme-forest" onclick="applyTannuTheme('forest')"><span>🌲</span><b>Forest</b></button>
-        <button class="theme-tile theme-ocean" onclick="applyTannuTheme('ocean')"><span>🌊</span><b>Ocean</b></button>
-        <button class="theme-tile theme-gold" onclick="applyTannuTheme('gold')"><span>👑</span><b>Royal Gold</b></button>
-      </div><p class="panel-note">Theme selection is saved locally for this frontend preview. Backend sync will be added later.</p>`);
-  };
-
-  window.applyTannuTheme=function(theme){
-    const v=document.getElementById('voice');
-    const themes={
-      night:'radial-gradient(circle at 50% 15%,#7b3cff55,transparent 30%),linear-gradient(180deg,#100d38,#07102d 55%,#050b20)',
-      neon:'radial-gradient(circle at 20% 20%,#ff2fc955,transparent 28%),radial-gradient(circle at 80% 30%,#713dff66,transparent 30%),linear-gradient(180deg,#16062b,#090a22)',
-      sunset:'radial-gradient(circle at 50% 15%,#ff8b3d77,transparent 30%),linear-gradient(180deg,#3a1633,#15152f 55%,#080b19)',
-      forest:'radial-gradient(circle at 50% 10%,#28d79a55,transparent 30%),linear-gradient(180deg,#092b2a,#081b20 55%,#050d15)',
-      ocean:'radial-gradient(circle at 50% 10%,#22b8ff66,transparent 30%),linear-gradient(180deg,#092b52,#08182e 55%,#050b18)',
-      gold:'radial-gradient(circle at 50% 10%,#ffc94a66,transparent 30%),linear-gradient(180deg,#39240b,#181327 55%,#080a14)'
-    };
-    if(v)v.style.background=themes[theme]||themes.night;
-    try{localStorage.setItem('tannu_room_theme',theme)}catch(e){}
-    showToast('🎨 '+theme+' theme applied');
-    closeProductPanel();
-  };
-
-  window.openVipPanel=function(){
-    tannuOpenPanel('Tannu VIP',`<div class="system-hero vip-hero"><div class="system-icon">👑</div><div><b>VIP / SVIP</b><p>Premium identity, frames, entrance effects and room privileges.</p></div></div><div class="vip-levels"><div><b>VIP 1</b><span>Profile frame</span></div><div class="active"><b>SVIP 2</b><span>Premium effects</span></div><div><b>SVIP 5</b><span>Royal benefits</span></div></div><button class="product-action wide" onclick="showToast('Secure subscription backend will be connected later')">View Plans</button>`);
-  };
-
   function bind(){
     document.querySelectorAll('#profile .menu-row').forEach(el=>{const n=el.querySelector('.ref-label')?.textContent?.trim();if(n&&views[n]){el.onclick=views[n];el.style.cursor='pointer'}});
     const sv=document.querySelector('#profile .profile-banner.svip'); if(sv)sv.onclick=views['SVIP Center'];
@@ -5407,52 +5323,35 @@ body.voice-open{overflow:hidden;}
 }
 </style>
 
-<style id="tannu-final-brand-system">
-/* ===== TANNU BRAND SYSTEM — frontend master ===== */
-:root{
-  --tannu-purple:#7d3cff;
-  --tannu-violet:#a33cff;
-  --tannu-pink:#ff2fc2;
-  --tannu-gold:#ffc94a;
-  --tannu-navy:#050817;
-  --tannu-panel:#0d1531;
-}
-.tannuBrandLogo{background:transparent!important;box-shadow:none!important;padding:0!important;overflow:hidden}
-.tannuBrandLogo svg{width:100%;height:100%;display:block}
-.login-logo.tannuBrandLogo{width:84px;height:84px;border-radius:25px;background:transparent!important}
-.logoIcon.tannuBrandLogo{width:38px;height:38px;border-radius:11px}
-.coinBox{cursor:pointer!important;border:1px solid #7048bd!important;background:linear-gradient(135deg,#17153b,#101832)!important;box-shadow:0 5px 18px #6f36ff22}
-.topAvatar{border:1px solid #ffffff18!important;cursor:pointer!important}
-.gradientBtn,.join,.sendBtn,.product-action{background:linear-gradient(135deg,var(--tannu-pink),var(--tannu-purple))!important}
-.quickCard,.roomCard,.eventCard,.message{transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
-.quickCard:active,.roomCard:active,.eventCard:active,.message:active{transform:scale(.985);border-color:#a34cff;box-shadow:0 12px 30px #7d3cff20}
-.product-overlay{z-index:1000!important;background:rgba(2,4,15,.78)!important;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
-.product-sheet{background:linear-gradient(180deg,#111a3b,#080e22)!important;border:1px solid #ffffff12!important;box-shadow:0 -20px 70px #000b!important}
-.product-head{background:linear-gradient(180deg,#141d43,#0d1430)!important}
-.product-head h2{letter-spacing:.2px}
-.product-row,.setting-row{border-color:#202d58!important}
-.product-row button,.setting-row button{background:#172653;border:1px solid #334a86;color:#fff;border-radius:12px;padding:8px 11px;font-size:9px;font-weight:800}
-.system-hero{display:flex;align-items:center;gap:12px;padding:15px;border-radius:18px;border:1px solid #354477;background:linear-gradient(135deg,#21134a,#101b3c);margin-bottom:10px}
-.system-hero b{font-size:15px}.system-hero p{font-size:9px;color:#9eacd1;margin-top:4px;line-height:1.5}.system-icon{width:48px;height:48px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:25px;background:linear-gradient(135deg,#ff35c8,#713dff);box-shadow:0 8px 22px #7d3cff44;flex:none}
-.system-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0}.system-stat{padding:12px 6px;text-align:center;border-radius:14px;background:#0e1837;border:1px solid #273b72}.system-stat b{display:block;font-size:14px}.system-stat span{font-size:8px;color:#8998bd}
-.product-action.wide{width:100%;min-height:44px;border-radius:15px;color:#fff;border:0;font-weight:900;margin-top:5px}
-.wealth-switch{display:flex;gap:7px;margin-bottom:10px}.wealth-switch button{flex:1;padding:10px;border-radius:14px;background:#101b3b;border:1px solid #273a70;color:#9aa8cb;font-weight:800}.wealth-switch button.active{background:linear-gradient(135deg,#ff34c5,#773cff);color:#fff}
-.wealth-hero{text-align:center;padding:16px;border-radius:18px;background:radial-gradient(circle at 50% 0,#ffc94a33,transparent 45%),linear-gradient(135deg,#271947,#101832);border:1px solid #6b4b78;margin-bottom:10px}.wealth-crown{font-size:34px}.wealth-hero b{display:block;font-size:15px}.wealth-hero span{display:block;color:#9aa8c9;font-size:8px;margin-top:4px}.wealth-list{display:flex;flex-direction:column;gap:7px}.wealth-row{display:flex;align-items:center;gap:9px;padding:11px;border-radius:14px;background:#0e1734;border:1px solid #233668}.wealth-row>span{font-size:23px}.wealth-row>div{flex:1}.wealth-row div b{display:block;font-size:11px}.wealth-row small{display:block;color:#8190b6;font-size:8px;margin-top:2px}.wealth-row strong{color:#ffc94a;font-size:11px}.wealth-row.top{border-color:#a77a2f;background:linear-gradient(135deg,#201a30,#0e1734)}
-.settings-list{display:flex;flex-direction:column;gap:7px}.setting-row{display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px;background:#0d1734;border:1px solid #24366a}.setting-row>div{flex:1}.setting-row b{display:block;font-size:10px}.setting-row small{display:block;color:#8593b8;font-size:8px;margin-top:3px}.theme-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.theme-tile{min-height:112px;border-radius:16px;border:1px solid #344675;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;font-size:10px;position:relative;overflow:hidden}.theme-tile span{font-size:30px;filter:drop-shadow(0 4px 10px #0008)}.theme-night{background:linear-gradient(135deg,#12183d,#3b1e69)}.theme-neon{background:linear-gradient(135deg,#3c0e58,#d61c91)}.theme-sunset{background:linear-gradient(135deg,#8e3926,#3d1c47)}.theme-forest{background:linear-gradient(135deg,#0c493d,#11221d)}.theme-ocean{background:linear-gradient(135deg,#0d4872,#12214e)}.theme-gold{background:linear-gradient(135deg,#6a4512,#261729)}.panel-note{font-size:8px;color:#7f8db0;line-height:1.5;margin-top:10px;text-align:center}.vip-levels{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}.vip-levels div{padding:12px 6px;text-align:center;border-radius:14px;background:#0e1735;border:1px solid #293b70}.vip-levels div.active{border-color:#ffc94a;background:linear-gradient(135deg,#30200c,#121a36)}.vip-levels b{display:block;font-size:11px}.vip-levels span{display:block;color:#8997ba;font-size:7px;margin-top:4px}
-.voiceScreen .voiceAction{box-shadow:0 4px 15px #0005}.voiceScreen .voiceBanner{position:relative;overflow:hidden}.voiceScreen .voiceBanner:before{content:"";position:absolute;width:180px;height:80px;border-radius:50%;background:#a13cff22;filter:blur(24px);top:-25px}.voiceScreen .hostAvatar,.voiceScreen .hostName,.voiceScreen .hostLabel{position:relative;z-index:1}
-@media(max-width:420px){.product-sheet{max-height:88dvh}.system-grid{gap:5px}.theme-tile{min-height:100px}.vip-levels{gap:5px}}
+<style id="tannu-final-master-patch">
+.tannuLogo{padding:0;overflow:hidden;background:none!important;box-shadow:0 0 18px #9d37ff55}.tannuLogo svg{display:block;width:38px;height:38px}.tannuLoginLogo{width:82px;height:82px;border-radius:25px;background:none!important;padding:0;overflow:hidden}.tannuLoginLogo svg{width:82px;height:82px;display:block}
+.coinBox,.topAvatar{cursor:pointer}.coinBox:active,.topAvatar:active,.room-bottom-actions button:active{transform:scale(.97)}
+.tannu-premium-panel{background:linear-gradient(180deg,#101b43,#070d26);border:1px solid #4b5c91;border-radius:22px;padding:14px}.tannu-premium-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.tannu-premium-card{padding:13px;border-radius:16px;background:linear-gradient(145deg,#151f4d,#0b1432);border:1px solid #2e4380}.tannu-premium-card b{display:block;font-size:12px}.tannu-premium-card span{display:block;color:#9ba8cb;font-size:9px;margin-top:5px}.tannu-action{width:100%;margin-top:10px;padding:11px;border-radius:17px;background:linear-gradient(135deg,#ff31c8,#743cff);font-weight:800}.tannu-theme-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}.tannu-theme{min-height:72px;border-radius:16px;border:1px solid #344b88;padding:10px;text-align:left;color:#fff;font-weight:800}.tannu-theme small{display:block;margin-top:5px;opacity:.75;font-weight:500}.tannu-theme.moon{background:linear-gradient(135deg,#101b43,#38206b)}.tannu-theme.neon{background:linear-gradient(135deg,#27104f,#a51e91)}.tannu-theme.sunset{background:linear-gradient(135deg,#5b2415,#d86b22)}.tannu-theme.forest{background:linear-gradient(135deg,#092d29,#14715b)}.tannu-theme.ocean{background:linear-gradient(135deg,#092a4e,#167da0)}.tannu-theme.royal{background:linear-gradient(135deg,#21142e,#8a641c)}
 </style>
-
-<script id="tannu-final-brand-boot">
+<script id="tannu-final-master-patch">
 (function(){
-  try{
-    const saved=localStorage.getItem('tannu_room_theme');
-    if(saved && typeof applyTannuTheme==='function'){
-      // Delay until the product/system scripts and voice DOM exist.
-      setTimeout(()=>applyTannuTheme(saved),250);
+  const panel=(title,html)=>{
+    if(typeof window.openProductPanel==='function'){
+      try{window.openProductPanel(title,html);return;}catch(e){}
     }
-  }catch(e){}
+    const layer=document.getElementById('tannu-product-layer'), body=document.getElementById('productBody'), head=document.getElementById('productTitle');
+    if(layer&&body&&head){head.textContent=title;body.innerHTML=html;layer.classList.add('show');}
+  };
+  const card=(icon,title,sub)=>'<div class="tannu-premium-card"><b>'+icon+' '+title+'</b><span>'+sub+'</span></div>';
+  window.openWalletPanel=function(){panel('Wallet & Coins','<div class="tannu-premium-panel"><div class="product-hero"><b>🪙 Tannu Wallet</b><p>Your current balance is shown here. Secure recharge, transfers and gift deductions will be connected through backend/Cloud Functions.</p></div><div class="tannu-premium-grid">'+card('🪙','Coins','Virtual balance')+card('💳','Recharge','Secure backend next')+'</div><button class="tannu-action" onclick="showToast(\'Recharge will connect to secure backend\')">Recharge Coins</button></div>');};
+  window.openFamilyPanel=function(){panel('Family','<div class="tannu-premium-panel"><div class="product-hero"><b>🛡️ Tannu Family</b><p>Create or join a family, manage members and later build family ranking and family tasks.</p></div><div class="tannu-premium-grid">'+card('👥','Members','Family member list')+card('🏆','Ranking','Backend connection next')+'</div><button class="tannu-action" onclick="showToast(\'Family create/join will connect to Firebase\')">Create / Join Family</button></div>');};
+  window.openWealthPanel=function(){panel('Wealth Center','<div class="tannu-premium-panel"><div class="product-hero"><b>💎 Wealth</b><p>Wealth and charm levels will be calculated from secure backend transactions.</p></div><div class="tannu-premium-grid">'+card('💰','Wealth','Current level preview')+card('✨','Charm','Room contribution preview')+'</div><button class="tannu-action" onclick="showToast(\'Wealth backend is next stage\')">View Ranking</button></div>');};
+  window.openRoomMembersPanel=function(){panel('Room Members','<div class="tannu-premium-panel"><div class="product-hero"><b>👥 Room Members</b><p>Live member list is ready for backend data. Mic/host permissions remain controlled by the room system.</p></div><div class="tannu-premium-grid">'+card('👑','Host','Room owner')+card('🎙️','Mic Seats','12-seat V1')+card('🛡️','Admins','Coming with backend')+card('🚫','Blocked','Moderation system')+'</div></div>');};
+  window.openRoomSettingsPanel=function(){panel('Room Settings','<div class="tannu-premium-panel"><div class="tannu-premium-grid">'+card('🖼️','Room Cover','Choose a visual later')+card('🎨','Theme','Room appearance')+card('🔒','Room Lock','Secure room access')+card('🎙️','Mic Mode','Seat controls')+'</div><button class="tannu-action" onclick="openThemePicker()">🎨 Change Room Theme</button><button class="tannu-action" onclick="showToast(\'Room settings will connect to Firestore backend\')">Save Settings</button></div>');};
+  window.openThemePicker=function(){panel('Room Themes','<div class="tannu-premium-panel"><p style="color:#9ba8cb;font-size:10px">Choose a preview theme. This is saved locally until room-theme backend is connected.</p><div class="tannu-theme-row">'+['moon','neon','sunset','forest','ocean','royal'].map((x,i)=>'<button class="tannu-theme '+x+'" onclick="applyTannuTheme(\''+x+'\')">'+['Moonlight','Tannu Neon','Sunset','Forest','Ocean','Royal Gold'][i]+'<small>Preview</small></button>').join('')+'</div></div>');};
+  window.applyTannuTheme=function(theme){
+    const themes={moon:['#050817','#101b43'],neon:['#10051b','#5a1264'],sunset:['#170b08','#642318'],forest:['#041411','#0c4b3c'],ocean:['#03101c','#0c4560'],royal:['#100b16','#4d3410']};
+    const c=themes[theme]||themes.moon;document.body.style.background='radial-gradient(circle at 50% -10%,'+c[1]+' 0,#11183d 35%,'+c[0]+' 80%)';localStorage.setItem('tannuRoomTheme',theme);if(typeof showToast==='function')showToast('Theme applied ✓');
+  };
+  window.openVipPanel=function(){panel('Tannu VIP','<div class="tannu-premium-panel"><div class="product-hero"><b>👑 Tannu VIP</b><p>VIP levels, frames, entry effects and exclusive gifts are planned for the secure backend stage.</p></div><div class="tannu-premium-grid">'+card('✨','VIP Frame','Premium profile identity')+card('🎁','VIP Gifts','Exclusive gifts')+card('🚪','Entry Effect','Room entry effect')+card('💎','Privileges','VIP benefits')+'</div></div>');};
+  const saved=localStorage.getItem('tannuRoomTheme');if(saved&&typeof window.applyTannuTheme==='function')window.applyTannuTheme(saved);
 })();
 </script>
+
 </body>
 </html>
