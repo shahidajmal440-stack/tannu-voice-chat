@@ -1690,16 +1690,16 @@ button:disabled{
 
   <div class="voiceBanner">
 
-    <div class="hostAvatar speaking">
-      👩🏻
+    <div class="hostAvatar">
+      🎙️
     </div>
 
-    <div class="hostName">
-      Tannu
+    <div class="hostName" id="roomBannerName">
+      Voice Room
     </div>
 
-    <div class="hostLabel">
-      👑 HOST
+    <div class="hostLabel" id="roomBannerLabel">
+      LIVE ROOM
     </div>
 
   </div>
@@ -1711,35 +1711,7 @@ button:disabled{
   <div class="chatBox">
 
     <div id="chatMessages">
-
-      <div class="chatLine">
-        <span class="chatName">Riya:</span>
-        <span class="chatText">
-          Welcome everyone ❤️
-        </span>
-      </div>
-
-      <div class="chatLine">
-        <span class="chatName">Arman:</span>
-        <span class="chatText">
-          Nice voice 👋
-        </span>
-      </div>
-
-      <div class="chatLine">
-        <span class="chatName">Sana:</span>
-        <span class="chatText">
-          So beautiful room 😍
-        </span>
-      </div>
-
-      <div class="chatLine">
-        <span class="chatName">Priya:</span>
-        <span class="chatText">
-          Tannu is the best ❤️
-        </span>
-      </div>
-
+      <div class="chatEmpty">Join the room to see live messages.</div>
     </div>
 
 
@@ -3583,6 +3555,9 @@ window.openVoiceRoom=
   document.getElementById("infoRoomName")
     .textContent=roomName;
 
+  const bannerName=document.getElementById("roomBannerName");
+  if(bannerName) bannerName.textContent=roomName;
+
   showScreen("voice");
 
   startRoomChat(roomName);
@@ -3930,114 +3905,45 @@ function updateMicUI(){
 
 function renderParticipants(){
 
-  const grid=
-    document.getElementById(
-      "micGrid"
-    );
+  const grid = document.getElementById("micGrid");
+  if(!grid) return;
 
-  if(!grid)return;
+  grid.innerHTML = "";
 
-
-  grid.innerHTML="";
-
-
-  const host=
-    document.createElement("div");
-
-
-  host.className=
-    "mic-seat host-seat";
-
-
-  host.innerHTML=`
-    <div class="seat-avatar speaking">👑</div>
-    <div class="mic-status">🔊</div>
-    <p>Tannu</p>
-  `;
-
-
-  grid.appendChild(host);
-
-
-  const capacity=11;
-
+  // Never invent a "Tannu" host seat. The current room owner is not
+  // stored in this file's room model, so show actual LiveKit participants.
+  const capacity = 12;
 
   if(!liveRoom){
-
-    addEmptySeats(
-      grid,
-      capacity
-    );
-
+    addEmptySeats(grid, capacity);
     updateUserCount();
-
     return;
   }
 
-
-  const participants=
-    Array.from(
-      liveRoom.remoteParticipants.values()
-    );
-
-
-  if(micEnabled){
-
-    grid.appendChild(
-      createParticipantSeat(
-        liveRoom.localParticipant,
-        true
-      )
-    );
-  }
-
-
-  const remoteLimit=
-    capacity-
-    (
-      micEnabled
-        ?1
-        :0
-    );
-
-
-  const visible=
-    participants.slice(
-      0,
-      Math.max(
-        0,
-        remoteLimit
-      )
-    );
-
-
-  visible.forEach(
-    p=>{
-
-      grid.appendChild(
-        createParticipantSeat(
-          p,
-          false
-        )
-      );
-
-    }
+  // Show the local user even while their microphone is muted.
+  grid.appendChild(
+    createParticipantSeat(liveRoom.localParticipant, true)
   );
 
-
-  const used=
-    (micEnabled?1:0)+
-    visible.length;
-
-
-  addEmptySeats(
-    grid,
-    Math.max(
-      0,
-      capacity-used
-    )
+  const participants = Array.from(
+    liveRoom.remoteParticipants.values()
   );
 
+  const visible = participants.slice(0, capacity - 1);
+
+  visible.forEach(participant => {
+    grid.appendChild(createParticipantSeat(participant, false));
+  });
+
+  const used = 1 + visible.length;
+  addEmptySeats(grid, Math.max(0, capacity - used));
+
+  // The banner is deliberately neutral until the backend provides a
+  // verified room-owner UID/name; don't label the signed-in user as host.
+  const bannerName = document.getElementById("roomBannerName");
+  const bannerLabel = document.getElementById("roomBannerLabel");
+  if(bannerName) bannerName.textContent = currentRoomName || "Voice Room";
+  if(bannerLabel) bannerLabel.textContent = "LIVE ROOM";
 
   updateUserCount();
 }
@@ -4211,9 +4117,16 @@ window.leaveVoiceRoom=
   micEnabled=false;
   currentRoomName="";
 
+  const bannerName=document.getElementById("roomBannerName");
+  if(bannerName) bannerName.textContent="Voice Room";
+  const bannerLabel=document.getElementById("roomBannerLabel");
+  if(bannerLabel) bannerLabel.textContent="LIVE ROOM";
 
+  const messages=document.getElementById("chatMessages");
+  if(messages) messages.innerHTML='<div class="chatEmpty">Join the room to see live messages.</div>';
+
+  renderParticipants();
   updateMicUI();
-
 
   showScreen("rooms");
 
