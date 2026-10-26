@@ -1253,6 +1253,34 @@ button:disabled{
 @media(min-width:700px){.master-panel{width:560px;margin:auto;border-radius:26px}.master-sheet{align-items:center;padding:20px}}
 </style>
 
+<style>
+
+/* ================= TANNU PROFILE POLISH (AUDIT PATCH) ================= */
+#profile .profile-ref{max-width:720px;margin:0 auto;padding:15px 13px 24px;background:linear-gradient(160deg,rgba(18,25,57,.96),rgba(7,12,31,.98));border:1px solid rgba(172,143,255,.18);border-radius:25px;box-shadow:0 18px 45px rgba(0,0,0,.24);}
+#profile .profile-head{position:relative;display:flex;align-items:center;gap:13px;padding:18px 15px;margin-bottom:15px;border-radius:21px;background:radial-gradient(circle at 85% 0%,rgba(255,49,200,.19),transparent 45%),linear-gradient(135deg,#171f48,#10152f);border:1px solid rgba(255,255,255,.09);}
+#profile .profile-avatar-ref{flex:0 0 84px;width:84px;height:84px;border:3px solid transparent;background:linear-gradient(#10152f,#10152f) padding-box,linear-gradient(135deg,#ff31c8,#8c35ff,#ffc94a) border-box;box-shadow:0 0 0 5px rgba(140,53,255,.10);}
+#profile .profile-name-ref{color:#fff!important;font-weight:800;letter-spacing:-.35px;overflow-wrap:anywhere;}
+#profile .profile-id-ref{color:#aeb8d8!important;margin-top:6px;}
+#profile .profile-arrow-ref{color:#e8dfff;font-size:30px;min-width:25px;text-align:center;}
+#profile .profile-stats-ref{gap:5px;padding:14px 7px;margin:0 0 15px;border-radius:18px;background:rgba(4,9,27,.58);border:1px solid rgba(255,255,255,.07);}
+#profile .profile-stats-ref>div{min-width:0;padding:5px 1px;border-radius:12px;cursor:pointer;transition:background .18s ease;}
+#profile .profile-stats-ref>div:active{background:rgba(140,53,255,.18);}
+#profile .profile-stats-ref b{font-size:23px;color:#fff!important;}
+#profile .profile-stats-ref span{font-size:11px;color:#aeb8d8!important;white-space:nowrap;}
+#profile .profile-banner-grid{gap:11px;margin-bottom:16px;}
+#profile .profile-banner{height:76px;border:1px solid rgba(255,255,255,.13);border-radius:18px;box-shadow:0 8px 20px rgba(0,0,0,.20);font-size:17px;letter-spacing:.2px;}
+#profile .profile-banner.svip{background:linear-gradient(120deg,#56320d,#b77b20 53%,#3a210b);}
+#profile .profile-banner.wallet{background:linear-gradient(120deg,#123c70,#176fa3 56%,#10254d);}
+#profile .profile-menu-ref{background:rgba(7,12,29,.78)!important;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 10px 9px;box-shadow:none;}
+#profile .profile-menu-ref .menu-row{min-height:66px;gap:12px;padding:9px 8px;border-bottom:1px solid rgba(255,255,255,.085)!important;color:#f4f5ff;}
+#profile .profile-menu-ref .menu-row:active{background:rgba(140,53,255,.12);}
+#profile .profile-menu-ref .ref-icon{width:38px;height:38px;display:grid;place-items:center;flex:0 0 38px;border-radius:13px;background:linear-gradient(145deg,rgba(140,53,255,.20),rgba(255,49,200,.08));font-size:21px;}
+#profile .profile-menu-ref .ref-label{color:#f4f5ff!important;font-size:14px;font-weight:650;}
+#profile .profile-menu-ref .ref-badge{max-width:125px;padding:5px 8px;border-radius:20px;background:rgba(255,201,74,.11);color:#f4d27b;font-size:10px;white-space:nowrap;}
+#profile .profile-menu-ref .ref-arrow{color:#9ea9d0;font-size:22px;}
+@media(max-width:360px){#profile .profile-avatar-ref{flex-basis:70px;width:70px;height:70px}#profile .profile-stats-ref b{font-size:20px}#profile .profile-stats-ref span{font-size:10px}#profile .profile-menu-ref .menu-row{gap:8px;padding-inline:5px}}
+
+</style>
 </head>
 
 <!-- Tannu Voice Chat FINAL UI FREEZE -->
@@ -2171,16 +2199,16 @@ button:disabled{
       <div class="profile-arrow-ref" onclick="showScreen('profileDetail')">›</div>
     </div>
 
-    <div class="profile-stats-ref">
-      <div><b>545</b><span>Friend</span></div>
-      <div><b>761</b><span>Following</span></div>
-      <div><b>1K</b><span>Followers</span></div>
-      <div><b>3.1K</b><span>Visitors</span></div>
+    <div class="profile-stats-ref" aria-label="Social statistics">
+      <div role="button" tabindex="0" aria-label="Friends"><b id="profileFriendsCount">0</b><span>Friends</span></div>
+      <div role="button" tabindex="0" aria-label="Following"><b id="profileFollowingCount">0</b><span>Following</span></div>
+      <div role="button" tabindex="0" aria-label="Followers"><b id="profileFollowersCount">0</b><span>Followers</span></div>
+      <div role="button" tabindex="0" aria-label="Visitors"><b id="profileVisitorsCount">0</b><span>Visitors</span></div>
     </div>
 
     <div class="profile-banner-grid">
-      <div class="profile-banner svip" onclick="showToast('SVIP Center 👑')"><span>SVIP</span><span class="bannerIcon">👑</span></div>
-      <div class="profile-banner wallet" onclick="showToast('Wallet & recharge 💰')"><span>Wallet</span><span class="bannerIcon">💼</span></div>
+      <div class="profile-banner svip" onclick="showToast('Opening SVIP Center')"><span>SVIP</span><span class="bannerIcon">👑</span></div>
+      <div class="profile-banner wallet" onclick="showToast('Opening Wallet')"><span>Wallet</span><span class="bannerIcon">💼</span></div>
     </div>
 
     <div class="profile-menu-ref">
@@ -4911,6 +4939,25 @@ function finishFruitGame(){
     showToast("🍎 +"+formatCoins(reward)+" coins");
   }else{
     showToast("🍎 Game finished");
+  }
+}
+
+// Lucky Spin entry point used by Home and Games cards.
+window.openSpinGame=function(){
+  const modal=document.getElementById("spinGameModal");
+  if(modal) modal.classList.add("show");
+  if(typeof updateSpinInfo === "function") updateSpinInfo();
+};
+
+// Keep the spin count and button state synchronized with the daily limit.
+function updateSpinInfo(){
+  const used=Math.max(0,Number(engageState && engageState.spins || 0));
+  const info=document.getElementById("spinInfo");
+  const btn=document.getElementById("spinBtn");
+  if(info) info.textContent="Spins today: "+Math.min(used,5)+"/5";
+  if(btn){
+    btn.disabled=used>=5;
+    btn.textContent=used>=5?"DAILY LIMIT REACHED":"SPIN";
   }
 }
 
