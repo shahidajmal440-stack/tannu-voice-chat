@@ -2605,12 +2605,20 @@ getRedirectResult(tannuAuth).then(function(result){
    LIVEKIT
 ========================================================= */
 
-import {
-  Room,
-  RoomEvent,
-  Track,
-  TokenSource
-} from "https://cdn.jsdelivr.net/npm/livekit-client@2.22.3/dist/livekit-client.esm.mjs";
+// Load LiveKit independently so a LiveKit/CDN outage does not stop
+// the Firebase auth, profile, and chat code in this same module.
+let liveKitModule = null;
+try {
+  liveKitModule = await import(
+    "https://cdn.jsdelivr.net/npm/livekit-client@2.22.3/dist/livekit-client.esm.mjs"
+  );
+} catch (error) {
+  console.error("Tannu LiveKit module could not load; Firebase features can still start:", error);
+}
+const Room = liveKitModule?.Room;
+const RoomEvent = liveKitModule?.RoomEvent;
+const Track = liveKitModule?.Track;
+const TokenSource = liveKitModule?.TokenSource;
 
 
 /* =========================================================
@@ -3592,6 +3600,14 @@ window.openVoiceRoom=
 ========================================================= */
 
 async function connectToLiveRoom(roomName){
+
+  // If the LiveKit CDN is unavailable, do not break the rest of the app.
+  // Room chat/Firebase can still run; voice joining will show a clear message.
+  if(!Room || !RoomEvent || !Track || !TokenSource){
+    setConnection("Voice service unavailable", "error");
+    showToast("Voice service did not load. Chat may still work; try again later.");
+    return;
+  }
 
   if(roomConnecting)return;
 
