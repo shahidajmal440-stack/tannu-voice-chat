@@ -2605,20 +2605,12 @@ getRedirectResult(tannuAuth).then(function(result){
    LIVEKIT
 ========================================================= */
 
-// Load LiveKit independently so a LiveKit/CDN outage does not stop
-// the Firebase auth, profile, and chat code in this same module.
-let liveKitModule = null;
-try {
-  liveKitModule = await import(
-    "https://cdn.jsdelivr.net/npm/livekit-client@2.22.3/dist/livekit-client.esm.mjs"
-  );
-} catch (error) {
-  console.error("Tannu LiveKit module could not load; Firebase features can still start:", error);
-}
-const Room = liveKitModule?.Room;
-const RoomEvent = liveKitModule?.RoomEvent;
-const Track = liveKitModule?.Track;
-const TokenSource = liveKitModule?.TokenSource;
+import {
+  Room,
+  RoomEvent,
+  Track,
+  TokenSource
+} from "https://cdn.jsdelivr.net/npm/livekit-client@2.22.3/dist/livekit-client.esm.mjs";
 
 
 /* =========================================================
@@ -3601,14 +3593,6 @@ window.openVoiceRoom=
 
 async function connectToLiveRoom(roomName){
 
-  // If the LiveKit CDN is unavailable, do not break the rest of the app.
-  // Room chat/Firebase can still run; voice joining will show a clear message.
-  if(!Room || !RoomEvent || !Track || !TokenSource){
-    setConnection("Voice service unavailable", "error");
-    showToast("Voice service did not load. Chat may still work; try again later.");
-    return;
-  }
-
   if(roomConnecting)return;
 
   roomConnecting=true;
@@ -4423,7 +4407,7 @@ window.closeGifts=function(){
       "sendGiftButton"
     )
     .textContent=
-      "🎁 Select a gift";
+      "🎁 Select a demo gift";
 };
 
 
@@ -4450,34 +4434,28 @@ window.selectGift=
 
 window.sendSelectedGift=
   function(){
-
   if(!selectedGift){
-
-    showToast(
-      "🎁 Select a gift first"
-    );
-
+    showToast("🎁 Select a gift first");
     return;
   }
 
+  const price=Math.max(0,Number(selectedGift.price)||0);
+  const demoBalance=Math.max(0,Number(engageState && engageState.coins)||0);
+  if(demoBalance<price){
+    showToast("🪙 Demo coins kam hain. Game khelkar coins kamao.");
+    return;
+  }
 
-  /*
-    IMPORTANT:
-    Coin deduction is intentionally
-    NOT done directly in the browser.
-
-    Secure gift transactions will be
-    connected through backend/Cloud
-    Functions in the next stage.
-  */
-
-  showToast(
-    "🎁 "+
-    selectedGift.name+
-    " selected"
-  );
-
-
+  // Demo-only: this spends only browser-local game coins, never the Firestore wallet.
+  engageState.coins=demoBalance-price;
+  try{
+    const history=JSON.parse(localStorage.getItem("tannu_demo_gift_history")||"[]");
+    history.unshift({name:String(selectedGift.name||"Gift"),price,at:new Date().toISOString()});
+    localStorage.setItem("tannu_demo_gift_history",JSON.stringify(history.slice(0,20)));
+  }catch(e){console.warn("Demo gift history:",e);}
+  saveEngagement();
+  updateCoinUI();
+  showToast("🎁 Demo gift sent: "+selectedGift.name+" • -"+formatCoins(price)+" coins (sirf is phone par)");
   closeGifts();
 };
 
@@ -4684,6 +4662,7 @@ function escapeHtml(value){
 ========================================================= */
 
 const ENGAGE_KEY="tannu_engagement_v1";
+// V1 note: game coins and gift spending are a local demo until a trusted backend is deployed.
 const todayKey=()=>{
   const d=new Date();
   return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
@@ -4713,12 +4692,28 @@ let engageState={
 function loadEngagement(){
   try{
     const saved=JSON.parse(localStorage.getItem(ENGAGE_KEY)||"null");
-    if(saved && saved.date===todayKey()){
-      engageState={...engageState,...saved,missions:{...engageState.missions,...(saved.missions||{})}};
+    if(saved){
+      if(saved.date===todayKey()){
+        engageState={...engageState,...saved,missions:{...engageState.missions,...(saved.missions||{})}};
+      }else{
+        // Keep the demo coin balance and level between days; reset only daily limits.
+        engageState={
+          ...engageState,
+          coins:Math.max(0,Number(saved.coins)||0),
+          exp:Math.max(0,Number(saved.exp)||0),
+          level:Math.max(1,Number(saved.level)||1),
+          date:todayKey(),
+          activeSeconds:0,
+          reward10:false,reward60:false,reward120:false,
+          spins:0,dailyReward:false,treasure:false,card:false,
+          missions:{room:false,time:false,game:false,reward:false}
+        };
+        localStorage.setItem(ENGAGE_KEY,JSON.stringify(engageState));
+      }
     }else{
       localStorage.setItem(ENGAGE_KEY,JSON.stringify(engageState));
     }
-  }catch(e){}
+  }catch(e){console.warn("Tannu demo wallet load:",e);}
   syncEngagementUI();
 }
 
@@ -4750,7 +4745,9 @@ function addExp(amount,reason){
 }
 
 function updateCoinUI(){
-  const total=Number((typeof coins!=="undefined"?coins:0))+Number(engageState.coins||0);
+  // Firestore profile balance is read-only in this frontend; local game rewards are demo coins.
+  const profileCoins=Number((typeof userProfile!=="undefined" && userProfile)?userProfile.coins:0)||0;
+  const total=profileCoins+Math.max(0,Number(engageState.coins)||0);
   const ids=["coinBalance","profileCoins"];
   ids.forEach(id=>{
     const el=document.getElementById(id);
